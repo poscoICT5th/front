@@ -1,8 +1,6 @@
-import { SortAscendingIcon, SortDescendingIcon } from '@heroicons/react/solid'
-import { Tooltip } from '@mui/material'
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
-
 function LogisticsList() {
   const data = [];
   for (let i = 0; i < 10; i++) {
@@ -15,216 +13,326 @@ function LogisticsList() {
       PIC: "홍길동" + i
     });
   }
+  const [inventoryList, setinventoryList] = useState([])
+  const [search, setsearch] = useState(false)
+  // 데이터바인딩
+
+  //
+  useEffect(() => {
+    // api
+    axios.get('/logistics')
+      .then((res) => { setinventoryList(res.data) })
+      .catch((err) => { console.log(err) })
+  }, [search])
+
   return (
     <div className="w-11/12 mx-auto my-10">
       <div className="font-bold text-2xl text-center">재고조회</div>
       {/* Search */}
       <div className="mt-5 md:mt-0 md:col-span-2">
-        <form action="#" method="POST">
-          <div className="overflow-hidden sm:rounded-md">
-            <div className="px-4 py-5 bg-white sm:p-6">
-              <div className="grid grid-cols-6 gap-6">
-
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    dropdown
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    dropdown
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    dropdown
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    dropdown
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    dropdown
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    dropdown
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
-                </div>
-                {/*  */}
-                <div className="col-span-1 grid grid-cols-3 text-center">
-                  <div><label htmlFor="text" className="block text-sm font-medium text-gray-700">
-                    text
-                  </label>
-                    <input
-                      type="text"
-                      name="text"
-                      id="text"
-                      autoComplete="address-level2"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    /></div>
-                  <div>~</div>
-                  <div><label htmlFor="text" className="block text-sm font-medium text-gray-700">
-                    text
-                  </label>
-                    <input
-                      type="text"
-                      name="text"
-                      id="text"
-                      autoComplete="address-level2"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    /></div>
-
-                </div>
-                <div className="col-span-1 grid grid-cols-3 text-center">
-                  <div><label htmlFor="text" className="block text-sm font-medium text-gray-700">
-                    text
-                  </label>
-                    <input
-                      type="text"
-                      name="text"
-                      id="text"
-                      autoComplete="address-level2"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    /></div>
-                  <div>~</div>
-                  <div><label htmlFor="text" className="block text-sm font-medium text-gray-700">
-                    text
-                  </label>
-                    <input
-                      type="text"
-                      name="text"
-                      id="text"
-                      autoComplete="address-level2"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    /></div>
-
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="text" className="block text-sm font-medium text-gray-700">
-                    text
-                  </label>
+        <div className="overflow-hidden sm:rounded-md">
+          <div className="px-4 py-5 bg-white sm:p-6 bg-gray-100 rounded-lg">
+            <div className="grid grid-cols-7 gap-4 text-center">
+              {/* 첫째줄 */}
+              <div className="col-span-1">
+                <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                  산업군
+                </label>
+                <select
+                  id="dropdown"
+                  name="dropdown"
+                  autoComplete="dropdown-name"
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                >
+                  <option>전체</option>
+                  <option>구동</option>
+                  <option>전장</option>
+                  <option>기타</option>
+                </select>
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                  제품구분
+                </label>
+                <select
+                  id="dropdown"
+                  name="dropdown"
+                  autoComplete="dropdown-name"
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                >
+                  <option>전체</option>
+                  <option>완제품</option>
+                  <option>반제품</option>
+                  <option>불량품</option>
+                </select>
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                  재고품질
+                </label>
+                <select
+                  id="dropdown"
+                  name="dropdown"
+                  autoComplete="dropdown-name"
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                >
+                  <option>전체</option>
+                  <option>합격</option>
+                  <option>불합격</option>
+                </select>
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                  사업장
+                </label>
+                <select
+                  id="dropdown"
+                  name="dropdown"
+                  autoComplete="dropdown-name"
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                >
+                  <option>전체</option>
+                  <option>천안</option>
+                  <option>광양</option>
+                  <option>포항</option>
+                </select>
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                  제품군
+                </label>
+                <select
+                  id="dropdown"
+                  name="dropdown"
+                  autoComplete="dropdown-name"
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                >
+                  <option>전체</option>
+                  <option>MT</option>
+                  <option>ROTOR ASSY</option>
+                  <option>STRIP</option>
+                </select>
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                  창고코드
+                </label>
+                <select
+                  id="dropdown"
+                  name="dropdown"
+                  autoComplete="dropdown-name"
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                >
+                  <option>전체</option>
+                  <option>A1</option>
+                  <option>A2</option>
+                  <option>A3</option>
+                  <option>B1</option>
+                  <option>B2</option>
+                  <option>B3</option>
+                  <option>C1</option>
+                  <option>C2</option>
+                  <option>C3</option>
+                </select>
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                  상태사유
+                </label>
+                <select
+                  id="dropdown"
+                  name="dropdown"
+                  autoComplete="dropdown-name"
+                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                >
+                  <option>전체</option>
+                  <option>각인대기</option>
+                  <option>각인미완료</option>
+                  <option>각인완료</option>
+                  <option>각인완료 대차없음</option>
+                  <option>대차부족</option>
+                  <option>대차부족으로인한 박스작업완료</option>
+                  <option>대차없음</option>
+                  <option>박스포장</option>
+                  <option>양산개발샘플</option>
+                  <option>외관</option>
+                  <option>원자재불량(포항)</option>
+                  <option>원자재불량(천안)</option>
+                  <option>재고구분</option>
+                  <option>재선별완료</option>
+                  <option>철통부족</option>
+                  <option>철통부족 박스포장</option>
+                  <option>치수불량</option>
+                  <option>포장미완료</option>
+                  <option>포장대기</option>
+                </select>
+              </div>
+              {/* 둘재줄 */}
+              <div className="col-span-1 grid grid-cols-4 text-center">
+                <div className=''>폭</div>
+                <div>
                   <input
                     type="text"
                     name="text"
                     id="text"
                     autoComplete="address-level2"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  />
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="text" className="block text-sm font-medium text-gray-700">
-                    text
-                  </label>
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  /></div>
+                <div className='text-xs'>-</div>
+                <div>
                   <input
                     type="text"
                     name="text"
                     id="text"
                     autoComplete="address-level2"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
-                <div className="col-span-1">
-                  <label htmlFor="text" className="block text-sm font-medium text-gray-700">
-                    text
-                  </label>
+              </div>
+              <div className="col-span-1 grid grid-cols-4 text-center">
+                <div className=''>두께</div>
+                <div>
                   <input
                     type="text"
                     name="text"
                     id="text"
                     autoComplete="address-level2"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  />
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="text" className="block text-sm font-medium text-gray-700">
-                    text
-                  </label>
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  /></div>
+                <div className='text-xs'>-</div>
+                <div>
                   <input
                     type="text"
                     name="text"
                     id="text"
                     autoComplete="address-level2"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
+              </div>
+              <div className="col-span-1 grid grid-cols-4 text-center">
+                <div className=''>높이</div>
+                <div>
+                  <input
+                    type="text"
+                    name="text"
+                    id="text"
+                    autoComplete="address-level2"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  /></div>
+                <div className='text-xs'>-</div>
+                <div>
+                  <input
+                    type="text"
+                    name="text"
+                    id="text"
+                    autoComplete="address-level2"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  />
+                </div>
+              </div>
+              {/* 수량 */}
+              <div className="col-span-1">
+                <div className='grid grid-cols-3'>
+                  <div>수량</div>
+                  <div className='col-span-2'><input
+                    type="text"
+                    name="text"
+                    id="text"
+                    autoComplete="address-level2"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  /></div>
+                </div>
+              </div>
+              {/*  */}
+              {/* 중량 */}
+              <div className="col-span-1">
+                <div className='grid grid-cols-3'>
+                  <div>중량</div>
+                  <div className='col-span-2'><input
+                    type="text"
+                    name="text"
+                    id="text"
+                    autoComplete="address-level2"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  /></div>
+                </div>
+              </div>
+              {/*  */}
 
+              {/* 고객사 */}
+              <div className="col-span-1">
+                <div className='grid grid-cols-3'>
+                  <div>고객사</div>
+                  <div className='col-span-2'><input
+                    type="text"
+                    name="text"
+                    id="text"
+                    autoComplete="address-level2"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  /></div>
+                </div>
+              </div>
+              {/*  */}
+              {/* 고객사 */}
+              <div className="col-span-1">
+                <div className='grid grid-cols-3'>
+                  <div>제품명</div>
+                  <div className='col-span-2'><input
+                    type="text"
+                    name="text"
+                    id="text"
+                    autoComplete="address-level2"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  /></div>
+                </div>
+              </div>
+              {/* 셋째줄 */}
+              {/* 단위 */}
+              <div className="col-span-1">
+                <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                  단위
+                </label>
+                <div className="col-span-2">
+                  <select
+                    id="dropdown"
+                    name="dropdown"
+                    autoComplete="dropdown-name"
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                  >
+                    <option>전체</option>
+                    <option>EA</option>
+                    <option>KG</option>
+                  </select>
+                </div>
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                  재고생성일
+                </label>
+                <div className="">
+                  달력
+                </div>
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                  창고입고일
+                </label>
+                <div className="">
+                  달력
+                </div>
               </div>
             </div>
-            <div className="px-4 py-3 text-right">
-              <button
-                type="submit"
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Save
-              </button>
-            </div>
           </div>
-        </form>
+          <div className="px-4 py-3 text-right">
+            <button
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+              onClick={() => { setsearch(!search) }}
+            >
+              Search
+            </button>
+          </div>
+        </div>
       </div>
       {/* table */}
       <div className="flex flex-col mx-1 mt-2 text-center">

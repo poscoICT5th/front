@@ -218,7 +218,7 @@ function Sidebar() {
               <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Warehouse</span>
             </li>
             <li className="my-px">
-              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 31 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("searchWarehouse"); setMenu(31) }}>
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 31 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("WarehouseList"); setMenu(31) }}>
                 <span className="flex items-center justify-center text-lg text-gray-400">
                   <svg
                     fill="none"
@@ -238,7 +238,7 @@ function Sidebar() {
               </p>
             </li>
             <li className="my-px">
-              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 32 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("createMove"); setMenu(32) }}>
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 32 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("WarehouseList"); setMenu(32) }}>
                 <span className="flex items-center justify-center text-lg text-gray-400">
                   <svg
                     fill="none"

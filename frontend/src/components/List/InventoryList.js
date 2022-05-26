@@ -33,7 +33,7 @@ function InventoryList() {
                     id="dropdown"
                     name="dropdown"
                     autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                   >
                     <option>United States</option>
                     <option>Canada</option>
@@ -48,7 +48,7 @@ function InventoryList() {
                     id="dropdown"
                     name="dropdown"
                     autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                   >
                     <option>United States</option>
                     <option>Canada</option>
@@ -63,7 +63,7 @@ function InventoryList() {
                     id="dropdown"
                     name="dropdown"
                     autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                   >
                     <option>United States</option>
                     <option>Canada</option>
@@ -78,7 +78,7 @@ function InventoryList() {
                     id="dropdown"
                     name="dropdown"
                     autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                   >
                     <option>United States</option>
                     <option>Canada</option>
@@ -93,7 +93,7 @@ function InventoryList() {
                     id="dropdown"
                     name="dropdown"
                     autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                   >
                     <option>United States</option>
                     <option>Canada</option>
@@ -108,7 +108,7 @@ function InventoryList() {
                     id="dropdown"
                     name="dropdown"
                     autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                   >
                     <option>United States</option>
                     <option>Canada</option>
@@ -125,7 +125,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     /></div>
                   <div>~</div>
                   <div><label htmlFor="text" className="block text-sm font-medium text-gray-700">
@@ -136,7 +136,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     /></div>
 
                 </div>
@@ -149,7 +149,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     /></div>
                   <div>~</div>
                   <div><label htmlFor="text" className="block text-sm font-medium text-gray-700">
@@ -160,7 +160,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     /></div>
 
                 </div>
@@ -173,7 +173,7 @@ function InventoryList() {
                     name="text"
                     id="text"
                     autoComplete="address-level2"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
                 <div className="col-span-1">
@@ -185,7 +185,7 @@ function InventoryList() {
                     name="text"
                     id="text"
                     autoComplete="address-level2"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
                 <div className="col-span-1">
@@ -197,7 +197,7 @@ function InventoryList() {
                     name="text"
                     id="text"
                     autoComplete="address-level2"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
                 <div className="col-span-1">
@@ -209,7 +209,7 @@ function InventoryList() {
                     name="text"
                     id="text"
                     autoComplete="address-level2"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
 
@@ -218,7 +218,7 @@ function InventoryList() {
             <div className="px-4 py-3 text-right">
               <button
                 type="submit"
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
               >
                 Save
               </button>

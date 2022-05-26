@@ -41,17 +41,17 @@ function Barcode(props) {
                           }
                         </style>
                         <div id="bodyDiv">
-                          <table class="barcodeResult" >
+                          <table className="barcodeResult" >
                             <tr>
                               <td colSpan="1">${barcodeInfo.place}</td>
-                              <td colSpan="5" class="barcodeImg">
+                              <td colSpan="5" className="barcodeImg">
                                 <img src=${barcodeUrl} alt="바코드 생성 실패"/><br/>
                                 ${barcodeInfo.lotNumber}
                               </td>
                             </tr>
                             <tr>
                               <td colSpan="1">품명</td>
-                              <td colSpan="5" class="name">${barcodeInfo.name}</td>
+                              <td colSpan="5" className="name">${barcodeInfo.name}</td>
                             </tr>
                             <tr>
                               <td>수 / 중량</td>

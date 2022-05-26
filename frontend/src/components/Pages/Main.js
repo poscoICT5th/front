@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import Sidebar from '../Common/Sidebar'
 import Aos from "aos";
 import MainContent from '../Common/MainContent';
 function Main() {
@@ -8,8 +7,8 @@ function Main() {
   }, []);
   return (
     <section data-aos="fade-up" className="">
-      <div class="flex ">
-        <div class="flex-auto"><MainContent /></div>
+      <div className="flex ">
+        <div className="flex-auto"><MainContent /></div>
       </div>
     </section>
   )

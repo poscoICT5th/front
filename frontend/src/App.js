@@ -14,9 +14,9 @@ function App() {
   return (
     <section data-aos="fade-up" className="">
       <div>
-        <div class="flex ">
-          <div class="w-64"><Sidebar /></div>
-          <div class="flex-auto">
+        <div className="flex ">
+          <div className="w-64"><Sidebar /></div>
+          <div className="flex-auto">
             {/* Routes */}
             <Routes>
               <Route index element={<Login />} />

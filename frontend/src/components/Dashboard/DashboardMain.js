@@ -6,7 +6,7 @@ import DashboardWarehouseList from './DashboardWarehouseList'
 function DashboardMain() {
   return (
     <div>
-      <div className='grid grid-cols-2'>
+      <div className='grid grid-cols-2 gap-5'>
         <div><DashboardInventoryList /></div>
         <div><DashboardLogisticsList /></div>
         <div><DashboardWarehouseList /></div>
