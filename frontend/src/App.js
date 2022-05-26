@@ -7,6 +7,11 @@ import WarehouseList from './components/List/WarehouseList'
 import Main from './components/Pages/Main'
 import Aos from "aos";
 import Sidebar from './components/Common/Sidebar'
+import Map from './components/Map/Map'
+import Map1 from './components/Map/Map1'
+import Map3 from './components/Map/Map3'
+
+
 function App() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -24,6 +29,8 @@ function App() {
               <Route path="/LogisticsList" element={<LogisticsList />} />
               <Route path="/InventoryList" element={<InventoryList />} />
               <Route path="/WarehouseList" element={<WarehouseList />} />
+              <Route path="/Map" element={<Map />} />
+              <Route path="/Map1" element={<Map3 />} />
             </Routes></div>
         </div>
 

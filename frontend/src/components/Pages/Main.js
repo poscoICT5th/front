@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Aos from "aos";
-import MainContent from '../Common/MainContent';
+import MainContent from "../Common/MainContent";
 function Main() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -11,7 +11,7 @@ function Main() {
         <div className="flex-auto"><MainContent /></div>
       </div>
     </section>
-  )
+  );
 }
 
-export default Main
+export default Main;
