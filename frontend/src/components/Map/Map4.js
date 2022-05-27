@@ -15,10 +15,10 @@ function Map4() {
     HighchartsHeatmap(Highcharts);
     const x = [
       rawData.E,
-      rawData.cnc,
-      rawData.installation,
-      rawData.delivery,
-      rawData.none
+      rawData.D,
+      rawData.C,
+      rawData.B,
+      rawData.A
     ].reverse();
 
     const data = x
@@ -31,7 +31,7 @@ function Map4() {
           color:
             c.count === 0
               ? "transparent"
-              : rgbObjectToHex(getColor(j + 1, i, c.count, 5))
+              : rgbObjectToHex(getColor(j + 1, i,10, 5))
         }))
       )
       .flat();
@@ -127,7 +127,7 @@ function Map4() {
       series: [
         {
           name: "Sales per employee",
-          borderWidth: 2,
+          borderWidth: 1,
           data,
           dataLabels: {
             enabled: true,
