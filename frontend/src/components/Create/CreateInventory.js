@@ -3,7 +3,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
 
 function CreateInventory(props) {
-  const [open, setOpen] = useState(false)
 
   const cancelButtonRef = useRef(null)
   return (
