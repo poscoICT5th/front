@@ -10,10 +10,10 @@ import WarehouseList from './components/List/WarehouseList'
 import Main from './components/Pages/Main'
 import Sidebar from './components/Common/Sidebar'
 import Map from './components/Map/Map'
-import Map1 from './components/Map/Map1'
 import Map3 from './components/Map/Map3'
 import CreateLogisticsIn from './components/Create/CreateLogisticsIn';
 
+import Map4 from './components/Map/Map4'
 
 function App() {
   useEffect(() => {
@@ -37,7 +37,8 @@ function App() {
               <Route path="/CreateLogisticsIn" element={<CreateLogisticsIn />} />
 
               <Route path="/Map" element={<Map />} />
-              <Route path="/Map1" element={<Map3 />} />
+              <Route path="/Map3" element={<Map3 />} />
+              <Route path="/Map4" element={<Map4 />} />
             </Routes></div>
         </div>
 
