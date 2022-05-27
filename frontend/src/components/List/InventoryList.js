@@ -5,6 +5,7 @@ import CancelRequest from '../Functions/CancelRequest';
 
 
 function InventoryList() {
+  axios.defaults.baseURL = "http://192.168.0.10:8081"
   const [warehouses, setwarehouses] = useState([])
   const [search, setsearch] = useState(false)
   // 데이터바인딩
@@ -12,11 +13,10 @@ function InventoryList() {
   //
   useEffect(() => {
     // 재고
-    axios.defaults.baseURL = "http://192.168.0.10:8081"
-    axios.get('/warehouse', {})
+    axios.get('/inventory', {})
       .then((res) => { setwarehouses(res.data) })
       .catch((err) => { console.log(err) })
-  }, [search])
+  }, [])
 
   return (
     <div className="max-w-screen-2xl mx-auto my-10">
@@ -230,6 +230,7 @@ function InventoryList() {
                 <thead className="bg-gray-50">
                   <tr>
                     <th
+                    hidden
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >

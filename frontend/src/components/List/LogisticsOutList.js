@@ -8,6 +8,7 @@ function LogisticsOutList() {
   const [warehouses, setwarehouses] = useState([])
   const [search, setsearch] = useState(false)
   // 데이터바인딩
+
   //
   useEffect(() => {
     // 입고
@@ -35,6 +36,7 @@ function LogisticsOutList() {
                   name="dropdown"
                   autoComplete="dropdown-name"
                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                  onClick={(e) => { }}
                 >
                   <option>전체</option>
                   <option>구동</option>

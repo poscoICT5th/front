@@ -5,6 +5,7 @@ import CancelRequest from '../Functions/CancelRequest';
 
 
 function WarehouseList() {
+  axios.defaults.baseURL = "http://192.168.0.10:8081"
   const [warehouses, setwarehouses] = useState([])
   const [search, setsearch] = useState(false)
   // 데이터바인딩
@@ -19,10 +20,15 @@ function WarehouseList() {
   const [maximum_count, setMaximum_count] = useState(null)
   const [inventory_using, setInventory_using] = useState(null)
   const [remarks, setRemarks] = useState(null)
-  //
+
+  // 맨처음에 전체리스트 불러오기
   useEffect(() => {
-    // 창고조회
-    axios.defaults.baseURL = "http://192.168.0.10:8081"
+    axios.get('/warehouse', {})
+      .then((res) => { setwarehouses(res.data) })
+      .catch((err) => { console.log(err) })
+  }, [search])
+  // 창고조건검색
+  function searchCondition() {
     axios.get('/warehouse/search', {
       location: location,
       warehouse_code: warehouse_code,
@@ -36,21 +42,10 @@ function WarehouseList() {
     })
       .then((res) => { setwarehouses(res.data) })
       .catch((err) => { console.log(err) })
-  }, [search])
-
-  function searchAll() {
-    axios.defaults.baseURL = "http://192.168.0.10:8081"
-    axios.get('/warehouse', {
-      location: location,
-      warehouse_code: warehouse_code,
-      purpose: purpose,
-      use: use,
-      minimum_weight: minimum_weight,
-      maximum_weight: maximum_weight,
-      minumum_count: minumum_count,
-      maximum_count: maximum_count,
-      inventory_using: inventory_using,
-    })
+  }
+  // 창고전체조회
+  function searchAll(params) {
+    axios.get('/warehouse', {})
       .then((res) => { setwarehouses(res.data) })
       .catch((err) => { console.log(err) })
   }
@@ -211,10 +206,16 @@ function WarehouseList() {
           </div>
           <div className="px-4 py-3 text-right">
             <button
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-              onClick={() => { setsearch(!search) }}
+              className="mr-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+              onClick={() => { searchAll() }}
             >
-              Search
+              전체조회
+            </button>
+            <button
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+              onClick={() => { searchCondition() }}
+            >
+              조건검색
             </button>
           </div>
         </div>
