@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CreateLogisticsIn from '../Create/CreateLogisticsIn';
+import CreateLogisticsMove from '../Create/CreateLogisticsMove';
+import CreateLogisticsOut from '../Create/CreateLogisticsOut';
 
 function Sidebar() {
   let navigate = useNavigate();
@@ -8,6 +10,9 @@ function Sidebar() {
     navigate(`/${component}`)
   }
   const [createLogisticsInOpen, setCreateLogisticsInOpen] = useState(false)
+  const [createLogisticsOutOpen, setCreateLogisticsOutOpen] = useState(false)
+  const [createLogisticsMoveOpen, setCreateLogisticsMoveOpen] = useState(false)
+  const [createInventoryOpen, setCreateInventoryOpen] = useState(false)
   const [menu, setMenu] = useState(0)
   return (
     <div>
@@ -115,7 +120,7 @@ function Sidebar() {
               </p>
             </li>
             <li className="my-px">
-              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 14 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("createOut"); setMenu(14) }}>
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 14 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { setCreateLogisticsOutOpen(true); setMenu(14) }}>
                 <span className="flex items-center justify-center text-lg text-green-400">
                   <svg
                     fill="none"
@@ -129,7 +134,7 @@ function Sidebar() {
                     <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </span>
-                <span className="ml-3">출고예정등록</span>
+                <CreateLogisticsOut setCreateLogisticsOutOpen={setCreateLogisticsOutOpen} createLogisticsOutOpen={createLogisticsOutOpen} />
               </p>
             </li>
             <li className="my-px">
@@ -156,7 +161,7 @@ function Sidebar() {
               </p>
             </li>
             <li className="my-px">
-              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 16 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("createOut"); setMenu(16) }}>
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 16 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { setCreateLogisticsMoveOpen(true); setMenu(16) }}>
                 <span className="flex items-center justify-center text-lg text-green-400">
                   <svg
                     fill="none"
@@ -170,7 +175,7 @@ function Sidebar() {
                     <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </span>
-                <span className="ml-3">창고이동등록</span>
+                <CreateLogisticsMove setCreateLogisticsMoveOpen={setCreateLogisticsMoveOpen} createLogisticsMoveOpen={createLogisticsMoveOpen} />
               </p>
             </li>
             {/* 재고관리 */}
@@ -295,7 +300,7 @@ function Sidebar() {
                     <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </span>
-                <span className="ml-3">창고이동등록</span>
+                <CreateLogisticsIn setCreateLogisticsInOpen={setCreateLogisticsInOpen} createLogisticsInOpen={createLogisticsInOpen} />
               </p>
             </li>
             <li className="my-px">
