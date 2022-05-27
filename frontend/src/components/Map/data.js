@@ -1,24 +1,24 @@
 export default {
-    delivery: [
+    B: [
       {
         severity: 0,
-        count: 144
+        count: 0
       },
       {
         severity: 1,
-        count: 78
+        count: 0
       },
       {
         severity: 2,
-        count: 9
+        count: 0
       },
       {
         severity: 3,
-        count: 6
+        count: 0
       },
       {
         severity: 4,
-        count: 2
+        count: 0
       },
       {
         severity: 5,
@@ -46,145 +46,145 @@ export default {
     E: [
       {
         severity: 0,
-        count: 3
-      },
-      {
-        severity: 1,
-        count: 0
-      },
-      {
-        severity: 2,
         count: 1
       },
       {
-        severity: 3,
-        count: 8
-      },
-      {
-        severity: 4,
-        count: 2
-      },
-      {
-        severity: 5,
-        count: 16
-      },
-      {
-        severity: 6,
-        count: 7
-      },
-      {
-        severity: 7,
-        count: 16
-      },
-      {
-        severity: 8,
-        count: 2
-      },
-      {
-        severity: 9,
-        count: 5
-      }
-    ],
-    cnc: [
-      {
-        severity: 0,
-        count: 4
-      },
-      {
         severity: 1,
-        count: 576
-      },
-      {
-        severity: 2,
-        count: 166
-      },
-      {
-        severity: 3,
-        count: 507
-      },
-      {
-        severity: 4,
-        count: 129
-      },
-      {
-        severity: 5,
-        count: 18
-      },
-      {
-        severity: 6,
-        count: 17
-      },
-      {
-        severity: 7,
-        count: 16
-      },
-      {
-        severity: 8,
         count: 3
       },
       {
+        severity: 2,
+        count: 50
+      },
+      {
+        severity: 3,
+        count: 100
+      },
+      {
+        severity: 4,
+        count: 75
+      },
+      {
+        severity: 5,
+        count: 25
+      },
+      {
+        severity: 6,
+        count: 20
+      },
+      {
+        severity: 7,
+        count: 30
+      },
+      {
+        severity: 8,
+        count: 40
+      },
+      {
         severity: 9,
-        count: 5
+        count: 50
       }
     ],
-    installation: [
+    D: [
+      {
+        severity: 0,
+        count: 60
+      },
+      {
+        severity: 1,
+        count: 10
+      },
+      {
+        severity: 2,
+        count: 120
+      },
+      {
+        severity: 3,
+        count: 200
+      },
+      {
+        severity: 4,
+        count: 0
+      },
+      {
+        severity: 5,
+        count: 0
+      },
+      {
+        severity: 6,
+        count: 0
+      },
+      {
+        severity: 7,
+        count: 0
+      },
+      {
+        severity: 8,
+        count: 0
+      },
+      {
+        severity: 9,
+        count: 0
+      }
+    ],
+    C: [
       {
         severity: 0,
         count: 0
       },
       {
         severity: 1,
-        count: 5062
+        count: 0
       },
       {
         severity: 2,
-        count: 561
+        count: 0
       },
       {
         severity: 3,
-        count: 474
+        count: 0
       },
       {
         severity: 4,
-        count: 163
+        count: 0
       },
       {
         severity: 5,
-        count: 9
+        count: 0
       },
       {
         severity: 6,
-        count: 17
+        count: 0
       },
       {
         severity: 7,
-        count: 16
+        count: 0
       },
       {
         severity: 8,
-        count: 3
+        count: 0
       },
       {
         severity: 9,
-        count: 5
+        count: 0
       }
     ],
-    none: [
+    A: [
       {
         severity: 0,
-        count: 18601
+        count: 0
       },
       {
         severity: 1,
-        count: 941
+        count: 0
       },
       {
         severity: 2,
-        count: 30
+        count: 0
       },
       {
         severity: 3,
-        count: 126
+        count: 0
       },
       {
         severity: 4,
