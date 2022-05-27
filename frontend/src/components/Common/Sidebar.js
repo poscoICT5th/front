@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import CreateLogisticsIn from '../Create/CreateLogisticsIn';
 
 function Sidebar() {
   let navigate = useNavigate();
   function navigatePage(component) {
     navigate(`/${component}`)
   }
+  const [createLogisticsInOpen, setCreateLogisticsInOpen] = useState(false)
   const [menu, setMenu] = useState(0)
   return (
     <div>
@@ -52,7 +54,7 @@ function Sidebar() {
               <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Manage</span>
             </li>
             <li className="my-px">
-              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 11 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("LogisticsList"); setMenu(11) }}>
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 11 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("LogisticsInList"); setMenu(11) }}>
                 <span className="flex items-center justify-center text-lg text-gray-400">
                   <svg
                     fill="none"
@@ -72,7 +74,7 @@ function Sidebar() {
               </p>
             </li>
             <li className="my-px">
-              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 12 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("createIn"); setMenu(12) }}>
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 12 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { setCreateLogisticsInOpen(true); setMenu(12) }}>
                 <span className="flex items-center justify-center text-lg text-gray-400">
                   <svg
                     fill="none"
@@ -86,11 +88,11 @@ function Sidebar() {
                     <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </span>
-                <span className="ml-3">입고예정등록</span>
+                <CreateLogisticsIn setCreateLogisticsInOpen={setCreateLogisticsInOpen} createLogisticsInOpen={createLogisticsInOpen} />
               </p>
             </li>
             <li className="my-px">
-              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 13 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("LogisticsList"); setMenu(13) }}>
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 13 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("LogisticsOutList"); setMenu(13) }}>
                 <span className="flex items-center justify-center text-lg text-gray-400">
                   <svg
                     fill="none"
@@ -130,12 +132,8 @@ function Sidebar() {
                 <span className="ml-3">출고예정등록</span>
               </p>
             </li>
-            {/* 재고관리 */}
             <li className="my-px">
-              <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Inventory</span>
-            </li>
-            <li className="my-px">
-              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 21 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("1"); setMenu(21) }}>
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 15 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("LosgisticsMoveList"); setMenu(15) }}>
                 <span className="flex items-center justify-center text-lg text-gray-400">
                   <svg
                     fill="none"
@@ -151,7 +149,52 @@ function Sidebar() {
                     />
                   </svg>
                 </span>
-                <span className="ml-3">Sub Menu</span>
+                <span className="ml-3">창고이동조회</span>
+                <span
+                  className="flex items-center justify-center text-xs text-red-500 font-semibold bg-red-100 h-6 px-2 rounded-full ml-auto"
+                >Alarm</span>
+              </p>
+            </li>
+            <li className="my-px">
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 16 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("createOut"); setMenu(16) }}>
+                <span className="flex items-center justify-center text-lg text-green-400">
+                  <svg
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </span>
+                <span className="ml-3">창고이동등록</span>
+              </p>
+            </li>
+            {/* 재고관리 */}
+            <li className="my-px">
+              <span className="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase">Inventory</span>
+            </li>
+            <li className="my-px">
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 21 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("InventoryList"); setMenu(21) }}>
+                <span className="flex items-center justify-center text-lg text-gray-400">
+                  <svg
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                    />
+                  </svg>
+                </span>
+                <span className="ml-3">재고조회</span>
               </p>
             </li>
             <li className="my-px">

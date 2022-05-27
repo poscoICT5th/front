@@ -1,33 +1,26 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
-function LogisticsList() {
-  const data = [];
-  for (let i = 0; i < 10; i++) {
-    data.push({
-      lotNumber: "346465653" + i * 100,
-      place: "포항 공장" + i,
-      name: "STRIP_KS-SCP1S_83mm_1t",
-      cnt: i + 10,
-      process: "ST50",
-      PIC: "홍길동" + i
-    });
-  }
-  const [inventoryList, setinventoryList] = useState([])
+
+
+
+function LosgisticsMoveList() {
+  const [warehouses, setwarehouses] = useState([])
+  const [date, setDate] = useState(null);
   const [search, setsearch] = useState(false)
   // 데이터바인딩
-
   //
   useEffect(() => {
-    // api
-    axios.get('/logistics')
-      .then((res) => { setinventoryList(res.data) })
+    // 입고
+    axios.defaults.baseURL = "http://192.168.0.10:8081"
+    axios.get('/warehouse', {})
+      .then((res) => { setwarehouses(res.data) })
       .catch((err) => { console.log(err) })
   }, [search])
 
   return (
-    <div className="w-11/12 mx-auto my-10">
-      <div className="font-bold text-2xl text-center">재고조회</div>
+    <div className="max-w-screen-2xl mx-auto my-10">
+      <div className="font-bold text-2xl text-center my-10">창고이동 조회</div>
       {/* Search */}
       <div className="mt-5 md:mt-0 md:col-span-2">
         <div className="overflow-hidden sm:rounded-md">
@@ -311,7 +304,7 @@ function LogisticsList() {
                   재고생성일
                 </label>
                 <div className="">
-                  달력
+
                 </div>
               </div>
               <div className="col-span-1">
@@ -346,95 +339,124 @@ function LogisticsList() {
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      th1
+                      status
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      th1
+                      location
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      th1
+                      instruction_no
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      th1
+                      lot_no
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      th1
+                      item_no
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      th1
+                      item_name
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      th1
+                      width
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      th1
+                      thickness
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      th1
+                      height
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      th1
+                      move_amount
                     </th>
-
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      from_warehouse
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      to_warehouse
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      inst_reg_date
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      inst_deadline
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      done_date
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {
-                    data.map(() => {
+                    warehouses.map((warehouse) => {
                       return <tr>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">value</div>
+                          <div className="text-sm text-gray-900">{warehouse.location}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">value</div>
+                          <div className="text-sm text-gray-900">{warehouse.warehouse_code}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">value</div>
+                          <div className="text-sm text-gray-900">{warehouse.purpose}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">value</div>
+                          <div className="text-sm text-gray-900">{warehouse.warehouse_code_desc}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">value</div>
+                          <div className="text-sm text-gray-900">{warehouse.use}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">value</div>
+                          <div className="text-sm text-gray-900">{warehouse.maximum_weight}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">value</div>
+                          <div className="text-sm text-gray-900">{warehouse.maxinum_count}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">value</div>
+                          <div className="text-sm text-gray-900">{warehouse.inventory_using}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">value</div>
+                          <div className="text-sm text-gray-900">{warehouse.remarks}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900"><CancelRequest /></div>
@@ -452,4 +474,4 @@ function LogisticsList() {
   )
 }
 
-export default LogisticsList
+export default LosgisticsMoveList

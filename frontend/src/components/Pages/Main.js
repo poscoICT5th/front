@@ -7,8 +7,8 @@ function Main() {
   }, []);
   return (
     <section data-aos="fade-up" className="">
-      <div className="flex ">
-        <div className="flex-auto"><MainContent /></div>
+      <div className="">
+       <MainContent />
       </div>
     </section>
   );

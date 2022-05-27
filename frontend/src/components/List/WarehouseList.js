@@ -5,17 +5,6 @@ import CancelRequest from '../Functions/CancelRequest';
 
 
 function WarehouseList() {
-  const data = [];
-  for (let i = 0; i < 10; i++) {
-    data.push({
-      lotNumber: "346465653" + i * 100,
-      place: "포항 공장" + i,
-      name: "STRIP_KS-SCP1S_83mm_1t",
-      cnt: i + 10,
-      process: "ST50",
-      PIC: "홍길동" + i
-    });
-  }
   const [warehouses, setwarehouses] = useState([])
   const [search, setsearch] = useState(false)
   // 데이터바인딩
@@ -33,7 +22,7 @@ function WarehouseList() {
   }, [search])
 
   return (
-    <div className="w-11/12 mx-auto my-10">
+    <div className="max-w-screen-2xl mx-auto my-10">
       <div className="font-bold text-2xl text-center my-10">창고조회</div>
       {/* Search */}
       <div className="mt-5 md:mt-0 md:col-span-2">
