@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CreateLogisticsIn from '../Create/CreateLogisticsIn';
-import CreateLogisticsMove from '../Create/CreateLogisticsMove';
 import CreateLogisticsOut from '../Create/CreateLogisticsOut';
+import CreateLogisticsMove from '../Create/CreateLogisticsMove';
 
 function Sidebar() {
   let navigate = useNavigate();
@@ -285,7 +285,7 @@ function Sidebar() {
               </p>
             </li>
             <li className="my-px">
-              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 32 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("WarehouseList"); setMenu(32) }}>
+              <p className="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700 cursor-pointer" style={menu === 32 ? { backgroundColor: "gray" } : { backgroundColor: "white" }} onClick={() => { navigatePage("Map4"); setMenu(32) }}>
                 <span className="flex items-center justify-center text-lg text-gray-400">
                   <svg
                     fill="none"
@@ -299,7 +299,7 @@ function Sidebar() {
                     <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </span>
-                <CreateLogisticsIn setCreateLogisticsInOpen={setCreateLogisticsInOpen} createLogisticsInOpen={createLogisticsInOpen} />
+                <span className="ml-3">창고Map</span>
               </p>
             </li>
             <li className="my-px">

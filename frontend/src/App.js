@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Aos from "aos";
+import "aos/dist/aos.css";
 import Login from './components/Account/Login'
 import LogisticsOutList from './components/List/LogisticsOutList'
 import LogisticsInList from './components/List/LogisticsInList'
@@ -12,7 +13,6 @@ import Sidebar from './components/Common/Sidebar'
 import Map from './components/Map/Map'
 import Map3 from './components/Map/Map3'
 import CreateLogisticsIn from './components/Create/CreateLogisticsIn';
-
 import Map4 from './components/Map/Map4'
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
     Aos.init({ duration: 2000 });
   }, []);
   return (
-    <section data-aos="fade-up" className="">
+    <div data-aos="fade-up" className="">
       <div>
         <div className="flex">
           <div className="w-64"><Sidebar /></div>
@@ -43,7 +43,7 @@ function App() {
         </div>
 
       </div>
-    </section>
+    </div>
   )
 }
 

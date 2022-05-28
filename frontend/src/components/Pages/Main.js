@@ -8,7 +8,7 @@ function Main() {
   return (
     <section data-aos="fade-up" className="">
       <div className="">
-       <MainContent />
+        <MainContent />
       </div>
     </section>
   );
