@@ -1,10 +1,30 @@
 import { Box, Paper } from '@mui/material'
-import React from 'react'
-import DashboardInventoryList from './DashboardInventoryList'
-import DashboardLogisticsList from './DashboardLogisticsList'
-import DashboardWarehouseList from './DashboardWarehouseList'
+import React, { useEffect, useState } from 'react'
+import DashboardInventoryList from './List/DashboardInventoryList'
+import DashboardLogisticsList from './List/DashboardLogisticsList'
+import DashboardWarehouseList from './List/DashboardWarehouseList'
+import Select from 'react-select';
+import GraphDonut1 from './Graph/GraphDonut1'
+import GraphDonut2 from './Graph/GraphDonut2'
+import GraphDonut3 from './Graph/GraphDonut3'
+import GraphDonut4 from './Graph/GraphDonut4'
+import GraphDonut5 from './Graph/GraphDonut5'
 
 function DashboardMain() {
+  const [componentsList, setComponentsList] = useState([])
+  useEffect(() => {
+    console.log(componentsList)
+  }, [componentsList])
+  const colourOptions = [
+    { value: 'GraphDonut1', label: 'GraphDonut1', color: '#00B8D9', isFixed: true },
+    { value: 'GraphDonut2', label: 'GraphDonut2', color: '#0052CC', isDisabled: true },
+    { value: 'GraphDonut3', label: 'GraphDonut3', color: '#5243AA' },
+    { value: 'GraphDonut4', label: 'GraphDonut4', color: '#FF5630', isFixed: true },
+    { value: 'GraphDonut5', label: 'GraphDonut5', color: '#FF8B00' },
+    { value: 'DashboardInventoryList', label: 'DashboardInventoryList', color: '#FF8B00' },
+    { value: 'DashboardLogisticsList', label: 'DashboardLogisticsList', color: '#FF8B00' },
+    { value: 'DashboardWarehouseList', label: 'DashboardWarehouseList', color: '#FF8B00' },
+  ];
   return (
     <div className='main'>
       <div className="header h-16">header</div>
@@ -76,10 +96,57 @@ function DashboardMain() {
           </div>
         </div>
       </div>
-      <div className="content2">
-
+      {/* 검색창 */}
+      <div className="mt-10">
+        <p>Components</p>
+        <Select
+          defaultValue={[]}
+          isMulti
+          name="colors"
+          options={colourOptions}
+          className="basic-multi-select"
+          classNamePrefix="select"
+          onChange={(e) => { setComponentsList(e) }}
+          placeholder="메인화면에 나타낼 컴포넌트를 선택해주세요"
+          isClearable
+        />
       </div>
-      <div className="content3">content3</div>
+      {/* tag */}
+      <div className="content3 mt-5">
+        <div className='grid grid-cols-3'>
+          {
+            componentsList.map((component) => {
+              return <div className="h-96 my-5">
+                {component.value === "GraphDonut1"
+                  ? <GraphDonut1 />
+                  : null}
+                {component.value === "GraphDonut2"
+                  ? <GraphDonut2 />
+                  : null}
+                {component.value === "GraphDonut3"
+                  ? <GraphDonut3 />
+                  : null}
+                {component.value === "GraphDonut4"
+                  ? <GraphDonut4 />
+                  : null}
+                {component.value === "GraphDonut5"
+                  ? <GraphDonut5 />
+                  : null}
+                {component.value === "DashboardInventoryList"
+                  ? <DashboardInventoryList />
+                  : null}
+                {component.value === "DashboardLogisticsList"
+                  ? <DashboardLogisticsList />
+                  : null}
+                {component.value === "DashboardWarehouseList"
+                  ? <DashboardWarehouseList />
+                  : null}
+              </div>
+            })
+          }
+        </div>
+      </div>
+      <div className='content4'></div>
     </div>
   )
 }

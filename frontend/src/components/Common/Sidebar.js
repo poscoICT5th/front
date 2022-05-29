@@ -19,7 +19,7 @@ function Sidebar() {
       <aside
         className="sidebar w-64 transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in">
         {/* Dashboard Title */}
-        <div className="sidebar-header flex items-center justify-center py-4">
+        <div className="sidebar-header flex items-center justify-center pt-4">
           <div className="inline-flex">
             <svg className="w-10 h-10 text-red-400" fill="currentColor" viewBox="0 0 20 20">
               <path

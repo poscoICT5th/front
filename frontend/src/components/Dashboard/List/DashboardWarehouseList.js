@@ -13,10 +13,10 @@ function DashboardWarehouseList() {
     });
   }
   return (
-    <div className="mx-auto my-10">
+    <div className="mx-auto">
       <div className="font-bold text-2xl text-center">창고조회</div>
       {/* table */}
-      <div className="flex flex-col mx-1 mt-2 text-center">
+      <div className="flex flex-col mx-1 mt-2 text-center max-h-72">
         <div className="-my-2 overflow-x-auto">
           <div className="py-2 align-middle inline-block min-w-full">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
