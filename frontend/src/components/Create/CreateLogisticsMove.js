@@ -7,7 +7,7 @@ function CreateLogisticsMove(props) {
   const cancelButtonRef = useRef(null)
   return (
     <div>
-      <span className="ml-3">창고이동등록</span>
+      <span className="ml-3 text-sm font-medium">창고이동등록</span>
       <Transition.Root show={props.createLogisticsMoveOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setCreateLogisticsMoveOpen}>
           <Transition.Child

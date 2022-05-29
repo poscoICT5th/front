@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Aos from "aos";
 import "aos/dist/aos.css";
 import Login from './components/Account/Login'
@@ -16,21 +16,25 @@ import CreateLogisticsIn from './components/Create/CreateLogisticsIn';
 import Map4 from './components/Map/Map4'
 
 function App() {
-  let location = useLocation();
-  console.log(location)
+  let navigate = useNavigate();
+  let isLogin = localStorage.getItem('id');
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
+  useEffect(() => {
+    if (isLogin) {
+      navigate('/Main')
+    }
+  }, [])
   return (
     <div data-aos="fade-up" className="">
       <div>
         <div className="flex">
           {
-            location.pathname !== '/'
+            isLogin
               ? <div className="w-64"><Sidebar /></div>
               : null
           }
-
           <div className="flex-auto">
             {/* Routes */}
             <Routes>

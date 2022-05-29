@@ -6,7 +6,7 @@ function CreateLogisticsIn(props) {
   const cancelButtonRef = useRef(null)
   return (
     <div>
-      <span className="ml-3">입고예정등록</span>
+      <span className="ml-3 text-sm font-medium">입고예정등록</span>
       <Transition.Root show={props.createLogisticsInOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setCreateLogisticsInOpen}>
           <Transition.Child

@@ -6,7 +6,7 @@ function CreateLogisticsOut(props) {
   const cancelButtonRef = useRef(null)
   return (
     <div>
-      <span className="ml-3">출고예정등록</span>
+      <span className="ml-3 text-sm font-medium">출고예정등록</span>
       <Transition.Root show={props.createLogisticsOutOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setCreateLogisticsOutOpen}>
           <Transition.Child

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import EicEngineering from "./Videos/EicEngineering";
 import HomeCity from "./Videos/HomeCity";
@@ -9,7 +9,11 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
 function Login() {
   let navigate = useNavigate();
+  const [id, setId] = useState(null)
+  const [pw, setPw] = useState(null)
   function Login(params) {
+    localStorage.setItem("id", id)
+    localStorage.setItem("pw", pw)
     // 로그인 axios
     navigate("/Main");
   }
@@ -55,6 +59,7 @@ function Login() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
+                  onChange={(e) => { setId(e.target.value) }}
                 />
               </div>
               <div>
@@ -69,33 +74,8 @@ function Login() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
+                  onChange={(e) => { setPw(e.target.value) }} t
                 />
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-sky-600 focus:ring-sky-500 border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-sky-600 hover:text-sky-500"
-                >
-                  Forgot your password?
-                </a>
               </div>
             </div>
             <div>
