@@ -1,15 +1,37 @@
-import React, { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationIcon } from '@heroicons/react/outline'
+import React, { Fragment, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { ExclamationIcon } from "@heroicons/react/outline";
+import Select from "react-select";
+import { status, location, item_name ,warehouse_code} from "./SelectOptions";
 
 function CreateLogisticsMove(props) {
+  const [status_Data, setStatus_Data] = useState("");
+  const [location_Data, setLocation_Data] = useState("");
+  const [Instruction_Data, setInstruction_Data] = useState("");
+  const [Lot_no_Data, setLot_no_Data] = useState("");
+  const [Item_no_Data, setItem_no_Data] = useState("");
+  const [Item_name_Data, setItem_name_Data] = useState("");
+  const [Width_Data, setWidth_Data] = useState(0);
 
-  const cancelButtonRef = useRef(null)
+  const [Thickness_Data, setThickness_Data] = useState(0);
+  const [Height_Data, setHeight_Data] = useState(0);
+  const [Amount_Data, setAmount_Data] = useState(0);
+  const [From_warehouse_Data, setFrom_warehouse_Data] = useState("");
+  const [To_warehouse_Data, setTo_warehouse_Data] = useState("");
+  
+
+
+  const cancelButtonRef = useRef(null);
   return (
     <div>
       <span className="ml-3 text-sm font-medium">창고이동등록</span>
       <Transition.Root show={props.createLogisticsMoveOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setCreateLogisticsMoveOpen}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          initialFocus={cancelButtonRef}
+          onClose={props.setCreateLogisticsMoveOpen}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -32,227 +54,290 @@ function CreateLogisticsMove(props) {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative min-w-md bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8">
-                  <div className='w-full mx-auto'>
-                    <div className="font-bold text-2xl text-center my-5">창고 이동 요청</div>
+                <Dialog.Panel className="relative min-w-md bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-1/2">
+                  <div className="w-full mx-auto">
+                    <div className="font-bold text-2xl text-center my-5">
+                      창고 이동 요청
+                    </div>
                     <div className="gap-6">
                       <div className="mt-5 md:mt-0 md:col-span-2">
                         <div className="shadow overflow-hidden sm:rounded-md">
                           <div className="px-4 py-5 bg-white sm:p-6">
-                            <div className='grid-rows-5 gap-4'>
-                              {/* 첫번째줄 */}
-                              <div className='grid grid-cols-4 gap-6 m-5'>
-                                <div className="">
-                                  <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                                    Country
-                                  </label>
-                                  <select
-                                    id="country"
-                                    name="country"
-                                    autoComplete="country-name"
-                                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                                  >
-                                    <option>United States</option>
-                                    <option>Canada</option>
-                                    <option>Mexico</option>
-                                  </select>
+                            {/* Search */}
+                            <div className="mt-5 md:mt-0 md:col-span-2">
+                              <div className="overflow-hidden sm:rounded-md">
+                                <div className="px-4 py-5 bg-white sm:p-6 bg-gray-100 rounded-lg">
+                                  <div className="grid grid-cols-3 gap-4 text-center">
+                                    {/* 첫째줄 */}
+                                    <div className="col-span-1">
+                                      <label
+                                        htmlFor="dropdown"
+                                        className="block text-sm font-medium text-gray-700"
+                                      >
+                                        작업상태
+                                      </label>
+                                      <Select
+                                        
+                                        // isMulti
+                                        name="colors"
+                                        options={status}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        onChange={(e) => {
+                                          setStatus_Data(e.target.value);
+                                        }}
+                                      />
+                                    </div>
+
+                                    <div className="col-span-1">
+                                      <label
+                                        htmlFor="dropdown"
+                                        className="block text-sm font-medium text-gray-700"
+                                      >
+                                        사업장
+                                      </label>
+                                      <Select
+                                        name="colors"
+                                        options={location}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        onChange={(e) => {
+                                          setLocation_Data(e.target.value);
+                                        }}
+                                      />
+                                    </div>
+
+                                    <div className="col-span-1">
+                                      <label
+                                        htmlFor="dropdown"
+                                        className="block text-sm font-medium text-gray-700"
+                                      >
+                                        lot_no
+                                      </label>
+                                      <Select
+                                        
+                                        // isMulti
+                                        name="colors"
+                                        options={location}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        onChange={(e) => {
+                                          setLocation_Data(e.target.value);
+                                        }}
+                                      />
+                                    </div>
+                                    <div className="col-span-1">
+                                      <label
+                                        htmlFor="dropdown"
+                                        className="block text-sm font-medium text-gray-700"
+                                      >
+                                        품번
+                                      </label>
+                                      <Select
+                                       
+                                        // isMulti
+                                        name="colors"
+                                        options={item_name}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        onChange={(e) => {
+                                          Item_no_Data(e.target.value);
+                                        }}
+                                      />
+                                    </div>
+                                    <div className="col-span-2">
+                                      <label
+                                        htmlFor="dropdown"
+                                        className="block text-sm font-medium text-gray-700"
+                                      >
+                                        제품명
+                                      </label>
+                                      <Select
+                                       
+                                        // isMulti
+                                        name="colors"
+                                        options={item_name}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        onChange={(e) => {
+                                          setItem_name_Data(e.target.value);
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div className="grid grid-cols-4 gap-4 text-center">
+                                    {/* 둘재줄 */}
+                                    <div className="col-span-1 grid grid-cols-4 text-center">
+                                      <div className="col-span-1">폭</div>
+                                      <div className="col-span-3">
+                                        <input
+                                          type="text"
+                                          name="text"
+                                          id="text"
+                                          autoComplete="address-level2"
+                                          className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                          onChange={(e) => {
+                                            setWidth_Data(e.target.value);
+                                          }}
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="col-span-1 grid grid-cols-4 text-center">
+                                      <div className="">두께</div>
+
+                                      <div>
+                                        <input
+                                          type="text"
+                                          name="text"
+                                          id="text"
+                                          autoComplete="address-level2"
+                                          className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                          onChange={(e) => {
+                                            setThickness_Data(e.target.value);
+                                          }}
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="col-span-1 grid grid-cols-4 text-center">
+                                      <div className="">높이</div>
+                                      <div className="col-span-3">
+                                        <input
+                                          type="text"
+                                          name="text"
+                                          id="text"
+                                          autoComplete="address-level2"
+                                          className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                          onChange={(e) => {
+                                            setHeight_Data(e.target.value);
+                                          }}
+                                        />
+                                      </div>
+                                    </div>
+                                    {/* 수량 */}
+                                    <div className="col-span-1">
+                                      <div className="grid grid-cols-3">
+
+                                        <div className="col-span-1">이동수량</div>
+
+                                        <div className="col-span-2">
+                                          <input
+                                            type="text"
+                                            name="text"
+                                            id="text"
+                                            autoComplete="address-level2"
+                                            className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            onChange={(e) => {
+                                              setAmount_Data(e.target.value);
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {/*  */}
+                                    {/* from창고 */}
+                                    <div className="col-span-1">
+                                      <div className="grid grid-cols-3">
+                                        <div>from창고</div>
+                                        <div className="col-span-2">
+                                        <Select
+                                        name="colors"
+                                        options={warehouse_code}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        onChange={(e) => {
+                                          Item_no_Data(e.target.value);
+                                        }}
+                                      />
+
+
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {/*  */}
+
+                                    {/* to창고 */}
+                                    <div className="col-span-1">
+                                      <div className="grid grid-cols-3">
+                                        <div>to창고</div>
+                                        <div className="col-span-2">
+                                        <Select
+                                        name="colors"
+                                        options={warehouse_code}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        onChange={(e) => {
+                                          Item_no_Data(e.target.value);
+                                        }}
+                                      />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="col-span-2">
+                                      <div className="grid grid-cols-3">
+                                        <label
+                                          htmlFor="dropdown"
+                                          className="block text-sm font-medium text-gray-700"
+                                        >
+                                          이동지시번호
+                                        </label>
+                                        <div className="col-span-2">
+                                          <input
+                                            type="text"
+                                            name="text"
+                                            id="text"
+                                            autoComplete="address-level2"
+                                            className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            onChange={(e) => {
+                                              setInstruction_Data(
+                                                e.target.value
+                                              );
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {/* 셋째줄 */}
+                                    {/* 고객사 */}
+
+                                    {/* 단위 */}
+                                    <div className="col-span-1">
+                                      <label
+                                        htmlFor="dropdown"
+                                        className="block text-sm font-medium text-gray-700"
+                                      >
+                                        지시마감기한
+                                      </label>
+                                      <div className="col-span-2">
+                                        <div className="">달력</div>
+                                      </div>
+                                    </div>
+
+                                    <div className="col-span-1">
+                                      <label
+                                        htmlFor="dropdown"
+                                        className="block text-sm font-medium text-gray-700"
+                                      >
+                                        작업완료일
+                                      </label>
+                                      <div className="">달력</div>
+                                    </div>
+
+                                    <div className="col-span-1">
+                                      <label
+                                        htmlFor="dropdown"
+                                        className="block text-sm font-medium text-gray-700"
+                                      >
+                                        지시등록일
+                                      </label>
+                                      <div className="">달력</div>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="">
-                                  <label htmlFor="country" className="block text-sm font-medium text-gray-700">
-                                    Country
-                                  </label>
-                                  <select
-                                    id="country"
-                                    name="country"
-                                    autoComplete="country-name"
-                                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                                  >
-                                    <option>United States</option>
-                                    <option>Canada</option>
-                                    <option>Mexico</option>
-                                  </select>
-                                </div>
-                              </div>
-                              {/* 두번째줄 */}
-                              <div className='grid grid-cols-5 gap-6 m-5'>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                                <div className="">
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                                    First name
-                                  </label>
-                                  <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </div>
-                              <div className='grid grid-cols-4 m-5'>
-                                <div>c1</div>
-                                <div>c2</div>
-                                <div>c3</div>
-                                <div>c4</div>
                               </div>
                             </div>
                           </div>
-
                         </div>
                       </div>
                     </div>
@@ -281,7 +366,7 @@ function CreateLogisticsMove(props) {
         </Dialog>
       </Transition.Root>
     </div>
-  )
+  );
 }
 
-export default CreateLogisticsMove
+export default CreateLogisticsMove;
