@@ -6,11 +6,12 @@ import Select from 'react-select';
 import { status, location, product_family, item_name, warehouse_code, unit } from './SelectOptions'
 
 function LogisticsImportList() {
+  axios.defaults.baseURL = "http://192.168.0.10:8081"
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
   const [logisticsImportList, setLogisticsImportList] = useState([])
-  const [search, setsearch] = useState(false)
+  const [searchClick, setSearchClick] = useState(false)
   // 데이터바인딩
   const [status_Data, setStatus_Data] = useState("전체조회")
   const [location_Data, setLocation_Data] = useState("전체조회")
@@ -38,9 +39,8 @@ function LogisticsImportList() {
   const [inst_deatline_Data, setInst_deatline_Data] = useState("전체조회")
   const [done_date_Data, setdone_date_Data] = useState("전체조회")
   //
-  useEffect(() => {
+  function search(params) {
     // 입고 조건검색
-    axios.defaults.baseURL = "http://192.168.0.10:8081"
     axios.get('/logistics/import', {
       status: status_Data,
       location: location_Data,
@@ -70,7 +70,12 @@ function LogisticsImportList() {
     })
       .then((res) => { setLogisticsImportList(res.data) })
       .catch((err) => { console.log(err) })
-  }, [search])
+  }
+  useEffect(() => {
+    axios.get('/import')
+      .then((res) => { setLogisticsImportList(res.data); console.log(res.data) })
+      .catch((err) => { console.log(err) })
+  }, [])
 
   return (
     <div data-aos="fade-up" className="">
@@ -93,6 +98,7 @@ function LogisticsImportList() {
                     options={status}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    maxMenuHeight={200}
                     onChange={(e) => { setStatus_Data(e.value); console.log(e.value) }}
                   />
                 </div>
@@ -107,6 +113,7 @@ function LogisticsImportList() {
                     options={location}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    maxMenuHeight={200}
                     onChange={(e) => { setLocation_Data(e.value) }}
                   />
                 </div>
@@ -121,6 +128,7 @@ function LogisticsImportList() {
                     options={product_family}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    maxMenuHeight={200}
                     onChange={(e) => { setproduct_family_Data(e.value) }}
                   />
                 </div>
@@ -135,6 +143,7 @@ function LogisticsImportList() {
                     options={item_name}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    maxMenuHeight={200}
                     onChange={(e) => { setItem_name_Data(e.value) }}
                   />
                 </div>
@@ -149,6 +158,7 @@ function LogisticsImportList() {
                     options={warehouse_code}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    maxMenuHeight={200}
                     onChange={(e) => { setTo_warehouse_Data(e.value) }}
                   />
                 </div>
@@ -165,6 +175,7 @@ function LogisticsImportList() {
                       options={unit}
                       className="basic-multi-select"
                       classNamePrefix="select"
+                      maxMenuHeight={200}
                       onChange={(e) => { setUnit_Data(e.value) }}
                     />
                   </div>
@@ -381,7 +392,7 @@ function LogisticsImportList() {
             <div className="px-4 py-3 text-right">
               <button
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                onClick={() => { setsearch(!search) }}
+                onClick={() => { search() }}
               >
                 Search
               </button>
@@ -402,126 +413,7 @@ function LogisticsImportList() {
                       >
                         status
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        location
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        instruction_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        product_family
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        lot_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        item_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        item_name
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        amount
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        weight
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        target
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        width
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        thickness
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        height
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        order_amount
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        im_amount
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        status
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        to_warehouse
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        order_date
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        inst_reg_date
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        inst_deadline
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        done_date
-                      </th>
+
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -531,30 +423,7 @@ function LogisticsImportList() {
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">{warehouse.location}</div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.warehouse_code}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.purpose}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.warehouse_code_desc}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.use}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.maximum_weight}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.maxinum_count}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.inventory_using}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.remarks}</div>
-                          </td>
+
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900"><CancelRequest /></div>
                           </td>

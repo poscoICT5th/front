@@ -32,7 +32,7 @@ function App() {
         <div className="flex">
           {
             isLogin
-              ? <div className="w-1/6"><Sidebar /></div>
+              ? <div className="w-72"><Sidebar /></div>
               : null
           }
           <div className="flex-auto w-5/6 mx-8">

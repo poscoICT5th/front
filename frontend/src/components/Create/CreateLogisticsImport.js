@@ -2,9 +2,10 @@ import React, { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import axios from 'axios'
 import Select from 'react-select';
-import { status, location, product_family, item_name, warehouse_code, unit } from '../List/SelectOptions'
+import { location, product_family, item_name, warehouse_code, unit } from './SelectOptions'
 
 function CreateLogisticsImport(props) {
+  axios.defaults.baseURL = "http://192.168.0.10:8081"
   // data
   const [location_Data, setLocation_Data] = useState("test")
   const [product_family_Data, setproduct_family_Data] = useState("test")
@@ -20,10 +21,11 @@ function CreateLogisticsImport(props) {
   const [width_Data, setWidth_Data] = useState(0)
   const [target_Data, setTarget_Data] = useState("test")
   const [order_date_Data, setOrder_date_Data] = useState("test")
-  const [inst_deatline_Data, setInst_deatline_Data] = useState("test")
+  const [inst_deadline_Data, setInst_deadline_Data] = useState("test")
   const [done_date_Data, setdone_date_Data] = useState("test")
+
+  // function
   function request() {
-    axios.defaults.baseURL = "http://192.168.0.10:8081"
     axios.post('/import', {
       "location": location_Data,
       "product_family": product_family_Data,
@@ -32,14 +34,15 @@ function CreateLogisticsImport(props) {
       "to_warehouse": to_warehouse_Data,
       "unit": unit_Data,
       "weight": weight_Data,
-      "min_thickness": thickness_Data,
-      "min_height": height_Data,
-      "min_order_amount": order_amount_Data,
-      "min_im_amount": im_amount_Data,
-      "min_width": width_Data,
+      "thickness": thickness_Data,
+      "height": height_Data,
+      "order_amount": order_amount_Data,
+      "amount": 123,
+      "im_amount": im_amount_Data,
+      "width": width_Data,
       "order_date": order_date_Data,
       "target": target_Data,
-      "inst_deatline": inst_deatline_Data,
+      "inst_deadline": inst_deadline_Data,
       "done_date": done_date_Data
     })
       .then((res) => { console.log(res) })
@@ -93,12 +96,13 @@ function CreateLogisticsImport(props) {
                                         사업장
                                       </label>
                                       <Select
-                                        defaultValue={[location[0]]}
+                                        defaultValue={[]}
                                         // isMulti
                                         name="location"
                                         options={location}
                                         className="basic-multi-select"
                                         classNamePrefix="select"
+                                        maxMenuHeight={200}
                                         onChange={(e) => { setLocation_Data(e.value) }}
                                       />
                                     </div>
@@ -108,12 +112,13 @@ function CreateLogisticsImport(props) {
                                         제품군
                                       </label>
                                       <Select
-                                        defaultValue={[product_family[0]]}
+                                        defaultValue={[]}
                                         // isMulti
                                         name="product_family"
                                         options={product_family}
                                         className="basic-multi-select"
                                         classNamePrefix="select"
+                                        maxMenuHeight={200}
                                         onChange={(e) => { setproduct_family_Data(e.value) }}
                                       />
                                     </div>
@@ -123,12 +128,13 @@ function CreateLogisticsImport(props) {
                                         제품명
                                       </label>
                                       <Select
-                                        defaultValue={[item_name[0]]}
+                                        defaultValue={[]}
                                         // isMulti
                                         name="item_name"
                                         options={item_name}
                                         className="basic-multi-select"
                                         classNamePrefix="select"
+                                        maxMenuHeight={200}
                                         onChange={(e) => { setItem_name_Data(e.value) }}
                                       />
                                     </div>
@@ -138,12 +144,13 @@ function CreateLogisticsImport(props) {
                                         창고코드
                                       </label>
                                       <Select
-                                        defaultValue={[warehouse_code[0]]}
+                                        defaultValue={[]}
                                         // isMulti
                                         name="warehouse_code"
                                         options={warehouse_code}
                                         className="basic-multi-select"
                                         classNamePrefix="select"
+                                        maxMenuHeight={200}
                                         onChange={(e) => { setTo_warehouse_Data(e.value) }}
                                       />
                                     </div>
@@ -154,19 +161,20 @@ function CreateLogisticsImport(props) {
                                       </label>
                                       <div className="col-span-2">
                                         <Select
-                                          defaultValue={[unit[0]]}
+                                          defaultValue={[]}
                                           // isMulti
                                           name="unit"
                                           options={unit}
                                           className="basic-multi-select"
                                           classNamePrefix="select"
+                                          maxMenuHeight={200}
                                           onChange={(e) => { setUnit_Data(e.value) }}
                                         />
                                       </div>
                                     </div>
                                   </div>
                                   {/* 둘재줄 */}
-                                  <div className="grid grid-cols-3 gap-4 text-center mt-5">
+                                  <div className="grid grid-cols-4 gap-4 text-center mt-5">
                                     <div className="col-span-1">
                                       <div className='grid grid-cols-3'>
                                         <div>중량</div>
