@@ -3,7 +3,7 @@ import Aos from 'aos';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
 import Select from 'react-select';
-import { status } from './SelectOptions';
+import { status,location } from './SelectOptions';
 
 function LosgisticsMoveList() {
   useEffect(() => {
@@ -16,6 +16,7 @@ function LosgisticsMoveList() {
   //이동지시번호
 
   //lot_no
+
   //item_no
   //item_name
   //width
@@ -63,17 +64,16 @@ function LosgisticsMoveList() {
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     사업장
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>완제품</option>
-                    <option>반제품</option>
-                    <option>불량품</option>
-                  </select>
+                  <Select
+                    defaultValue={[location[0]]}
+                    // isMulti
+                    name="colors"
+                    options={location}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
+
+
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
