@@ -2,7 +2,7 @@ import Aos from 'aos';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
-
+import Select from 'react-select';
 
 
 function LogisticsInList() {
@@ -13,6 +13,16 @@ function LogisticsInList() {
   const [date, setDate] = useState(null);
   const [search, setsearch] = useState(false)
   // 데이터바인딩
+  const status = [
+    { value: '전체보기', label: '전체보기', color: '#00B8D9', isFixed: true },
+    { value: 'GraphDonut2', label: 'GraphDonut2', color: '#0052CC', isDisabled: true },
+    { value: 'GraphDonut3', label: 'GraphDonut3', color: '#5243AA' },
+    { value: 'GraphDonut4', label: 'GraphDonut4', color: '#FF5630', isFixed: true },
+    { value: 'GraphDonut5', label: 'GraphDonut5', color: '#FF8B00' },
+    { value: 'DashboardInventoryList', label: 'DashboardInventoryList', color: '#FF8B00' },
+    { value: 'DashboardLogisticsList', label: 'DashboardLogisticsList', color: '#FF8B00' },
+    { value: 'DashboardWarehouseList', label: 'DashboardWarehouseList', color: '#FF8B00' },
+  ];
   //
   useEffect(() => {
     // 입고
@@ -36,64 +46,53 @@ function LogisticsInList() {
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     산업군
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>구동</option>
-                    <option>전장</option>
-                    <option>기타</option>
-                  </select>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     제품구분
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>완제품</option>
-                    <option>반제품</option>
-                    <option>불량품</option>
-                  </select>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     재고품질
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>합격</option>
-                    <option>불합격</option>
-                  </select>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     사업장
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>천안</option>
-                    <option>광양</option>
-                    <option>포항</option>
-                  </select>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
