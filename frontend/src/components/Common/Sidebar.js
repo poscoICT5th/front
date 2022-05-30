@@ -338,7 +338,7 @@ function Sidebar() {
           </nav>
         </div>
 
-        <div className="sticky inset-x-0 bottom-0 border-t border-gray-100">
+        {/* <div className="sticky inset-x-0 bottom-0 border-t border-gray-100">
           <div className="flex items-center p-4 bg-white hover:bg-gray-50 shrink-0">
             <img
               className="object-cover w-10 h-10 rounded-full"
@@ -352,7 +352,7 @@ function Sidebar() {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )
