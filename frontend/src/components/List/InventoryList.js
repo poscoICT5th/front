@@ -17,8 +17,10 @@ function InventoryList() {
   //
   useEffect(() => {
     // 재고
-    axios.get('/inventory', {})
-      .then((res) => { setwarehouses(res.data) })
+    axios.post('/import', {
+      status:"value"
+    })
+      .then((res) => { console.log(res) })
       .catch((err) => { console.log(err) })
   }, [])
 

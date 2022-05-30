@@ -1,19 +1,24 @@
+// 작업상태
 export const status = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '요청대기', label: '요청대기', color: '#00B8D9' },
     { value: '요청확정', label: '요청확정', color: '#00B8D9' },
 ];
+
+// 사업장
 export const location = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '포항', label: '포항', color: '#00B8D9' },
     { value: '광양', label: '광양', color: '#00B8D9' },
     { value: '천안', label: '천안', color: '#00B8D9' },
 ];
+// 출하지시번호
 export const product_family = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: 'MT', label: 'MT', color: '#00B8D9' },
     { value: 'ROTOR ASSY', label: 'ROTOR ASSY', color: '#00B8D9' },
 ];
+// 창고코드
 export const warehouse_code = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '403', label: '403', color: '#00B8D9' },
@@ -42,22 +47,26 @@ export const warehouse_code = [
     { value: 'E07', label: 'E07', color: '#00B8D9' },
     { value: 'E08', label: 'E08', color: '#00B8D9' },
 ]
+// 용도명
 export const purpose = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '반제품', label: '반제품', color: '#00B8D9' },
     { value: '임가공', label: '임가공', color: '#00B8D9' },
     { value: '제품', label: '제품', color: '#00B8D9' },
 ]
+// 사용여부
 export const use = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: 'Y', label: 'Y', color: '#00B8D9' },
     { value: 'N', label: 'N', color: '#00B8D9' },
 ]
+// 재고실사
 export const inventory_using = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: 'Y', label: 'Y', color: '#00B8D9' },
     { value: 'N', label: 'N', color: '#00B8D9' },
 ]
+// 산업군
 export const industry_family = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '가전', label: '가전', color: '#00B8D9' },
@@ -65,17 +74,20 @@ export const industry_family = [
     { value: '기타', label: '기타', color: '#00B8D9' },
     { value: '전장', label: '전장', color: '#00B8D9' },
 ]
+// 제품구분
 export const stock_type = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '반제품', label: '반제품', color: '#00B8D9' },
     { value: '완제품', label: '완제품', color: '#00B8D9' },
     { value: '불량품', label: '불량품', color: '#00B8D9' },
 ]
+// 재고품질상태
 export const stock_quality_status = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '합격', label: '합격', color: '#00B8D9' },
     { value: '불합격', label: '불합격', color: '#00B8D9' },
 ]
+// 상태사유
 export const status_cause = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '각인대기', label: '각인대기', color: '#00B8D9' },
@@ -91,15 +103,18 @@ export const status_cause = [
     { value: '재선별완료', label: '재선별완료', color: '#00B8D9' },
     { value: '재고분류', label: '재고분류', color: '#00B8D9' },
 ]
-export const stock_place = [ //사업장
+// 사업장
+export const stock_place = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '천안', label: '천안', color: '#00B8D9' },
 ]
-export const unit = [ //단위
+// 단위
+export const unit = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: 'EA', label: 'EA', color: '#00B8D9' },
 ]
-export const customer = [ //거래처
+// 거래처
+export const customer = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '1232:현대모비스', label: '1232:현대모비스', color: '#00B8D9' },
     { value: '1144:보쉬전장', label: '1144:보쉬전장', color: '#00B8D9' },
@@ -118,7 +133,8 @@ export const customer = [ //거래처
     { value: '7209:PTCO', label: '1072:PTCO', color: '#00B8D9' },
     { value: '6708:VCS', label: '6708:VCS', color: '#00B8D9' },
 ]
-export const frozen_months = [ //부동개월
+// 부동개월
+export const frozen_months = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: '0', label: '0', color: '#00B8D9' },
     { value: '1', label: '1', color: '#00B8D9' },
@@ -133,7 +149,8 @@ export const frozen_months = [ //부동개월
     { value: '10', label: '10', color: '#00B8D9' },
     { value: '11', label: '11', color: '#00B8D9' },
 ]
-export const item_name = [ //제품명
+// 제품명
+export const item_name = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
     { value: 'MT_127.2*70_(MV-EV 맵핑)_Rotor_20PNX1150F_SB', label: 'MT_127.2*70_(MV-EV 맵핑)_Rotor_20PNX1150F_SB', color: '#00B8D9' },
     { value: 'MT_200*158_(MV-EV 맵핑)_Stator_20PNX1150F_SB', label: 'MT_200*158_(MV-EV 맵핑)_Stator_20PNX1150F_SB', color: '#00B8D9' },
