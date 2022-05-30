@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
 import Select from 'react-select';
-
+import { status, location, lot_no, product_family } from './SelectOptions'
 
 function LogisticsInList() {
   useEffect(() => {
@@ -13,16 +13,7 @@ function LogisticsInList() {
   const [date, setDate] = useState(null);
   const [search, setsearch] = useState(false)
   // 데이터바인딩
-  const status = [
-    { value: '전체보기', label: '전체보기', color: '#00B8D9', isFixed: true },
-    { value: 'GraphDonut2', label: 'GraphDonut2', color: '#0052CC', isDisabled: true },
-    { value: 'GraphDonut3', label: 'GraphDonut3', color: '#5243AA' },
-    { value: 'GraphDonut4', label: 'GraphDonut4', color: '#FF5630', isFixed: true },
-    { value: 'GraphDonut5', label: 'GraphDonut5', color: '#FF8B00' },
-    { value: 'DashboardInventoryList', label: 'DashboardInventoryList', color: '#FF8B00' },
-    { value: 'DashboardLogisticsList', label: 'DashboardLogisticsList', color: '#FF8B00' },
-    { value: 'DashboardWarehouseList', label: 'DashboardWarehouseList', color: '#FF8B00' },
-  ];
+
   //
   useEffect(() => {
     // 입고
@@ -44,7 +35,7 @@ function LogisticsInList() {
                 {/* 첫째줄 */}
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    산업군
+                    작업상태
                   </label>
                   <Select
                     defaultValue={[status[0]]}
@@ -53,30 +44,31 @@ function LogisticsInList() {
                     options={status}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    maxMenuHeight={300}
                   />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    제품구분
+                    사업장
                   </label>
                   <Select
-                    defaultValue={[status[0]]}
+                    defaultValue={[location[0]]}
                     // isMulti
                     name="colors"
-                    options={status}
+                    options={location}
                     className="basic-multi-select"
                     classNamePrefix="select"
                   />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    재고품질
+                    제품군
                   </label>
                   <Select
-                    defaultValue={[status[0]]}
+                    defaultValue={[product_family[0]]}
                     // isMulti
                     name="colors"
-                    options={status}
+                    options={product_family}
                     className="basic-multi-select"
                     classNamePrefix="select"
                   />
@@ -98,71 +90,40 @@ function LogisticsInList() {
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     제품군
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>MT</option>
-                    <option>ROTOR ASSY</option>
-                    <option>STRIP</option>
-                  </select>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     창고코드
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>A1</option>
-                    <option>A2</option>
-                    <option>A3</option>
-                    <option>B1</option>
-                    <option>B2</option>
-                    <option>B3</option>
-                    <option>C1</option>
-                    <option>C2</option>
-                    <option>C3</option>
-                  </select>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     상태사유
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>각인대기</option>
-                    <option>각인미완료</option>
-                    <option>각인완료</option>
-                    <option>각인완료 대차없음</option>
-                    <option>대차부족</option>
-                    <option>대차부족으로인한 박스작업완료</option>
-                    <option>대차없음</option>
-                    <option>박스포장</option>
-                    <option>양산개발샘플</option>
-                    <option>외관</option>
-                    <option>원자재불량(포항)</option>
-                    <option>원자재불량(천안)</option>
-                    <option>재고구분</option>
-                    <option>재선별완료</option>
-                    <option>철통부족</option>
-                    <option>철통부족 박스포장</option>
-                    <option>치수불량</option>
-                    <option>포장미완료</option>
-                    <option>포장대기</option>
-                  </select>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 {/* 둘재줄 */}
                 <div className="col-span-1 grid grid-cols-4 text-center">
