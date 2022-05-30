@@ -3,7 +3,7 @@ import Aos from 'aos';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
 import Select from 'react-select';
-
+import { status } from './SelectOptions';
 
 function LosgisticsMoveList() {
   useEffect(() => {
@@ -51,10 +51,10 @@ function LosgisticsMoveList() {
                     작업상태
                   </label>
                <Select
-                    defaultValue={[status1[0]]}
+                    defaultValue={[status[0]]}
                     // isMulti
                     name="colors"
-                    options={status1}
+                    options={status}
                     className="basic-multi-select"
                     classNamePrefix="select"
                   />
