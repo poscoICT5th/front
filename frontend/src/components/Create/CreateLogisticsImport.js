@@ -1,14 +1,14 @@
 import React, { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-function CreateLogisticsOut(props) {
+function CreateLogisticsImport(props) {
 
   const cancelButtonRef = useRef(null)
   return (
     <div>
-      <span className="ml-3 text-sm font-medium">출고예정등록</span>
-      <Transition.Root show={props.createLogisticsOutOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setCreateLogisticsOutOpen}>
+      <span className="ml-3 text-sm font-medium">입고예정등록</span>
+      <Transition.Root show={props.createLogisticsImportOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setCreateLogisticsImportOpen}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -34,7 +34,7 @@ function CreateLogisticsOut(props) {
               >
                 <Dialog.Panel className="relative min-w-md bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8">
                   <div className='w-full mx-auto'>
-                    <div className="font-bold text-2xl text-center my-5">출고 요청</div>
+                    <div className="font-bold text-2xl text-center my-5">입고 요청</div>
                     <div className="gap-6">
                       <div className="mt-5 md:mt-0 md:col-span-2">
                         <div className="shadow overflow-hidden sm:rounded-md">
@@ -261,14 +261,14 @@ function CreateLogisticsOut(props) {
                     <button
                       type="button"
                       className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => props.setCreateLogisticsOutOpen(false)}
+                      onClick={() => props.setCreateLogisticsImportOpen(false)}
                     >
                       Deactivate
                     </button>
                     <button
                       type="button"
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => props.setCreateLogisticsOutOpen(false)}
+                      onClick={() => props.setCreateLogisticsImportOpen(false)}
                       ref={cancelButtonRef}
                     >
                       Cancel
@@ -284,4 +284,4 @@ function CreateLogisticsOut(props) {
   )
 }
 
-export default CreateLogisticsOut
+export default CreateLogisticsImport

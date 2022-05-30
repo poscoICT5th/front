@@ -1,15 +1,16 @@
-import axios from 'axios';
 import Aos from 'aos';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
+import Select from 'react-select';
+import { status, location, lot_no, product_family } from './SelectOptions'
 
-
-
-function LogisticsOutList() {
+function LogisticsImportList() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
   const [warehouses, setwarehouses] = useState([])
+  const [date, setDate] = useState(null);
   const [search, setsearch] = useState(false)
   // 데이터바인딩
 
@@ -25,7 +26,7 @@ function LogisticsOutList() {
   return (
     <div data-aos="fade-up" className="">
       <div className="max-w-screen-2xl mx-auto my-10">
-        <div className="font-bold text-2xl text-center my-10">출고 조회</div>
+        <div className="font-bold text-2xl text-center my-10">입고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">
           <div className="overflow-hidden sm:rounded-md">
@@ -34,137 +35,95 @@ function LogisticsOutList() {
                 {/* 첫째줄 */}
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    산업군
+                    작업상태
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                    onClick={(e) => { }}
-                  >
-                    <option>전체</option>
-                    <option>구동</option>
-                    <option>전장</option>
-                    <option>기타</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    제품구분
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>완제품</option>
-                    <option>반제품</option>
-                    <option>불량품</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    재고품질
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>합격</option>
-                    <option>불합격</option>
-                  </select>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    maxMenuHeight={300}
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     사업장
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>천안</option>
-                    <option>광양</option>
-                    <option>포항</option>
-                  </select>
+                  <Select
+                    defaultValue={[location[0]]}
+                    // isMulti
+                    name="colors"
+                    options={location}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     제품군
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>MT</option>
-                    <option>ROTOR ASSY</option>
-                    <option>STRIP</option>
-                  </select>
+                  <Select
+                    defaultValue={[product_family[0]]}
+                    // isMulti
+                    name="colors"
+                    options={product_family}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
+                </div>
+                <div className="col-span-1">
+                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                    사업장
+                  </label>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
+                </div>
+                <div className="col-span-1">
+                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                    제품군
+                  </label>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     창고코드
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>A1</option>
-                    <option>A2</option>
-                    <option>A3</option>
-                    <option>B1</option>
-                    <option>B2</option>
-                    <option>B3</option>
-                    <option>C1</option>
-                    <option>C2</option>
-                    <option>C3</option>
-                  </select>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     상태사유
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>각인대기</option>
-                    <option>각인미완료</option>
-                    <option>각인완료</option>
-                    <option>각인완료 대차없음</option>
-                    <option>대차부족</option>
-                    <option>대차부족으로인한 박스작업완료</option>
-                    <option>대차없음</option>
-                    <option>박스포장</option>
-                    <option>양산개발샘플</option>
-                    <option>외관</option>
-                    <option>원자재불량(포항)</option>
-                    <option>원자재불량(천안)</option>
-                    <option>재고구분</option>
-                    <option>재선별완료</option>
-                    <option>철통부족</option>
-                    <option>철통부족 박스포장</option>
-                    <option>치수불량</option>
-                    <option>포장미완료</option>
-                    <option>포장대기</option>
-                  </select>
+                  <Select
+                    defaultValue={[status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
                 </div>
                 {/* 둘재줄 */}
                 <div className="col-span-1 grid grid-cols-4 text-center">
@@ -310,7 +269,7 @@ function LogisticsOutList() {
                     재고생성일
                   </label>
                   <div className="">
-                    달력
+
                   </div>
                 </div>
                 <div className="col-span-1">
@@ -363,13 +322,7 @@ function LogisticsOutList() {
                         scope="col"
                         className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        order_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        target
+                        product_family
                       </th>
                       <th
                         scope="col"
@@ -388,6 +341,24 @@ function LogisticsOutList() {
                         className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         item_name
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        amount
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        weight
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        target
                       </th>
                       <th
                         scope="col"
@@ -417,13 +388,19 @@ function LogisticsOutList() {
                         scope="col"
                         className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        ex_amount
+                        im_amount
                       </th>
                       <th
                         scope="col"
                         className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        ex_remain
+                        status
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        to_warehouse
                       </th>
                       <th
                         scope="col"
@@ -449,8 +426,6 @@ function LogisticsOutList() {
                       >
                         done_date
                       </th>
-
-
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -501,4 +476,4 @@ function LogisticsOutList() {
   )
 }
 
-export default LogisticsOutList
+export default LogisticsImportList

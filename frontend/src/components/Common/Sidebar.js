@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import CreateLogisticsIn from '../Create/CreateLogisticsIn';
-import CreateLogisticsOut from '../Create/CreateLogisticsOut';
+import CreateLogisticsImport from '../Create/CreateLogisticsImport';
+import CreateLogisticsExport from '../Create/CreateLogisticsExport';
 import CreateLogisticsMove from '../Create/CreateLogisticsMove';
 
 function Sidebar() {
@@ -9,8 +9,8 @@ function Sidebar() {
   function navigatePage(component) {
     navigate(`/${component}`)
   }
-  const [createLogisticsInOpen, setCreateLogisticsInOpen] = useState(false)
-  const [createLogisticsOutOpen, setCreateLogisticsOutOpen] = useState(false)
+  const [createLogisticsImportOpen, setCreateLogisticsImportOpen] = useState(false)
+  const [createLogisticsExportOpen, setCreateLogisticsExportOpen] = useState(false)
   const [createLogisticsMoveOpen, setCreateLogisticsMoveOpen] = useState(false)
   const [createInventoryOpen, setCreateInventoryOpen] = useState(false)
   const [menu, setMenu] = useState(0)
@@ -119,7 +119,7 @@ function Sidebar() {
                 <div
                   className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                   style={menu === 21 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { navigatePage("LogisticsInList"); setMenu(21) }}
+                  onClick={() => { navigatePage("LogisticsImportList"); setMenu(21) }}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -130,12 +130,12 @@ function Sidebar() {
                 <div
                   className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                   style={menu === 22 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { setCreateLogisticsInOpen(true); setMenu(22) }}
+                  onClick={() => { setCreateLogisticsImportOpen(true); setMenu(22) }}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                   </svg>
-                  <CreateLogisticsIn setCreateLogisticsInOpen={setCreateLogisticsInOpen} createLogisticsInOpen={createLogisticsInOpen} />
+                  <CreateLogisticsImport setCreateLogisticsImportOpen={setCreateLogisticsImportOpen} createLogisticsImportOpen={createLogisticsImportOpen} />
                 </div>
               </nav>
             </details>
@@ -171,7 +171,7 @@ function Sidebar() {
                 <div
                   className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                   style={menu === 31 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { navigatePage("LogisticsOutList"); setMenu(31) }}
+                  onClick={() => { navigatePage("LogisticsExportList"); setMenu(31) }}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -183,13 +183,13 @@ function Sidebar() {
                 <div
                   className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                   style={menu === 32 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { setCreateLogisticsOutOpen(true); setMenu(32) }}
+                  onClick={() => { setCreateLogisticsExportOpen(true); setMenu(32) }}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                   </svg>
 
-                  <CreateLogisticsOut setCreateLogisticsOutOpen={setCreateLogisticsOutOpen} createLogisticsOutOpen={createLogisticsOutOpen} />
+                  <CreateLogisticsExport setCreateLogisticsExportOpen={setCreateLogisticsExportOpen} createLogisticsExportOpen={createLogisticsExportOpen} />
                 </div>
               </nav>
             </details>
