@@ -1,4 +1,4 @@
-import { AOS } from 'aos';
+import Aos from 'aos';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
@@ -7,7 +7,7 @@ import CancelRequest from '../Functions/CancelRequest';
 
 function InventoryList() {
   useEffect(() => {
-    AOS.init({ duration: 2000 });
+    Aos.init({ duration: 2000 });
   }, []);
   axios.defaults.baseURL = "http://192.168.0.10:8081"
   const [warehouses, setwarehouses] = useState([])
@@ -18,7 +18,7 @@ function InventoryList() {
   useEffect(() => {
     // 재고
     axios.post('/import', {
-      status:"value"
+      status: "value"
     })
       .then((res) => { console.log(res) })
       .catch((err) => { console.log(err) })

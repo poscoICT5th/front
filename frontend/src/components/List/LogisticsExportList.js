@@ -24,7 +24,7 @@ function LogisticsExportList() {
 
   return (
     <div data-aos="fade-up" className="">
-      <div className="max-w-screen-2xl mx-auto my-10">
+      <div className="w-full mx-auto my-10">
         <div className="font-bold text-2xl text-center my-10">출고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">

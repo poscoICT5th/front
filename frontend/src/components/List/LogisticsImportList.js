@@ -3,35 +3,84 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
 import Select from 'react-select';
-import { status, location, lot_no, product_family } from './SelectOptions'
+import { status, location, product_family, item_name, warehouse_code, unit } from './SelectOptions'
 
 function LogisticsImportList() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
-  const [warehouses, setwarehouses] = useState([])
-  const [date, setDate] = useState(null);
+  const [logisticsImportList, setLogisticsImportList] = useState([])
   const [search, setsearch] = useState(false)
   // 데이터바인딩
-
+  const [status_Data, setStatus_Data] = useState("전체조회")
+  const [location_Data, setLocation_Data] = useState("전체조회")
+  const [product_family_Data, setproduct_family_Data] = useState("전체조회")
+  const [lot_no_Data, setLot_no_Data] = useState("전체조회") //
+  const [item_no_Data, setItem_no_Data] = useState("전체조회") //
+  const [item_name_Data, setItem_name_Data] = useState("전체조회")
+  const [to_warehouse_Data, setTo_warehouse_Data] = useState("전체조회")
+  const [unit_Data, setUnit_Data] = useState("전체조회")
+  const [min_weight_Data, setMin_weight_Data] = useState(0)
+  const [max_weight_Data, setMax_weight_Data] = useState(1000000)
+  const [min_thickness_Data, setMin_thickness_Data] = useState(0)
+  const [max_thickness_Data, setMax_thickness_Data] = useState(1000000)
+  const [min_height_Data, setmin_height_Data] = useState(0)
+  const [max_height_Data, setMax_height_Data] = useState(1000000)
+  const [min_order_amount_Data, setMin_order_amount_Data] = useState(0)
+  const [max_order_amount_Data, setMax_order_amount_Data] = useState(1000000)
+  const [min_im_amount_Data, setMin_im_amount_Data] = useState(0)
+  const [max_im_amount_Data, setMax_im_amount_Data] = useState(1000000)
+  const [min_width_Data, setMin_width_Data] = useState(0)
+  const [max_width_Data, setMax_width_Data] = useState(1000000)
+  const [target_Data, setTarget_Data] = useState("전체조회")
+  const [order_date_Data, setOrder_date_Data] = useState("전체조회")
+  const [inst_reg_date_Date_Data, setInst_reg_date_Date_Data] = useState("전체조회")
+  const [inst_deatline_Data, setInst_deatline_Data] = useState("전체조회")
+  const [done_date_Data, setdone_date_Data] = useState("전체조회")
   //
   useEffect(() => {
-    // 입고
+    // 입고 조건검색
     axios.defaults.baseURL = "http://192.168.0.10:8081"
-    axios.get('/warehouse', {})
-      .then((res) => { setwarehouses(res.data) })
+    axios.get('/logistics/import', {
+      status: status_Data,
+      location: location_Data,
+      product_family: product_family_Data,
+      lot_no: lot_no_Data,
+      item_no: item_no_Data,
+      item_name: item_name_Data,
+      to_warehouse: to_warehouse_Data,
+      unit: unit_Data,
+      min_weight: min_weight_Data,
+      max_weight: max_weight_Data,
+      min_thickness: min_thickness_Data,
+      max_thickness: max_thickness_Data,
+      min_height: min_height_Data,
+      max_height: max_height_Data,
+      min_order_amount: min_order_amount_Data,
+      max_order_amount: max_order_amount_Data,
+      min_im_amount: min_im_amount_Data,
+      max_im_amount: max_im_amount_Data,
+      min_width: min_width_Data,
+      max_width: max_width_Data,
+      order_date: order_date_Data,
+      target: target_Data,
+      inst_reg_date_Date: inst_reg_date_Date_Data,
+      inst_deatline: inst_deatline_Data,
+      done_date: done_date_Data
+    })
+      .then((res) => { setLogisticsImportList(res.data) })
       .catch((err) => { console.log(err) })
   }, [search])
 
   return (
     <div data-aos="fade-up" className="">
-      <div className="max-w-screen-2xl mx-auto my-10">
+      <div className="w-full mx-auto my-10">
         <div className="font-bold text-2xl text-center my-10">입고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">
           <div className="overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6 bg-gray-100 rounded-lg">
-              <div className="grid grid-cols-7 gap-4 text-center">
+              <div className="grid grid-cols-6 gap-4 text-center">
                 {/* 첫째줄 */}
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
@@ -40,11 +89,11 @@ function LogisticsImportList() {
                   <Select
                     defaultValue={[status[0]]}
                     // isMulti
-                    name="colors"
+                    name="status"
                     options={status}
                     className="basic-multi-select"
                     classNamePrefix="select"
-                    maxMenuHeight={300}
+                    onChange={(e) => { setStatus_Data(e.value); console.log(e.value) }}
                   />
                 </div>
                 <div className="col-span-1">
@@ -54,10 +103,11 @@ function LogisticsImportList() {
                   <Select
                     defaultValue={[location[0]]}
                     // isMulti
-                    name="colors"
+                    name="location"
                     options={location}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    onChange={(e) => { setLocation_Data(e.value) }}
                   />
                 </div>
                 <div className="col-span-1">
@@ -67,36 +117,25 @@ function LogisticsImportList() {
                   <Select
                     defaultValue={[product_family[0]]}
                     // isMulti
-                    name="colors"
+                    name="product_family"
                     options={product_family}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    onChange={(e) => { setproduct_family_Data(e.value) }}
                   />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    사업장
+                    제품명
                   </label>
                   <Select
-                    defaultValue={[status[0]]}
+                    defaultValue={[item_name[0]]}
                     // isMulti
-                    name="colors"
-                    options={status}
+                    name="item_name"
+                    options={item_name}
                     className="basic-multi-select"
                     classNamePrefix="select"
-                  />
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    제품군
-                  </label>
-                  <Select
-                    defaultValue={[status[0]]}
-                    // isMulti
-                    name="colors"
-                    options={status}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
+                    onChange={(e) => { setItem_name_Data(e.value) }}
                   />
                 </div>
                 <div className="col-span-1">
@@ -104,28 +143,35 @@ function LogisticsImportList() {
                     창고코드
                   </label>
                   <Select
-                    defaultValue={[status[0]]}
+                    defaultValue={[warehouse_code[0]]}
                     // isMulti
-                    name="colors"
-                    options={status}
+                    name="warehouse_code"
+                    options={warehouse_code}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    onChange={(e) => { setTo_warehouse_Data(e.value) }}
                   />
                 </div>
+                {/* 단위 */}
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    상태사유
+                    단위
                   </label>
-                  <Select
-                    defaultValue={[status[0]]}
-                    // isMulti
-                    name="colors"
-                    options={status}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                  />
+                  <div className="col-span-2">
+                    <Select
+                      defaultValue={[unit[0]]}
+                      // isMulti
+                      name="unit"
+                      options={unit}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      onChange={(e) => { setUnit_Data(e.value) }}
+                    />
+                  </div>
                 </div>
-                {/* 둘재줄 */}
+              </div>
+              {/* 둘재줄 */}
+              <div className="grid grid-cols-5 gap-4 text-center mt-5">
                 <div className="col-span-1 grid grid-cols-4 text-center">
                   <div className=''>폭</div>
                   <div>
@@ -135,8 +181,9 @@ function LogisticsImportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMin_width_Data(e.target.value) }}
                     /></div>
-                  <div className='text-xs'>-</div>
+                  <div className='text-xs'>~</div>
                   <div>
                     <input
                       type="text"
@@ -144,6 +191,7 @@ function LogisticsImportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_width_Data(e.target.value) }}
                     />
                   </div>
                 </div>
@@ -156,8 +204,9 @@ function LogisticsImportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMin_thickness_Data(e.target.value) }}
                     /></div>
-                  <div className='text-xs'>-</div>
+                  <div className='text-xs'>~</div>
                   <div>
                     <input
                       type="text"
@@ -165,6 +214,7 @@ function LogisticsImportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_thickness_Data(e.target.value) }}
                     />
                   </div>
                 </div>
@@ -177,6 +227,7 @@ function LogisticsImportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setmin_height_Data(e.target.value) }}
                     /></div>
                   <div className='text-xs'>-</div>
                   <div>
@@ -186,90 +237,135 @@ function LogisticsImportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_height_Data(e.target.value) }}
                     />
                   </div>
                 </div>
                 {/* 수량 */}
-                <div className="col-span-1">
-                  <div className='grid grid-cols-3'>
-                    <div>수량</div>
-                    <div className='col-span-2'><input
+                <div className="col-span-1 grid grid-cols-4 text-center">
+                  <div className=''>주문량</div>
+                  <div>
+                    <input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMin_order_amount_Data(e.target.value) }}
                     /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_order_amount_Data(e.target.value) }}
+                    />
                   </div>
                 </div>
-                {/*  */}
+                {/* 입고수량 */}
+                <div className="col-span-1 grid grid-cols-4 text-center">
+                  <div className=''>입고수량</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMin_im_amount_Data(e.target.value) }}
+                    /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_im_amount_Data(e.target.value) }}
+                    />
+                  </div>
+                </div>
                 {/* 중량 */}
+                <div className="col-span-1 grid grid-cols-4 text-center">
+                  <div className=''>중량</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMin_weight_Data(e.target.value) }}
+                    /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_weight_Data(e.target.value) }}
+                    />
+                  </div>
+                </div>
+                {/*  */}
+                {/* 거래처 */}
                 <div className="col-span-1">
                   <div className='grid grid-cols-3'>
-                    <div>중량</div>
+                    <div>거래처</div>
                     <div className='col-span-2'><input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setTarget_Data(e.target.value) }}
                     /></div>
                   </div>
                 </div>
                 {/*  */}
-
-                {/* 고객사 */}
+                {/* LOT */}
                 <div className="col-span-1">
                   <div className='grid grid-cols-3'>
-                    <div>고객사</div>
+                    <div>LOT</div>
                     <div className='col-span-2'><input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setLot_no_Data(e.target.value) }}
                     /></div>
                   </div>
                 </div>
-                {/*  */}
-                {/* 고객사 */}
+                {/* LOT */}
                 <div className="col-span-1">
                   <div className='grid grid-cols-3'>
-                    <div>제품명</div>
+                    <div>품번</div>
                     <div className='col-span-2'><input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setItem_no_Data(e.target.value) }}
                     /></div>
                   </div>
                 </div>
-                {/* 셋째줄 */}
-                {/* 단위 */}
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    단위
-                  </label>
-                  <div className="col-span-2">
-                    <select
-                      id="dropdown"
-                      name="dropdown"
-                      autoComplete="dropdown-name"
-                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                    >
-                      <option>전체</option>
-                      <option>EA</option>
-                      <option>KG</option>
-                    </select>
-                  </div>
-                </div>
+              </div>
+              {/* 둘재줄 */}
+              <div className="grid grid-cols-4 gap-4 text-center mt-5">
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     재고생성일
                   </label>
                   <div className="">
-
+                    달력
                   </div>
                 </div>
                 <div className="col-span-1">
@@ -430,7 +526,7 @@ function LogisticsImportList() {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {
-                      warehouses.map((warehouse) => {
+                      logisticsImportList.map((warehouse) => {
                         return <tr>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">{warehouse.location}</div>
