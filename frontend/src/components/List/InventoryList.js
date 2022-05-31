@@ -2,7 +2,7 @@ import Aos from 'aos';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
-import { stock_place, warehouse_code, purpose, location, use, inventory_using, industry_family, stock_quality_status, status_cause} from "./SelectOptions";
+import { stock_place, warehouse_code, purpose, location, use, inventory_using, industry_family, stock_quality_status, status_cause } from "../Search/SelectOptions";
 
 import Select from "react-select";
 function InventoryList() {
@@ -16,7 +16,7 @@ function InventoryList() {
   const [stock_quality_status, setStock_quality_status] = useState(false)
   const [Status_cause, setStatus_cause] = useState(false)
   const [location, setLocation_Data] = useState(false)
-//컬럼목록
+  //컬럼목록
   // industry_family(산업군), target(고객사),
   //   stock_type(제품구분), stock_quality_status(재고품질상태),
   //   status_cause(상태사유), location(사업장), product_family(제품군),
@@ -34,8 +34,8 @@ function InventoryList() {
     // axios.post('/import', {
     //   status: "value"
     // })
-      // .then((res) => { console.log(res) })
-      // .catch((err) => { console.log(err) })
+    // .then((res) => { console.log(res) })
+    // .catch((err) => { console.log(err) })
   }, [])
 
   return (
@@ -50,7 +50,7 @@ function InventoryList() {
                 {/* 첫째줄 */}
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                  산업군
+                    산업군
                   </label>
                   <Select
                     defaultValue={[industry_family[0]]}

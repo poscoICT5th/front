@@ -1,16 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
 // createSlice로 값 생성해줌
-let user = createSlice({
-  name: 'user',
-  initialState: 'kim',
-  reducers: {
-    changeName(state) {
-      return 'john ' + state
-    }
-  }
-})
-export let { changeName } = user.actions
 
 let tabTitle = createSlice({
   name: 'tabTitle',
@@ -23,12 +13,49 @@ let tabTitle = createSlice({
 })
 export let { handleTabTitle } = tabTitle.actions
 
+// 물류입고 url
+let logisticsImportURL = createSlice({
+  name: 'logisticsURL',
+  initialState: 'http://192.168.0.10:8081',
+  reducers: {
+    handleLogisticsURL(state, newState) {
+      return newState
+    }
+  }
+})
+export let { handleLogisticsImportURL } = logisticsImportURL.actions
+
+// 물류출고 url
+let logisticsExportURL = createSlice({
+  name: 'logisticsExportURL',
+  initialState: 'http://192.168.0.10:8082',
+  reducers: {
+    handleLogisticsURL(state, newState) {
+      return newState
+    }
+  }
+})
+export let { handleLogisticsExportURL } = logisticsExportURL.actions
+
+// 창고 url
+let warehouseURL = createSlice({
+  name: 'logisticsURL',
+  initialState: 'http://192.168.0.20:8081',
+  reducers: {
+    handleWarehouseURL(state, newState) {
+      return newState
+    }
+  }
+})
+export let { handleWarehouseURL } = warehouseURL.actions
+
 // state등록해주는부분
 export default configureStore({
   // {작명:createSlice만든거.reducer} 사용
   reducer: {
-    user: user.reducer,
     tabTitle: tabTitle.reducer,
+    logisticsImportURL: logisticsImportURL.reducer,
+    logisticsExportURL: logisticsExportURL.reducer
   }
 })
 //

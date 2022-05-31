@@ -2,12 +2,14 @@ import axios from 'axios';
 import Aos from 'aos';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
-import SearchLogisticsExport from './SearchLogisticsExport';
-import TableLogisticsExport from './TableLogisticsExport';
+import SearchLogisticsExport from '../Search/SearchLogisticsExport';
+import TableLogisticsExport from '../Table/TableLogisticsExport';
+import { useSelector } from 'react-redux';
 
 
 function LogisticsExportList() {
-  axios.defaults.baseURL = "http://192.168.0.10:8082"
+  let url = useSelector((state) => state.logisticsExportURL)
+  axios.defaults.baseURL = url
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 2000 });

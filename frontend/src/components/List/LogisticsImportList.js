@@ -1,13 +1,14 @@
 import Aos from 'aos';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-
-import SearchLogisticsImport from './SearchLogisticsImport';
-import TableLogisticsImport from './TableLogisticsImport';
+import { useSelector } from 'react-redux';
+import SearchLogisticsImport from '../Search/SearchLogisticsImport';
+import TableLogisticsImport from '../Table/TableLogisticsImport';
 
 
 function LogisticsImportList() {
-  axios.defaults.baseURL = "http://192.168.0.10:8081"
+  let url = useSelector((state) => state.logisticsImportURL)
+  axios.defaults.baseURL = url
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 2000 });
@@ -71,7 +72,7 @@ function LogisticsImportList() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsImport logisticsImportList={logisticsImportList} datas={datas}/>
+          <TableLogisticsImport logisticsImportList={logisticsImportList} datas={datas} />
         </div>
       </div>
     </div>

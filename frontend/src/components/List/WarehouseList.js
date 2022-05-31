@@ -3,27 +3,20 @@ import Aos from "aos";
 import React, { useEffect, useState } from "react";
 import CancelRequest from "../Functions/CancelRequest";
 import Select from "react-select";
-import { stock_place, warehouse_code, purpose, location, use, inventory_using} from "./SelectOptions";
+import { stock_place, warehouse_code, purpose, location, use, inventory_using } from "../Search/SelectOptions";
+import { useSelector } from "react-redux";
 //전체조회 버튼 없애고
 ///리스트밑에 수정 , 삭제 버튼 추가하기
 
 function WarehouseList() {
+
+  let url = useSelector((state) => state.warehouseURL)
+  axios.defaults.baseURL = url
+
+  // useEffect
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
-  axios.defaults.baseURL = "http://192.168.0.20:8081";
-  const [warehouse, setWarehouses] = useState([]);
-
-  // 데이터바인딩
-  const [location_Data, setLocation_Data] = useState(null);
-  const [warehouse_Data, setWarehouse_Data] = useState(null);
-  const [purpose_Data, setPurpose_Data] = useState(null);
-  const [use_Data, setUse_Data] = useState(null);
-  const [inventory_using_Data, setInventory_using_Data] = useState(0);
-  const [maximum_weight_Data, setMaximum_weight_Data] = useState(0);
-  const [maximum_count_Data, setMaximum_count_Data] = useState(0);
-  const [warehouse_code_desc_Data, setWarehouse_code_desc_Data] = useState(0);
-
   // 맨처음에 전체리스트 불러오기
   useEffect(() => {
     axios
@@ -36,8 +29,21 @@ function WarehouseList() {
         console.log(err);
       });
   }, []);
+
+  // useState
+  const [warehouse, setWarehouses] = useState([]);
+  const [location_Data, setLocation_Data] = useState(null);
+  const [warehouse_Data, setWarehouse_Data] = useState(null);
+  const [purpose_Data, setPurpose_Data] = useState(null);
+  const [use_Data, setUse_Data] = useState(null);
+  const [inventory_using_Data, setInventory_using_Data] = useState(0);
+  const [maximum_weight_Data, setMaximum_weight_Data] = useState(0);
+  const [maximum_count_Data, setMaximum_count_Data] = useState(0);
+  const [warehouse_code_desc_Data, setWarehouse_code_desc_Data] = useState(0);
+
+  // function
   // 창고조건검색
-  function searchCondition() {
+  function search() {
     axios.get("/search", {
       "location": location_Data,
       "warehouse": warehouse_Data,
@@ -49,10 +55,10 @@ function WarehouseList() {
       "warehouse_code_desc": warehouse_code_desc_Data,
     })
       .then((res) => { setWarehouses(res.data); console.log(res.data) })
-    .catch((err) => { console.log(err) })
+      .catch((err) => { console.log(err) })
   }
   // 창고전체조회
- 
+
   return (
     <div data-aos="fade-up" className="">
       <div className="max-w-screen-2xl mx-auto my-10">
@@ -220,7 +226,7 @@ function WarehouseList() {
               <button
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                 onClick={() => {
-                  searchCondition();
+                  search();
                 }}
               >
                 조건검색
@@ -228,8 +234,8 @@ function WarehouseList() {
             </div>
           </div>
         </div>
-                {/* table */}
-                <div className="mx-1 mt-2 text-center w-full">
+        {/* table */}
+        <div className="mx-1 mt-2 text-center w-full">
           <div className="overflow-x-auto">
             <table className="min-w-lg text-sm divide-y divide-gray-200">
               <thead className='bg-sky-50'>
@@ -363,7 +369,7 @@ function WarehouseList() {
                   </th>
                   <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
                     <div className="flex items-center">
-                    저장위치전체명
+                      저장위치전체명
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="w-4 h-4 ml-1.5 text-gray-700"
@@ -426,7 +432,7 @@ function WarehouseList() {
           <button
             className="mr-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             onClick={() => {
-              searchCondition();
+              search();
             }}
           >
             수정
@@ -435,7 +441,7 @@ function WarehouseList() {
           <button
             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             onClick={() => {
-              searchCondition();
+              search();
             }}
           >
             삭제
