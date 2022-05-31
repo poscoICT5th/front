@@ -35,7 +35,7 @@ function App() {
               ? <div className="w-72"><Sidebar /></div>
               : null
           }
-          <div className="flex-auto w-5/6 mx-8">
+          <div className="w-9/12 mx-auto">
             {/* Routes */}
             <Routes>
               <Route index element={<Login />} />

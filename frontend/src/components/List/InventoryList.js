@@ -17,11 +17,11 @@ function InventoryList() {
   //
   useEffect(() => {
     // 재고
-    axios.post('/import', {
-      status: "value"
-    })
-      .then((res) => { console.log(res) })
-      .catch((err) => { console.log(err) })
+    // axios.post('/import', {
+    //   status: "value"
+    // })
+      // .then((res) => { console.log(res) })
+      // .catch((err) => { console.log(err) })
   }, [])
 
   return (

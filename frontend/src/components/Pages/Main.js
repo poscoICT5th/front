@@ -7,7 +7,7 @@ function Main() {
   }, []);
   return (
     <section data-aos="fade-up" className="">
-      <div className="w-11/12 mx-auto">
+      <div className="w-full mx-auto">
         <DashboardMain />
       </div>
     </section>

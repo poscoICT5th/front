@@ -41,40 +41,46 @@ function LogisticsImportList() {
   //
   function search(params) {
     // 입고 조건검색
-    axios.get('/logistics/import', {
-      status: status_Data,
-      location: location_Data,
-      product_family: product_family_Data,
-      lot_no: lot_no_Data,
-      item_no: item_no_Data,
-      item_name: item_name_Data,
-      to_warehouse: to_warehouse_Data,
-      unit: unit_Data,
-      min_weight: min_weight_Data,
-      max_weight: max_weight_Data,
-      min_thickness: min_thickness_Data,
-      max_thickness: max_thickness_Data,
-      min_height: min_height_Data,
-      max_height: max_height_Data,
-      min_order_amount: min_order_amount_Data,
-      max_order_amount: max_order_amount_Data,
-      min_im_amount: min_im_amount_Data,
-      max_im_amount: max_im_amount_Data,
-      min_width: min_width_Data,
-      max_width: max_width_Data,
-      order_date: order_date_Data,
-      target: target_Data,
-      inst_reg_date_Date: inst_reg_date_Date_Data,
-      inst_deatline: inst_deatline_Data,
-      done_date: done_date_Data
+    axios.get('/search', {
+      params: {
+        "status": "전체조회",
+        "location": location_Data,
+        "product_family": product_family_Data,
+        "lot_no": lot_no_Data,
+        "item_no": item_no_Data,
+        "item_name": item_name_Data,
+        "to_warehouse": to_warehouse_Data,
+        "unit": unit_Data,
+        "min_weight": 1,
+        "max_weight": 2,
+        "min_thickness": 3,
+        "max_thickness": 4,
+        "min_height": 5,
+        "max_height": 6,
+        "min_order_amount": 7,
+        "max_order_amount": 8,
+        "min_im_amount": 9,
+        "max_im_amount": 10,
+        "min_width": 11,
+        "max_width": 12,
+        "order_date": order_date_Data,
+        "target": target_Data,
+        "inst_reg_date_Date": inst_reg_date_Date_Data,
+        "inst_deatline": inst_deatline_Data,
+        "done_date": done_date_Data
+      }
     })
-      .then((res) => { setLogisticsImportList(res.data) })
+      .then((res) => { setLogisticsImportList(res.data); console.log(res.data) })
       .catch((err) => { console.log(err) })
   }
-  useEffect(() => {
+  // 입고 전체조회
+  function searchAll(params) {
     axios.get('/import')
       .then((res) => { setLogisticsImportList(res.data); console.log(res.data) })
       .catch((err) => { console.log(err) })
+  }
+  useEffect(() => {
+    searchAll()
   }, [])
 
   return (
@@ -394,46 +400,447 @@ function LogisticsImportList() {
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                 onClick={() => { search() }}
               >
-                Search
+                조건조회
+              </button>
+              <button
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                onClick={() => { searchAll() }}
+              >
+                전체조회
               </button>
             </div>
           </div>
         </div>
         {/* table */}
-        <div className="flex flex-col mx-1 mt-2 text-center">
-          <div className="-my-2 overflow-x-auto">
-            <div className="py-2 align-middle inline-block min-w-full">
-              <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+        <div className="mx-1 mt-2 text-center w-full">
+          <div className="overflow-x-auto">
+            <table className="min-w-lg text-sm divide-y divide-gray-200">
+              <thead className='bg-sky-50'>
+                <tr>
+                  <th className="sticky left-0 p-4 text-left rounded-l-lg">
+                    <label className="sr-only" for="row_all">Select All</label>
+                    <input
+                      className="w-5 h-5 border-gray-200 rounded"
+                      type="checkbox"
+                      id="row_all"
+                    />
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      Status
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        status
-                      </th>
-
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {
-                      logisticsImportList.map((warehouse) => {
-                        return <tr>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.location}</div>
-                          </td>
-
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900"><CancelRequest /></div>
-                          </td>
-                        </tr>
-                      })
-                    }
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      amount
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      done_date
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      height
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      im_amount
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      inst_deadline
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      inst_reg_date
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      instruction_no
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      item_name
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      item_no
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      location
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      lot_no
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      order_amount
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      order_date
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      target
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      thickness
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      to_warehouse
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      unit
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      weight
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap rounded-r-lg">
+                    <div className="flex items-center">
+                      width
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              {/* tbody */}
+              <tbody className="divide-y divide-gray-100">
+                {logisticsImportList.map((data) => {
+                  return <tr>
+                    <td className="sticky left-0 p-4 bg-white">
+                      <label className="sr-only" for="row_3"></label>
+                      <input
+                        className="w-5 h-5 border-gray-200 rounded"
+                        type="checkbox"
+                        id="row_3"
+                      />
+                    </td>
+                    <td className="p-4 font-medium whitespace-nowrap">{data.status}</td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.done_date}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.height}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.im_amount}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.inst_deatline}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.inst_reg_date}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.instruction_no}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.item_name}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.item_no}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.location}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.lot_no}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.order_amount}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.order_date}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.product_family}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.target}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.thickness}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.to_warehouse}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.unit}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.weight}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.width}
+                    </td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
