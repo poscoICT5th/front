@@ -2,26 +2,86 @@ import axios from 'axios';
 import Aos from 'aos';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
-
+import Select from 'react-select';
+import { statusExport, location, product_family, item_name, warehouse_code, unit } from './SelectOptions'
 
 
 function LogisticsExportList() {
+  axios.defaults.baseURL = "http://192.168.0.10:8082"
+  // useEffect
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
-  const [warehouses, setwarehouses] = useState([])
-  const [search, setsearch] = useState(false)
-  // 데이터바인딩
-
-  //
   useEffect(() => {
-    // 입고
-    axios.defaults.baseURL = "http://192.168.0.10:8081"
-    axios.get('/warehouse', {})
-      .then((res) => { setwarehouses(res.data) })
-      .catch((err) => { console.log(err) })
-  }, [search])
+    axios.get("/export", {})
+      .then((res) => { setLogisticsExportList(res.data); })
+  }, [])
 
+  // usestate
+  const [logisticsExportList, setLogisticsExportList] = useState([])
+  const [status_Data, setStatus_Data] = useState(null)
+  const [location_Data, setLocation_Data] = useState(null)
+  const [product_family_Data, setproduct_family_Data] = useState(null)
+  const [lot_no_Data, setLot_no_Data] = useState(null) //
+  const [item_no_Data, setItem_no_Data] = useState(null) //
+  const [item_name_Data, setItem_name_Data] = useState(null)
+  const [from_warehouse_Data, setFrom_warehouse_Data] = useState(null)
+  const [unit_Data, setUnit_Data] = useState(null)
+  const [min_weight_Data, setMin_weight_Data] = useState(0)
+  const [max_weight_Data, setMax_weight_Data] = useState(1000000)
+  const [min_thickness_Data, setMin_thickness_Data] = useState(0)
+  const [max_thickness_Data, setMax_thickness_Data] = useState(1000000)
+  const [min_height_Data, setmin_height_Data] = useState(0)
+  const [max_height_Data, setMax_height_Data] = useState(1000000)
+  const [min_order_amount_Data, setMin_order_amount_Data] = useState(0)
+  const [max_order_amount_Data, setMax_order_amount_Data] = useState(1000000)
+  const [min_ex_amount_Data, setMin_ex_amount_Data] = useState(0)
+  const [max_ex_amount_Data, setMax_ex_amount_Data] = useState(1000000)
+  const [min_width_Data, setMin_width_Data] = useState(0)
+  const [max_width_Data, setMax_width_Data] = useState(1000000)
+  const [target_Data, setTarget_Data] = useState(null)
+  const [order_date_Data, setOrder_date_Data] = useState(null)
+  const [inst_reg_date_Date_Data, setInst_reg_date_Date_Data] = useState(null)
+  const [inst_deadline_Data, setInst_deadline_Data] = useState(null)
+  const [done_date_Data, setdone_date_Data] = useState(null)
+
+  // function
+  // 출고 조건검색
+  function search(params) {
+    axios.get('/search', {
+      params: {
+        "status": status_Data,
+        "location": location_Data,
+        "product_family": product_family_Data,
+        "lot_no": lot_no_Data,
+        "item_no": item_no_Data,
+        "item_name": item_name_Data,
+        "from_warehouse": from_warehouse_Data,
+        "unit": unit_Data,
+        // 
+        "min_weight": min_weight_Data,
+        "max_weight": max_weight_Data,
+        "min_thickness": min_thickness_Data,
+        "max_thickness": max_thickness_Data,
+        "min_height": min_height_Data,
+        "max_height": max_height_Data,
+        "min_order_amount": min_order_amount_Data,
+        "max_order_amount": max_order_amount_Data,
+        "min_ex_amount": min_ex_amount_Data,
+        "max_ex_amount": max_ex_amount_Data,
+        "min_width": min_width_Data,
+        "max_width": max_width_Data,
+        // 
+        "target": target_Data,
+        "order_date": order_date_Data,
+        "inst_reg_date_Date": inst_reg_date_Date_Data,
+        "inst_deadline": inst_deadline_Data,
+        "done_date": done_date_Data
+      }
+    })
+      .then((res) => { setLogisticsExportList(res.data); console.log(res.data) })
+      .catch((err) => { console.log(err) })
+  }
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -34,139 +94,102 @@ function LogisticsExportList() {
                 {/* 첫째줄 */}
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    산업군
+                    작업상태
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                    onClick={(e) => { }}
-                  >
-                    <option>전체</option>
-                    <option>구동</option>
-                    <option>전장</option>
-                    <option>기타</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    제품구분
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>완제품</option>
-                    <option>반제품</option>
-                    <option>불량품</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    재고품질
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>합격</option>
-                    <option>불합격</option>
-                  </select>
+                  <Select
+                    defaultValue={[statusExport[0]]}
+                    // isMulti
+                    name="status"
+                    options={statusExport}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    maxMenuHeight={200}
+                    onChange={(e) => { setStatus_Data(e.value); console.log(e.value) }}
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     사업장
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>천안</option>
-                    <option>광양</option>
-                    <option>포항</option>
-                  </select>
+                  <Select
+                    defaultValue={[location[0]]}
+                    // isMulti
+                    name="location"
+                    options={location}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    maxMenuHeight={200}
+                    onChange={(e) => { setLocation_Data(e.value) }}
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     제품군
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>MT</option>
-                    <option>ROTOR ASSY</option>
-                    <option>STRIP</option>
-                  </select>
+                  <Select
+                    defaultValue={[product_family[0]]}
+                    // isMulti
+                    name="product_family"
+                    options={product_family}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    maxMenuHeight={200}
+                    onChange={(e) => { setproduct_family_Data(e.value) }}
+                  />
                 </div>
+                {/* 단위 */}
+                <div className="col-span-1">
+                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                    단위
+                  </label>
+                  <div className="col-span-2">
+                    <Select
+                      defaultValue={[unit[0]]}
+                      // isMulti
+                      name="unit"
+                      options={unit}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      maxMenuHeight={200}
+                      onChange={(e) => { setUnit_Data(e.value) }}
+                    />
+                  </div>
+                </div>
+                {/* 제품명 */}
+                <div className="col-span-2">
+                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                    제품명
+                  </label>
+                  <Select
+                    defaultValue={[item_name[0]]}
+                    // isMulti
+                    name="item_name"
+                    options={item_name}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    maxMenuHeight={200}
+                    onChange={(e) => { setItem_name_Data(e.value) }}
+                  />
+                </div>
+                {/* 창고코드 */}
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     창고코드
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>A1</option>
-                    <option>A2</option>
-                    <option>A3</option>
-                    <option>B1</option>
-                    <option>B2</option>
-                    <option>B3</option>
-                    <option>C1</option>
-                    <option>C2</option>
-                    <option>C3</option>
-                  </select>
+                  <Select
+                    defaultValue={[warehouse_code[0]]}
+                    // isMulti
+                    name="warehouse_code"
+                    options={warehouse_code}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    maxMenuHeight={200}
+                    onChange={(e) => { setFrom_warehouse_Data(e.value) }}
+                  />
                 </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    상태사유
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option>전체</option>
-                    <option>각인대기</option>
-                    <option>각인미완료</option>
-                    <option>각인완료</option>
-                    <option>각인완료 대차없음</option>
-                    <option>대차부족</option>
-                    <option>대차부족으로인한 박스작업완료</option>
-                    <option>대차없음</option>
-                    <option>박스포장</option>
-                    <option>양산개발샘플</option>
-                    <option>외관</option>
-                    <option>원자재불량(포항)</option>
-                    <option>원자재불량(천안)</option>
-                    <option>재고구분</option>
-                    <option>재선별완료</option>
-                    <option>철통부족</option>
-                    <option>철통부족 박스포장</option>
-                    <option>치수불량</option>
-                    <option>포장미완료</option>
-                    <option>포장대기</option>
-                  </select>
-                </div>
-                {/* 둘재줄 */}
+              </div>
+              {/* 둘재줄 */}
+              <div className="grid grid-cols-5 gap-4 text-center mt-5">
                 <div className="col-span-1 grid grid-cols-4 text-center">
                   <div className=''>폭</div>
                   <div>
@@ -176,8 +199,9 @@ function LogisticsExportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMin_width_Data(e.target.value) }}
                     /></div>
-                  <div className='text-xs'>-</div>
+                  <div className='text-xs'>~</div>
                   <div>
                     <input
                       type="text"
@@ -185,6 +209,7 @@ function LogisticsExportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_width_Data(e.target.value) }}
                     />
                   </div>
                 </div>
@@ -197,8 +222,9 @@ function LogisticsExportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMin_thickness_Data(e.target.value) }}
                     /></div>
-                  <div className='text-xs'>-</div>
+                  <div className='text-xs'>~</div>
                   <div>
                     <input
                       type="text"
@@ -206,6 +232,7 @@ function LogisticsExportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_thickness_Data(e.target.value) }}
                     />
                   </div>
                 </div>
@@ -218,6 +245,7 @@ function LogisticsExportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setmin_height_Data(e.target.value) }}
                     /></div>
                   <div className='text-xs'>-</div>
                   <div>
@@ -227,87 +255,132 @@ function LogisticsExportList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_height_Data(e.target.value) }}
                     />
                   </div>
                 </div>
                 {/* 수량 */}
-                <div className="col-span-1">
-                  <div className='grid grid-cols-3'>
-                    <div>수량</div>
-                    <div className='col-span-2'><input
+                <div className="col-span-1 grid grid-cols-4 text-center">
+                  <div className=''>주문량</div>
+                  <div>
+                    <input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMin_order_amount_Data(e.target.value) }}
                     /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_order_amount_Data(e.target.value) }}
+                    />
                   </div>
                 </div>
-                {/*  */}
+                {/* 입고수량 */}
+                <div className="col-span-1 grid grid-cols-4 text-center">
+                  <div className=''>출하수량</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMin_ex_amount_Data(e.target.value) }}
+                    /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_ex_amount_Data(e.target.value) }}
+                    />
+                  </div>
+                </div>
                 {/* 중량 */}
+                <div className="col-span-1 grid grid-cols-4 text-center">
+                  <div className=''>중량</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMin_weight_Data(e.target.value) }}
+                    /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setMax_weight_Data(e.target.value) }}
+                    />
+                  </div>
+                </div>
+                {/*  */}
+                {/* 거래처 */}
                 <div className="col-span-1">
                   <div className='grid grid-cols-3'>
-                    <div>중량</div>
+                    <div>거래처</div>
                     <div className='col-span-2'><input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setTarget_Data(e.target.value) }}
                     /></div>
                   </div>
                 </div>
                 {/*  */}
-
-                {/* 고객사 */}
+                {/* LOT */}
                 <div className="col-span-1">
                   <div className='grid grid-cols-3'>
-                    <div>고객사</div>
+                    <div>LOT</div>
                     <div className='col-span-2'><input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setLot_no_Data(e.target.value) }}
                     /></div>
                   </div>
                 </div>
-                {/*  */}
-                {/* 고객사 */}
+                {/* LOT */}
                 <div className="col-span-1">
                   <div className='grid grid-cols-3'>
-                    <div>제품명</div>
+                    <div>품번</div>
                     <div className='col-span-2'><input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e) => { setItem_no_Data(e.target.value) }}
                     /></div>
                   </div>
                 </div>
-                {/* 셋째줄 */}
-                {/* 단위 */}
+              </div>
+              {/* 둘재줄 */}
+              <div className="grid grid-cols-4 gap-4 text-center mt-5">
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    단위
-                  </label>
-                  <div className="col-span-2">
-                    <select
-                      id="dropdown"
-                      name="dropdown"
-                      autoComplete="dropdown-name"
-                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                    >
-                      <option>전체</option>
-                      <option>EA</option>
-                      <option>KG</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    재고생성일
+                    주문일자
                   </label>
                   <div className="">
                     달력
@@ -315,7 +388,23 @@ function LogisticsExportList() {
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    창고입고일
+                    지시등록일
+                  </label>
+                  <div className="">
+                    달력
+                  </div>
+                </div>
+                <div className="col-span-1">
+                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                    지시마감기한
+                  </label>
+                  <div className="">
+                    달력
+                  </div>
+                </div>
+                <div className="col-span-1">
+                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                    작업완료일
                   </label>
                   <div className="">
                     달력
@@ -326,7 +415,7 @@ function LogisticsExportList() {
             <div className="px-4 py-3 text-right">
               <button
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                onClick={() => { setsearch(!search) }}
+                onClick={() => { search() }}
               >
                 Search
               </button>
@@ -334,166 +423,396 @@ function LogisticsExportList() {
           </div>
         </div>
         {/* table */}
-        <div className="flex flex-col mx-1 mt-2 text-center">
-          <div className="-my-2 overflow-x-auto">
-            <div className="py-2 align-middle inline-block min-w-full">
-              <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+        <div className="mx-1 mt-2 text-center w-full">
+          <div className="overflow-x-auto">
+            <table className="min-w-lg text-sm divide-y divide-gray-200">
+              <thead className='bg-sky-50'>
+                <tr>
+                  <th className="sticky left-0 p-4 text-left rounded-l-lg">
+                    <label className="sr-only" for="row_all"></label>
+                    <input
+                      className="w-5 h-5 border-gray-200 rounded hidden"
+                      type="checkbox"
+                      id="row_all"
+                    />
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      status
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        status
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      location
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        location
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      instruction_no
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        instruction_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      order_no
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        order_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      target
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        target
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      lot_no
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        lot_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      item_no
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        item_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      item_name
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        item_name
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      width
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        width
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      thickness
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        thickness
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      height
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        height
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      order_amount
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        order_amount
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      ex_amount
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        ex_amount
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      ex_remain
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        ex_remain
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      order_date
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        order_date
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      inst_reg_date
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        inst_reg_date
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      inst_deadline
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        inst_deadline
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      done_date
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        done_date
-                      </th>
-
-
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {
-                      warehouses.map((warehouse) => {
-                        return <tr>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.location}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.warehouse_code}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.purpose}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.warehouse_code_desc}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.use}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.maximum_weight}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.maxinum_count}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.inventory_using}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.remarks}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900"><CancelRequest /></div>
-                          </td>
-                        </tr>
-                      })
-                    }
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              {/* tbody */}
+              <tbody className="divide-y divide-gray-100">
+                {logisticsExportList.map((data) => {
+                  return <tr>
+                    <td className="sticky left-0 p-4 bg-white">
+                      <label className="sr-only" for="row_3"></label>
+                      <input
+                        className="w-5 h-5 border-gray-200 rounded"
+                        type="checkbox"
+                        id="row_3"
+                        onClick={() => { }}
+                      />
+                    </td>
+                    <td className="p-4 font-medium whitespace-nowrap">{data.status}</td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.location}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.instruction_no}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.order_no}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.target}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.lot_no}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.item_no}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.item_name}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.width}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.thickness}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.height}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.order_amount}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.ex_amount}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.ex_remain}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.order_date}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.inst_reg_date}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.inst_deadline}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.done_date}
+                    </td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

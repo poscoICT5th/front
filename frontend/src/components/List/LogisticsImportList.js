@@ -1,9 +1,8 @@
 import Aos from 'aos';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import CancelRequest from '../Functions/CancelRequest';
 import Select from 'react-select';
-import { status, location, product_family, item_name, warehouse_code, unit } from './SelectOptions'
+import { statusImport, location, product_family, item_name, warehouse_code, unit } from './SelectOptions'
 
 function LogisticsImportList() {
   axios.defaults.baseURL = "http://192.168.0.10:8081"
@@ -91,17 +90,17 @@ function LogisticsImportList() {
         <div className="mt-5 md:mt-0 md:col-span-2">
           <div className="overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6 bg-gray-100 rounded-lg">
-              <div className="grid grid-cols-6 gap-4 text-center">
+              <div className="grid grid-cols-4 gap-4 text-center">
                 {/* 첫째줄 */}
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
                     작업상태
                   </label>
                   <Select
-                    defaultValue={[status[0]]}
+                    defaultValue={[statusImport[0]]}
                     // isMulti
                     name="status"
-                    options={status}
+                    options={statusImport}
                     className="basic-multi-select"
                     classNamePrefix="select"
                     maxMenuHeight={200}
@@ -138,36 +137,6 @@ function LogisticsImportList() {
                     onChange={(e) => { setproduct_family_Data(e.value) }}
                   />
                 </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    제품명
-                  </label>
-                  <Select
-                    defaultValue={[item_name[0]]}
-                    // isMulti
-                    name="item_name"
-                    options={item_name}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    maxMenuHeight={200}
-                    onChange={(e) => { setItem_name_Data(e.value) }}
-                  />
-                </div>
-                <div className="col-span-1">
-                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    창고코드
-                  </label>
-                  <Select
-                    defaultValue={[warehouse_code[0]]}
-                    // isMulti
-                    name="warehouse_code"
-                    options={warehouse_code}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    maxMenuHeight={200}
-                    onChange={(e) => { setTo_warehouse_Data(e.value) }}
-                  />
-                </div>
                 {/* 단위 */}
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
@@ -185,6 +154,38 @@ function LogisticsImportList() {
                       onChange={(e) => { setUnit_Data(e.value) }}
                     />
                   </div>
+                </div>
+                {/* 제품명 */}
+                <div className="col-span-2">
+                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                    제품명
+                  </label>
+                  <Select
+                    defaultValue={[item_name[0]]}
+                    // isMulti
+                    name="item_name"
+                    options={item_name}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    maxMenuHeight={200}
+                    onChange={(e) => { setItem_name_Data(e.value) }}
+                  />
+                </div>
+                {/* 창고코드 */}
+                <div className="col-span-1">
+                  <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                    창고코드
+                  </label>
+                  <Select
+                    defaultValue={[warehouse_code[0]]}
+                    // isMulti
+                    name="warehouse_code"
+                    options={warehouse_code}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    maxMenuHeight={200}
+                    onChange={(e) => { setTo_warehouse_Data(e.value) }}
+                  />
                 </div>
               </div>
               {/* 둘재줄 */}
@@ -424,7 +425,7 @@ function LogisticsImportList() {
               <thead className='bg-sky-50'>
                 <tr>
                   <th className="sticky left-0 p-4 text-left rounded-l-lg">
-                    <label className="sr-only" for="row_all">Select All</label>
+                    <label className="sr-only" for="row_all"></label>
                     <input
                       className="w-5 h-5 border-gray-200 rounded"
                       type="checkbox"
@@ -783,9 +784,13 @@ function LogisticsImportList() {
                         className="w-5 h-5 border-gray-200 rounded"
                         type="checkbox"
                         id="row_3"
+                        onClick={() => { }}
                       />
                     </td>
                     <td className="p-4 font-medium whitespace-nowrap">{data.status}</td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.amount}
+                    </td>
                     <td className="p-4 text-gray-700 whitespace-nowrap">
                       {data.done_date}
                     </td>
@@ -796,7 +801,7 @@ function LogisticsImportList() {
                       {data.im_amount}
                     </td>
                     <td className="p-4 text-gray-700 whitespace-nowrap">
-                      {data.inst_deatline}
+                      {data.inst_deadline}
                     </td>
                     <td className="p-4 text-gray-700 whitespace-nowrap">
                       {data.inst_reg_date}
@@ -821,9 +826,6 @@ function LogisticsImportList() {
                     </td>
                     <td className="p-4 text-gray-700 whitespace-nowrap">
                       {data.order_date}
-                    </td>
-                    <td className="p-4 text-gray-700 whitespace-nowrap">
-                      {data.product_family}
                     </td>
                     <td className="p-4 text-gray-700 whitespace-nowrap">
                       {data.target}
