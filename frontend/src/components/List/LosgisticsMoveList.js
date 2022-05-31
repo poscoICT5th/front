@@ -1,18 +1,20 @@
 import axios from "axios";
 import Aos from "aos";
 import React, { useEffect, useState } from "react";
-import CancelRequest from "../Functions/CancelRequest";
 import Select from "react-select";
-import { statusImport, location, item_name } from "./SelectOptions";
-//폭, 두께 , 높이, 이동수량
-//from창고, to창고, 이동지시번호
-//
-
+import { statusImport, item_name, warehouse_code } from "./SelectOptions";
 
 function LosgisticsMoveList() {
+  axios.defaults.baseURL = "http://192.168.0.20:8081"
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
+  useEffect(() => {
+    axios.get('/')
+      .then((res) => { console.log(res.data) })
+      .catch((err) => { alert(err) })
+  }, [])
+
   const [logisticsMoveList, setLogisticsMoveList] = useState([])
 
   //변수
@@ -31,35 +33,42 @@ function LosgisticsMoveList() {
   const [Amount_Data, setAmount_Data] = useState(0);
   const [From_warehouse_Data, setFrom_warehouse_Data] = useState("전체조회");
   const [To_warehouse_Data, setTo_warehouse_Data] = useState("전체조회");
-  useEffect(() => {
-    // 입고
-    axios.defaults.baseURL = "http://192.168.0.10:8081";
-    axios
-      .get("/warehouse", {
-        status: status_Data,
-        location: location_Data,
-        //  Instruction: Instruction_Data,
-        // Lot_no: Lot_no_Data,
-        //Item_no: Item_no_Data,
-        //Item_name: Item_name_Data,
-        Min_width: Min_width_Data,
-        Max_width: Max_width_Data,
-        Min_thickness: Min_thickness_Data,
-        Max_thickness: Max_thickness_Data,
-        Min_height: Min_height_Data,
-        Max_height: Max_height_Data,
-        Amount: Amount_Data,
-        From_warehouse: From_warehouse_Data,
-        To_warehouse: To_warehouse_Data,
-      })
-      .then((res) => {
-        setLogisticsMoveList(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const [first, setFirst] = useState({
+    status_Data: "10", location_Data: "20", C: "30"
+  })
 
+  function checkfirst() {
+    console.log(first)
+  }
+  // useEffect(() => {
+  //   // 입고
+  //   axios.defaults.baseURL = "http://192.168.0.10:8081";
+  //   axios
+  //     .get("/warehouse", {
+  //       status: status_Data,
+  //       location: location_Data,
+  //       //  Instruction: Instruction_Data,
+  //       // Lot_no: Lot_no_Data,
+  //       //Item_no: Item_no_Data,
+  //       //Item_name: Item_name_Data,
+  //       Min_width: Min_width_Data,
+  //       Max_width: Max_width_Data,
+  //       Min_thickness: Min_thickness_Data,
+  //       Max_thickness: Max_thickness_Data,
+  //       Min_height: Min_height_Data,
+  //       Max_height: Max_height_Data,
+  //       Amount: Amount_Data,
+  //       From_warehouse: From_warehouse_Data,
+  //       To_warehouse: To_warehouse_Data,
+  //     })
+  //     .then((res) => {
+  //       setLogisticsMoveList(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+  console.log(first)
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -70,6 +79,44 @@ function LosgisticsMoveList() {
             <div className="px-4 py-5 bg-white sm:p-6 bg-gray-100 rounded-lg">
               {/* 첫째줄 */}
               <div className="grid grid-cols-4 gap-4 text-center">
+                <div className="col-span-2">
+                  <label
+                    htmlFor="dropdown"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    From 창고
+                  </label>
+                  <Select
+                    defaultValue={[warehouse_code[0]]}
+                    // isMulti
+                    name="colors"
+                    options={warehouse_code}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={(e) => {
+                      setLocation_Data(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="col-span-2">
+                  <label
+                    htmlFor="dropdown"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    To 창고
+                  </label>
+                  <Select
+                    defaultValue={[warehouse_code[0]]}
+                    // isMulti
+                    name="colors"
+                    options={warehouse_code}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={(e) => {
+                      setLocation_Data(e.target.value);
+                    }}
+                  />
+                </div>
                 <div className="col-span-1">
                   <label
                     htmlFor="dropdown"
@@ -90,28 +137,7 @@ function LosgisticsMoveList() {
                   />
                 </div>
 
-                <div className="col-span-1">
-                  <label
-                    htmlFor="dropdown"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    사업장
-                  </label>
-                  <Select
-                    defaultValue={[location[0]]}
-                    // isMulti
-                    name="colors"
-                    options={location}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    onChange={(e) => {
-                      setLocation_Data(e.target.value);
-                    }}
-                  />
-                </div>
-
-
-                <div className="col-span-2">
+                <div className="col-span-3">
                   <label
                     htmlFor="dropdown"
                     className="block text-sm font-medium text-gray-700"
@@ -131,11 +157,9 @@ function LosgisticsMoveList() {
                   />
                 </div>
               </div>
-
-
               {/* 둘재줄 */}
-              <div className="col-span-1 grid grid-cols-4 text-center">
-                <div className="col-span-1">
+              <div className="grid grid-cols-4 text-center">
+                <div className="col-span-1 grid grid-cols-4 text-center mt-3">
                   <div className=''>폭</div>
                   <div>
                     <input
@@ -157,151 +181,107 @@ function LosgisticsMoveList() {
                   </div>
                 </div>
 
-              </div>
-              <div className="col-span-1 grid grid-cols-4 text-center">
-                <div className=''>두께</div>
-                <div>
-                  <input
-                    type="text"
-                    name="text"
-                    id="text"
-                    autoComplete="address-level2"
-                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  /></div>
-                <div className='text-xs'>-</div>
-                <div>
-                  <input
-                    type="text"
-                    name="text"
-                    id="text"
-                    autoComplete="address-level2"
-                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  />
-                </div>
-              </div>
-              <div className="col-span-1 grid grid-cols-4 text-center">
-                <div className=''>높이</div>
-                <div>
-                  <input
-                    type="text"
-                    name="text"
-                    id="text"
-                    autoComplete="address-level2"
-                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  /></div>
-                <div className='text-xs'>-</div>
-                <div>
-                  <input
-                    type="text"
-                    name="text"
-                    id="text"
-                    autoComplete="address-level2"
-                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  />
-                </div>
-              </div>
-              {/* 수량 */}
-              <div className="col-span-1">
-                <div className='grid grid-cols-3'>
-                  <div>수량</div>
-                  <div className='col-span-2'><input
-                    type="text"
-                    name="text"
-                    id="text"
-                    autoComplete="address-level2"
-                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  /></div>
-                </div>
-              </div>
-              {/*  */}
-              {/* 중량 */}
-              <div className="col-span-1">
-                <div className='grid grid-cols-3'>
-                  <div>중량</div>
-                  <div className='col-span-2'><input
-                    type="text"
-                    name="text"
-                    id="text"
-                    autoComplete="address-level2"
-                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  /></div>
-                </div>
-              </div>
-              {/*  */}
-
-              {/* 고객사 */}
-              <div className="col-span-1">
-                <div className='grid grid-cols-3'>
-                  <div>고객사</div>
-                  <div className='col-span-2'><input
-                    type="text"
-                    name="text"
-                    id="text"
-                    autoComplete="address-level2"
-                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  /></div>
-                </div>
-              </div>
-              {/*  */}
-              {/* 고객사 */}
-              <div className="col-span-1">
-                <div className='grid grid-cols-3'>
-                  <div>제품명</div>
-                  <div className='col-span-2'><input
-                    type="text"
-                    name="text"
-                    id="text"
-                    autoComplete="address-level2"
-                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  /></div>
-                </div>
-              </div>
-
-              {/* 셋째줄 */}
-
-              <div className="col-span-1">
-                <div className="grid grid-cols-3">
-                  <div>from창고</div>
-                  <div className="col-span-2">
+                <div className="col-span-1 grid grid-cols-4 text-center mt-3">
+                  <div className=''>두께</div>
+                  <div>
                     <input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      onChange={(e) => {
-                        setFrom_warehouse_Data(e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-              {/*  */}
-
-              {/* to창고 */}
-              <div className="col-span-1">
-                <div className="grid grid-cols-3">
-                  <div>to창고</div>
-                  <div className="col-span-2">
+                    /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
                     <input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      onChange={(e) => {
-                        setTo_warehouse_Data(e.target.value);
-                      }}
                     />
                   </div>
                 </div>
+                <div className="col-span-1 grid grid-cols-4 text-center mt-3">
+                  <div className=''>높이</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
+                  </div>
+                </div>
+                {/* 수량 */}
+                <div className="col-span-1 grid grid-cols-4 text-center mt-3">
+                  <div className=''>수량</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
+                  </div>
+                </div>
+                {/* 중량 */}
+                <div className="col-span-1 grid grid-cols-4 text-center mt-3">
+                  <div className=''>중량</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
+                  </div>
+                </div>
+                {/* 고객사 */}
+                <div className="col-span-1 text-center mt-3">
+                  <div className='grid grid-cols-3'>
+                    <div>고객사</div>
+                    <div className='col-span-2'><input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    /></div>
+                  </div>
+                </div>
+                {/* 제품명 */}
               </div>
-
-              {/* 셋째줄 */}
-
-
-
-
             </div>
             <div className="px-4 py-3 text-right">
               <button
@@ -749,6 +729,8 @@ function LosgisticsMoveList() {
           </div>
         </div>
       </div>
+      <button onClick={() => { checkfirst() }}>ts123123t</button>
+      <button onClick={() => { setFirst({ first: { ...first, B: "99" } }) }}>tst</button>
     </div>
   );
 }
