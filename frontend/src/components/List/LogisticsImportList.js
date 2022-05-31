@@ -13,14 +13,14 @@ function LogisticsImportList() {
   const [logisticsImportList, setLogisticsImportList] = useState([])
   const [searchClick, setSearchClick] = useState(false)
   // 데이터바인딩
-  const [status_Data, setStatus_Data] = useState("전체조회")
-  const [location_Data, setLocation_Data] = useState("전체조회")
-  const [product_family_Data, setproduct_family_Data] = useState("전체조회")
-  const [lot_no_Data, setLot_no_Data] = useState("전체조회") //
-  const [item_no_Data, setItem_no_Data] = useState("전체조회") //
-  const [item_name_Data, setItem_name_Data] = useState("전체조회")
-  const [to_warehouse_Data, setTo_warehouse_Data] = useState("전체조회")
-  const [unit_Data, setUnit_Data] = useState("전체조회")
+  const [status_Data, setStatus_Data] = useState(null)
+  const [location_Data, setLocation_Data] = useState(null)
+  const [product_family_Data, setproduct_family_Data] = useState(null)
+  const [lot_no_Data, setLot_no_Data] = useState(null) //
+  const [item_no_Data, setItem_no_Data] = useState(null) //
+  const [item_name_Data, setItem_name_Data] = useState(null)
+  const [to_warehouse_Data, setTo_warehouse_Data] = useState(null)
+  const [unit_Data, setUnit_Data] = useState(null)
   const [min_weight_Data, setMin_weight_Data] = useState(0)
   const [max_weight_Data, setMax_weight_Data] = useState(1000000)
   const [min_thickness_Data, setMin_thickness_Data] = useState(0)
@@ -33,17 +33,17 @@ function LogisticsImportList() {
   const [max_im_amount_Data, setMax_im_amount_Data] = useState(1000000)
   const [min_width_Data, setMin_width_Data] = useState(0)
   const [max_width_Data, setMax_width_Data] = useState(1000000)
-  const [target_Data, setTarget_Data] = useState("전체조회")
-  const [order_date_Data, setOrder_date_Data] = useState("전체조회")
-  const [inst_reg_date_Date_Data, setInst_reg_date_Date_Data] = useState("전체조회")
-  const [inst_deatline_Data, setInst_deatline_Data] = useState("전체조회")
-  const [done_date_Data, setdone_date_Data] = useState("전체조회")
+  const [target_Data, setTarget_Data] = useState(null)
+  const [order_date_Data, setOrder_date_Data] = useState(null)
+  const [inst_reg_date_Date_Data, setInst_reg_date_Date_Data] = useState(null)
+  const [inst_deatline_Data, setInst_deatline_Data] = useState(null)
+  const [done_date_Data, setdone_date_Data] = useState(null)
   //
   function search(params) {
     // 입고 조건검색
     axios.get('/search', {
       params: {
-        "status": "전체조회",
+        "status": status_Data,
         "location": location_Data,
         "product_family": product_family_Data,
         "lot_no": lot_no_Data,
@@ -51,18 +51,18 @@ function LogisticsImportList() {
         "item_name": item_name_Data,
         "to_warehouse": to_warehouse_Data,
         "unit": unit_Data,
-        "min_weight": 1,
-        "max_weight": 2,
-        "min_thickness": 3,
-        "max_thickness": 4,
-        "min_height": 5,
-        "max_height": 6,
-        "min_order_amount": 7,
-        "max_order_amount": 8,
-        "min_im_amount": 9,
-        "max_im_amount": 10,
-        "min_width": 11,
-        "max_width": 12,
+        "min_weight": min_weight_Data,
+        "max_weight": max_weight_Data,
+        "min_thickness": min_thickness_Data,
+        "max_thickness": max_thickness_Data,
+        "min_height": min_height_Data,
+        "max_height": max_height_Data,
+        "min_order_amount": min_order_amount_Data,
+        "max_order_amount": max_order_amount_Data,
+        "min_im_amount": min_im_amount_Data,
+        "max_im_amount": max_im_amount_Data,
+        "min_width": min_width_Data,
+        "max_width": max_width_Data,
         "order_date": order_date_Data,
         "target": target_Data,
         "inst_reg_date_Date": inst_reg_date_Date_Data,
@@ -396,6 +396,12 @@ function LogisticsImportList() {
               </div>
             </div>
             <div className="px-4 py-3 text-right">
+              <button
+                className="mr-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                onClick={() => { search() }}
+              >
+                삭제
+              </button>
               <button
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                 onClick={() => { search() }}

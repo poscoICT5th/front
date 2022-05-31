@@ -122,22 +122,6 @@ function CreateLogisticsImport(props) {
                                         onChange={(e) => { setproduct_family_Data(e.value) }}
                                       />
                                     </div>
-                                    {/* 제품명 */}
-                                    <div className="col-span-1">
-                                      <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                                        제품명
-                                      </label>
-                                      <Select
-                                        defaultValue={[]}
-                                        // isMulti
-                                        name="item_name"
-                                        options={item_name}
-                                        className="basic-multi-select"
-                                        classNamePrefix="select"
-                                        maxMenuHeight={200}
-                                        onChange={(e) => { setItem_name_Data(e.value) }}
-                                      />
-                                    </div>
                                     {/* 창고코드 */}
                                     <div className="col-span-1">
                                       <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
@@ -171,6 +155,22 @@ function CreateLogisticsImport(props) {
                                           onChange={(e) => { setUnit_Data(e.value) }}
                                         />
                                       </div>
+                                    </div>
+                                    {/* 제품명 */}
+                                    <div className="col-span-2">
+                                      <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+                                        제품명
+                                      </label>
+                                      <Select
+                                        defaultValue={[]}
+                                        // isMulti
+                                        name="item_name"
+                                        options={item_name}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        maxMenuHeight={200}
+                                        onChange={(e) => { setItem_name_Data(e.value) }}
+                                      />
                                     </div>
                                   </div>
                                   {/* 둘재줄 */}
