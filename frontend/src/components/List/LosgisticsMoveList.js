@@ -1,20 +1,21 @@
 import axios from "axios";
 import Aos from "aos";
 import React, { useEffect, useState } from "react";
-import CancelRequest from "../Functions/CancelRequest";
 import Select from "react-select";
-import { status, location, item_name } from "./SelectOptions";
-//폭, 두께 , 높이, 이동수량
-//from창고, to창고, 이동지시번호
-//
-
+import { statusImport, item_name, warehouse_code } from "./SelectOptions";
 
 function LosgisticsMoveList() {
+  axios.defaults.baseURL = "http://192.168.0.20:8081"
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
-  const [warehouses, setwarehouses] = useState([]);
-  const [search, setsearch] = useState(false);
+  useEffect(() => {
+    axios.get('/')
+      .then((res) => { console.log(res.data) })
+      .catch((err) => { alert(err) })
+  }, [])
+
+  const [logisticsMoveList, setLogisticsMoveList] = useState([])
 
   //변수
   const [status_Data, setStatus_Data] = useState("전체조회");
@@ -32,35 +33,42 @@ function LosgisticsMoveList() {
   const [Amount_Data, setAmount_Data] = useState(0);
   const [From_warehouse_Data, setFrom_warehouse_Data] = useState("전체조회");
   const [To_warehouse_Data, setTo_warehouse_Data] = useState("전체조회");
-  useEffect(() => {
-    // 입고
-    axios.defaults.baseURL = "http://192.168.0.10:8081";
-    axios
-      .get("/warehouse", {
-        status: status_Data,
-        location: location_Data,
-      //  Instruction: Instruction_Data,
-       // Lot_no: Lot_no_Data,
-        //Item_no: Item_no_Data,
-        //Item_name: Item_name_Data,
-        Min_width: Min_width_Data,
-        Max_width: Max_width_Data,
-        Min_thickness: Min_thickness_Data,
-        Max_thickness: Max_thickness_Data,
-        Min_height: Min_height_Data,
-        Max_height: Max_height_Data,
-        Amount: Amount_Data,
-        From_warehouse: From_warehouse_Data,
-        To_warehouse: To_warehouse_Data,
-      })
-      .then((res) => {
-        setwarehouses(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [search]);
+  const [first, setFirst] = useState({
+    status_Data: "10", location_Data: "20", C: "30"
+  })
 
+  function checkfirst() {
+    console.log(first)
+  }
+  // useEffect(() => {
+  //   // 입고
+  //   axios.defaults.baseURL = "http://192.168.0.10:8081";
+  //   axios
+  //     .get("/warehouse", {
+  //       status: status_Data,
+  //       location: location_Data,
+  //       //  Instruction: Instruction_Data,
+  //       // Lot_no: Lot_no_Data,
+  //       //Item_no: Item_no_Data,
+  //       //Item_name: Item_name_Data,
+  //       Min_width: Min_width_Data,
+  //       Max_width: Max_width_Data,
+  //       Min_thickness: Min_thickness_Data,
+  //       Max_thickness: Max_thickness_Data,
+  //       Min_height: Min_height_Data,
+  //       Max_height: Max_height_Data,
+  //       Amount: Amount_Data,
+  //       From_warehouse: From_warehouse_Data,
+  //       To_warehouse: To_warehouse_Data,
+  //     })
+  //     .then((res) => {
+  //       setLogisticsMoveList(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+  console.log(first)
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -69,9 +77,46 @@ function LosgisticsMoveList() {
         <div className="mt-5 md:mt-0 md:col-span-2">
           <div className="overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6 bg-gray-100 rounded-lg">
-     {/* 첫째줄 */}
+              {/* 첫째줄 */}
               <div className="grid grid-cols-4 gap-4 text-center">
-           
+                <div className="col-span-2">
+                  <label
+                    htmlFor="dropdown"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    From 창고
+                  </label>
+                  <Select
+                    defaultValue={[warehouse_code[0]]}
+                    // isMulti
+                    name="colors"
+                    options={warehouse_code}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={(e) => {
+                      setLocation_Data(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="col-span-2">
+                  <label
+                    htmlFor="dropdown"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    To 창고
+                  </label>
+                  <Select
+                    defaultValue={[warehouse_code[0]]}
+                    // isMulti
+                    name="colors"
+                    options={warehouse_code}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={(e) => {
+                      setLocation_Data(e.target.value);
+                    }}
+                  />
+                </div>
                 <div className="col-span-1">
                   <label
                     htmlFor="dropdown"
@@ -80,10 +125,10 @@ function LosgisticsMoveList() {
                     작업상태
                   </label>
                   <Select
-                    defaultValue={[status[0]]}
+                    defaultValue={[statusImport[0]]}
                     // isMulti
                     name="colors"
-                    options={status}
+                    options={statusImport}
                     className="basic-multi-select"
                     classNamePrefix="select"
                     onChange={(e) => {
@@ -92,28 +137,7 @@ function LosgisticsMoveList() {
                   />
                 </div>
 
-                <div className="col-span-1">
-                  <label
-                    htmlFor="dropdown"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    사업장
-                  </label>
-                  <Select
-                    defaultValue={[location[0]]}
-                    // isMulti
-                    name="colors"
-                    options={location}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    onChange={(e) => {
-                      setLocation_Data(e.target.value);
-                    }}
-                  />
-                </div>
-
-       
-                <div className="col-span-2">
+                <div className="col-span-3">
                   <label
                     htmlFor="dropdown"
                     className="block text-sm font-medium text-gray-700"
@@ -133,12 +157,10 @@ function LosgisticsMoveList() {
                   />
                 </div>
               </div>
-
-
-                {/* 둘재줄 */}
-                <div className="col-span-1 grid grid-cols-4 text-center">
-                  <div className="col-span-1">
-                <div className=''>폭</div>
+              {/* 둘재줄 */}
+              <div className="grid grid-cols-4 text-center">
+                <div className="col-span-1 grid grid-cols-4 text-center mt-3">
+                  <div className=''>폭</div>
                   <div>
                     <input
                       type="text"
@@ -156,11 +178,10 @@ function LosgisticsMoveList() {
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
-                </div>
+                  </div>
                 </div>
 
-                </div>
-                <div className="col-span-1 grid grid-cols-4 text-center">
+                <div className="col-span-1 grid grid-cols-4 text-center mt-3">
                   <div className=''>두께</div>
                   <div>
                     <input
@@ -181,7 +202,7 @@ function LosgisticsMoveList() {
                     />
                   </div>
                 </div>
-                <div className="col-span-1 grid grid-cols-4 text-center">
+                <div className="col-span-1 grid grid-cols-4 text-center mt-3">
                   <div className=''>높이</div>
                   <div>
                     <input
@@ -203,36 +224,51 @@ function LosgisticsMoveList() {
                   </div>
                 </div>
                 {/* 수량 */}
-                <div className="col-span-1">
-                  <div className='grid grid-cols-3'>
-                    <div>수량</div>
-                    <div className='col-span-2'><input
+                <div className="col-span-1 grid grid-cols-4 text-center mt-3">
+                  <div className=''>수량</div>
+                  <div>
+                    <input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
                   </div>
                 </div>
-                {/*  */}
                 {/* 중량 */}
-                <div className="col-span-1">
-                  <div className='grid grid-cols-3'>
-                    <div>중량</div>
-                    <div className='col-span-2'><input
+                <div className="col-span-1 grid grid-cols-4 text-center mt-3">
+                  <div className=''>중량</div>
+                  <div>
+                    <input
                       type="text"
                       name="text"
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
                   </div>
                 </div>
-                {/*  */}
-
                 {/* 고객사 */}
-                <div className="col-span-1">
+                <div className="col-span-1 text-center mt-3">
                   <div className='grid grid-cols-3'>
                     <div>고객사</div>
                     <div className='col-span-2'><input
@@ -244,72 +280,14 @@ function LosgisticsMoveList() {
                     /></div>
                   </div>
                 </div>
-                {/*  */}
-                {/* 고객사 */}
-                <div className="col-span-1">
-                  <div className='grid grid-cols-3'>
-                    <div>제품명</div>
-                    <div className='col-span-2'><input
-                      type="text"
-                      name="text"
-                      id="text"
-                      autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    /></div>
-                  </div>
-                </div>
-                
-                {/* 셋째줄 */}
-
-                <div className="col-span-1">
-                  <div className="grid grid-cols-3">
-                    <div>from창고</div>
-                    <div className="col-span-2">
-                      <input
-                        type="text"
-                        name="text"
-                        id="text"
-                        autoComplete="address-level2"
-                        className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                        onChange={(e) => {
-                          setFrom_warehouse_Data(e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                {/*  */}
-
-                {/* to창고 */}
-                <div className="col-span-1">
-                  <div className="grid grid-cols-3">
-                    <div>to창고</div>
-                    <div className="col-span-2">
-                      <input
-                        type="text"
-                        name="text"
-                        id="text"
-                        autoComplete="address-level2"
-                        className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                        onChange={(e) => {
-                          setTo_warehouse_Data(e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* 셋째줄 */}
-       
-           
-
-             
+                {/* 제품명 */}
+              </div>
             </div>
             <div className="px-4 py-3 text-right">
               <button
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                 onClick={() => {
-                  setsearch(!search);
+
                 }}
               >
                 Search
@@ -318,169 +296,441 @@ function LosgisticsMoveList() {
           </div>
         </div>
         {/* table */}
-        <div className="flex flex-col mx-1 mt-2 text-center">
-          <div className="-my-2 overflow-x-auto">
-            <div className="py-2 align-middle inline-block min-w-full">
-              <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+        <div className="mx-1 mt-2 text-center w-full">
+          <div className="overflow-x-auto">
+            <table className="min-w-lg text-sm divide-y divide-gray-200">
+              <thead className='bg-sky-50'>
+                <tr>
+                  <th className="sticky left-0 p-4 text-left rounded-l-lg">
+                    <label className="sr-only" for="row_all"></label>
+                    <input
+                      className="w-5 h-5 border-gray-200 rounded"
+                      type="checkbox"
+                      id="row_all"
+                    />
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      Status
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        status
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      amount
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        location
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      done_date
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        instruction_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      height
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        lot_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      im_amount
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        item_no
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      inst_deadline
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        item_name
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      inst_reg_date
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        width
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      instruction_no
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        thickness
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      item_name
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        height
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      item_no
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        move_amount
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      location
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        from_warehouse
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      lot_no
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        to_warehouse
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      order_amount
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        inst_reg_date
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      order_date
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        inst_deadline
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      target
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        done_date
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {warehouses.map((warehouse) => {
-                      return (
-                        <tr>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {warehouse.location}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {warehouse.warehouse_code}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {warehouse.purpose}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {warehouse.warehouse_code_desc}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {warehouse.use}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {warehouse.maximum_weight}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {warehouse.maxinum_count}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {warehouse.inventory_using}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {warehouse.remarks}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              <CancelRequest />
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      thickness
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      to_warehouse
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      unit
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      weight
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap rounded-r-lg">
+                    <div className="flex items-center">
+                      width
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              {/* tbody */}
+              <tbody className="divide-y divide-gray-100">
+                {logisticsMoveList.map((data) => {
+                  return <tr>
+                    <td className="sticky left-0 p-4 bg-white">
+                      <label className="sr-only" for="row_3"></label>
+                      <input
+                        className="w-5 h-5 border-gray-200 rounded"
+                        type="checkbox"
+                        id="row_3"
+                        onClick={() => { }}
+                      />
+                    </td>
+                    <td className="p-4 font-medium whitespace-nowrap">{data.status}</td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.amount}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.done_date}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.height}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.im_amount}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.inst_deadline}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.inst_reg_date}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.instruction_no}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.item_name}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.item_no}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.location}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.lot_no}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.order_amount}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.order_date}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.target}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.thickness}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.to_warehouse}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.unit}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.weight}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.width}
+                    </td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+      <button onClick={() => { checkfirst() }}>ts123123t</button>
+      <button onClick={() => { setFirst({ first: { ...first, B: "99" } }) }}>tst</button>
     </div>
   );
 }
