@@ -4,6 +4,10 @@ import React, { useEffect, useState } from "react";
 import CancelRequest from "../Functions/CancelRequest";
 import Select from "react-select";
 import { status, location, item_name } from "./SelectOptions";
+//폭, 두께 , 높이, 이동수량
+//from창고, to창고, 이동지시번호
+//
+
 
 function LosgisticsMoveList() {
   useEffect(() => {
@@ -15,10 +19,10 @@ function LosgisticsMoveList() {
   //변수
   const [status_Data, setStatus_Data] = useState("전체조회");
   const [location_Data, setLocation_Data] = useState("전체조회");
-  const [Instruction_Data, setInstruction_Data] = useState("전체조회");
-  const [Lot_no_Data, setLot_no_Data] = useState("전체조회");
-  const [Item_no_Data, setItem_no_Data] = useState("전체조회");
-  const [Item_name_Data, setItem_name_Data] = useState("전체조회");
+  const [instruction_Data, setInstruction_Data] = useState("전체조회");
+  const [lot_no_Data, setLot_no_Data] = useState("전체조회");
+  const [item_no_Data, setItem_no_Data] = useState("전체조회");
+  const [item_name_Data, setItem_name_Data] = useState("전체조회");
   const [Min_width_Data, setMin_width_Data] = useState(0);
   const [Max_width_Data, setMax_width_Data] = useState(1000000);
   const [Min_thickness_Data, setMin_thickness_Data] = useState(0);
@@ -28,7 +32,6 @@ function LosgisticsMoveList() {
   const [Amount_Data, setAmount_Data] = useState(0);
   const [From_warehouse_Data, setFrom_warehouse_Data] = useState("전체조회");
   const [To_warehouse_Data, setTo_warehouse_Data] = useState("전체조회");
-
   useEffect(() => {
     // 입고
     axios.defaults.baseURL = "http://192.168.0.10:8081";
@@ -36,10 +39,10 @@ function LosgisticsMoveList() {
       .get("/warehouse", {
         status: status_Data,
         location: location_Data,
-        Instruction: Instruction_Data,
-        Lot_no: Lot_no_Data,
-        Item_no: Item_no_Data,
-        Item_name: Item_name_Data,
+      //  Instruction: Instruction_Data,
+       // Lot_no: Lot_no_Data,
+        //Item_no: Item_no_Data,
+        //Item_name: Item_name_Data,
         Min_width: Min_width_Data,
         Max_width: Max_width_Data,
         Min_thickness: Min_thickness_Data,
@@ -66,8 +69,9 @@ function LosgisticsMoveList() {
         <div className="mt-5 md:mt-0 md:col-span-2">
           <div className="overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6 bg-gray-100 rounded-lg">
-              <div className="grid grid-cols-7 gap-4 text-center">
-                {/* 첫째줄 */}
+     {/* 첫째줄 */}
+              <div className="grid grid-cols-4 gap-4 text-center">
+           
                 <div className="col-span-1">
                   <label
                     htmlFor="dropdown"
@@ -107,71 +111,9 @@ function LosgisticsMoveList() {
                     }}
                   />
                 </div>
-                <div className="col-span-1">
-                  <label
-                    htmlFor="dropdown"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    이동지시번호
-                  </label>
-                  <div className="col-span-2">
-                    <input
-                      type="text"
-                      name="text"
-                      id="text"
-                      autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      onChange={(e) => {
-                        setInstruction_Data(e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="col-span-1">
-                  <label
-                    htmlFor="dropdown"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    lot_no
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                    onChange={(e) => {
-                      setLot_no_Data(e.target.value);
-                    }}
-                  >
-                    <option>전체</option>
-                    <option>천안</option>
-                    <option>광양</option>
-                    <option>포항</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
-                  <label
-                    htmlFor="dropdown"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    품번
-                  </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                    onChange={(e) => {
-                      setItem_no_Data(e.target.value);
-                    }}
-                  >
-                    <option>전체</option>
-                    <option>MT</option>
-                    <option>ROTOR ASSY</option>
-                    <option>STRIP</option>
-                  </select>
-                </div>
-                <div className="col-span-1">
+
+       
+                <div className="col-span-2">
                   <label
                     htmlFor="dropdown"
                     className="block text-sm font-medium text-gray-700"
@@ -192,10 +134,11 @@ function LosgisticsMoveList() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-4 gap-4 text-center">
+
                 {/* 둘재줄 */}
                 <div className="col-span-1 grid grid-cols-4 text-center">
-                  <div className="">폭</div>
+                  <div className="col-span-1">
+                <div className=''>폭</div>
                   <div>
                     <input
                       type="text"
@@ -203,12 +146,22 @@ function LosgisticsMoveList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      onChange={(e) => {
-                        setMin_width_Data(e.target.value);
-                      }}
+                    /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
-                  </div>
-                  <div className="text-xs">-</div>
+                </div>
+                </div>
+
+                </div>
+                <div className="col-span-1 grid grid-cols-4 text-center">
+                  <div className=''>두께</div>
                   <div>
                     <input
                       type="text"
@@ -216,14 +169,20 @@ function LosgisticsMoveList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      onChange={(e) => {
-                        setMax_width_Data(e.target.value);
-                      }}
+                    /></div>
+                  <div className='text-xs'>-</div>
+                  <div>
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </div>
                 </div>
                 <div className="col-span-1 grid grid-cols-4 text-center">
-                  <div className="">두께</div>
+                  <div className=''>높이</div>
                   <div>
                     <input
                       type="text"
@@ -231,12 +190,8 @@ function LosgisticsMoveList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      onChange={(e) => {
-                        setMin_thickness_Data(e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className="text-xs">-</div>
+                    /></div>
+                  <div className='text-xs'>-</div>
                   <div>
                     <input
                       type="text"
@@ -244,60 +199,68 @@ function LosgisticsMoveList() {
                       id="text"
                       autoComplete="address-level2"
                       className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      onChange={(e) => {
-                        setMax_thickness_Data(e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="col-span-1 grid grid-cols-4 text-center">
-                  <div className="">높이</div>
-                  <div>
-                    <input
-                      type="text"
-                      name="text"
-                      id="text"
-                      autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      onChange={(e) => {
-                        setMin_height_Data(e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className="text-xs">-</div>
-                  <div>
-                    <input
-                      type="text"
-                      name="text"
-                      id="text"
-                      autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      onChange={(e) => {
-                        setMax_height_Data(e.target.value);
-                      }}
                     />
                   </div>
                 </div>
                 {/* 수량 */}
                 <div className="col-span-1">
-                  <div className="grid grid-cols-3">
-                    <div>이동수량</div>
-                    <div className="col-span-2">
-                      <input
-                        type="text"
-                        name="text"
-                        id="text"
-                        autoComplete="address-level2"
-                        className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                        onChange={(e) => {
-                          setAmount_Data(e.target.value);
-                        }}
-                      />
-                    </div>
+                  <div className='grid grid-cols-3'>
+                    <div>수량</div>
+                    <div className='col-span-2'><input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    /></div>
                   </div>
                 </div>
                 {/*  */}
-                {/* from창고 */}
+                {/* 중량 */}
+                <div className="col-span-1">
+                  <div className='grid grid-cols-3'>
+                    <div>중량</div>
+                    <div className='col-span-2'><input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    /></div>
+                  </div>
+                </div>
+                {/*  */}
+
+                {/* 고객사 */}
+                <div className="col-span-1">
+                  <div className='grid grid-cols-3'>
+                    <div>고객사</div>
+                    <div className='col-span-2'><input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    /></div>
+                  </div>
+                </div>
+                {/*  */}
+                {/* 고객사 */}
+                <div className="col-span-1">
+                  <div className='grid grid-cols-3'>
+                    <div>제품명</div>
+                    <div className='col-span-2'><input
+                      type="text"
+                      name="text"
+                      id="text"
+                      autoComplete="address-level2"
+                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    /></div>
+                  </div>
+                </div>
+                
+                {/* 셋째줄 */}
+
                 <div className="col-span-1">
                   <div className="grid grid-cols-3">
                     <div>from창고</div>
@@ -337,41 +300,10 @@ function LosgisticsMoveList() {
                 </div>
 
                 {/* 셋째줄 */}
-                {/* 고객사 */}
+       
+           
 
-                {/* 단위 */}
-                <div className="col-span-1">
-                  <label
-                    htmlFor="dropdown"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    지시마감기한
-                  </label>
-                  <div className="col-span-2">
-                    <div className="">달력</div>
-                  </div>
-                </div>
-
-                <div className="col-span-1">
-                  <label
-                    htmlFor="dropdown"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    작업완료일
-                  </label>
-                  <div className="">달력</div>
-                </div>
-
-                <div className="col-span-1">
-                  <label
-                    htmlFor="dropdown"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    지시등록일
-                  </label>
-                  <div className="">달력</div>
-                </div>
-              </div>
+             
             </div>
             <div className="px-4 py-3 text-right">
               <button

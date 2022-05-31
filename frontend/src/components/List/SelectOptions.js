@@ -106,6 +106,8 @@ export const status_cause = [
 // 사업장
 export const stock_place = [
     { value: '전체보기', label: '전체보기', color: '#00B8D9' },
+    { value: '포항', label: '포항', color: '#00B8D9' },
+    { value: '광양', label: '광양', color: '#00B8D9' },
     { value: '천안', label: '천안', color: '#00B8D9' },
 ]
 // 단위
