@@ -2,16 +2,30 @@ import Aos from 'aos';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
+import { stock_place, warehouse_code, purpose, location, use, inventory_using, industry_family, stock_quality_status, status_cause} from "./SelectOptions";
 
-
-
+import Select from "react-select";
 function InventoryList() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
   axios.defaults.baseURL = "http://192.168.0.10:8081"
-  const [warehouses, setwarehouses] = useState([])
+  const [warehouses, setWarehouses] = useState([])
   const [search, setsearch] = useState(false)
+  const [industry_family, setIndustry_family] = useState(false)
+  const [stock_quality_status, setStock_quality_status] = useState(false)
+  const [Status_cause, setStatus_cause] = useState(false)
+  const [location, setLocation_Data] = useState(false)
+//컬럼목록
+  // industry_family(산업군), target(고객사),
+  //   stock_type(제품구분), stock_quality_status(재고품질상태),
+  //   status_cause(상태사유), location(사업장), product_family(제품군),
+  //   warehouse_code(창고코드), lot_no, Item_num(품번), Item_desc(제품설명),
+  //   item_name(제품명), amount(수량), weight(중량), unit(단위), customer(거래처),
+  //   부동개월, width(폭) / thickness(두께) / height(높이), inventory_date(재고생성일),
+  //   warehouse_date(창고입고일), warehouse_aging(창고경과일)
+
+
   // 데이터바인딩
 
   //
@@ -36,23 +50,24 @@ function InventoryList() {
                 {/* 첫째줄 */}
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    location
+                  산업군
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option value="">전체</option>
-                    <option value="">천안</option>
-                    <option value="">광양</option>
-                    <option value="">포항</option>
-                  </select>
+                  <Select
+                    defaultValue={[industry_family[0]]}
+                    // isMulti
+                    name="colors"
+                    options={industry_family}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={(e) => {
+                      setIndustry_family(e.value);
+                    }}
+                    maxMenuHeight={100}
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    inventory_using
+                    고객사
                   </label>
                   <select
                     id="inventory_using"
@@ -68,58 +83,55 @@ function InventoryList() {
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    purpose
+                    재고품질상태
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option value="">전체</option>
-                    <option value="">완제품</option>
-                    <option value="">반제품</option>
-                    <option value="">불량품</option>
-                  </select>
+                  <Select
+                    defaultValue={[stock_quality_status[0]]}
+                    // isMulti
+                    name="colors"
+                    options={stock_quality_status}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={(e) => {
+                      setStock_quality_status(e.value);
+                    }}
+                    maxMenuHeight={100}
+                  />
                 </div>
 
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    use
+                    상태사유
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option value="">전체</option>
-                    <option value="">YES</option>
-                    <option value="">NO</option>
-
-                  </select>
+                  <Select
+                    defaultValue={[status_cause[0]]}
+                    // isMulti
+                    name="colors"
+                    options={status_cause}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={(e) => {
+                      setStatus_cause(e.value);
+                    }}
+                    maxMenuHeight={100}
+                  />
                 </div>
                 <div className="col-span-1">
                   <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                    warehouse_code
+                    사업장
                   </label>
-                  <select
-                    id="dropdown"
-                    name="dropdown"
-                    autoComplete="dropdown-name"
-                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                  >
-                    <option value="">전체</option>
-                    <option value="">A1</option>
-                    <option value="">A2</option>
-                    <option value="">A3</option>
-                    <option value="">B1</option>
-                    <option value="">B2</option>
-                    <option value="">B3</option>
-                    <option value="">C1</option>
-                    <option value="">C2</option>
-                    <option value="">C3</option>
-                  </select>
+                  <Select
+                    defaultValue={[location[0]]}
+                    // isMulti
+                    name="colors"
+                    options={location}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={(e) => {
+                      setLocation_Data(e.value);
+                    }}
+                    maxMenuHeight={100}
+                  />
                 </div>
 
                 {/* 둘재줄 */}

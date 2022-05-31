@@ -3,7 +3,7 @@ import Aos from "aos";
 import React, { useEffect, useState } from "react";
 import CancelRequest from "../Functions/CancelRequest";
 import Select from "react-select";
-import { stock_place, warehouse_code, purpose } from "./SelectOptions";
+import { stock_place, warehouse_code, purpose, location, use, inventory_using} from "./SelectOptions";
 //전체조회 버튼 없애고
 ///리스트밑에 수정 , 삭제 버튼 추가하기
 
@@ -13,12 +13,12 @@ function WarehouseList() {
   }, []);
   axios.defaults.baseURL = "http://192.168.0.20:8081";
   const [warehouse, setWarehouses] = useState([]);
-  const [search, setsearch] = useState(false);
+
   // 데이터바인딩
-  const [location_Data, setLocation_Data] = useState("전체조회");
-  const [warehouse_Data, setWarehouse_Data] = useState("전체조회");
-  const [purpose_Data, setPurpose_Data] = useState("전체조회");
-  const [use_Data, setUse_Data] = useState("전체조회");
+  const [location_Data, setLocation_Data] = useState(null);
+  const [warehouse_Data, setWarehouse_Data] = useState(null);
+  const [purpose_Data, setPurpose_Data] = useState(null);
+  const [use_Data, setUse_Data] = useState(null);
   const [inventory_using_Data, setInventory_using_Data] = useState(0);
   const [maximum_weight_Data, setMaximum_weight_Data] = useState(0);
   const [maximum_count_Data, setMaximum_count_Data] = useState(0);
@@ -30,7 +30,7 @@ function WarehouseList() {
       .get("/", {})
       .then((res) => {
         setWarehouses(res.data);
-        console.log(res.data);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -38,31 +38,21 @@ function WarehouseList() {
   }, []);
   // 창고조건검색
   function searchCondition() {
-    axios.get("/warehouse/search", {
-      location: location_Data,
-      warehouse: warehouse_Data,
-      purpose: purpose_Data,
-      use: use_Data,
-      inventory_using: inventory_using_Data,
-      maximum_count: maximum_count_Data,
-      maximum_weight: maximum_weight_Data,
-      warehouse_code_desc: warehouse_code_desc_Data,
-    });
-    //  .then((res) => { setwarehouses(res.data) })
-    // .catch((err) => { console.log(err) })
+    axios.get("/search", {
+      "location": location_Data,
+      "warehouse": warehouse_Data,
+      "purpose": purpose_Data,
+      "use": use_Data,
+      "inventory_using": inventory_using_Data,
+      "maximum_count": maximum_count_Data,
+      "maximum_weight": maximum_weight_Data,
+      "warehouse_code_desc": warehouse_code_desc_Data,
+    })
+      .then((res) => { setWarehouses(res.data); console.log(res.data) })
+    .catch((err) => { console.log(err) })
   }
   // 창고전체조회
-  function searchAll(params) {
-    axios
-      .get("/warehouse", {})
-      .then((res) => {
-        setWarehouses(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+ 
   return (
     <div data-aos="fade-up" className="">
       <div className="max-w-screen-2xl mx-auto my-10">
@@ -81,15 +71,16 @@ function WarehouseList() {
                     사업장
                   </label>
                   <Select
-                    defaultValue={[stock_place[0]]}
+                    defaultValue={[location[0]]}
                     // isMulti
                     name="colors"
-                    options={stock_place}
+                    options={location}
                     className="basic-multi-select"
                     classNamePrefix="select"
                     onChange={(e) => {
-                      setLocation_Data(e.target.value);
+                      setLocation_Data(e.value);
                     }}
+                    maxMenuHeight={100}
                   />
                 </div>
                 <div className="col-span-1">
@@ -107,8 +98,9 @@ function WarehouseList() {
                     className="basic-multi-select"
                     classNamePrefix="select"
                     onChange={(e) => {
-                      setWarehouse_Data(e.target.value);
+                      setWarehouse_Data(e.value);
                     }}
+                    maxMenuHeight={100}
                   />
                 </div>
                 <div className="col-span-1">
@@ -126,8 +118,9 @@ function WarehouseList() {
                     className="basic-multi-select"
                     classNamePrefix="select"
                     onChange={(e) => {
-                      setPurpose_Data(e.target.value);
+                      setPurpose_Data(e.value);
                     }}
+                    maxMenuHeight={100}
                   />
                 </div>
 
@@ -139,15 +132,16 @@ function WarehouseList() {
                     사용여부
                   </label>
                   <Select
-                    defaultValue={[purpose[0]]}
+                    defaultValue={[use[0]]}
                     // isMulti
                     name="colors"
-                    options={purpose}
+                    options={use}
                     className="basic-multi-select"
                     classNamePrefix="select"
                     onChange={(e) => {
-                      setUse_Data(e.target.value);
+                      setUse_Data(e.value);
                     }}
+                    maxMenuHeight={100}
                   />
                 </div>
                 <div className="col-span-1">
@@ -158,15 +152,16 @@ function WarehouseList() {
                     재고실사
                   </label>
                   <Select
-                    defaultValue={[purpose[0]]}
+                    defaultValue={[inventory_using[0]]}
                     // isMulti
                     name="colors"
-                    options={purpose}
+                    options={inventory_using}
                     className="basic-multi-select"
                     classNamePrefix="select"
                     onChange={(e) => {
-                      setInventory_using_Data(e.target.value);
+                      setInventory_using_Data(e.value);
                     }}
+                    maxMenuHeight={100}
                   />
                 </div>
 
@@ -233,117 +228,196 @@ function WarehouseList() {
             </div>
           </div>
         </div>
-        {/* table */}
-        <div className="flex flex-col mx-1 mt-2 text-center">
-          <div className="-my-2 overflow-x-auto">
-            <div className="py-2 align-middle inline-block min-w-full">
-              <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                {/* table */}
+                <div className="mx-1 mt-2 text-center w-full">
+          <div className="overflow-x-auto">
+            <table className="min-w-lg text-sm divide-y divide-gray-200">
+              <thead className='bg-sky-50'>
+                <tr>
+                  <th className="sticky left-0 p-4 text-left rounded-l-lg">
+                    <label className="sr-only" for="row_all">Select All</label>
+                    <input
+                      className="w-5 h-5 border-gray-200 rounded"
+                      type="checkbox"
+                      id="row_all"
+                    />
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      사업장
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        location
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      창고코드
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        warehouse_code
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      용도명
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        purpose
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      사용여부
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        warehouse_code_desc
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      재고실사
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        use
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      최대적치중량
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        maximum_weight
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                      최대적치매수
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        maxinum_count
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                  <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
+                    <div className="flex items-center">
+                    저장위치전체명
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 ml-1.5 text-gray-700"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        inventory_using
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        remarks
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        뭔가의버튼
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {/* {
-                      warehouses.map((warehouse) => {
-                        return <tr>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.location}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.warehouse_code}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.purpose}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.warehouse_code_desc}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.use}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.maximum_weight}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.maxinum_count}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.inventory_using}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{warehouse.remarks}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900"><CancelRequest /></div>
-                          </td>
-                        </tr>
-                      })
-                    } */}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              {/* tbody */}
+              <tbody className="divide-y divide-gray-100">
+                {warehouse.map((data) => {
+                  return <tr>  {/* input 창이니까 여기는 넣지 x */}
+                    <td className="sticky left-0 p-4 bg-white">
+                      <label className="sr-only" for="row_3"></label>
+                      <input
+                        className="w-5 h-5 border-gray-200 rounded"
+                        type="checkbox"
+                        id="row_3"
+                      />
+                    </td>
+                    <td className="p-4 font-medium whitespace-nowrap">{data.location}</td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.warehouse_code}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.purpose}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.use}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.inventory_using}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.maximum_weight}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.maximum_count}
+                    </td>
+                    <td className="p-4 text-gray-700 whitespace-nowrap">
+                      {data.warehouse_code_desc}
+                    </td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
