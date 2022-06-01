@@ -1,6 +1,21 @@
 import React from 'react'
-import Select from 'react-select';
-import { statusImport, location, product_family, item_name, warehouse_code, unit } from './SelectOptions'
+import SearchCreateInventory from './SearchItems/SearchCreateInventory';
+import SearchHeight from './SearchItems/SearchHeight';
+import SearchImportAmount from './SearchItems/SearchImportAmount';
+import SearchItemName from './SearchItems/SearchItemName';
+import SearchItemNo from './SearchItems/SearchItemNo';
+import SearchLocation from './SearchItems/SearchLocation';
+import SearchLOT from './SearchItems/SearchLOT';
+import SearchOrderAmount from './SearchItems/SearchOrderAmount';
+import SearchProductFamily from './SearchItems/SearchProductFamily';
+import SearchTarget from './SearchItems/SearchTarget';
+import SearchThickness from './SearchItems/SearchThickness';
+import SearchUnit from './SearchItems/SearchUnit';
+import SearchWarehouse from './SearchItems/SearchWarehouse';
+import SearchWeight from './SearchItems/SearchWeight';
+import SearchWhenImport from './SearchItems/SearchWhenImport';
+import SearchWidth from './SearchItems/SearchWidth';
+import SearchStatusImport from './SearchItems/SearchStatusImport';
 
 function SearchLogisticsImport(props) {
     return (
@@ -9,319 +24,45 @@ function SearchLogisticsImport(props) {
                 <div className="grid grid-cols-4 gap-4 text-center">
                     {/* 첫째줄 */}
                     <div className="col-span-1">
-                        <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                            작업상태
-                        </label>
-                        <Select
-                            defaultValue={[statusImport[0]]}
-                            // isMulti
-                            name="status"
-                            options={statusImport}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            maxMenuHeight={200}
-                            onChange={(e) => { props.setDatas({ ...props.datas, status: e.value }); console.log(props.datas) }}
-                        />
+                        <SearchStatusImport setDatas={props.setDatas} datas={props.datas} />
                     </div>
                     <div className="col-span-1">
-                        <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                            사업장
-                        </label>
-                        <Select
-                            defaultValue={[location[0]]}
-                            // isMulti
-                            name="location"
-                            options={location}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            maxMenuHeight={200}
-                            onChange={(e) => { props.setDatas({ ...props.datas, location: e.value }); console.log(props.datas) }}
-                        />
+                        <SearchLocation setDatas={props.setDatas} datas={props.datas} />
                     </div>
                     <div className="col-span-1">
-                        <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                            제품군
-                        </label>
-                        <Select
-                            defaultValue={[product_family[0]]}
-                            // isMulti
-                            name="product_family"
-                            options={product_family}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            maxMenuHeight={200}
-                            onChange={(e) => { props.setDatas({ ...props.datas, product_family: e.value }); console.log(props.datas) }}
-                        />
+                        <SearchProductFamily setDatas={props.setDatas} datas={props.datas} />
                     </div>
                     {/* 단위 */}
                     <div className="col-span-1">
-                        <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                            단위
-                        </label>
-                        <div className="col-span-2">
-                            <Select
-                                defaultValue={[unit[0]]}
-                                // isMulti
-                                name="unit"
-                                options={unit}
-                                className="basic-multi-select"
-                                classNamePrefix="select"
-                                maxMenuHeight={200}
-                                onChange={(e) => { props.setDatas({ ...props.datas, unit: e.value }); }}
-                            />
-                        </div>
+                        <SearchUnit setDatas={props.setDatas} datas={props.datas} />
                     </div>
                     {/* 제품명 */}
                     <div className="col-span-2">
-                        <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                            제품명
-                        </label>
-                        <Select
-                            defaultValue={[item_name[0]]}
-                            // isMulti
-                            name="item_name"
-                            options={item_name}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            maxMenuHeight={200}
-                            onChange={(e) => { props.setDatas({ ...props.datas, item_name: e.value }); }}
-                        />
+                        <SearchItemName setDatas={props.setDatas} datas={props.datas} />
                     </div>
                     {/* 창고코드 */}
                     <div className="col-span-1">
-                        <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                            창고코드
-                        </label>
-                        <Select
-                            defaultValue={[warehouse_code[0]]}
-                            // isMulti
-                            name="warehouse_code"
-                            options={warehouse_code}
-                            className="basic-multi-select"
-                            classNamePrefix="select"
-                            maxMenuHeight={200}
-                            onChange={(e) => { props.setDatas({ ...props.datas, warehouse_code: e.value }); }}
-                        />
+                        <SearchWarehouse setDatas={props.setDatas} datas={props.datas} />
                     </div>
-                </div>
-                {/* 둘재줄 */}
-                <div className="grid grid-cols-5 gap-4 text-center mt-5">
-                    <div className="col-span-1 grid grid-cols-4 text-center">
-                        <div className=''>폭</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="min_weight"
-                                id="min_weight"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, min_weight: e.value }); }}
-                            /></div>
-                        <div className='text-xs'>~</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="max_weight"
-                                id="max_weight"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, max_weight: e.value }); }}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-span-1 grid grid-cols-4 text-center">
-                        <div className=''>두께</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="min_thickness"
-                                id="min_thickness"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, min_thickness: e.value }); }}
-                            /></div>
-                        <div className='text-xs'>~</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="max_thickness"
-                                id="max_thickness"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, max_thickness: e.value }); }}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-span-1 grid grid-cols-4 text-center">
-                        <div className=''>높이</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="min_height"
-                                id="min_height"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, min_height: e.value }); }}
-                            /></div>
-                        <div className='text-xs'>-</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="max_height"
-                                id="max_height"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, max_height: e.value }); }}
-                            />
-                        </div>
-                    </div>
-                    {/* 수량 */}
-                    <div className="col-span-1 grid grid-cols-4 text-center">
-                        <div className=''>주문량</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="min_order_amount"
-                                id="min_order_amount"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, min_order_amount: e.value }); }}
-                            /></div>
-                        <div className='text-xs'>-</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="max_order_amount"
-                                id="max_order_amount"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, max_order_amount: e.value }); }}
-                            />
-                        </div>
-                    </div>
-                    {/* 입고수량 */}
-                    <div className="col-span-1 grid grid-cols-4 text-center">
-                        <div className=''>입고수량</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="min_im_amount"
-                                id="min_im_amount"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, min_im_amount: e.value }); }}
-                            /></div>
-                        <div className='text-xs'>-</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="max_im_amount"
-                                id="max_im_amount"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, max_im_amount: e.value }); }}
-                            />
-                        </div>
-                    </div>
-                    {/* 중량 */}
-                    <div className="col-span-1 grid grid-cols-4 text-center">
-                        <div className=''>중량</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="min_weight"
-                                id="min_weight"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, min_weight: e.value }); }}
-                            /></div>
-                        <div className='text-xs'>-</div>
-                        <div>
-                            <input
-                                type="number"
-                                min={0}
-                                name="max_weight"
-                                id="max_weight"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, max_weight: e.value }); }}
-                            />
-                        </div>
-                    </div>
-                    {/*  */}
-                    {/* 거래처 */}
                     <div className="col-span-1">
-                        <div className='grid grid-cols-3'>
-                            <div>거래처</div>
-                            <div className='col-span-2'><input
-                                type="text"
-                                name="target"
-                                id="target"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, target: e.value }); }}
-                            /></div>
-                        </div>
-                    </div>
-                    {/*  */}
-                    {/* LOT */}
-                    <div className="col-span-1">
-                        <div className='grid grid-cols-3'>
-                            <div>LOT</div>
-                            <div className='col-span-2'><input
-                                type="text"
-                                name="LOT"
-                                id="LOT"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, lot_no: e.value }); }}
-                            /></div>
-                        </div>
-                    </div>
-                    {/* LOT */}
-                    <div className="col-span-1">
-                        <div className='grid grid-cols-3'>
-                            <div>품번</div>
-                            <div className='col-span-2'><input
-                                type="text"
-                                name="item_no"
-                                id="item_no"
-                                autoComplete="address-level2"
-                                className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                onChange={(e) => { props.setDatas({ ...props.datas, item_no: e.value }); }}
-                            /></div>
-                        </div>
+                        <SearchTarget setDatas={props.setDatas} datas={props.datas} />
                     </div>
                 </div>
                 {/* 둘재줄 */}
                 <div className="grid grid-cols-4 gap-4 text-center mt-5">
-                    <div className="col-span-1">
-                        <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                            재고생성일
-                        </label>
-                        <div className="">
-                            달력
-                        </div>
-                    </div>
-                    <div className="col-span-1">
-                        <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                            창고입고일
-                        </label>
-                        <div className="">
-                            달력
-                        </div>
-                    </div>
+                    <SearchWidth setDatas={props.setDatas} datas={props.datas} />
+                    <SearchThickness setDatas={props.setDatas} datas={props.datas} />
+                    <SearchHeight setDatas={props.setDatas} datas={props.datas} />
+                    <SearchOrderAmount setDatas={props.setDatas} datas={props.datas} />
+                    <SearchImportAmount setDatas={props.setDatas} datas={props.datas} />
+                    <SearchWeight setDatas={props.setDatas} datas={props.datas} />
+                    <SearchLOT setDatas={props.setDatas} datas={props.datas} />
+                    <SearchItemNo setDatas={props.setDatas} datas={props.datas} />
+                </div>
+                {/* 둘재줄 */}
+                <div className="grid grid-cols-4 gap-4 text-center mt-5">
+                    <SearchCreateInventory setDatas={props.setDatas} datas={props.datas} />
+                    <SearchWhenImport setDatas={props.setDatas} datas={props.datas} />
                 </div>
             </div>
             <div className="px-4 py-3 text-right">

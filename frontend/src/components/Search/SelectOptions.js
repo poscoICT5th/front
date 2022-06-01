@@ -142,6 +142,26 @@ export const customer = [
     { value: '7209:PTCO', label: '1072:PTCO', color: '#00B8D9' },
     { value: '6708:VCS', label: '6708:VCS', color: '#00B8D9' },
 ]
+// 거래처
+export const target = [
+    { value: '', label: '전체보기', color: '#00B8D9' },
+    { value: '1232:현대모비스', label: '1232:현대모비스', color: '#00B8D9' },
+    { value: '1144:보쉬전장', label: '1144:보쉬전장', color: '#00B8D9' },
+    { value: '3704:디와이오토', label: '3704:디와이오토', color: '#00B8D9' },
+    { value: '1072:PT PATCO', label: '1072:PT PATCO', color: '#00B8D9' },
+    { value: '1177:이노텍', label: '1177:이노텍', color: '#00B8D9' },
+    { value: '1144:보수', label: '1144:보수', color: '#00B8D9' },
+    { value: '1232:모비스', label: '1232:모비스', color: '#00B8D9' },
+    { value: '1664:도클로제', label: '1664:도클로제', color: '#00B8D9' },
+    { value: '1072:PTCO', label: '1072:PTCO', color: '#00B8D9' },
+    { value: '1133:맥스', label: '1133:맥스', color: '#00B8D9' },
+    { value: '1213:코스', label: '1213:코스', color: '#00B8D9' },
+    { value: '3704:비와이오토', label: '3704:비와이오토', color: '#00B8D9' },
+    { value: '1275:TMC INDA', label: '1275:TMC INDA', color: '#00B8D9' },
+    { value: '7209:인터내셔널', label: '7209:인터내셔널', color: '#00B8D9' },
+    { value: '7209:PTCO', label: '1072:PTCO', color: '#00B8D9' },
+    { value: '6708:VCS', label: '6708:VCS', color: '#00B8D9' },
+]
 // 부동개월
 export const frozen_months = [
     { value: '', label: '전체보기', color: '#00B8D9' },

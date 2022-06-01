@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import SearchLogisticsMove from "../Search/SearchLogisticsMove";
 import TableLogisticsMove from "../Table/TableLogisticsMove";
 
-function LosgisticsMoveList() {
+function LosgisticsMove() {
   // axios url
   axios.defaults.baseURL = "http://192.168.0.20:8081"
 
@@ -67,4 +67,4 @@ function LosgisticsMoveList() {
   );
 }
 
-export default LosgisticsMoveList;
+export default LosgisticsMove;

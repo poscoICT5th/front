@@ -53,58 +53,6 @@ function TableLogisticsExport(props) {
               {data.map((value)=>{
                 return <td className="p-4 font-medium whitespace-nowrap">{value}</td>
               })}
-              {/* <td className="p-4 font-medium whitespace-nowrap">{data.status}</td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.location}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.instruction_no}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.order_no}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.target}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.lot_no}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.item_no}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.item_name}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.width}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.thickness}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.height}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.order_amount}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.ex_amount}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.ex_remain}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.order_date}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.inst_reg_date}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.inst_deadline}
-              </td>
-              <td className="p-4 text-gray-700 whitespace-nowrap">
-                {data.done_date}
-              </td> */}
             </tr>
           })}
         </tbody>

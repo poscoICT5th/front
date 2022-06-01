@@ -7,7 +7,7 @@ import TableLogisticsExport from '../Table/TableLogisticsExport';
 import { useSelector } from 'react-redux';
 
 
-function LogisticsExportList() {
+function LogisticsExport() {
   let url = useSelector((state) => state.logisticsExportURL)
   axios.defaults.baseURL = url
   // useEffect
@@ -15,8 +15,8 @@ function LogisticsExportList() {
     Aos.init({ duration: 2000 });
   }, []);
   useEffect(() => {
-    axios.get("/export", {})
-      .then((res) => { setLogisticsExportList(res.data); })
+    // axios.get("/export", {})
+    //   .then((res) => { setLogisticsExportList(res.data); })
   }, [])
 
   // usestate
@@ -45,7 +45,7 @@ function LogisticsExportList() {
     max_width: 10000000,
     target: "",
     order_date: "",
-    inst_reg_date_Date: "",
+    inst_reg_date: "",
     inst_deadline: "",
     done_date: "",
   })
@@ -53,11 +53,12 @@ function LogisticsExportList() {
   // function
   // 출고 조건검색
   function search(params) {
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => { setLogisticsExportList(res.data); console.log(res.data) })
-      .catch((err) => { console.log(err) })
+    console.log(datas)
+    // axios.get('/search', {
+    //   params: datas
+    // })
+    //   .then((res) => { setLogisticsExportList(res.data); console.log(res.data) })
+    //   .catch((err) => { console.log(err) })
   }
   return (
     <div data-aos="fade-up" className="">
@@ -65,7 +66,7 @@ function LogisticsExportList() {
         <div className="font-bold text-2xl text-center my-10">출고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">
-          <SearchLogisticsExport datas={datas} setDatas={setDatas} />
+          <SearchLogisticsExport datas={datas} setDatas={setDatas} search={search} />
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
@@ -76,4 +77,4 @@ function LogisticsExportList() {
   )
 }
 
-export default LogisticsExportList
+export default LogisticsExport

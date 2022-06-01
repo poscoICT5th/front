@@ -3,7 +3,7 @@ import Aos from "aos";
 import React, { useEffect, useState } from "react";
 import CancelRequest from "../Functions/CancelRequest";
 import Select from "react-select";
-import { stock_place, warehouse_code, purpose, location, use, inventory_using } from "../Search/SelectOptions";
+import { warehouse_code, purpose, location, use, inventory_using } from "../Search/SelectOptions";
 import { useSelector } from "react-redux";
 //전체조회 버튼 없애고
 ///리스트밑에 수정 , 삭제 버튼 추가하기
@@ -19,15 +19,15 @@ function WarehouseList() {
   }, []);
   // 맨처음에 전체리스트 불러오기
   useEffect(() => {
-    axios
-      .get("/", {})
-      .then((res) => {
-        setWarehouses(res.data);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get("/", {})
+    //   .then((res) => {
+    //     setWarehouses(res.data);
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }, []);
 
   // useState

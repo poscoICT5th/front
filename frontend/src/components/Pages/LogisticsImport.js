@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 import SearchLogisticsImport from '../Search/SearchLogisticsImport';
 import TableLogisticsImport from '../Table/TableLogisticsImport';
 
-
-function LogisticsImportList() {
+function LogisticsImport() {
   let url = useSelector((state) => state.logisticsImportURL)
   axios.defaults.baseURL = url
   // useEffect
@@ -50,10 +49,11 @@ function LogisticsImportList() {
   // function
   // 입고 조건검색
   function search() {
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => { setLogisticsImportList(res.data); })
+    console.log(datas)
+    // axios.get('/search', {
+    //   params: datas
+    // })
+    //   .then((res) => { setLogisticsImportList(res.data); })
     // .catch((err) => { alert(datas) })
   }
   // 입고 전체조회
@@ -79,4 +79,4 @@ function LogisticsImportList() {
   )
 }
 
-export default LogisticsImportList
+export default LogisticsImport

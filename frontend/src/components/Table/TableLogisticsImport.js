@@ -4,12 +4,13 @@ function TableLogisticsImport(props) {
     return (
         <div className="overflow-x-auto">
             <table className="min-w-lg text-sm divide-y divide-gray-200">
+                {/* thead */}
                 <thead className='bg-sky-50'>
                     <tr>
                         <th className="sticky left-0 p-4 text-left rounded-l-lg">
                             <label className="sr-only" for="row_all"></label>
                             <input
-                                className="w-5 h-5 border-gray-200 rounded"
+                                className="w-5 h-5 border-gray-200 rounded hidden"
                                 type="checkbox"
                                 id="row_all"
                             />
