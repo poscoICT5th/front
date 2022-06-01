@@ -35,8 +35,6 @@ function LosgisticsMove() {
     max_thickness: 10000000,
     min_height: 0,
     max_height: 10000000,
-    min_order_amount: 0,
-    max_order_amount: 10000000,
     min_move_amount: 0,
     max_move_amount: 10000000,
     min_width: 0,
@@ -46,7 +44,7 @@ function LosgisticsMove() {
     done_date: "",
     unit: "",
   })
-  
+
   //function
   function search(params) {
     // axios.get('/')

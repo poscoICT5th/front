@@ -1,14 +1,20 @@
-// 작업상태
+// 입고작업상태
 export const statusImport = [
     { value: '', label: '전체보기', color: '#00B8D9' },
     { value: '입고예정', label: '입고예정', color: '#00B8D9' },
     { value: '입고완료', label: '입고완료', color: '#00B8D9' },
 ];
-// 작업상태
+// 출고작업상태
 export const statusExport = [
     { value: '', label: '전체보기', color: '#00B8D9' },
     { value: '출고대기', label: '출고대기', color: '#00B8D9' },
     { value: '출고완료', label: '출고완료', color: '#00B8D9' },
+];
+// 이동작업상태
+export const statusMove = [
+    { value: '', label: '전체보기', color: '#00B8D9' },
+    { value: '이동대기', label: '이동대기', color: '#00B8D9' },
+    { value: '이동완료', label: '이동완료', color: '#00B8D9' },
 ];
 
 // 사업장

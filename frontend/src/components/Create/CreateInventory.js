@@ -84,7 +84,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -96,7 +96,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -108,7 +108,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -120,7 +120,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -132,7 +132,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -144,7 +144,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -156,7 +156,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -168,7 +168,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -180,7 +180,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -192,7 +192,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -204,7 +204,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -216,7 +216,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -228,7 +228,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                                 <div className="">
@@ -240,7 +240,7 @@ function CreateInventory(props) {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                   />
                                 </div>
                               </div>

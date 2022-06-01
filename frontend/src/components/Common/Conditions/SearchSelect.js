@@ -1,27 +1,25 @@
 import React from 'react'
 import Select from 'react-select';
-import { unit } from '../SelectOptions';
-
-function SearchUnit(props) {
+function SearchSelect(props) {
     return (
-        <div>
+        <div className={"col-span-" + props.grid}>
             <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
-                단위
+                {props.name}
             </label>
             <div className="col-span-2">
                 <Select
-                    defaultValue={[unit[0]]}
+                    defaultValue={[props.selectData[0]]}
                     // isMulti
-                    name="unit"
-                    options={unit}
+                    name="props.data"
+                    options={props.selectData}
                     className="basic-multi-select"
                     classNamePrefix="select"
                     maxMenuHeight={200}
-                    onChange={(e) => { props.setDatas({ ...props.datas, unit: e.value }); }}
+                    onChange={(e) => { props.setDatas({ ...props.datas, [props.name]: e.value }); }}
                 />
             </div>
         </div>
     )
 }
 
-export default SearchUnit
+export default SearchSelect

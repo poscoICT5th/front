@@ -2,7 +2,7 @@ import Aos from 'aos';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
-import { stock_place, warehouse_code, purpose, location, use, inventory_using, industry_family, stock_quality_status, status_cause } from "../Search/SelectOptions";
+import { stock_place, warehouse_code, purpose, location, use, inventory_using, industry_family, stock_quality_status, status_cause } from "../Common/Conditions/SelectOptions";
 
 import Select from "react-select";
 function InventoryList() {
@@ -143,7 +143,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                     /></div>
                   <div className='text-xs'>-</div>
                   <div>
@@ -152,7 +152,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -164,7 +164,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                     /></div>
                   <div className='text-xs'>-</div>
                   <div>
@@ -173,7 +173,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -185,7 +185,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                     /></div>
                   <div className='text-xs'>-</div>
                   <div>
@@ -194,7 +194,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -207,7 +207,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                     /></div>
                   </div>
                 </div>
@@ -221,7 +221,7 @@ function InventoryList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                     /></div>
                   </div>
                 </div>

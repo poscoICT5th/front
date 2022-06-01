@@ -7,7 +7,7 @@ import {
   purpose,
   inventory_using,
   use,
-} from "./SelectOptions";
+} from "../Common/Conditions/SelectOptions";
 
 function CreateWarehouse(props) {
   axios.defaults.baseURL = "http://192.168.0.20:8081";
@@ -182,7 +182,7 @@ function CreateWarehouse(props) {
                                           name="text"
                                           id="text"
                                           autoComplete="address-level2"
-                                          className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                          className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                           onChange={(e) => {
                                             setMaximum_weight_Data(
                                               e.target.value
@@ -203,7 +203,7 @@ function CreateWarehouse(props) {
                                           name="text"
                                           id="text"
                                           autoComplete="address-level2"
-                                          className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                          className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                           onChange={(e) => {
                                             setMaximum_count_Data(
                                               e.target.value
@@ -223,7 +223,7 @@ function CreateWarehouse(props) {
                                           name="text"
                                           id="text"
                                           autoComplete="address-level2"
-                                          className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                          className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                           onChange={(e) => {
                                             setWarehouse_code_desc_Data(
                                               e.target.value
@@ -243,7 +243,7 @@ function CreateWarehouse(props) {
                                           name="text"
                                           id="text"
                                           autoComplete="address-level2"
-                                          className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                          className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                           onChange={(e) => {
                                             setWarehouse_code_desc_Data(
                                               e.target.value

@@ -3,7 +3,7 @@ import Aos from "aos";
 import React, { useEffect, useState } from "react";
 import CancelRequest from "../Functions/CancelRequest";
 import Select from "react-select";
-import { warehouse_code, purpose, location, use, inventory_using } from "../Search/SelectOptions";
+import { warehouse_code, purpose, location, use, inventory_using } from "../Common/Conditions/SelectOptions";
 import { useSelector } from "react-redux";
 //전체조회 버튼 없애고
 ///리스트밑에 수정 , 삭제 버튼 추가하기
@@ -181,7 +181,7 @@ function WarehouseList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                       onChange={(e) => {
                         setMaximum_weight_Data(e.target.value);
                       }}
@@ -197,7 +197,7 @@ function WarehouseList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                       onChange={(e) => {
                         setMaximum_count_Data(e.target.value);
                       }}
@@ -213,7 +213,7 @@ function WarehouseList() {
                       name="text"
                       id="text"
                       autoComplete="address-level2"
-                      className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                       onChange={(e) => {
                         setWarehouse_code_desc_Data(e.target.value);
                       }}

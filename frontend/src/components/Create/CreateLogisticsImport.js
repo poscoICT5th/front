@@ -1,13 +1,10 @@
 import React, { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import axios from 'axios'
-import Select from 'react-select';
+import { unit, item_name, location, product_family, statusImport, target, warehouse_code } from '../Common/Conditions/SelectOptions';
 import { useSelector } from 'react-redux';
-import SearchLocation from '../Search/SearchItems/SearchLocation';
-import SearchProductFamily from '../Search/SearchItems/SearchProductFamily'
-import SearchWarehouse from '../Search/SearchItems/SearchWarehouse'
-import SearchUnit from '../Search/SearchItems/SearchUnit'
-import SearchItemName from '../Search/SearchItems/SearchItemName';
+import SearchSelect from '../Common/Conditions/SearchSelect'
+import InputText from '../Common/Conditions/InputText'
 function CreateLogisticsImport(props) {
   let url = useSelector((state) => state.logisticsImportURL)
   axios.defaults.baseURL = url
@@ -35,17 +32,29 @@ function CreateLogisticsImport(props) {
     done_date: "",
   })
   // input 데이터들
+  const selectDatas = [
+    { name: "location", selectOption: location, grid: 1 },
+    { name: "StatusImport", selectOption: statusImport, grid: 1 },
+    { name: "product_family", selectOption: product_family, grid: 1 },
+    { name: "unit", selectOption: unit, grid: 1 },
+    { name: "item_name", selectOption: item_name, grid: 2 },
+    { name: "warehouse_code", selectOption: warehouse_code, grid: 1 },
+    { name: "target", selectOption: target, grid: 1 },
+  ]
   const inputDatas = [
-    "weight",
-    "amount",
-    "width",
-    "thickness",
-    "height",
-    "order_amount",
-    "im_amount",
-    "item_no",
-    "order_date",
-    "inst_deadline",
+    { name: "lot_no", type: "number" },
+    { name: "item_no", type: "number" },
+    { name: "weight", type: "number" },
+    { name: "thickness", type: "number" },
+    { name: "height", type: "number" },
+    { name: "order_amount", type: "number" },
+    { name: "im_amount", type: "number" },
+    { name: "amount", type: "number" },
+  ]
+  const dateDatas = [
+    { name: "order_date", type: "text" },
+    { name: "inst_deadline", type: "text" },
+
   ]
   // function
   function request() {
@@ -89,55 +98,25 @@ function CreateLogisticsImport(props) {
                       <div className="mt-5 md:mt-0 md:col-span-2">
                         <div className="shadow overflow-hidden sm:rounded-md">
                           <div className="px-4 py-5 bg-white sm:p-6">
-                            {/* Search */}
                             <div className="mt-5 md:mt-0 md:col-span-2">
                               <div className="overflow-hidden sm:rounded-md">
-                                <div className="px-4 py-5 bg-white sm:p-6 bg-gray-100 rounded-lg">
-                                  {/* selects */}
-                                  <div className="grid grid-cols-3 gap-4 text-center">
-                                    <div className="col-span-1">
-                                      <SearchLocation setDatas={setDatas} datas={datas} />
-                                    </div>
-                                    <div className="col-span-1">
-                                      <SearchProductFamily setDatas={setDatas} datas={datas} />
-                                    </div>
-                                    <div className="col-span-1">
-                                      <SearchWarehouse setDatas={setDatas} datas={datas} />
-                                    </div>
-                                    <div className="col-span-1">
-                                      <SearchUnit setDatas={setDatas} datas={datas} />
-                                    </div>
-                                    <div className="col-span-1">
-                                      <SearchItemName setDatas={setDatas} datas={datas} />
-                                    </div>
+                                <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
+                                  {/* select */}
+                                  <div className="grid grid-cols-4 gap-4 text-center mb-5">
+                                    {selectDatas.map((selectData) => {
+                                      return <SearchSelect setDatas={setDatas} datas={datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
+                                    })}
                                   </div>
                                   {/* inputs */}
                                   <div className="grid grid-cols-3 gap-4 text-center mt-5">
-                                    {inputDatas.slice(0, -2).map((inputData) => {
-                                      return <div className="col-span-1">
-                                        <div className='grid grid-cols-3'>
-                                          <div>{inputData}</div>
-                                          <div className='col-span-2'><input
-                                            type="text"
-                                            name={inputData}
-                                            id={inputData}
-                                            autoComplete="address-level2"
-                                            className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                            onChange={(e) => { setDatas({ ...datas, [inputData]: e.target.value }) }}
-                                          /></div>
-                                        </div>
-                                      </div>
+                                    {inputDatas.map((inputData) => {
+                                      return <InputText setDatas={setDatas} datas={datas} name={inputData.name} type={inputData.type} />
                                     })}
                                   </div>
                                   {/* calenders */}
                                   <div className="grid grid-cols-2 gap-4 text-center mt-5">
-                                    {inputDatas.slice(-2).map((inputData) => {
-                                      return <div className="col-span-1">
-                                        <div className=''>
-                                          <div>{inputData}</div>
-                                          <div>달력</div>
-                                        </div>
-                                      </div>
+                                    {dateDatas.map((dateData) => {
+                                      return <InputText setDatas={setDatas} datas={datas} name={dateData.name} />
                                     })}
                                   </div>
                                 </div>
