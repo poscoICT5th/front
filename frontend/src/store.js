@@ -36,6 +36,17 @@ let logisticsExportURL = createSlice({
   }
 })
 export let { handleLogisticsExportURL } = logisticsExportURL.actions
+// 물류이동 url
+let logisticsMoveURL = createSlice({
+  name: 'logisticsMoveURL',
+  initialState: 'http://192.168.0.10:8083',
+  reducers: {
+    handleLogisticsURL(state, newState) {
+      return newState
+    }
+  }
+})
+export let { handleLogisticsMoveURL } = logisticsMoveURL.actions
 
 // 창고 url
 let warehouseURL = createSlice({
