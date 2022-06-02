@@ -26,6 +26,7 @@ function App() {
   }, [])
   // dark모드
   const [isDark, setIsDark] = useState(false);
+
   return (
     <div data-aos="fade-up" className="">
       <div>
