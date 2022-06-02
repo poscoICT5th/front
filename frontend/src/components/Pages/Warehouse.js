@@ -14,7 +14,7 @@ function Warehouse(props) {
     Aos.init({ duration: 2000 });
   }, []);
   // 맨처음에 전체리스트 불러오기
-  const [click, setClick] = useState(false)
+  const [click, setClick] = useState(false);
   useEffect(() => {
     axios
       .get("/")
@@ -40,7 +40,6 @@ function Warehouse(props) {
     maximum_count: 0,
     inventory_using: "",
     remarks: "",
-
   });
   //통신오는 순서로 맞춰주기
   const th = [
@@ -54,16 +53,20 @@ function Warehouse(props) {
     "inventory_using",
     "remarks",
   ];
-   
   // 입고요청 삭제(여러개)
   function deleteWarehouse(warehouse_code) {
-    axios.delete(`/${warehouse_code}`)
-      .then((res) => { alert(res.status) })
+    axios.delete(`/${warehouse_code}`).then((res) => {
+      alert(res.status);
+    });
   }
 
   // function
   function search() {
-    console.log(url);
+    console.log(datas);
+    axios.get("/search", { params: datas }).then((res) => {
+      console.log(res)
+      setWarehouseList(res.data);
+    });
   }
   return (
     <div data-aos="fade-up" className="">
@@ -71,15 +74,18 @@ function Warehouse(props) {
         <div className="font-bold text-2xl text-center my-10">창고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">
-          <SearchWarehouse
-            setDatas={setDatas}
-            datas={datas}
-            search={search}
-          />
+          <SearchWarehouse setDatas={setDatas} datas={datas} search={search} />
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableWarehouse warehouseList={warehouseList} datas={datas} th={th} deleteWarehouse={deleteWarehouse} click={click} setClick={setClick}/>
+          <TableWarehouse
+            warehouseList={warehouseList}
+            datas={datas}
+            th={th}
+            deleteWarehouse={deleteWarehouse}
+            click={click}
+            setClick={setClick}
+          />
         </div>
       </div>
     </div>

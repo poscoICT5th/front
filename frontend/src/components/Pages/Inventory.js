@@ -19,7 +19,7 @@ function InventoryList() {
     axios
       .get("/")
       .then((res) => {
-        setWarehouseList(res.data);
+        setInventoryList(res.data);
         console.log(res);
       })
       .catch((err) => {
@@ -27,7 +27,7 @@ function InventoryList() {
       });
   }, [click]);
     //usestate
-    const [warehouseList, setWarehouseList] = useState([]);
+    const [inventoryList, setInventoryList] = useState([]);
     const [datas, setDatas] = useState({
       industry_family:"",
       target :"",
@@ -109,7 +109,7 @@ function InventoryList() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableInventory warehouseList={warehouseList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick}/>
+          <TableInventory inventoryList={inventoryList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick}/>
         </div>
       </div>
     </div>

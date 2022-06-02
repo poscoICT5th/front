@@ -1,20 +1,29 @@
 import React from 'react'
-import { location, warehouse_code, purpose, use,inventory_using,industry_family } from '../Common/Conditions/SelectOptions';
+import { location, warehouse_code,stock_type,status_cause,stock_quality_status, product_family, target,industry_family,customer } from '../Common/Conditions/SelectOptions';
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 
 function SearchWarehouse(props) {
     const selectDatas = [
-        { name: "사업장", selectOption: industry_family, grid: 1 },
-        { name: "용도명", selectOption: purpose, grid: 1 },
-        { name: "사용여부", selectOption: use, grid: 1 },
-        { name: "재고실사", selectOption: inventory_using, grid: 1 },
+        { name: "산업군", selectOption: industry_family, grid: 1 },
+        { name: "고객사", selectOption: customer, grid: 1 },
+        { name: "제품구분", selectOption: stock_type, grid: 1 },
+        { name: "재고품질상태", selectOption: stock_quality_status, grid: 1 },
+        { name: "상태사유", selectOption: status_cause, grid: 1 },
+        { name: "사업장", selectOption: location, grid: 1 },
+        { name: "제품군", selectOption: product_family, grid: 1 },
         { name: "창고코드", selectOption: warehouse_code, grid: 1 },
+        { name: "거래처", selectOption: target, grid: 1 },
       ]
     const inputDatas = [
-        { name: "저장위치전체명", type: "text" },
-        { name: "최대적치중량", type: "number" },
+        { name: "품번", type: "text" },
+        { name: "재고생성일", type: "number" },
         { name: "최대적치매수", type: "number" },
+        { name: "최대적치매수", type: "number" },
+    ]
+    const dateDatas = [
+        { name: "창고입고일", type: "text" },
+        { name: "창고경과일", type: "text" },
     ]
     return (
         <div className="overflow-hidden sm:rounded-md">
