@@ -6,9 +6,9 @@ function TableLogisticsImport(props) {
         <div className="overflow-x-auto">
             <table className="min-w-lg text-sm divide-y divide-gray-200">
                 {/* thead */}
-                <thead className='bg-sky-50'>
+                <thead className='bg-sky-50 sticky top-0'>
                     <tr>
-                        <th className="sticky left-0 p-4 text-left rounded-l-lg">
+                        <th className="p-4 text-left rounded-l-lg">
                             <label className="sr-only" for="row_all"></label>
                             <input
                                 className="w-5 h-5 border-gray-200 rounded hidden"
@@ -43,14 +43,21 @@ function TableLogisticsImport(props) {
                 <tbody className="divide-y divide-gray-100">
                     {props.logisticsImportList.map((ImportData) => {
                         return <tr>
-                            <td className="sticky left-0 p-4 bg-white">
+                            {/* <td className="sticky left-0 p-4 bg-white">
                                 <label className="sr-only" for="row_3"></label>
                                 <input
                                     className="w-5 h-5 border-gray-200 rounded"
                                     type="checkbox"
                                     id="row_3"
-                                    onClick={() => { }}
+                                    onClick={(e) => { console.log(ImportData.instruction_no) }}
                                 />
+                            </td> */}
+                            <td className="sticky left-0 p-4 bg-white">
+                                <button
+                                    className="p-4 font-medium whitespace-nowrap bg-red-50 hover:bg-red-300 rounded-lg"
+                                    id="row_3"
+                                    onClick={(e) => { props.deleteRequests(ImportData.instruction_no); props.setClick(!props.click) }}
+                                >삭제</button>
                             </td>
                             {Object.values(ImportData).map((value) => {
                                 return <td className="p-4 font-medium whitespace-nowrap">{value}</td>

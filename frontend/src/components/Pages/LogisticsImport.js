@@ -12,9 +12,10 @@ function LogisticsImport() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
+  const [click, setClick] = useState(false)
   useEffect(() => {
     searchAll()
-  }, [])
+  }, [click])
 
   // usestate
   const [logisticsImportList, setLogisticsImportList] = useState([])
@@ -68,6 +69,7 @@ function LogisticsImport() {
     "inst_deadline",
     "done_date",
   ]
+  const [deleteDatas, setdeleteDatas] = useState("")
   // function
   // 입고 조건검색
   function search() {
@@ -83,6 +85,11 @@ function LogisticsImport() {
       .then((res) => { setLogisticsImportList(res.data) })
     // .catch((err) => { alert(datas) })
   }
+  // 입고요청 삭제(여러개)
+  function deleteRequests(ins_no) {
+    axios.delete(`/import/${ins_no}`)
+      .then((res) => { alert(res.status) })
+  }
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -93,7 +100,7 @@ function LogisticsImport() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsImport logisticsImportList={logisticsImportList} datas={datas} th={th} />
+          <TableLogisticsImport logisticsImportList={logisticsImportList} datas={datas} th={th} setdeleteDatas={setdeleteDatas} deleteRequests={deleteRequests} click={click} setClick={setClick} />
         </div>
       </div>
     </div>

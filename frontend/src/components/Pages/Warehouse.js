@@ -32,9 +32,9 @@ function Warehouse(props) {
     location: "",
     warehouse_code: "",
     purpose: "",
-    warehouse_code_desc : "",
+    warehouse_code_desc: "",
     use: "",
-    maximum_weight : 0,
+    maximum_weight: 0,
     maximum_count: 0,
     inventory_using: "",
     remarks: "",
@@ -52,7 +52,7 @@ function Warehouse(props) {
     "inventory_using",
     "remarks",
   ];
-  
+
   // function
   function search() {
     console.log(url);

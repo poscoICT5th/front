@@ -68,7 +68,7 @@ function LosgisticsMove() {
   function search(params) {
     axios.get('/search', { params: datas })
       .then((res) => { setLogisticsMoveList(res.data) })
-      .catch((err) => { console.log(err) })
+      .catch((err) => { console.log(datas) })
   }
   return (
     <div data-aos="fade-up" className="">
