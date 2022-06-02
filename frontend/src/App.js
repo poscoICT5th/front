@@ -7,7 +7,7 @@ import LogisticsExport from './components/Pages/LogisticsExport'
 import LogisticsImport from './components/Pages/LogisticsImport'
 import LosgisticsMove from './components/Pages/LosgisticsMove'
 import InventoryList from './components/List/InventoryList'
-import WarehouseList from './components/List/WarehouseList'
+import Warehouse from './components/Pages/Warehouse'
 import Main from './components/Pages/Main'
 import Sidebar from './components/Common/Sidebar'
 import Map from './components/Map/Map'
@@ -42,7 +42,7 @@ function App() {
               <Route path="/LogisticsExport" element={<LogisticsExport />} />
               <Route path="/LosgisticsMove" element={<LosgisticsMove />} />
               <Route path="/InventoryList" element={<InventoryList />} />
-              <Route path="/WarehouseList" element={<WarehouseList />} />
+              <Route path="/Warehouse" element={<Warehouse />} />
               <Route path="/Map" element={<Map />} />
               <Route path="/Map3" element={<Map3 />} />
               <Route path="/Map4" element={<Map4 />} />
