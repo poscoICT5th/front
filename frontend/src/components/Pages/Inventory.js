@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import SearchInventory from "../Search/SearchInventory";
 import TableInventory from "../Table/TableInventory";
 
-function InventoryList() {
+function Inventory() {
   let url = useSelector((state) => state.logisticsImportURL)
   axios.defaults.baseURL = url
 
@@ -116,4 +116,4 @@ function InventoryList() {
   );
 }
 
-export default InventoryList
+export default Inventory
