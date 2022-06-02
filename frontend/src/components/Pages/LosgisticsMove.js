@@ -4,19 +4,22 @@ import React, { useEffect, useState } from "react";
 
 import SearchLogisticsMove from "../Search/SearchLogisticsMove";
 import TableLogisticsMove from "../Table/TableLogisticsMove";
+import { useSelector } from "react-redux";
 
 function LosgisticsMove() {
   // axios url
-  axios.defaults.baseURL = "http://192.168.0.20:8081"
+  let url = useSelector((state) => state.logisticsMoveURL)
+  axios.defaults.baseURL = url
 
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
+
   useEffect(() => {
-    // axios.get('/')
-    //   .then((res) => { console.log(res.data) })
-    //   .catch((err) => { alert(err) })
+    axios.get('/move')
+      .then((res) => { setLogisticsMoveList(res.data) })
+      .catch((err) => { alert(err) })
   }, [])
 
   // usestate
@@ -44,21 +47,39 @@ function LosgisticsMove() {
     done_date: "",
     unit: "",
   })
-
+  const th = [
+    "status",
+    "location",
+    "instruction_no",
+    "lot_no",
+    "item_no",
+    "item_name",
+    "width",
+    "weight",
+    "thickness",
+    "height",
+    "move_amount",
+    "from_warehouse",
+    "to_warehouse",
+    "inst_reg_date",
+    "inst_deadline",
+    "done_date",
+  ]
   //function
   function search(params) {
-    // axios.get('/')
+    axios.get('/search')
+      .then((res) => { setLogisticsMoveList(res.data) })
   }
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
         <div className="font-bold text-2xl text-center my-10">창고이동 조회</div>
         < div className="mt-5 md:mt-0 md:col-span-2" >
-          <SearchLogisticsMove datas={datas} setDatas={setDatas} />
+          <SearchLogisticsMove datas={datas} setDatas={setDatas} search={search} />
         </div >
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsMove logisticsMoveList={logisticsMoveList} datas={datas} />
+          <TableLogisticsMove logisticsMoveList={logisticsMoveList} datas={datas} th={th} />
         </div>
       </div>
     </div>

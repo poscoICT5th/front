@@ -74,7 +74,7 @@ function LogisticsImport() {
     axios.get('/search', {
       params: datas
     })
-      .then((res) => { setLogisticsImportList(res.data); console.log(res) })
+      .then((res) => { setLogisticsImportList(res.data); console.log(datas) })
       .catch((err) => { console.log(datas, url) })
   }
   // 입고 전체조회

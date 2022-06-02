@@ -34,7 +34,6 @@ function TableLogisticsExport(props) {
                 </th>
               })
             }
-
           </tr>
         </thead>
         {/* tbody */}

@@ -15,7 +15,7 @@ function TableLogisticsMove(props) {
               />
             </th>
             {
-              Object.keys(props.datas).map((key) => {
+              props.th.map((key) => {
                 return <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
                   <div className="flex items-center">
                     {key}
@@ -39,7 +39,7 @@ function TableLogisticsMove(props) {
         </thead>
         {/* tbody */}
         <tbody className="divide-y divide-gray-100">
-          {props.logisticsMoveList.map((data) => {
+          {props.logisticsMoveList.map((MoveData) => {
             return <tr>
               <td className="sticky left-0 p-4 bg-white">
                 <label className="sr-only" for="row_3"></label>
@@ -50,7 +50,7 @@ function TableLogisticsMove(props) {
                   onClick={() => { }}
                 />
               </td>
-              {data.map((value) => {
+              {MoveData.map((value) => {
                 return <td className="p-4 font-medium whitespace-nowrap">{value}</td>
               })}
 

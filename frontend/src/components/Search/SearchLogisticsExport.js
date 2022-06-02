@@ -7,7 +7,7 @@ import { unit, item_name, location, product_family, statusExport, target, wareho
 function SearchLogisticsExport(props) {
   const selectDatas = [
     { name: "location", selectOption: location, grid: 1 },
-    { name: "StatusExport", selectOption: statusExport, grid: 1 },
+    { name: "status", selectOption: statusExport, grid: 1 },
     { name: "product_family", selectOption: product_family, grid: 1 },
     { name: "unit", selectOption: unit, grid: 1 },
     { name: "item_name", selectOption: item_name, grid: 2 },

@@ -36,6 +36,7 @@ let logisticsExportURL = createSlice({
   }
 })
 export let { handleLogisticsExportURL } = logisticsExportURL.actions
+
 // 물류이동 url
 let logisticsMoveURL = createSlice({
   name: 'logisticsMoveURL',

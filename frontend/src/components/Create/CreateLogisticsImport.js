@@ -42,7 +42,6 @@ function CreateLogisticsImport(props) {
     { name: "target", selectOption: target, grid: 1 },
   ]
   const inputDatas = [
-    { name: "lot_no", type: "number" },
     { name: "item_no", type: "number" },
     { name: "weight", type: "number" },
     { name: "thickness", type: "number" },

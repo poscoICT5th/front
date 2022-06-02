@@ -70,16 +70,16 @@ function LogisticsExport() {
     "inst_deadline",
     "done_date",
   ]
-  
+
   // function
   // 출고 조건검색
   function search(params) {
     console.log(datas)
-    // axios.get('/search', {
-    //   params: datas
-    // })
-    //   .then((res) => { setLogisticsExportList(res.data); console.log(res.data) })
-    //   .catch((err) => { console.log(err) })
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => { setLogisticsExportList(res.data); console.log(res.data) })
+      .catch((err) => { console.log(err) })
   }
   return (
     <div data-aos="fade-up" className="">
@@ -91,7 +91,7 @@ function LogisticsExport() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsExport logisticsExportList={logisticsExportList} datas={datas} th={th}/>
+          <TableLogisticsExport logisticsExportList={logisticsExportList} datas={datas} th={th} />
         </div>
       </div>
     </div>

@@ -53,7 +53,7 @@ function SearchLogisticsMove(props) {
             <div className="px-4 py-3 text-right">
                 <button
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                    onClick={() => { }}>
+                    onClick={() => { props.search() }}>
                     Search
                 </button>
             </div>
