@@ -13,11 +13,13 @@ import Sidebar from './components/Common/Sidebar'
 import Map from './components/Map/Map'
 import Map3 from './components/Map/Map3'
 import Map4 from './components/Map/Map4'
+import Footer from './components/Common/Footer';
+import Header from './components/Common/Header';
 function App() {
   let navigate = useNavigate();
   let isLogin = localStorage.getItem('id');
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   useEffect(() => {
     if (isLogin) {
@@ -37,6 +39,7 @@ function App() {
               : null
           }
           <div className="w-9/12 mx-auto">
+          <Header />
             {/* Routes */}
             <Routes>
               <Route index element={<Login />} />
@@ -51,7 +54,7 @@ function App() {
               <Route path="/Map4" element={<Map4 />} />
             </Routes></div>
         </div>
-
+        <Footer />
       </div>
     </div>
   )

@@ -11,7 +11,7 @@ function Inventory() {
 
   //useEffect
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   //
   const [click, setClick] = useState(false)
@@ -109,7 +109,7 @@ function Inventory() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableInventory warehouseList={warehouseList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick}/>
+          {/* <TableInventory warehouseList={warehouseList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick}/> */}
         </div>
       </div>
     </div>

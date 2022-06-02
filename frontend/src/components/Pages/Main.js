@@ -3,7 +3,7 @@ import Aos from "aos";
 import DashboardMain from '../Dashboard/DashboardMain';
 function Main() {
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   return (
     <section data-aos="fade-up" className="">

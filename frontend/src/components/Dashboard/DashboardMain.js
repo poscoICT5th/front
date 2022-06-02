@@ -27,7 +27,6 @@ function DashboardMain() {
   ];
   return (
     <div className='main'>
-      <div className="header h-16">header</div>
       <div className="content1">
         <div className="grid grid-cols-4 gap-4">
           {/* calender */}
