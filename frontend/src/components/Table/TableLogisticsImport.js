@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 function TableLogisticsImport(props) {
+
     return (
         <div className="overflow-x-auto">
             <table className="min-w-lg text-sm divide-y divide-gray-200">
@@ -16,7 +17,7 @@ function TableLogisticsImport(props) {
                             />
                         </th>
                         {
-                            Object.keys(props.datas).map((key) => {
+                           props.th.map((key) => {
                                 return <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
                                     <div className="flex items-center">
                                         {key}
@@ -40,7 +41,7 @@ function TableLogisticsImport(props) {
                 </thead>
                 {/* tbody */}
                 <tbody className="divide-y divide-gray-100">
-                    {props.logisticsImportList.map((data) => {
+                    {props.logisticsImportList.map((ImportData) => {
                         return <tr>
                             <td className="sticky left-0 p-4 bg-white">
                                 <label className="sr-only" for="row_3"></label>
@@ -51,7 +52,7 @@ function TableLogisticsImport(props) {
                                     onClick={() => { }}
                                 />
                             </td>
-                            {data.map((value) => {
+                            {Object.values(ImportData).map((value) => {
                                 return <td className="p-4 font-medium whitespace-nowrap">{value}</td>
                             })}
                         </tr>

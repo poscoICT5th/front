@@ -45,7 +45,29 @@ function LogisticsImport() {
     inst_deadline: "",
     done_date: "",
   })
-
+  const th = [
+    "status",
+    "location",
+    "instruction_no",
+    "product_family",
+    "lot_no",
+    "item_no",
+    "item_name",
+    "amount",
+    "weight",
+    "unit",
+    "target",
+    "width",
+    "thickness",
+    "height",
+    "order_amount",
+    "im_amount",
+    "to_warehouse",
+    "order_date",
+    "inst_reg_date",
+    "inst_deadline",
+    "done_date",
+  ]
   // function
   // 입고 조건검색
   function search() {
@@ -59,7 +81,7 @@ function LogisticsImport() {
   // 입고 전체조회
   function searchAll() {
     axios.get('/import')
-      .then((res) => { setLogisticsImportList(res.data); console.log(res.data) })
+      .then((res) => { setLogisticsImportList(res.data) })
     // .catch((err) => { alert(datas) })
   }
   return (
@@ -72,7 +94,7 @@ function LogisticsImport() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsImport logisticsImportList={logisticsImportList} datas={datas} />
+          <TableLogisticsImport logisticsImportList={logisticsImportList} datas={datas} th={th}/>
         </div>
       </div>
     </div>

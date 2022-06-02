@@ -1,57 +1,34 @@
 import React from 'react'
-import { unit, item_name, location, product_family, statusImport, target, warehouse_code } from '../Common/Conditions/SelectOptions';
+import { location, warehouse_code, purpose, use,inventory_using } from '../Common/Conditions/SelectOptions';
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
-import InputRange from '../Common/Conditions/InputRange'
 
-function SearchLogisticsImport(props) {
+function SearchWarehouse(props) {
     const selectDatas = [
-        { name: "location", selectOption: location, grid: 1 },
-        { name: "StatusImport", selectOption: statusImport, grid: 1 },
-        { name: "product_family", selectOption: product_family, grid: 1 },
-        { name: "unit", selectOption: unit, grid: 1 },
-        { name: "item_name", selectOption: item_name, grid: 2 },
-        { name: "warehouse_code", selectOption: warehouse_code, grid: 1 },
-        { name: "target", selectOption: target, grid: 1 },
-    ]
-    const inputRangeDatas = [
-        { name: "width", inputMin: "min_width", inputMax: "max_width" }, //저장위치전체명
-        { name: "thickness", inputMin: "min_thickness", inputMax: "max_thickness" },
-        { name: "height", inputMin: "min_height", inputMax: "max_height" },
-        { name: "weight", inputMin: "min_weight", inputMax: "max_weight" },
-        { name: "order_amount", inputMin: "min_order_amount", inputMax: "max_order_amount" },
-        { name: "im_amount", inputMin: "min_im_amount", inputMax: "max_im_amount" },
-    ]
+        { name: "사업장", selectOption: location, grid: 1 },
+        { name: "용도명", selectOption: purpose, grid: 1 },
+        { name: "사용여부", selectOption: use, grid: 1 },
+        { name: "재고실사", selectOption: inventory_using, grid: 1 },
+        { name: "창고코드", selectOption: warehouse_code, grid: 1 },
+      ]
     const inputDatas = [
-        { name: "lot_no", type: "text" },
-        { name: "item_no", type: "text" }
-    ]
-    const dateDatas = [
-        { name: "order_date", type: "text" },
-        { name: "inst_deadline", type: "text" },
+        { name: "저장위치전체명", type: "text" },
+        { name: "최대적치중량", type: "number" },
+        { name: "최대적치매수", type: "number" },
     ]
     return (
         <div className="overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
                 {/* select */}
-                <div className="grid grid-cols-4 gap-4 text-center mb-5">
+                <div className="grid grid-cols-5 gap-4 text-center mb-5">
                     {selectDatas.map((selectData) => {
                         return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
                     })}
                 </div>
                 {/* inputRange / inputText */}
-                <div className="grid grid-cols-4 gap-4 text-center">
-                    {inputRangeDatas.map((inputRangeData) => {
-                        return <InputRange setDatas={props.setDatas} datas={props.datas} name={inputRangeData.name} min={inputRangeData.inputMin} max={inputRangeData.inputMax} />
-                    })}
+                <div className="grid grid-cols-3 gap-4 text-center">
                     {inputDatas.map((inputData) => {
                         return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />
-                    })}
-                </div>
-                {/* calenders */}
-                <div className="grid grid-cols-2 gap-4 text-center mt-5">
-                    {dateDatas.map((dateData) => {
-                        return <InputText setDatas={props.setDatas} datas={props.datas} name={dateData.name} />
                     })}
                 </div>
             </div>
@@ -79,4 +56,4 @@ function SearchLogisticsImport(props) {
     )
 }
 
-export default SearchLogisticsImport
+export default SearchWarehouse
