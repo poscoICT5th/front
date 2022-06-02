@@ -58,9 +58,9 @@ function CreateLogisticsImport(props) {
   ]
   // function
   function request() {
-    // axios.post('/import', datas)
-    //   .then((res) => { console.log(res) })
-    //   .catch((err) => { alert(err) })
+    axios.post('/import', datas)
+      .then((res) => { console.log(res) })
+      .catch((err) => { alert(err) })
   }
   const cancelButtonRef = useRef(null)
   return (

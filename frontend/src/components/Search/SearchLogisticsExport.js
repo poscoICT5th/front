@@ -32,8 +32,8 @@ function SearchLogisticsExport(props) {
   ]
   return (
     <div className="overflow-hidden sm:rounded-md">
-      <div className="px-4 py-5 bg-white sm:p-6 bg-gray-100 rounded-lg">
-        <div className="grid grid-cols-4 gap-4 text-center">
+      <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
+        <div className="grid grid-cols-4 gap-4 text-center  mb-5">
           {selectDatas.map((selectData) => {
             return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
           })}

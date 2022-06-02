@@ -53,9 +53,9 @@ function CreateLogisticsExport(props) {
   ]
   // function
   function request() {
-    // axios.post('/export', datas)
-    //   .then((res) => { props.setCreateLogisticsExportOpen(false); })
-    //   .catch((err) => { alert(err) })
+    axios.post('/export', datas)
+      .then((res) => { props.setCreateLogisticsExportOpen(false); })
+      .catch((err) => { alert(err) })
   }
   const cancelButtonRef = useRef(null)
   return (

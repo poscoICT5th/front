@@ -71,12 +71,11 @@ function LogisticsImport() {
   // function
   // 입고 조건검색
   function search() {
-    console.log(datas)
-    // axios.get('/search', {
-    //   params: datas
-    // })
-    //   .then((res) => { setLogisticsImportList(res.data); })
-    // .catch((err) => { alert(datas) })
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => { setLogisticsImportList(res.data); console.log(res) })
+      .catch((err) => { console.log(datas, url) })
   }
   // 입고 전체조회
   function searchAll() {
