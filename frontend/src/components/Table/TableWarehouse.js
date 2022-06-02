@@ -44,7 +44,7 @@ function TableWarehouse(props) {
                 <button
                   className="p-4 font-medium whitespace-nowrap bg-red-50 hover:bg-red-300 rounded-lg"
                   id="row_3"
-                  onClick={(e) => { console.log(WarehouseData.instruction_no) }}
+                  onClick={(e) => {  props.deleteWarehouse(WarehouseData.warehouse_code); props.setClick(!props.click)}}
                 >삭제</button>
               </td>
               {Object.values(WarehouseData).map((value) => {

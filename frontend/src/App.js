@@ -6,7 +6,7 @@ import Login from './components/Account/Login'
 import LogisticsExport from './components/Pages/LogisticsExport'
 import LogisticsImport from './components/Pages/LogisticsImport'
 import LosgisticsMove from './components/Pages/LosgisticsMove'
-import InventoryList from './components/List/InventoryList'
+import Inventory from './components/Pages/Inventory'
 import Warehouse from './components/Pages/Warehouse'
 import Main from './components/Pages/Main'
 import Sidebar from './components/Common/Sidebar'
@@ -41,7 +41,7 @@ function App() {
               <Route path="/LogisticsImport" element={<LogisticsImport />} />
               <Route path="/LogisticsExport" element={<LogisticsExport />} />
               <Route path="/LosgisticsMove" element={<LosgisticsMove />} />
-              <Route path="/InventoryList" element={<InventoryList />} />
+              <Route path="/Inventory" element={<Inventory />} />
               <Route path="/Warehouse" element={<Warehouse />} />
               <Route path="/Map" element={<Map />} />
               <Route path="/Map3" element={<Map3 />} />
