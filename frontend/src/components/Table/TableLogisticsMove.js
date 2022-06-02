@@ -9,7 +9,7 @@ function TableLogisticsMove(props) {
             <th className="sticky left-0 p-4 text-left rounded-l-lg">
               <label className="sr-only" for="row_all"></label>
               <input
-                className="w-5 h-5 border-gray-200 rounded"
+                className="w-5 h-5 border-gray-200 rounded hidden"
                 type="checkbox"
                 id="row_all"
               />
@@ -50,7 +50,7 @@ function TableLogisticsMove(props) {
                   onClick={() => { }}
                 />
               </td>
-              {MoveData.map((value) => {
+              {Object.values(MoveData).map((value) => {
                 return <td className="p-4 font-medium whitespace-nowrap">{value}</td>
               })}
 

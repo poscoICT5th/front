@@ -1,7 +1,6 @@
 import axios from "axios";
 import Aos from "aos";
 import React, { useEffect, useState } from "react";
-
 import SearchLogisticsMove from "../Search/SearchLogisticsMove";
 import TableLogisticsMove from "../Table/TableLogisticsMove";
 import { useSelector } from "react-redux";
@@ -19,7 +18,7 @@ function LosgisticsMove() {
   useEffect(() => {
     axios.get('/move')
       .then((res) => { setLogisticsMoveList(res.data) })
-      .catch((err) => { alert(err) })
+      .catch((err) => { console.log(err) })
   }, [])
 
   // usestate
@@ -67,8 +66,9 @@ function LosgisticsMove() {
   ]
   //function
   function search(params) {
-    axios.get('/search')
+    axios.get('/search', { params: datas })
       .then((res) => { setLogisticsMoveList(res.data) })
+      .catch((err) => { console.log(err) })
   }
   return (
     <div data-aos="fade-up" className="">

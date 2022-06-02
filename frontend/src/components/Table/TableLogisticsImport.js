@@ -17,7 +17,7 @@ function TableLogisticsImport(props) {
                             />
                         </th>
                         {
-                           props.th.map((key) => {
+                            props.th.map((key) => {
                                 return <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
                                     <div className="flex items-center">
                                         {key}
