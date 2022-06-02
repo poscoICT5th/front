@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -24,6 +24,8 @@ function App() {
       // navigate('/Main')
     }
   }, [])
+  // dark모드
+  const [isDark, setIsDark] = useState(false);
   return (
     <div data-aos="fade-up" className="">
       <div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 function TableLogisticsMove(props) {
   return (
-    <div className="">
+    <div className="overflow-x-auto">
       <table className="min-w-lg text-sm divide-y divide-gray-200">
         <thead className='bg-sky-50 sticky top-0'>
           <tr>
@@ -45,7 +45,7 @@ function TableLogisticsMove(props) {
                 <button
                   className="p-4 font-medium whitespace-nowrap bg-red-50 hover:bg-red-300 rounded-lg"
                   id="row_3"
-                  onClick={(e) => { console.log(MoveData.instruction_no) }}
+                  onClick={(e) => { props.deleteRequest(MoveData.instruction_no); props.setClick(!props.click) }}
                 >삭제</button>
               </td>
               {Object.values(MoveData).map((value) => {

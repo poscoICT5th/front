@@ -44,7 +44,7 @@ function TableLogisticsExport(props) {
                 <button
                   className="p-4 font-medium whitespace-nowrap bg-red-50 hover:bg-red-300 rounded-lg"
                   id="row_3"
-                  onClick={(e) => { console.log(ExportData.instruction_no) }}
+                  onClick={(e) => { props.deleteRequests(ExportData.instruction_no); props.setClick(!props.click) }}
                 >삭제</button>
               </td>
               {Object.values(ExportData).map((value) => {

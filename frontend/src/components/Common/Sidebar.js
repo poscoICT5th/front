@@ -16,6 +16,76 @@ function Sidebar() {
   const [createWarehouseOpen, setCreateWarehouseOpen] = useState(false)
   const [createInventoryOpen, setCreateInventoryOpen] = useState(false)
   const [menu, setMenu] = useState(0)
+  const sidebarDatas = [
+    {
+      menu: "계정", no: 0, d: "M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+      subMenu: [
+        { submenu: "마이페이지", no: 11, navigate: "LogisticsImport", d: "M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" },
+        { submenu: "로그아웃", no: 12, navigate: "/", d: "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" },
+      ],
+      componentMenu: [
+      ]
+    },
+    {
+      menu: "입고관리", no: 0, d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01",
+      subMenu: [
+        { submenu: "입고조회", no: 21, navigate: "LogisticsImport", d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
+      ],
+      componentMenu: [
+        {
+          component: <CreateLogisticsImport setCreateLogisticsImportOpen={setCreateLogisticsImportOpen} createLogisticsImportOpen={createLogisticsImportOpen} />
+          , no: 22, d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z", open: setCreateLogisticsImportOpen
+        }
+      ]
+    },
+    {
+      menu: "출고관리", no: 0, d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
+      subMenu: [
+        { submenu: "출고조회", no: 31, navigate: "LogisticsExport", d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
+      ],
+      componentMenu: [
+        {
+          component: <CreateLogisticsExport setCreateLogisticsExportOpen={setCreateLogisticsExportOpen} createLogisticsExportOpen={createLogisticsExportOpen} />
+          , no: 32, d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z", open: setCreateLogisticsExportOpen
+        }
+      ]
+    },
+    {
+      menu: "창고이동관리", no: 0, d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
+      subMenu: [
+        { submenu: "창고이동조회", no: 41, navigate: "LosgisticsMove", d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
+      ],
+      componentMenu: [
+        {
+          component: <CreateLogisticsMove setCreateLogisticsMoveOpen={setCreateLogisticsMoveOpen} createLogisticsMoveOpen={createLogisticsMoveOpen} />
+          , no: 42, d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z", open: setCreateLogisticsMoveOpen
+        }
+      ]
+    },
+    {
+      menu: "창고관리", no: 0, d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
+      subMenu: [
+        { submenu: "창고조회", no: 51, navigate: "Warehouse", d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
+      ],
+      componentMenu: [
+        {
+          component: <CreateWarehouse createWarehouseOpen={createWarehouseOpen} setCreateWarehouseOpen={setCreateWarehouseOpen} />
+          , no: 52, d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7", open: setCreateWarehouseOpen
+        }
+      ]
+    },
+    {
+      menu: "재고관리", no: 0, d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
+      subMenu: [
+        { submenu: "재고조회", no: 61, navigate: "Inventory", d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
+        { submenu: "재고MAP", no: 62, navigate: "Map4", d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" },
+      ],
+      componentMenu: [
+
+      ]
+    },
+  ]
+
   return (
     <div>
       <div className="flex flex-col justify-between h-screen bg-white border-r">
@@ -44,375 +114,62 @@ function Sidebar() {
               </svg>
               <span className="ml-3 text-sm font-medium"> Main </span>
             </div>
-            {/* account */}
-            <details className="group">
-              <summary
-                className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="ml-3 text-sm font-medium"> Account </span>
-                <span
-                  className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180"
+            {/*  */}
+            {sidebarDatas.map((sidebarData) => {
+              return <details className="group">
+                <summary
+                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </summary>
-
-              <nav className="mt-1.5 ml-8 flex flex-col">
-                <div className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-                  style={menu === 11 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { navigatePage("/"); setMenu(11) }}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d={sidebarData.d} />
                   </svg>
-                  <span className="ml-3 text-sm font-medium"> Profile </span>
-                </div>
-                <div>
-                  <button
-                    className="flex items-center w-full px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700"
-                    onClick={() => { localStorage.clear(); navigate('/') }}
+                  <span className="ml-3 text-sm font-medium"> {sidebarData.menu} </span>
+                  <span
+                    className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      />
                     </svg>
-                    <span className="ml-3 text-sm font-medium"> Logout </span>
-                  </button>
-                </div>
-              </nav>
-            </details>
-            {/* 입고 관리 */}
-            <details className="group">
-              <summary
-                className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
-                </svg>
-                <span className="ml-3 text-sm font-medium"> 입고관리 </span>
-
-                <span
-                  className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </summary>
-
-              <nav className="mt-1.5 ml-8 flex flex-col">
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 21 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { navigatePage("LogisticsImport"); setMenu(21) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                  </svg>
-                  <span className="ml-3 text-sm font-medium"> 입고 조회 </span>
-                </div>
-
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 22 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { setCreateLogisticsImportOpen(true); setMenu(22) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                  </svg>
-                  <CreateLogisticsImport setCreateLogisticsImportOpen={setCreateLogisticsImportOpen} createLogisticsImportOpen={createLogisticsImportOpen} />
-                </div>
-              </nav>
-            </details>
-            {/* 출고 관리 */}
-            <details className="group">
-              <summary
-                className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-
-                <span className="ml-3 text-sm font-medium"> 출고관리 </span>
-                <span
-                  className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </summary>
-
-              <nav className="mt-1.5 ml-8 flex flex-col">
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 31 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { navigatePage("LogisticsExport"); setMenu(31) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                  </svg>
-
-                  <span className="ml-3 text-sm font-medium"> 출고 조회 </span>
-                </div>
-
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 32 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { setCreateLogisticsExportOpen(true); setMenu(32) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                  </svg>
-
-                  <CreateLogisticsExport setCreateLogisticsExportOpen={setCreateLogisticsExportOpen} createLogisticsExportOpen={createLogisticsExportOpen} />
-                </div>
-              </nav>
-            </details>
-            {/* 창고이동 관리 */}
-            <details className="group">
-              <summary
-                className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 opacity-75"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                <span className="ml-3 text-sm font-medium"> 창고이동관리 </span>
-                <span
-                  className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </summary>
-              <nav className="mt-1.5 ml-8 flex flex-col">
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 41 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { navigatePage("LosgisticsMove"); setMenu(41) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                  </svg>
-
-                  <span className="ml-3 text-sm font-medium"> 창고이동 조회 </span>
-                </div>
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 42 ? { backgroundColor: "gray" } : { backgroundColor: "white" }}
-                  onClick={() => { setCreateLogisticsMoveOpen(true); setMenu(42) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                  </svg>
-                  <CreateLogisticsMove setCreateLogisticsMoveOpen={setCreateLogisticsMoveOpen} createLogisticsMoveOpen={createLogisticsMoveOpen} />
-                </div>
-              </nav>
-            </details>
-            {/* 창고 관리 */}
-            <details className="group">
-              <summary
-                className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 opacity-75"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                <span className="ml-3 text-sm font-medium"> 창고 관리 </span>
-                <span
-                  className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </summary>
-              <nav className="mt-1.5 ml-8 flex flex-col">
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 51 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { navigatePage("Warehouse"); setMenu(51) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                  </svg>
-
-                  <span className="ml-3 text-sm font-medium"> 창고 조회 </span>
-                </div>
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 52 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { setCreateWarehouseOpen(true); setMenu(52) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                  </svg>
-                  <CreateWarehouse createWarehouseOpen={createWarehouseOpen} setCreateWarehouseOpen={setCreateWarehouseOpen} />
-
-                </div>
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 53 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { navigatePage("Map4"); setMenu(53) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                  </svg>
-                  <span className="ml-3 text-sm font-medium"> 창고 map </span>
-                </div>
-              </nav>
-            </details>
-            {/* 창고 관리 */}
-            <details className="group">
-              <summary
-                className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 opacity-75"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-                <span className="ml-3 text-sm font-medium"> 재고 관리 </span>
-                <span
-                  className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </summary>
-              <nav className="mt-1.5 ml-8 flex flex-col">
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 61 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { navigatePage("Inventory"); setMenu(61) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                  </svg>
-
-                  <span className="ml-3 text-sm font-medium"> 재고 조회 </span>
-                </div>
-                <div
-                  className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                  style={menu === 62 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-                  onClick={() => { navigatePage("Map4"); setMenu(62) }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                  </svg>
-                  <span className="ml-3 text-sm font-medium"> 재고 map </span>
-                </div>
-              </nav>
-            </details>
-            {/* 한개목록 */}
-            <div
-              className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 opacity-75"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                />
-              </svg>
-              <span className="ml-3 text-sm font-medium"> Billing </span>
-            </div>
+                  </span>
+                </summary>
+                <nav className="mt-1.5 ml-8 flex flex-col">
+                  {sidebarData.subMenu.map((submenuData) => {
+                    return <div className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+                      style={menu === submenuData.no ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
+                      onClick={() => { navigatePage(submenuData.navigate); setMenu(submenuData.no) }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d={submenuData.d} />
+                      </svg>
+                      <span className="ml-3 text-sm font-medium"> {submenuData.submenu} </span>
+                    </div>
+                  })}
+                  {
+                    sidebarData.componentMenu.map((componentData) => {
+                      return <div>
+                        <button
+                          className="flex items-center w-full px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+                          onClick={() => { setMenu(componentData.no); componentData.open(true) }}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d={componentData.d} />
+                          </svg>
+                          {componentData.component}
+                        </button>
+                      </div>
+                    })
+                  }
+                </nav>
+              </details>
+            })}
           </nav>
         </div>
 
