@@ -85,7 +85,7 @@ function LogisticsImport() {
       .then((res) => { setLogisticsImportList(res.data) })
     // .catch((err) => { alert(datas) })
   }
-  // 입고요청 삭제(여러개)
+  // 입고요청 삭제
   function deleteRequests(ins_no) {
     axios.delete(`/import/${ins_no}`)
       .then((res) => { alert(res.status) })
