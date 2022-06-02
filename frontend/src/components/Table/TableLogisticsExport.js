@@ -13,9 +13,8 @@ function TableLogisticsExport(props) {
                 type="checkbox"
                 id="row_all"
               />
-            </th>
-            {
-              Object.keys(props.datas).map((key) => {
+            </th>{
+              props.th.map((key) => {
                 return <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
                   <div className="flex items-center">
                     {key}
@@ -35,11 +34,12 @@ function TableLogisticsExport(props) {
                 </th>
               })
             }
+
           </tr>
         </thead>
         {/* tbody */}
         <tbody className="divide-y divide-gray-100">
-          {props.logisticsExportList.map((data) => {
+          {props.logisticsExportList.map((ExportData) => {
             return <tr>
               <td className="sticky left-0 p-4 bg-white">
                 <label className="sr-only" for="row_3"></label>
@@ -50,7 +50,7 @@ function TableLogisticsExport(props) {
                   onClick={() => { }}
                 />
               </td>
-              {data.map((value)=>{
+              {Object.values(ExportData).map((value) => {
                 return <td className="p-4 font-medium whitespace-nowrap">{value}</td>
               })}
             </tr>

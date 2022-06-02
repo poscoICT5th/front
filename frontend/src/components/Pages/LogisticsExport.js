@@ -15,8 +15,8 @@ function LogisticsExport() {
     Aos.init({ duration: 2000 });
   }, []);
   useEffect(() => {
-    // axios.get("/export", {})
-    //   .then((res) => { setLogisticsExportList(res.data); })
+    axios.get("/export", {})
+      .then((res) => { setLogisticsExportList(res.data); })
   }, [])
 
   // usestate
@@ -50,6 +50,27 @@ function LogisticsExport() {
     done_date: "",
   })
 
+  const th = [
+    "status",
+    "location",
+    "instruction_no",
+    "target",
+    "lot_no",
+    "item_no",
+    "item_name",
+    "width",
+    "weight",
+    "thickness",
+    "height",
+    "order_amount",
+    "ex_amount",
+    "ex_remain",
+    "order_date",
+    "inst_reg_date",
+    "inst_deadline",
+    "done_date",
+  ]
+  
   // function
   // 출고 조건검색
   function search(params) {
@@ -70,7 +91,7 @@ function LogisticsExport() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsExport logisticsExportList={logisticsExportList} datas={datas} />
+          <TableLogisticsExport logisticsExportList={logisticsExportList} datas={datas} th={th}/>
         </div>
       </div>
     </div>
