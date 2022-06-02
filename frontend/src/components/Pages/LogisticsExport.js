@@ -6,7 +6,6 @@ import SearchLogisticsExport from '../Search/SearchLogisticsExport';
 import TableLogisticsExport from '../Table/TableLogisticsExport';
 import { useSelector } from 'react-redux';
 
-
 function LogisticsExport() {
   let url = useSelector((state) => state.logisticsExportURL)
   axios.defaults.baseURL = url
@@ -14,10 +13,11 @@ function LogisticsExport() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
+  const [click, setClick] = useState(false)
   useEffect(() => {
     axios.get("/export", {})
       .then((res) => { setLogisticsExportList(res.data); })
-  }, [])
+  }, [click])
 
   // usestate
   const [logisticsExportList, setLogisticsExportList] = useState([])
@@ -81,6 +81,10 @@ function LogisticsExport() {
       .then((res) => { setLogisticsExportList(res.data); console.log(res.data) })
       .catch((err) => { console.log(err) })
   }
+  function deleteRequests(ins_no) {
+    axios.delete(`/export/${ins_no}`)
+      .then((res) => { alert(res.status) })
+  }
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -91,7 +95,7 @@ function LogisticsExport() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsExport logisticsExportList={logisticsExportList} datas={datas} th={th} />
+          <TableLogisticsExport logisticsExportList={logisticsExportList} datas={datas} th={th} setClick={setClick} click={click} deleteRequests={deleteRequests} />
         </div>
       </div>
     </div>

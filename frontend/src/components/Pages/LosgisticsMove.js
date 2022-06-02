@@ -14,12 +14,12 @@ function LosgisticsMove() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
-
+  const [click, setClick] = useState(false)
   useEffect(() => {
     axios.get('/move')
       .then((res) => { setLogisticsMoveList(res.data) })
       .catch((err) => { console.log(err) })
-  }, [])
+  }, [click])
 
   // usestate
   const [logisticsMoveList, setLogisticsMoveList] = useState([])
@@ -68,7 +68,11 @@ function LosgisticsMove() {
   function search(params) {
     axios.get('/search', { params: datas })
       .then((res) => { setLogisticsMoveList(res.data) })
-      .catch((err) => { console.log(err) })
+      .catch((err) => { console.log(datas) })
+  }
+  function deleteRequest(ins_no) {
+    axios.delete(`/move/${ins_no}`)
+      .then((res) => { alert(res.status) })
   }
   return (
     <div data-aos="fade-up" className="">
@@ -79,7 +83,7 @@ function LosgisticsMove() {
         </div >
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsMove logisticsMoveList={logisticsMoveList} datas={datas} th={th} />
+          <TableLogisticsMove logisticsMoveList={logisticsMoveList} datas={datas} th={th} deleteRequest={deleteRequest} click={click} setClick={setClick} />
         </div>
       </div>
     </div>

@@ -25,17 +25,18 @@ function Warehouse(props) {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-
+  }, [click]);
+  //클릭해야 삭제할수있게함.
+  
   //usestate
   const [warehouseList, setWarehouseList] = useState([]);
   const [datas, setDatas] = useState({
     location: "",
     warehouse_code: "",
     purpose: "",
-    warehouse_code_desc : "",
+    warehouse_code_desc: "",
     use: "",
-    maximum_weight : 0,
+    maximum_weight: 0,
     maximum_count: 0,
     inventory_using: "",
     remarks: "",
@@ -52,7 +53,6 @@ function Warehouse(props) {
     "inventory_using",
     "remarks",
   ];
-
   // 입고요청 삭제(여러개)
   function deleteWarehouse(warehouse_code) {
     axios.delete(`/${warehouse_code}`).then((res) => {

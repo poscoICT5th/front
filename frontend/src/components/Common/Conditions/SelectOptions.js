@@ -129,7 +129,7 @@ export const unit = [
     { value: 'KG', label: 'KG', color: '#00B8D9' },
     { value: 'EA', label: 'EA', color: '#00B8D9' },
 ]
-// 거래처
+// 고객사
 export const customer = [
     { value: '', label: '전체보기', color: '#00B8D9' },
     { value: '1232:현대모비스', label: '1232:현대모비스', color: '#00B8D9' },

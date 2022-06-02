@@ -9,7 +9,7 @@ function SearchLogisticsMove(props) {
         { name: "from_warehouse", selectOption: warehouse_code, grid: 1 },
         { name: "to_warehouse", selectOption: warehouse_code, grid: 1 },
         { name: "location", selectOption: location, grid: 1 },
-        { name: "statusMove", selectOption: statusMove, grid: 1 },
+        { name: "status", selectOption: statusMove, grid: 1 },
         { name: "product_family", selectOption: product_family, grid: 1 },
         { name: "unit", selectOption: unit, grid: 1 },
         { name: "item_name", selectOption: item_name, grid: 2 },

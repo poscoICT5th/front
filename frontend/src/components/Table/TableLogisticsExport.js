@@ -4,9 +4,9 @@ function TableLogisticsExport(props) {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-lg text-sm divide-y divide-gray-200">
-        <thead className='bg-sky-50'>
+        <thead className='bg-sky-50 sticky top-0'>
           <tr>
-            <th className="sticky left-0 p-4 text-left rounded-l-lg">
+            <th className="left-0 p-4 text-left rounded-l-lg">
               <label className="sr-only" for="row_all"></label>
               <input
                 className="w-5 h-5 border-gray-200 rounded hidden"
@@ -41,13 +41,11 @@ function TableLogisticsExport(props) {
           {props.logisticsExportList.map((ExportData) => {
             return <tr>
               <td className="sticky left-0 p-4 bg-white">
-                <label className="sr-only" for="row_3"></label>
-                <input
-                  className="w-5 h-5 border-gray-200 rounded"
-                  type="checkbox"
+                <button
+                  className="p-4 font-medium whitespace-nowrap bg-red-50 hover:bg-red-300 rounded-lg"
                   id="row_3"
-                  onClick={() => { }}
-                />
+                  onClick={(e) => { props.deleteRequests(ExportData.instruction_no); props.setClick(!props.click) }}
+                >삭제</button>
               </td>
               {Object.values(ExportData).map((value) => {
                 return <td className="p-4 font-medium whitespace-nowrap">{value}</td>
