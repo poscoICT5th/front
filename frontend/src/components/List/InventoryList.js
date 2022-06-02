@@ -3,9 +3,14 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import CancelRequest from '../Functions/CancelRequest';
 import { stock_place, warehouse_code, purpose, location, use, inventory_using, industry_family, stock_quality_status, status_cause } from "../Common/Conditions/SelectOptions";
-
 import Select from "react-select";
+import { useSelector } from 'react-redux';
+
 function InventoryList() {
+  let url = useSelector((state) => state.logisticsImportURL)
+  axios.defaults.baseURL = url
+
+  //useEffect
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
