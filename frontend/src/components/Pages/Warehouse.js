@@ -14,6 +14,7 @@ function Warehouse(props) {
     Aos.init({ duration: 2000 });
   }, []);
   // 맨처음에 전체리스트 불러오기
+  const [click, setClick] = useState(false)
   useEffect(() => {
     axios
       .get("/")
@@ -24,8 +25,9 @@ function Warehouse(props) {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-
+  }, [click]);
+  //클릭해야 삭제할수있게함.
+  
   //usestate
   const [warehouseList, setWarehouseList] = useState([]);
   const [datas, setDatas] = useState({
@@ -52,6 +54,12 @@ function Warehouse(props) {
     "inventory_using",
     "remarks",
   ];
+   
+  // 입고요청 삭제(여러개)
+  function deleteWarehouse(warehouse_code) {
+    axios.delete(`/${warehouse_code}`)
+      .then((res) => { alert(res.status) })
+  }
 
   // function
   function search() {
@@ -71,7 +79,7 @@ function Warehouse(props) {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableWarehouse warehouseList={warehouseList} datas={datas} th={th} />
+          <TableWarehouse warehouseList={warehouseList} datas={datas} th={th} deleteWarehouse={deleteWarehouse} click={click} setClick={setClick}/>
         </div>
       </div>
     </div>
