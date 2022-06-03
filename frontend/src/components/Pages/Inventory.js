@@ -109,11 +109,7 @@ function Inventory() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-<<<<<<< HEAD
           <TableInventory inventoryList={inventoryList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick}/>
-=======
-          {/* <TableInventory warehouseList={warehouseList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick}/> */}
->>>>>>> cho
         </div>
       </div>
     </div>
