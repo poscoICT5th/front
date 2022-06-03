@@ -6,7 +6,7 @@ import SearchInventory from "../Search/SearchInventory";
 import TableInventory from "../Table/TableInventory";
 
 function Inventory() {
-  let url = useSelector((state) => state.logisticsImportURL)
+  let url = useSelector((state) => state.inventoryURL)
   axios.defaults.baseURL = url
 
   //useEffect
@@ -26,57 +26,58 @@ function Inventory() {
         console.log(err);
       });
   }, [click]);
-    //usestate
-    const [inventoryList, setInventoryList] = useState([]);
-    const [datas, setDatas] = useState({
-      industry_family:"",
-      target :"",
-      stock_type :"",
-      stock_quality_status :"",
-      status_cause :"",
-      stock_place :"",
-      product_family :"",
-      warehouse_code :"",
-      lot_no : "",
-      item_num :"",
-      item_desc :"",
-      item_name :"",
-      amount : "",
-      weight : "",
-      unit :"",
-      customer :"",
-      fixed_month : "",
-      width : "",
-      thickness : "",
-      height : "",
-      inventory_date :"",
-      warehouse_date :"",
-      warehouse_aging :"",
-    });
+
+  //usestate
+  const [inventoryList, setInventoryList] = useState([]);
+  const [datas, setDatas] = useState({
+    industry_family: "",
+    target: "",
+    stock_type: "",
+    stock_quality_status: "",
+    status_cause: "",
+    stock_place: "",
+    product_family: "",
+    warehouse_code: "",
+    lot_no: "",
+    item_num: "",
+    item_desc: "",
+    item_name: "",
+    amount: "",
+    weight: "",
+    unit: "",
+    customer: "",
+    fixed_month: "",
+    width: "",
+    thickness: "",
+    height: "",
+    inventory_date: "",
+    warehouse_date: "",
+    warehouse_aging: "",
+  });
   //통신오는 순서로 맞춰주기
   const th = [
     "industry_family",
-    "target" ,
-    "stock_type" ,
-    "stock_quality_status" ,
-    " status_cause" ,
-    "stock_place" ,
-    "product_family" ,
-    "warehouse_code" ,
-    "lot_no" ,
-    "item_num" ,
-    "item_desc" ,
-    "item_name" ,
-    "amount" ,
+    "target",
+    "stock_type",
+    "stock_quality_status",
+    " status_cause",
+    "stock_place",
+    "product_family",
+    "warehouse_code",
+    "lot_no",
+    "item_num",
+    "item_desc",
+    "item_name",
+    "amount",
     "weight ",
-    "unit" ,
+    "unit",
     "customer ",
-    "fixed_month" ,
-    "width" ,
+    "fixed_month",
+    "width",
     "thickness ",
-    "height" ,
-    "inventory_date" ,
-    "warehouse_date" ,
+    "height",
+    "inventory_date",
+    "warehouse_date",
     "warehouse_aging ",
   ];
   // 입고요청 삭제(여러개)
@@ -109,7 +110,7 @@ function Inventory() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableInventory inventoryList={inventoryList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick}/>
+          <TableInventory inventoryList={inventoryList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick} />
         </div>
       </div>
     </div>

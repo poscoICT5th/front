@@ -59,6 +59,17 @@ let warehouseURL = createSlice({
   },
 });
 export let { handleWarehouseURL } = warehouseURL.actions;
+// 인벤토리 url
+let inventoryURL = createSlice({
+  name: "inventoryURL",
+  initialState: "http://192.168.0.20:8082",
+  reducers: {
+    handleInventoryURL(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleInventoryURL } = inventoryURL.actions;
 
 // state등록해주는부분
 export default configureStore({
@@ -69,6 +80,7 @@ export default configureStore({
     logisticsExportURL: logisticsExportURL.reducer,
     logisticsMoveURL: logisticsMoveURL.reducer,
     warehouseURL: warehouseURL.reducer,
+    inventoryURL: inventoryURL.reducer,
   },
 });
 //
