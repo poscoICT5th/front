@@ -16,8 +16,8 @@ function LogisticsExport() {
   const [click, setClick] = useState(false)
   useEffect(() => {
     axios.get("/export", {})
-      .then((res) => { setLogisticsExportList(res.data); })
-  }, [click])
+      .then((res) => { setLogisticsExportList(res.data) })
+  }, [])
 
   // usestate
   const [logisticsExportList, setLogisticsExportList] = useState([])

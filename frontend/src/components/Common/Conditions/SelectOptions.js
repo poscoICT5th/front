@@ -13,7 +13,7 @@ export const statusExport = [
 // 이동작업상태
 export const statusMove = [
     { value: '', label: '전체보기', color: '#00B8D9' },
-    { value: '이동대기', label: '이동대기', color: '#00B8D9' },
+    { value: '이동예정', label: '이동예정', color: '#00B8D9' },
     { value: '이동중', label: '이동중', color: '#00B8D9' },
     { value: '이동완료', label: '이동완료', color: '#00B8D9' },
 ];
