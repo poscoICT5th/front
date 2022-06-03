@@ -5,13 +5,13 @@ import { useSelector } from 'react-redux';
 import SearchInventory from "../Search/SearchInventory";
 import TableInventory from "../Table/TableInventory";
 
-function InventoryList() {
+function Inventory() {
   let url = useSelector((state) => state.logisticsImportURL)
   axios.defaults.baseURL = url
 
   //useEffect
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   //
   const [click, setClick] = useState(false)
@@ -109,11 +109,15 @@ function InventoryList() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
+<<<<<<< HEAD
           <TableInventory inventoryList={inventoryList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick}/>
+=======
+          {/* <TableInventory warehouseList={warehouseList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick}/> */}
+>>>>>>> cho
         </div>
       </div>
     </div>
   );
 }
 
-export default InventoryList
+export default Inventory

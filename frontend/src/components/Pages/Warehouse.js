@@ -11,7 +11,7 @@ function Warehouse(props) {
 
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   // 맨처음에 전체리스트 불러오기
   const [click, setClick] = useState(false);

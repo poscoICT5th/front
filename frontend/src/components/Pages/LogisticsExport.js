@@ -11,7 +11,7 @@ function LogisticsExport() {
   axios.defaults.baseURL = url
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   const [click, setClick] = useState(false)
   useEffect(() => {
