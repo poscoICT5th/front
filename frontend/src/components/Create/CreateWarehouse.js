@@ -11,48 +11,51 @@ import {
   warehouse_code,
 } from "../Common/Conditions/SelectOptions";
 
-import SearchSelect from '../Common/Conditions/SearchSelect'
-import InputText from '../Common/Conditions/InputText'
+import SearchSelect from "../Common/Conditions/SearchSelect";
+import InputText from "../Common/Conditions/InputText";
 
 function CreateWarehouse(props) {
-  let url = useSelector((state) => state.logisticsMoveURL)
-  axios.defaults.baseURL = url
-
+  let url = useSelector((state) => state.logisticsMoveURL);
+  axios.defaults.baseURL = url;
 
   // usestate
   const [datas, setDatas] = useState({
     location: "",
     warehouse_code: "",
     purpose: "",
-    warehouse_code_desc : "",
+    warehouse_code_desc: "",
     use: "",
-    maximum_weight : 0,
+    maximum_weight: 0,
     maximum_count: 0,
     inventory_using: "",
     remarks: "",
-  })
+  });
   const selectDatas = [
     { name: "사업장", selectOption: location, grid: 1 },
     { name: "용도명", selectOption: purpose, grid: 1 },
     { name: "사용여부", selectOption: use, grid: 1 },
     { name: "재고실사", selectOption: inventory_using, grid: 1 },
-  ]
+  ];
   const inputDatas = [
     { name: "저장위치전체명", type: "text" },
     { name: "최대적치중량", type: "number" },
     { name: "최대적치매수", type: "number" },
     { name: "창고코드", type: "text" },
-  ]
+  ];
 
-    // function
-    function RegisteWarehouse(params) {
-      console.log(datas)
-      axios.post('/', datas)
-      .then((res) => { console.log(res) })
-      .catch((err) => { alert(err) })
-
-    }
-    const cancelButtonRef = useRef(null);
+  // function
+  function RegisteWarehouse(params) {
+    console.log(datas);
+    axios
+      .post("/", datas)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+  const cancelButtonRef = useRef(null);
 
   return (
     <div>
@@ -62,7 +65,12 @@ function CreateWarehouse(props) {
           as="div"
           className="relative z-10"
           initialFocus={cancelButtonRef}
-          onClose={props.setCreateWarehouseOpen}
+          onClose={() =>
+            props.setOpens({
+              ...props.opens,
+              [props.openData]: false,
+            })
+          }
         >
           <Transition.Child
             as={Fragment}
@@ -89,7 +97,7 @@ function CreateWarehouse(props) {
                 <Dialog.Panel className="relative min-w-md bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8">
                   <div className="w-full mx-auto">
                     <div className="font-bold text-2xl text-center my-5">
-                    창고 등록
+                      창고 등록
                     </div>
                     <div className="gap-6">
                       <div className="mt-5 md:mt-0 md:col-span-2">
@@ -102,13 +110,28 @@ function CreateWarehouse(props) {
                                   {/* select */}
                                   <div className="grid grid-cols-4 gap-4 text-center mb-5">
                                     {selectDatas.map((selectData) => {
-                                      return <SearchSelect setDatas={setDatas} datas={datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
+                                      return (
+                                        <SearchSelect
+                                          setDatas={setDatas}
+                                          datas={datas}
+                                          name={selectData.name}
+                                          selectData={selectData.selectOption}
+                                          grid={selectData.grid}
+                                        />
+                                      );
                                     })}
                                   </div>
                                   {/* inputs */}
                                   <div className="grid grid-cols-4 gap-4 text-center mt-5">
                                     {inputDatas.map((inputData) => {
-                                      return <InputText setDatas={setDatas} datas={datas} name={inputData.name} type={inputData.type} />
+                                      return (
+                                        <InputText
+                                          setDatas={setDatas}
+                                          datas={datas}
+                                          name={inputData.name}
+                                          type={inputData.type}
+                                        />
+                                      );
                                     })}
                                   </div>
                                 </div>
@@ -123,7 +146,12 @@ function CreateWarehouse(props) {
                     <button
                       type="button"
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => props.setCreateWarehouseOpen(false)}
+                      onClick={() =>
+                        props.setOpens({
+                          ...props.opens,
+                          [props.openData]: false,
+                        })
+                      }
                       ref={cancelButtonRef}
                     >
                       Cancel

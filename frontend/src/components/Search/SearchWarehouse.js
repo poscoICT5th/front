@@ -8,6 +8,8 @@ import {
 } from "../Common/Conditions/SelectOptions";
 import SearchSelect from "../Common/Conditions/SearchSelect";
 import InputText from "../Common/Conditions/InputText";
+import WarehouseDetail from "../Detail/WarehouseDetail";
+
 
 function SearchWarehouse(props) {
   const selectDatas = [
@@ -22,6 +24,7 @@ function SearchWarehouse(props) {
     { name: "maximum_weight", type: "number" },
     { name: "maximum_count", type: "number" },
   ];
+
   return (
     <div className="overflow-hidden sm:rounded-md">
       <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
@@ -69,6 +72,7 @@ function SearchWarehouse(props) {
         >
           조건조회
         </button>
+        <WarehouseDetail warehouse_code={"399"}/>
       </div>
     </div>
   );

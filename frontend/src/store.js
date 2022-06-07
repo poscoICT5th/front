@@ -58,6 +58,7 @@ let warehouseURL = createSlice({
     },
   },
 });
+
 export let { handleWarehouseURL } = warehouseURL.actions;
 // 인벤토리 url
 let inventoryURL = createSlice({
