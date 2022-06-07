@@ -37,7 +37,7 @@ function DashboardHeader() {
         },
     ])
     return (
-        <div className='flex h-68'>
+        <div className='flex'>
             <div className=''>
                 <DatePicker className='' onChange={selectDate} />
             </div>
