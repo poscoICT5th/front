@@ -7,6 +7,7 @@ import rawData from "./data";
 import { severityHexColors, getColor, rgbObjectToHex } from "./heatmapUtils";
 import "./styles.css";
 import MapList from "./MapList";
+import MapDetail from "../Map/MapDetail";
 //눌렀을 때 값을 받아오게
 // 칸을 눌렀을때 말풍선 안에 값을 받아오게 콘솔에 찍히게
 //
@@ -125,15 +126,19 @@ function Map4() {
   };
   const [warehouse, setWarehouse] = useState("");
   const [dataList, setDataList] = useState([]);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     // axios
   }, [warehouse]);
-
+//뭘누르면 mapdetail 이 나올지 생각해보기
+  //
+  
   return (
     <div className="max-w-screen-2xl mx-auto">
       <HighchartsReact highcharts={Highcharts} options={chartOptions} />
       <div>
         <MapList dataList={dataList} />
+        <MapDetail warehouse_code={"399"} open={open} setOpen={setOpen} />
       </div>
     </div>
   );
