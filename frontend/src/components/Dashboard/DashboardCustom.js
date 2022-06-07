@@ -10,7 +10,6 @@ import GraphDonut from './Graph/GraphDonut'
 function DashboardCustom() {
   const [componentsList, setComponentsList] = useState([])
   useEffect(() => {
-    console.log(componentsList)
   }, [componentsList])
   const colourOptions = [
     { value: 'GraphPie', label: 'GraphPie', color: '#00B8D9', isFixed: true },

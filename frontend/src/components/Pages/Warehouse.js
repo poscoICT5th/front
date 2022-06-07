@@ -20,10 +20,8 @@ function Warehouse(props) {
       .get("/")
       .then((res) => {
         setWarehouseList(res.data);
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, [click]);
   //클릭해야 삭제할수있게함.
@@ -62,9 +60,7 @@ function Warehouse(props) {
 
   // function
   function search() {
-    console.log(datas);
     axios.get("/search", { params: datas }).then((res) => {
-      console.log(res)
       setWarehouseList(res.data);
     });
   }

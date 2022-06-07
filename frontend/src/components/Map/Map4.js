@@ -29,7 +29,6 @@ function Map4() {
       }))
     )
     .flat();
-  console.log(JSON.stringify(data));
   const chartOptions = {
     chart: {
       type: "heatmap",
@@ -79,11 +78,11 @@ function Map4() {
               alert("Category: " + this.category + ", value: " + this.y);
               console.log(
                 "y값은?" +
-                  this.y +
-                  "x값은?" +
-                  this.x +
-                  "제발 나와제발" +
-                  this.value
+                this.y +
+                "x값은?" +
+                this.x +
+                "제발 나와제발" +
+                this.value
               );
             },
           },
@@ -130,9 +129,9 @@ function Map4() {
   useEffect(() => {
     // axios
   }, [warehouse]);
-//뭘누르면 mapdetail 이 나올지 생각해보기
+  //뭘누르면 mapdetail 이 나올지 생각해보기
   //
-  
+
   return (
     <div className="max-w-screen-2xl mx-auto">
       <HighchartsReact highcharts={Highcharts} options={chartOptions} />

@@ -276,7 +276,6 @@ function TableWarehouse(props) {
 
   // 데이터삭제
   function deleteSelectedDatas() {
-    console.log(selected)
     axios.delete('/move', {
       data: { "logiMoveDeleteList": selected }
     }

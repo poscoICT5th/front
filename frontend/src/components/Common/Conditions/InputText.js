@@ -1,9 +1,10 @@
+import { Input } from 'antd';
 import React from 'react'
 
 function InputText(props) {
     return (
         <div className="col-span-1">
-            <input
+            <Input
                 type={props.type}
                 name={props.name}
                 id={props.name}

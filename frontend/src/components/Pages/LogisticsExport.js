@@ -74,12 +74,11 @@ function LogisticsExport() {
   // function
   // 출고 조건검색
   function search(params) {
-    console.log(datas)
     axios.get('/search', {
       params: datas
     })
-      .then((res) => { setLogisticsExportList(res.data); console.log(res.data) })
-      .catch((err) => { console.log(err) })
+      .then((res) => { setLogisticsExportList(res.data); })
+      .catch((err) => { })
   }
   function deleteRequests(ins_no) {
     axios.delete(`/export/${ins_no}`)

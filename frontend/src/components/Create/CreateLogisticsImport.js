@@ -67,7 +67,6 @@ function CreateLogisticsImport(props) {
     axios
       .post("/import", datas)
       .then((res) => {
-        console.log(res);
       })
       .catch((err) => {
         alert(err);

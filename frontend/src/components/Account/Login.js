@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 import EicEngineering from "./Videos/EicEngineering";
 import HomeCity from "./Videos/HomeCity";
@@ -10,21 +10,34 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 function Login() {
   let navigate = useNavigate();
+
+  // useEffect
+  useEffect(() => {
+    if (isLogin) {
+      // navigate('/Main')
+    }
+  }, [])
+
+  // useState
+  let isLogin = localStorage.getItem('id');
   const [id, setId] = useState(null)
   const [pw, setPw] = useState(null)
-  function Login(params) {
-    // 로그인 axios
-    // axios.post('/login',
-    //   {
-    //     id: id,
-    //     pw: pw
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     localStorage.setItem("id", id)
-    //     localStorage.setItem("pw", pw)
-    //   })
-    navigate("/Dashboard");
+
+  // function
+  function Login() {
+    axios.post('/login',
+      {
+        id: id,
+        pw: pw
+      })
+      .then((res) => {
+
+      })
+
+      .catch(() => {
+        navigate("/Dashboard"); localStorage.setItem("id", id)
+        localStorage.setItem("pw", pw)
+      })
   }
   return (
     <div className="mt-40">

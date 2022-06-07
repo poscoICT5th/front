@@ -1,51 +1,26 @@
 import axios from "axios";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 // 입고작업상태
 export const statusImport = [
-    { value: '', label: '전체보기', color: '#00B8D9' },
-    { value: '입고예정', label: '입고예정', color: '#00B8D9' },
-    { value: '입고완료', label: '입고완료', color: '#00B8D9' },
+    "전체보기", "입고예정", "입고완료"
 ];
 // 출고작업상태
 export const statusExport = [
-    { value: '', label: '전체보기', color: '#00B8D9' },
-    { value: '출고대기', label: '출고대기', color: '#00B8D9' },
-    { value: '출고완료', label: '출고완료', color: '#00B8D9' },
+    "전체보기", "출고대기", "출고완료"
 ];
 // 이동작업상태
 export const statusMove = [
-    { value: '', label: '전체보기', color: '#00B8D9' },
-    { value: '이동예정', label: '이동예정', color: '#00B8D9' },
-    { value: '이동중', label: '이동중', color: '#00B8D9' },
-    { value: '이동완료', label: '이동완료', color: '#00B8D9' },
+    "전체보기", "이동예정", "이동중", "이동완료",
 ];
-// 창고코드함수
-export function Return_warehouse_code(param) {
-    const [warehouse_code, setWarehouse_code] = useState([
-        { value: '', label: "전체보기", color: '#00B8D9' }
-    ])
-    if (param === '') {
-        return warehouse_code
-    } else {
-        axios.get(`/warehouse/${param}`)
-            .then((res) => { console.log(res) })
-            .catch((err) => { console.log(err) })
-    }
-    return warehouse_code
-}
 // 사업장
 export const location = [
-    { value: '', label: '전체보기', color: '#00B8D9' },
-    { value: '포항', label: '포항', color: '#00B8D9' },
-    { value: '광양', label: '광양', color: '#00B8D9' },
-    { value: '천안', label: '천안', color: '#00B8D9' },
+    "전체보기", "포항", "광양", "천안"
 ];
 // 제품군
 export const product_family = [
-    { value: '', label: '전체보기', color: '#00B8D9' },
-    { value: 'MT', label: 'MT', color: '#00B8D9' },
-    { value: 'ROTOR ASSY', label: 'ROTOR ASSY', color: '#00B8D9' },
+    "전체보기", "MT", "ROTOR ASSY",
 ];
 // 창고코드
 export const warehouse_code = [
@@ -76,6 +51,21 @@ export const warehouse_code = [
     { value: 'E07', label: 'E07', color: '#00B8D9' },
     { value: 'E08', label: 'E08', color: '#00B8D9' },
 ]
+export async function Warehouse_code(location, url) {
+    axios.defaults.baseURL = url
+    const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
+
+    await axios.get(`warehouse/${location}`)
+        .then((res) => {
+            setWarehouse_codes(["전체보기"])
+            for (let index = 0; index < res.data.length; index++) {
+                setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
+            }
+            console.log(warehouse_codes)
+        })
+        .catch((err) => { console.log(err) })
+    return warehouse_codes
+}
 // 용도명
 export const purpose = [
     { value: '', label: '전체보기', color: '#00B8D9' },

@@ -1,20 +1,37 @@
-import React from 'react'
-import { location, warehouse_code,stock_type,status_cause,stock_quality_status, product_family, target,industry_family,customer } from '../Common/Conditions/SelectOptions';
+import React, { useEffect, useState } from 'react'
+import { location, warehouse_code, stock_type, status_cause, stock_quality_status, product_family, target, industry_family, customer } from '../Common/Conditions/SelectOptions';
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 function SearchWarehouse(props) {
+    // 지역에 따라서 창고목록변경
+    let url = useSelector((state) => state.warehouseURL)
+    const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
+    useEffect(() => {
+        axios.defaults.baseURL = url
+        axios.get(`warehouse/${props.datas.location}`)
+            .then((res) => {
+                setWarehouse_codes(["전체보기"])
+                for (let index = 0; index < res.data.length; index++) {
+                    setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
+                }
+                // console.log(warehouse_codes)
+            })
+            .catch((err) => { console.log(err) })
+    }, [props.datas.location])
     const selectDatas = [
-        { name: "산업군", selectOption: industry_family, grid: 1 },
-        { name: "고객사", selectOption: customer, grid: 1 },
-        { name: "제품구분", selectOption: stock_type, grid: 1 },
-        { name: "재고품질상태", selectOption: stock_quality_status, grid: 1 },
-        { name: "상태사유", selectOption: status_cause, grid: 1 },
-        { name: "사업장", selectOption: location, grid: 1 },
-        { name: "제품군", selectOption: product_family, grid: 1 },
-        { name: "창고코드", selectOption: warehouse_code, grid: 1 },
-        { name: "거래처", selectOption: target, grid: 1 },
-      ]
+        { name: "industry_family", selectOption: industry_family, grid: 1 },
+        { name: "customer", selectOption: customer, grid: 1 },
+        { name: "stock_type", selectOption: stock_type, grid: 1 },
+        { name: "stock_quality_status", selectOption: stock_quality_status, grid: 1 },
+        { name: "status_cause", selectOption: status_cause, grid: 1 },
+        { name: "location", selectOption: location, grid: 1 },
+        { name: "product_family", selectOption: product_family, grid: 1 },
+        { name: "warehouse_codes", selectOption: warehouse_codes, grid: 1 },
+        { name: "target", selectOption: target, grid: 1 },
+    ]
     const inputDatas = [
         { name: "품번", type: "text" },
         { name: "재고생성일", type: "number" },

@@ -1,17 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 import InputRange from '../Common/Conditions/InputRange'
-import { unit, item_name, location, product_family, statusExport, target, warehouse_code } from '../Common/Conditions/SelectOptions';
+import { unit, item_name, location, product_family, statusExport, target } from '../Common/Conditions/SelectOptions';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 function SearchLogisticsExport(props) {
+  // 지역에 따라서 창고목록변경
+  let url = useSelector((state) => state.warehouseURL)
+  const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
+  useEffect(() => {
+    axios.defaults.baseURL = url
+    axios.get(`warehouse/${props.datas.location}`)
+      .then((res) => {
+        setWarehouse_codes(["전체보기"])
+        for (let index = 0; index < res.data.length; index++) {
+          setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
+        }
+        // console.log(warehouse_codes)
+      })
+      .catch((err) => { console.log(err) })
+  }, [props.datas.location])
+
   const selectDatas = [
     { name: "location", selectOption: location, grid: 1 },
     { name: "status", selectOption: statusExport, grid: 1 },
     { name: "product_family", selectOption: product_family, grid: 1 },
     { name: "unit", selectOption: unit, grid: 1 },
     { name: "item_name", selectOption: item_name, grid: 2 },
-    { name: "warehouse_code", selectOption: warehouse_code, grid: 1 },
+    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1 },
     { name: "target", selectOption: target, grid: 1 },
   ]
   const inputRangeDatas = [

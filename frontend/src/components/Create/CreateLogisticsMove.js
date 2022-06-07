@@ -49,7 +49,6 @@ function CreateLogisticsMove(props) {
   ]
   // function
   function test(params) {
-    console.log(datas)
   }
   const cancelButtonRef = useRef(null);
   return (

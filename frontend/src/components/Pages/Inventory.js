@@ -20,10 +20,8 @@ function Inventory() {
       .get("/")
       .then((res) => {
         setInventoryList(res.data);
-        console.log(res);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, [click]);
 
@@ -94,7 +92,6 @@ function Inventory() {
     // .catch((err) => { console.log(err) })
   }, [])
   function search() {
-    console.log(url);
   }
   return (
     <div data-aos="fade-up" className="">
@@ -110,7 +107,7 @@ function Inventory() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableInventory inventoryList={inventoryList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick}/>
+          <TableInventory inventoryList={inventoryList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick} />
         </div>
       </div>
     </div>

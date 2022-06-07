@@ -11,7 +11,6 @@ function WarehouseDetail(props) {
   const cancelButtonRef = useRef(null);
   useEffect(() => {
     axios.get(`/${props.warehouse_code}`).then((res) => {
-      console.log(res.data);
     });
   }, [open]);
 

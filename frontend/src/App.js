@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Aos from "aos";
 import "aos/dist/aos.css";
+import './App.css'
 import Login from './components/Account/Login'
 import LogisticsExport from './components/Pages/LogisticsExport'
 import LogisticsImport from './components/Pages/LogisticsImport'
@@ -21,11 +22,8 @@ function App() {
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
-  useEffect(() => {
-    if (isLogin) {
-      // navigate('/Main')
-    }
-  }, [])
+
+  // useState
   // dark모드
   const [isDark, setIsDark] = useState(false);
 
@@ -38,6 +36,7 @@ function App() {
               ? <div className="w-72"><Sidebar /></div>
               : null
           }
+          {/* w-full */}
           <div className="w-9/12 mx-auto">
             <Header />
             {/* Routes */}

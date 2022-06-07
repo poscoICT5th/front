@@ -1,13 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 import InputRange from '../Common/Conditions/InputRange'
-import { unit, statusMove, item_name, location, product_family, warehouse_code } from '../Common/Conditions/SelectOptions';
+import { unit, statusMove, item_name, location, product_family } from '../Common/Conditions/SelectOptions';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 function SearchLogisticsMove(props) {
+    // 지역에 따라서 창고목록변경
+    let url = useSelector((state) => state.warehouseURL)
+    const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
+    useEffect(() => {
+        axios.defaults.baseURL = url
+        axios.get(`warehouse/${props.datas.location}`)
+            .then((res) => {
+                setWarehouse_codes(["전체보기"])
+                for (let index = 0; index < res.data.length; index++) {
+                    setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
+                }
+                // console.log(warehouse_codes)
+            })
+            .catch((err) => { console.log(err) })
+    }, [props.datas.location])
     const selectDatas = [
-        { name: "from_warehouse", selectOption: warehouse_code, grid: 1 },
-        { name: "to_warehouse", selectOption: warehouse_code, grid: 1 },
+        { name: "from_warehouse", selectOption: warehouse_codes, grid: 1 },
+        { name: "to_warehouse", selectOption: warehouse_codes, grid: 1 },
         { name: "location", selectOption: location, grid: 1 },
         { name: "status", selectOption: statusMove, grid: 1 },
         { name: "product_family", selectOption: product_family, grid: 1 },

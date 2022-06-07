@@ -20,7 +20,6 @@ function MapDetail(props) {
   const cancelButtonRef = useRef(null);
   useEffect(() => {
     axios.get(`/${props.warehouse_code}`).then((res) => {
-      console.log(res.data);
     });
   }, [open]);
   // usestate
@@ -51,11 +50,9 @@ function MapDetail(props) {
 
   // function
   function RegisteWarehouse(params) {
-    console.log(datas);
     axios
       .post("/", datas)
       .then((res) => {
-        console.log(res);
       })
       .catch((err) => {
         alert(err);

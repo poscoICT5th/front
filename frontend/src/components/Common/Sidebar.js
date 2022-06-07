@@ -313,7 +313,6 @@ function Sidebar() {
                                 ...opens,
                                 [componentData.openData]: true,
                               });
-                              console.log(componentData.openData);
                             }}
                           >
                             <svg

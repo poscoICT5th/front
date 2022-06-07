@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 function DashboardHeader() {
     let navigate = useNavigate();
     // const onChange = (date) => {
-    //     console.log(date.toString());
     // };
 
     // useEffect
@@ -23,7 +22,6 @@ function DashboardHeader() {
     })
     function selectDate(value) {
         var selectDate = new Date(value);
-        console.log(selectDate.getFullYear() + "-" + selectDate.getMonth() + "-" + selectDate.getDate())
     }
     const [cards, setCards] = useState([
         {

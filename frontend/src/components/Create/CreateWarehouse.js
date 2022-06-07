@@ -45,11 +45,9 @@ function CreateWarehouse(props) {
 
   // function
   function RegisteWarehouse(params) {
-    console.log(datas);
     axios
       .post("/", datas)
       .then((res) => {
-        console.log(res);
       })
       .catch((err) => {
         alert(err);

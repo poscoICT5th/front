@@ -13,9 +13,9 @@ function LogisticsImport() {
     Aos.init({ duration: 1000 });
   }, []);
   const [click, setClick] = useState(false)
-  useEffect(() => {
-    searchAll()
-  }, [click])
+  // useEffect(() => {
+  //   searchAll()
+  // }, [click])
 
   // usestate
   const [logisticsImportList, setLogisticsImportList] = useState([])

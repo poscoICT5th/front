@@ -1,10 +1,11 @@
+import { Input } from 'antd';
 import React from 'react'
 
 function InputRange(props) {
     return (
         <div className="col-span-1 grid grid-cols-2 gap-4 text-center">
             <div>
-                <input
+                <Input
                     type="number"
                     min={0}
                     name={props.min}
@@ -16,7 +17,7 @@ function InputRange(props) {
                 />
             </div>
             <div>
-                <input
+                <Input
                     type="number"
                     min={0}
                     name={props.max}
