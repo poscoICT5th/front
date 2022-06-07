@@ -15,7 +15,7 @@ function Sidebar() {
   const [createLogisticsMoveOpen, setCreateLogisticsMoveOpen] = useState(false)
   const [createWarehouseOpen, setCreateWarehouseOpen] = useState(false)
   const [createInventoryOpen, setCreateInventoryOpen] = useState(false)
-  const [menu, setMenu] = useState(0)
+  const [menu, setMenu] = useState(1)
   const sidebarDatas = [
     {
       menu: "계정", no: 0, d: "M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z",
@@ -70,7 +70,7 @@ function Sidebar() {
       componentMenu: [
         {
           component: <CreateWarehouse createWarehouseOpen={createWarehouseOpen} setCreateWarehouseOpen={setCreateWarehouseOpen} />
-          , no: 52, d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7", open: setCreateWarehouseOpen
+          , no: 52, d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z", open: setCreateWarehouseOpen
         }
       ]
     },
@@ -87,8 +87,8 @@ function Sidebar() {
   ]
 
   return (
-    <div>
-      <div className="flex flex-col justify-between h-screen bg-white border-r">
+    <div className="">
+      <div className="flex flex-col h-full justify-between h-screen bg-white border-r">
         <div className="px-4 py-6">
           <div className="sidebar-header flex items-center justify-center">
             <div className="inline-flex">
@@ -107,12 +107,12 @@ function Sidebar() {
             <div
               className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-300 hover:text-gray-700"
               style={menu === 1 ? { backgroundColor: "gray", color: "white" } : { backgroundColor: "white" }}
-              onClick={() => { navigate("/Main"); setMenu(1) }}
+              onClick={() => { navigate("/Dashboard"); setMenu(1) }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
-              <span className="ml-3 text-sm font-medium"> Main </span>
+              <span className="ml-3 text-sm font-medium"> Dashboard </span>
             </div>
             {/*  */}
             {sidebarDatas.map((sidebarData) => {

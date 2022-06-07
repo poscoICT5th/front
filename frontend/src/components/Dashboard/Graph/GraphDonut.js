@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ReactApexChart from "react-apexcharts";
 
-function GraphDonut1() {
+function GraphDonut() {
     const [inputData, setinputData] = useState([])
     const [labelData, setlabelData] = useState([])
     const rows = [
@@ -20,6 +20,7 @@ function GraphDonut1() {
         options: {
             chart: {
                 type: 'donut',
+                width:'130%'
             },
             legend: {
                 position: 'bottom'
@@ -43,7 +44,7 @@ function GraphDonut1() {
                             total: {
                                 showAlways: true,
                                 show: true,
-                                label: 'GraphDonut1',
+                                label: 'GraphDonut',
                                 fontSize: '15px',
                                 color: 'black'
                             },
@@ -78,4 +79,4 @@ function GraphDonut1() {
     )
 }
 
-export default GraphDonut1
+export default GraphDonut

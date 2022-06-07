@@ -27,7 +27,7 @@ function Warehouse(props) {
       });
   }, [click]);
   //클릭해야 삭제할수있게함.
-  
+
   //usestate
   const [warehouseList, setWarehouseList] = useState([]);
   const [datas, setDatas] = useState({

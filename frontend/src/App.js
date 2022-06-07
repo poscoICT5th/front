@@ -8,7 +8,7 @@ import LogisticsImport from './components/Pages/LogisticsImport'
 import LosgisticsMove from './components/Pages/LosgisticsMove'
 import Inventory from './components/Pages/Inventory'
 import Warehouse from './components/Pages/Warehouse'
-import Main from './components/Pages/Main'
+import Dashboard from './components/Pages/Dashboard'
 import Sidebar from './components/Common/Sidebar'
 import Map from './components/Map/Map'
 import Map3 from './components/Map/Map3'
@@ -39,11 +39,11 @@ function App() {
               : null
           }
           <div className="w-9/12 mx-auto">
-          <Header />
+            <Header />
             {/* Routes */}
             <Routes>
               <Route index element={<Login />} />
-              <Route path="/Main" element={<Main />} />
+              <Route path="/Dashboard" element={<Dashboard />} />
               <Route path="/LogisticsImport" element={<LogisticsImport />} />
               <Route path="/LogisticsExport" element={<LogisticsExport />} />
               <Route path="/LosgisticsMove" element={<LosgisticsMove />} />

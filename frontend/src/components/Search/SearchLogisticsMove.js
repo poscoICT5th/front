@@ -21,13 +21,11 @@ function SearchLogisticsMove(props) {
         { name: "weight", inputMin: "min_weight", inputMax: "max_weight" },
         { name: "move_amount", inputMin: "min_move_amount", inputMax: "max_move_amount" },
     ]
-    const inputTextDatas = [
-        { name: "lot_no" },
-        { name: "item_no" }
-    ]
-    const dateDatas = [
-        { name: "order_date", type: "text" },
-        { name: "inst_deadline", type: "text" },
+    const inputDatas = [
+        { name: "lot_no", type: "text" },
+        { name: "item_no", type: "text" },
+        { name: "order_date", type: "date" },
+        { name: "inst_deadline", type: "date" },
     ]
     return (
         <div className="overflow-hidden sm:rounded-md">
@@ -37,18 +35,16 @@ function SearchLogisticsMove(props) {
                         return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
                     })}
                 </div>
+                {/* inputRange */}
                 <div className="grid grid-cols-3 gap-4 text-center">
                     {inputRangeDatas.map((inputRangeData) => {
                         return <InputRange setDatas={props.setDatas} datas={props.datas} name={inputRangeData.name} min={inputRangeData.inputMin} max={inputRangeData.inputMax} />
                     })}
-                    {inputTextDatas.map((inputTextData) => {
-                        return <InputText setDatas={props.setDatas} datas={props.datas} name={inputTextData.name} />
-                    })}
-                    {dateDatas.map((dateData) => {
-                        return <InputText setDatas={props.setDatas} datas={props.datas} name={dateData.name} />
+                    {/* inputText */}
+                    {inputDatas.map((inputData) => {
+                        return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />
                     })}
                 </div>
-
             </div>
             <div className="px-4 py-3 text-right">
                 <button

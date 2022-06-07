@@ -7,21 +7,29 @@ import LogisticssBHS from "./Videos/LogisticsBHS";
 import SmartFactory from "./Videos/SmartFactory";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 function Login() {
   let navigate = useNavigate();
   const [id, setId] = useState(null)
   const [pw, setPw] = useState(null)
   function Login(params) {
-    localStorage.setItem("id", id)
-    localStorage.setItem("pw", pw)
     // 로그인 axios
-    navigate("/Main");
+    // axios.post('/login',
+    //   {
+    //     id: id,
+    //     pw: pw
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     localStorage.setItem("id", id)
+    //     localStorage.setItem("pw", pw)
+    //   })
+    navigate("/Dashboard");
   }
   return (
     <div className="mt-40">
       {/* title */}
       <div className="font-bold text-2xl text-center">POSCO ICT - 5</div>
-      {/*  */}
       {/* videos */}
       <div className="videos">
         <div>
@@ -40,7 +48,6 @@ function Login() {
           <HomeCity />
         </div>
       </div>
-      {/*  */}
       {/* Login */}
       <div className="login min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
@@ -98,7 +105,6 @@ function Login() {
           </form>
         </div>
       </div>
-      {/*  */}
     </div>
   );
 }

@@ -24,11 +24,9 @@ function SearchLogisticsExport(props) {
   ]
   const inputDatas = [
     { name: "lot_no", type: "text" },
-    { name: "item_no", type: "text" }
-  ]
-  const dateDatas = [
-    { name: "order_date", type: "text" },
-    { name: "inst_deadline", type: "text" },
+    { name: "item_no", type: "text" },
+    { name: "order_date", type: "date" },
+    { name: "inst_deadline", type: "date" },
   ]
   return (
     <div className="overflow-hidden sm:rounded-md">
@@ -39,18 +37,15 @@ function SearchLogisticsExport(props) {
           })}
         </div>
         {/* inputRange */}
-        <div className="grid grid-cols-4 gap-4 text-center">
+        <div className="grid grid-cols-3 gap-4 text-center">
           {inputRangeDatas.map((inputRangeData) => {
             return <InputRange setDatas={props.setDatas} datas={props.datas} name={inputRangeData.name} min={inputRangeData.inputMin} max={inputRangeData.inputMax} />
           })}
+        </div>
+        {/* inputText */}
+        <div className="grid grid-cols-4 gap-4 text-center mt-5">
           {inputDatas.map((inputData) => {
             return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />
-          })}
-        </div>
-        {/* calenders */}
-        <div className="grid grid-cols-2 gap-4 text-center mt-5">
-          {dateDatas.map((dateData) => {
-            return <InputText setDatas={props.setDatas} datas={props.datas} name={dateData.name} />
           })}
         </div>
       </div>

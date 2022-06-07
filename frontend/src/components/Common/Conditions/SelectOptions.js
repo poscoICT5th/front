@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useState } from "react";
+
 // 입고작업상태
 export const statusImport = [
     { value: '', label: '전체보기', color: '#00B8D9' },
@@ -17,7 +20,20 @@ export const statusMove = [
     { value: '이동중', label: '이동중', color: '#00B8D9' },
     { value: '이동완료', label: '이동완료', color: '#00B8D9' },
 ];
-
+// 창고코드함수
+export function Return_warehouse_code(param) {
+    const [warehouse_code, setWarehouse_code] = useState([
+        { value: '', label: "전체보기", color: '#00B8D9' }
+    ])
+    if (param === '') {
+        return warehouse_code
+    } else {
+        axios.get(`/warehouse/${param}`)
+            .then((res) => { console.log(res) })
+            .catch((err) => { console.log(err) })
+    }
+    return warehouse_code
+}
 // 사업장
 export const location = [
     { value: '', label: '전체보기', color: '#00B8D9' },
