@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Aos from "aos";
 import "aos/dist/aos.css";
 import './App.css'
@@ -17,7 +17,6 @@ import Map4 from './components/Map/Map4'
 import Footer from './components/Common/Footer';
 import Header from './components/Common/Header';
 function App() {
-  let navigate = useNavigate();
   let isLogin = localStorage.getItem('id');
   useEffect(() => {
     Aos.init({ duration: 1000 });
@@ -26,18 +25,26 @@ function App() {
   // useState
   // dark모드
   const [isDark, setIsDark] = useState(false);
+  const [mouse, setmouse] = useState(-1)
+
+  // 마우스위치 가져오기
+  document.addEventListener('mousemove', logKey);
+  function logKey(e) {
+    if (e.clientX <= 30) {
+      setmouse(0)
+    }
+  }
 
   return (
-    <div data-aos="fade-up" className="">
-      <div>
-        <div className="flex">
+    <div data-aos="fade-up" >
+      <div className="border-l-8 border-sky-500">
+        <div className="">
           {
             isLogin
-              ? <div className="w-72"><Sidebar /></div>
+              ? <Sidebar mouse={mouse} setmouse={setmouse} />
               : null
           }
-          {/* w-full */}
-          <div className="w-9/12 mx-auto">
+          <div className="mx-auto mx-5">
             <Header />
             {/* Routes */}
             <Routes>

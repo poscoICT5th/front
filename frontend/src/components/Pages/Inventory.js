@@ -53,31 +53,31 @@ function Inventory() {
     warehouse_aging: "전체보기",
   });
   //통신오는 순서로 맞춰주기
-  const th = [
-    "industry_family",
-    "target",
-    "stock_type",
-    "stock_quality_status",
-    " status_cause",
-    "stock_place",
-    "product_family",
-    "warehouse_code",
-    "lot_no",
-    "item_num",
-    "item_desc",
-    "item_name",
-    "amount",
-    "weight ",
-    "unit",
-    "customer ",
-    "fixed_month",
-    "width",
-    "thickness ",
-    "height",
-    "inventory_date",
-    "warehouse_date",
-    "warehouse_aging ",
-  ];
+  // const th = [
+  //   "industry_family",
+  //   "target",
+  //   "stock_type",
+  //   "stock_quality_status",
+  //   " status_cause",
+  //   "stock_place",
+  //   "product_family",
+  //   "warehouse_code",
+  //   "lot_no",
+  //   "item_num",
+  //   "item_desc",
+  //   "item_name",
+  //   "amount",
+  //   "weight ",
+  //   "unit",
+  //   "customer ",
+  //   "fixed_month",
+  //   "width",
+  //   "thickness ",
+  //   "height",
+  //   "inventory_date",
+  //   "warehouse_date",
+  //   "warehouse_aging ",
+  // ];
   // 입고요청 삭제(여러개)
   function deleteInventory(lot_no) {
     axios.delete(`/${lot_no}`)
@@ -96,7 +96,7 @@ function Inventory() {
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
-        <div className="font-bold text-2xl text-center my-10">재고 조회</div>
+        <div className="font-bold text-2xl text-center my-3">재고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">
           <SearchInventory
@@ -107,7 +107,7 @@ function Inventory() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableInventory inventoryList={inventoryList} datas={datas} th={th} deleteInventory={deleteInventory} click={click} setClick={setClick} />
+          <TableInventory inventoryList={inventoryList} datas={datas} deleteInventory={deleteInventory} click={click} setClick={setClick} />
         </div>
       </div>
     </div>

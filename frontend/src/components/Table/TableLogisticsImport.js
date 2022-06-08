@@ -266,7 +266,7 @@ function TableLogisticsImport(props) {
                         id="tableTitle"
                         component="div"
                     >
-                        입고관리
+                        
                     </Typography>
                 )}
 

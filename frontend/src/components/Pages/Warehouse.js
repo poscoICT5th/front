@@ -40,17 +40,17 @@ function Warehouse(props) {
     remarks: "전체보기",
   });
   //통신오는 순서로 맞춰주기
-  const th = [
-    "location",
-    "warehouse_code",
-    "purpose",
-    "warehouse_code_desc",
-    "use",
-    "maximum_weight",
-    "maximum_count",
-    "inventory_using",
-    "remarks",
-  ];
+  // const th = [
+  //   "location",
+  //   "warehouse_code",
+  //   "purpose",
+  //   "warehouse_code_desc",
+  //   "use",
+  //   "maximum_weight",
+  //   "maximum_count",
+  //   "inventory_using",
+  //   "remarks",
+  // ];
   // 입고요청 삭제(여러개)
   function deleteWarehouse(warehouse_code) {
     axios.delete(`/${warehouse_code}`).then((res) => {
@@ -67,7 +67,7 @@ function Warehouse(props) {
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
-        <div className="font-bold text-2xl text-center my-10">창고 조회</div>
+        <div className="font-bold text-2xl text-center my-3">창고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">
           <SearchWarehouse setDatas={setDatas} datas={datas} search={search} />
@@ -77,7 +77,6 @@ function Warehouse(props) {
           <TableWarehouse
             warehouseList={warehouseList}
             datas={datas}
-            th={th}
             deleteWarehouse={deleteWarehouse}
             click={click}
             setClick={setClick}

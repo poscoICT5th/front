@@ -50,26 +50,26 @@ function LogisticsExport() {
     done_date: "전체보기",
   })
 
-  const th = [
-    "status",
-    "location",
-    "instruction_no",
-    "target",
-    "lot_no",
-    "item_no",
-    "item_name",
-    "width",
-    "weight",
-    "thickness",
-    "height",
-    "order_amount",
-    "ex_amount",
-    "ex_remain",
-    "order_date",
-    "inst_reg_date",
-    "inst_deadline",
-    "done_date",
-  ]
+  // const th = [
+  //   "status",
+  //   "location",
+  //   "instruction_no",
+  //   "target",
+  //   "lot_no",
+  //   "item_no",
+  //   "item_name",
+  //   "width",
+  //   "weight",
+  //   "thickness",
+  //   "height",
+  //   "order_amount",
+  //   "ex_amount",
+  //   "ex_remain",
+  //   "order_date",
+  //   "inst_reg_date",
+  //   "inst_deadline",
+  //   "done_date",
+  // ]
 
   // function
   // 출고 조건검색
@@ -87,14 +87,14 @@ function LogisticsExport() {
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
-        <div className="font-bold text-2xl text-center my-10">출고 조회</div>
+        <div className="font-bold text-2xl text-center my-3">출고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">
           <SearchLogisticsExport datas={datas} setDatas={setDatas} search={search} />
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsExport logisticsExportList={logisticsExportList} datas={datas} th={th} setClick={setClick} click={click} deleteRequests={deleteRequests} />
+          <TableLogisticsExport logisticsExportList={logisticsExportList} datas={datas} setClick={setClick} click={click} deleteRequests={deleteRequests} />
         </div>
       </div>
     </div>

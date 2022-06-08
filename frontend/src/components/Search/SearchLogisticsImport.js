@@ -72,6 +72,7 @@ function SearchLogisticsImport(props) {
     const inputDatas = [
         { name: "lot_no", type: "text" },
         { name: "item_no", type: "text" },
+        { name: "industry_family", type: "text" },
         { name: "order_date", type: "date" },
         { name: "inst_deadline", type: "date" },
     ]
@@ -91,7 +92,7 @@ function SearchLogisticsImport(props) {
                     })}
                 </div>
                 {/* inputText */}
-                <div className="grid grid-cols-4 gap-4 text-center mt-5">
+                <div className="grid grid-cols-5 gap-4 text-center mt-5">
                     {inputDatas.map((inputData) => {
                         return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />
                     })}

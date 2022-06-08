@@ -46,24 +46,24 @@ function LosgisticsMove() {
     done_date: "전체보기",
     unit: "전체보기",
   })
-  const th = [
-    "status",
-    "location",
-    "instruction_no",
-    "lot_no",
-    "item_no",
-    "item_name",
-    "width",
-    "weight",
-    "thickness",
-    "height",
-    "move_amount",
-    "from_warehouse",
-    "to_warehouse",
-    "inst_reg_date",
-    "inst_deadline",
-    "done_date",
-  ]
+  // const th = [
+  //   "status",
+  //   "location",
+  //   "instruction_no",
+  //   "lot_no",
+  //   "item_no",
+  //   "item_name",
+  //   "width",
+  //   "weight",
+  //   "thickness",
+  //   "height",
+  //   "move_amount",
+  //   "from_warehouse",
+  //   "to_warehouse",
+  //   "inst_reg_date",
+  //   "inst_deadline",
+  //   "done_date",
+  // ]
   //function
   function search(params) {
     axios.get('/search', { params: datas })
@@ -77,13 +77,13 @@ function LosgisticsMove() {
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
-        <div className="font-bold text-2xl text-center my-10">창고이동 조회</div>
+        <div className="font-bold text-2xl text-center my-3">창고이동 조회</div>
         < div className="mt-5 md:mt-0 md:col-span-2" >
           <SearchLogisticsMove datas={datas} setDatas={setDatas} search={search} />
         </div >
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsMove logisticsMoveList={logisticsMoveList} datas={datas} th={th} deleteRequest={deleteRequest} click={click} setClick={setClick} />
+          <TableLogisticsMove logisticsMoveList={logisticsMoveList} datas={datas} deleteRequest={deleteRequest} click={click} setClick={setClick} />
         </div>
       </div>
     </div>

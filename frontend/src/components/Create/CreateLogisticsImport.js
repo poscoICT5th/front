@@ -27,17 +27,17 @@ function CreateLogisticsImport(props) {
     im_amount: 0,
     amount: 0,
     width: 0,
-    target: "",
+    customer: "",
+    industry_family: "",
     order_date: "",
     inst_deadline: "",
-    done_date: "",
   });
   // useEffect
   // 지역에 따라서 창고목록변경
+  let LogisticsImportURL = useSelector((state) => state.logisticsImportURL)
   let WarehouseUrl = useSelector((state) => state.warehouseURL)
   let InventoryURL = useSelector((state) => state.inventoryURL)
   const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
-  const [item_names, setItem_names] = useState(["전체보기"])
   useEffect(() => {
     axios.defaults.baseURL = WarehouseUrl
     axios.get(`warehouse/${datas.location}`)
@@ -50,46 +50,32 @@ function CreateLogisticsImport(props) {
       })
       .catch((err) => { console.log(err) })
   }, [datas.location])
-  // 지역에따라서 아이템명변경
-  useEffect(() => {
-    axios.defaults.baseURL = InventoryURL
-    axios.get(`inventory/${datas.location}`)
-      .then((res) => {
-        setItem_names(["전체보기"])
-        console.log(res)
-        for (let index = 0; index < res.data.length; index++) {
-          setItem_names(warehouse_codes => [...warehouse_codes, res.data[index].item_name])
-        }
-        // console.log(warehouse_codes)
-      })
-      .catch((err) => { console.log(err) })
-  }, [datas.location])
-
   // input 데이터들
   const selectDatas = [
     { name: "location", selectOption: location, grid: 1 },
-    { name: "StatusImport", selectOption: statusImport, grid: 1 },
     { name: "product_family", selectOption: product_family, grid: 1 },
     { name: "unit", selectOption: unit, grid: 1 },
-    { name: "item_name", selectOption: item_names, grid: 1 },
-    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1 },
+    { name: "to_warehouse", selectOption: warehouse_codes, grid: 1 },
   ];
   const inputDatas = [
     { name: "customer", type: "text" },
+    { name: "industry_family", type: "text" },
     { name: "item_no", type: "number" },
+    { name: "item_name", type: "text" },
     { name: "weight", type: "number" },
     { name: "thickness", type: "number" },
     { name: "height", type: "number" },
     { name: "order_amount", type: "number" },
     { name: "im_amount", type: "number" },
     { name: "amount", type: "number" },
+    { name: "order_date", type: "date" },
+    { name: "inst_deadline", type: "date" },
   ];
   const dateDatas = [
-    { name: "order_date", type: "text" },
-    { name: "inst_deadline", type: "text" },
   ];
   // function
   function request() {
+    axios.defaults.baseURL = LogisticsImportURL
     axios
       .post("/import", datas)
       .then((res) => {
@@ -164,7 +150,7 @@ function CreateLogisticsImport(props) {
                                     })}
                                   </div>
                                   {/* inputs */}
-                                  <div className="grid grid-cols-3 gap-4 text-center mt-5">
+                                  <div className="grid grid-cols-4 gap-4 text-center mt-5">
                                     {inputDatas.map((inputData) => {
                                       return (
                                         <InputText
@@ -172,18 +158,6 @@ function CreateLogisticsImport(props) {
                                           datas={datas}
                                           name={inputData.name}
                                           type={inputData.type}
-                                        />
-                                      );
-                                    })}
-                                  </div>
-                                  {/* calenders */}
-                                  <div className="grid grid-cols-2 gap-4 text-center mt-5">
-                                    {dateDatas.map((dateData) => {
-                                      return (
-                                        <InputText
-                                          setDatas={setDatas}
-                                          datas={datas}
-                                          name={dateData.name}
                                         />
                                       );
                                     })}
