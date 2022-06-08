@@ -16,6 +16,7 @@ import Map3 from './components/Map/Map3'
 import Map4 from './components/Map/Map4'
 import Footer from './components/Common/Footer';
 import Header from './components/Common/Header';
+
 function App() {
   let isLogin = localStorage.getItem('token');
   useEffect(() => {
@@ -24,7 +25,7 @@ function App() {
 
   // useState
   // dark모드
-  const [isDark, setIsDark] = useState(false);
+
   const [mouse, setmouse] = useState(-1)
   const [viewSidebar, setViewSidebar] = useState(false)
   const nowURL = useLocation().pathname;
@@ -36,19 +37,17 @@ function App() {
     }
   }, [nowURL])
 
-
   // 마우스위치 가져오기
   document.addEventListener('mousemove', logKey);
   function logKey(e) {
-    console.log(e.clientX)
-    if (e.clientX<30) {
+    if (e.clientX < 30) {
       setmouse(0)
     }
   }
 
   return (
-    <div data-aos="fade-up" >
-      <div className={"" + (viewSidebar ? "border-l-8 border-sky-500" : "")}>
+    <div data-aos="fade-up">
+      <div className={"" + (viewSidebar && mouse !== 0 ? "border-l-8 border-sky-500" : "")}>
         <div className="">
           {
             isLogin

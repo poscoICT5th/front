@@ -29,10 +29,10 @@ function Sidebar(props) {
                 <Dialog.Panel className="pointer-events-auto relative w-screen max-w-sm">
                   <Transition.Child
                     as={Fragment}
-                    enter="ease-in-out duration-400"
+                    enter="ease-in-out duration-200"
                     enterFrom="opacity-0"
                     enterTo="opacity-100"
-                    leave="ease-in-out duration-400"
+                    leave="ease-in-out duration-200"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >

@@ -54,7 +54,7 @@ function CreateLogisticsExport(props) {
         setItem_names(["전체보기"])
         console.log(res)
         for (let index = 0; index < res.data.length; index++) {
-          setItem_names(warehouse_codes => [...warehouse_codes, res.data[index].item_name])
+          setItem_names(item_names => [...item_names, res.data[index].item_name])
         }
         // console.log(warehouse_codes)
       })
@@ -76,7 +76,6 @@ function CreateLogisticsExport(props) {
 
   const selectDatas = [
     { name: "location", selectOption: location, grid: 1 },
-    { name: "StatusImport", selectOption: statusImport, grid: 1 },
     { name: "unit", selectOption: unit, grid: 1 },
     { name: "item_name", selectOption: item_names, grid: 1 },
     { name: "customer", selectOption: customers, grid: 1 },
