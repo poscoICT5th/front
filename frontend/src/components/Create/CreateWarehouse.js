@@ -15,7 +15,7 @@ import SearchSelect from "../Common/Conditions/SearchSelect";
 import InputText from "../Common/Conditions/InputText";
 
 function CreateWarehouse(props) {
-  let url = useSelector((state) => state.logisticsMoveURL);
+  let url = useSelector((state) => state.warehouseURL);
   axios.defaults.baseURL = url;
 
   // usestate
@@ -55,11 +55,12 @@ function CreateWarehouse(props) {
         alert(err);
       });
   }
+
   const cancelButtonRef = useRef(null);
 
   return (
     <div>
-      <span className="ml-3 text-sm font-medium">창고 등록</span>
+      
       <Transition.Root show={props.createWarehouseOpen} as={Fragment}>
         <Dialog
           as="div"
