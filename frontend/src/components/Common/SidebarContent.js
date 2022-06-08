@@ -317,8 +317,8 @@ function SidebarContent() {
                     : { backgroundColor: "white" }
                 }
                 onClick={() => {
-                  navigate("/Dashboard");
-                  setMenu(12);
+                  localStorage.clear()
+                  navigate('/')
                 }}
               >
                 <svg
