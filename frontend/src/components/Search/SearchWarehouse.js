@@ -7,7 +7,6 @@ import {
 } from "../Common/Conditions/SelectOptions";
 import SearchSelect from "../Common/Conditions/SearchSelect";
 import InputText from "../Common/Conditions/InputText";
-import WarehouseDetail from "../Detail/WarehouseDetail";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -46,7 +45,7 @@ function SearchWarehouse(props) {
     <div className="overflow-hidden sm:rounded-md">
       <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
         {/* select */}
-        <div className="grid grid-cols-8 gap-4 text-center mb-5">
+        <div className="grid grid-cols-8 gap-4 text-center">
           {selectDatas.map((selectData) => {
             return (
               <SearchSelect
@@ -70,7 +69,7 @@ function SearchWarehouse(props) {
           })}
         </div>
       </div>
-      <div className="px-4 py-3 text-right">
+      <div className="px-4 text-right mb-5">
         <button
           className="mr-1 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
           onClick={() => { }}
@@ -86,7 +85,6 @@ function SearchWarehouse(props) {
         >
           조건조회
         </button>
-        <WarehouseDetail warehouse_code={"399"} />
       </div>
     </div>
   );

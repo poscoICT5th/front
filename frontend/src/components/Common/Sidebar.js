@@ -6,7 +6,7 @@ import './Sidebar.css'
 function Sidebar(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   useEffect(() => {
-    if (props.mouse <= 30) {
+    if (props.mouse === 0) {
       setSidebarOpen(true)
     }
   }, [props.mouse])

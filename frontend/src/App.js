@@ -40,7 +40,10 @@ function App() {
   // 마우스위치 가져오기
   document.addEventListener('mousemove', logKey);
   function logKey(e) {
-    setmouse(e.clientX)
+    console.log(e.clientX)
+    if (e.clientX<30) {
+      setmouse(0)
+    }
   }
 
   return (
