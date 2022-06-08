@@ -1,24 +1,17 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import {
   unit,
-  item_name,
   location,
   product_family,
   statusImport,
-  target,
-  warehouse_code,
 } from "../Common/Conditions/SelectOptions";
 import { useSelector } from "react-redux";
 import SearchSelect from "../Common/Conditions/SearchSelect";
 import InputText from "../Common/Conditions/InputText";
 function CreateLogisticsImport(props) {
-  let url = useSelector((state) => state.logisticsImportURL);
-  axios.defaults.baseURL = url;
-
-  // useEffect
-
+  // axios.defaults.baseURL = url;
   // useState
   const [datas, setDatas] = useState({
     location: "",
@@ -39,17 +32,50 @@ function CreateLogisticsImport(props) {
     inst_deadline: "",
     done_date: "",
   });
+  // useEffect
+  // 지역에 따라서 창고목록변경
+  let WarehouseUrl = useSelector((state) => state.warehouseURL)
+  let InventoryURL = useSelector((state) => state.inventoryURL)
+  const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
+  const [item_names, setItem_names] = useState(["전체보기"])
+  useEffect(() => {
+    axios.defaults.baseURL = WarehouseUrl
+    axios.get(`warehouse/${datas.location}`)
+      .then((res) => {
+        setWarehouse_codes(["전체보기"])
+        for (let index = 0; index < res.data.length; index++) {
+          setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
+        }
+        // console.log(warehouse_codes)
+      })
+      .catch((err) => { console.log(err) })
+  }, [datas.location])
+  // 지역에따라서 아이템명변경
+  useEffect(() => {
+    axios.defaults.baseURL = InventoryURL
+    axios.get(`inventory/${datas.location}`)
+      .then((res) => {
+        setItem_names(["전체보기"])
+        console.log(res)
+        for (let index = 0; index < res.data.length; index++) {
+          setItem_names(warehouse_codes => [...warehouse_codes, res.data[index].item_name])
+        }
+        // console.log(warehouse_codes)
+      })
+      .catch((err) => { console.log(err) })
+  }, [datas.location])
+
   // input 데이터들
   const selectDatas = [
     { name: "location", selectOption: location, grid: 1 },
     { name: "StatusImport", selectOption: statusImport, grid: 1 },
     { name: "product_family", selectOption: product_family, grid: 1 },
     { name: "unit", selectOption: unit, grid: 1 },
-    { name: "item_name", selectOption: item_name, grid: 2 },
-    { name: "warehouse_code", selectOption: warehouse_code, grid: 1 },
-    { name: "target", selectOption: target, grid: 1 },
+    { name: "item_name", selectOption: item_names, grid: 1 },
+    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1 },
   ];
   const inputDatas = [
+    { name: "customer", type: "text" },
     { name: "item_no", type: "number" },
     { name: "weight", type: "number" },
     { name: "thickness", type: "number" },
@@ -174,7 +200,7 @@ function CreateLogisticsImport(props) {
                     <button
                       type="button"
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() =>  props.setOpens({
+                      onClick={() => props.setOpens({
                         ...props.opens,
                         [props.openData]: false,
                       })}

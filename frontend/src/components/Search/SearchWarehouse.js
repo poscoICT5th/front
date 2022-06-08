@@ -46,7 +46,7 @@ function SearchWarehouse(props) {
     <div className="overflow-hidden sm:rounded-md">
       <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
         {/* select */}
-        <div className="grid grid-cols-5 gap-4 text-center mb-5">
+        <div className="grid grid-cols-8 gap-4 text-center mb-5">
           {selectDatas.map((selectData) => {
             return (
               <SearchSelect
@@ -58,9 +58,6 @@ function SearchWarehouse(props) {
               />
             );
           })}
-        </div>
-        {/* inputRange / inputText */}
-        <div className="grid grid-cols-3 gap-4 text-center">
           {inputDatas.map((inputData) => {
             return (
               <InputText

@@ -2,23 +2,52 @@ import React, { useEffect, useState } from 'react'
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 import InputRange from '../Common/Conditions/InputRange'
-import { unit, item_name, location, product_family, statusExport, target } from '../Common/Conditions/SelectOptions';
+import { unit, location, product_family, statusExport } from '../Common/Conditions/SelectOptions';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 function SearchLogisticsExport(props) {
+  // useEffect
   // 지역에 따라서 창고목록변경
-  let url = useSelector((state) => state.warehouseURL)
+  let WarehouseUrl = useSelector((state) => state.warehouseURL)
+  let InventoryURL = useSelector((state) => state.inventoryURL)
   const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
+  const [item_names, setItem_names] = useState(["전체보기"])
+  const [customers, setCustomers] = useState(["전체보기"])
   useEffect(() => {
-    axios.defaults.baseURL = url
+    axios.defaults.baseURL = WarehouseUrl
     axios.get(`warehouse/${props.datas.location}`)
       .then((res) => {
         setWarehouse_codes(["전체보기"])
         for (let index = 0; index < res.data.length; index++) {
           setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
         }
-        // console.log(warehouse_codes)
+      })
+      .catch((err) => { console.log(err) })
+  }, [props.datas.location])
+  // 지역에따라서 아이템명변경
+  useEffect(() => {
+    axios.defaults.baseURL = InventoryURL
+    axios.get(`inventory/${props.datas.location}`)
+      .then((res) => {
+        setItem_names(["전체보기"])
+        console.log(res)
+        for (let index = 0; index < res.data.length; index++) {
+          setItem_names(item_names => [...item_names, res.data[index].item_name])
+        }
+      })
+      .catch((err) => { console.log(err) })
+  }, [props.datas.location])
+  // 지역에따라서 고객처변경
+  useEffect(() => {
+    axios.defaults.baseURL = InventoryURL
+    axios.get(`inventory/customer/${props.datas.location}`)
+      .then((res) => {
+        setCustomers(["전체보기"])
+        console.log(res)
+        for (let index = 0; index < res.data.length; index++) {
+          setCustomers(customers => [...customers, res.data[index].customer])
+        }
       })
       .catch((err) => { console.log(err) })
   }, [props.datas.location])
@@ -28,9 +57,9 @@ function SearchLogisticsExport(props) {
     { name: "status", selectOption: statusExport, grid: 1 },
     { name: "product_family", selectOption: product_family, grid: 1 },
     { name: "unit", selectOption: unit, grid: 1 },
-    { name: "item_name", selectOption: item_name, grid: 2 },
+    { name: "item_name", selectOption: item_names, grid: 1 },
     { name: "warehouse_code", selectOption: warehouse_codes, grid: 1 },
-    { name: "target", selectOption: target, grid: 1 },
+    { name: "customer", selectOption: customers, grid: 1 },
   ]
   const inputRangeDatas = [
     { name: "width", inputMin: "min_width", inputMax: "max_width" },
@@ -49,13 +78,13 @@ function SearchLogisticsExport(props) {
   return (
     <div className="overflow-hidden sm:rounded-md">
       <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
-        <div className="grid grid-cols-4 gap-4 text-center  mb-5">
+        <div className="grid grid-cols-7 gap-4 text-center  mb-5">
           {selectDatas.map((selectData) => {
             return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
           })}
         </div>
         {/* inputRange */}
-        <div className="grid grid-cols-3 gap-4 text-center">
+        <div className="grid grid-cols-6 gap-4 text-center">
           {inputRangeDatas.map((inputRangeData) => {
             return <InputRange setDatas={props.setDatas} datas={props.datas} name={inputRangeData.name} min={inputRangeData.inputMin} max={inputRangeData.inputMax} />
           })}

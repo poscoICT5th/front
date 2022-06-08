@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -6,10 +6,8 @@ import { item_name, location, statusImport, target, unit } from '../Common/Condi
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 function CreateLogisticsExport(props) {
-  let url = useSelector((state) => state.logisticsExportURL)
-  axios.defaults.baseURL = url
-  // useEffect
-
+  let Importurl = useSelector((state) => state.logisticsExportURL)
+  // axios.defaults.baseURL = Importurl
   // usestate
   const [datas, setDatas] = useState({
     location: "",
@@ -29,12 +27,60 @@ function CreateLogisticsExport(props) {
     done_date: "",
     unit: "",
   })
+  // useEffect
+  // 지역에 따라서 창고목록변경
+  let WarehouseUrl = useSelector((state) => state.warehouseURL)
+  let InventoryURL = useSelector((state) => state.inventoryURL)
+  const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
+  const [item_names, setItem_names] = useState(["전체보기"])
+  const [customers, setCustomers] = useState(["전체보기"])
+  useEffect(() => {
+    axios.defaults.baseURL = WarehouseUrl
+    axios.get(`warehouse/${datas.location}`)
+      .then((res) => {
+        setWarehouse_codes(["전체보기"])
+        for (let index = 0; index < res.data.length; index++) {
+          setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
+        }
+        // console.log(warehouse_codes)
+      })
+      .catch((err) => { console.log(err) })
+  }, [datas.location])
+  // 지역에따라서 아이템명변경
+  useEffect(() => {
+    axios.defaults.baseURL = InventoryURL
+    axios.get(`inventory/${datas.location}`)
+      .then((res) => {
+        setItem_names(["전체보기"])
+        console.log(res)
+        for (let index = 0; index < res.data.length; index++) {
+          setItem_names(warehouse_codes => [...warehouse_codes, res.data[index].item_name])
+        }
+        // console.log(warehouse_codes)
+      })
+      .catch((err) => { console.log(err) })
+  }, [datas.location])
+  // 지역에따라서 고객처변경
+  useEffect(() => {
+    axios.defaults.baseURL = InventoryURL
+    axios.get(`inventory/customer/${datas.location}`)
+      .then((res) => {
+        setCustomers(["전체보기"])
+        console.log(res)
+        for (let index = 0; index < res.data.length; index++) {
+          setCustomers(customers => [...customers, res.data[index].customer])
+        }
+      })
+      .catch((err) => { console.log(err) })
+  }, [datas.location])
+
   const selectDatas = [
     { name: "location", selectOption: location, grid: 1 },
     { name: "StatusImport", selectOption: statusImport, grid: 1 },
     { name: "unit", selectOption: unit, grid: 1 },
-    { name: "item_name", selectOption: item_name, grid: 2 },
-    { name: "target", selectOption: target, grid: 1 },
+    { name: "item_name", selectOption: item_names, grid: 1 },
+    { name: "customer", selectOption: customers, grid: 1 },
+    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1 },
   ]
   const inputDatas = [
     { name: "lot_no", type: "number" },
@@ -62,12 +108,12 @@ function CreateLogisticsExport(props) {
     <div>
       <span className="ml-3 text-sm font-medium">출고예정등록</span>
       <Transition.Root show={props.createLogisticsExportOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef}  onClose={() =>
-            props.setOpens({
-              ...props.opens,
-              [props.openData]: false,
-            })
-          }>
+        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() =>
+          props.setOpens({
+            ...props.opens,
+            [props.openData]: false,
+          })
+        }>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -130,7 +176,7 @@ function CreateLogisticsExport(props) {
                     <button
                       type="button"
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() =>  props.setOpens({
+                      onClick={() => props.setOpens({
                         ...props.opens,
                         [props.openData]: false,
                       })}

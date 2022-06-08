@@ -1,16 +1,16 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { item_name, location, unit, warehouse_code } from "../Common/Conditions/SelectOptions";
+import { item_name, location, unit } from "../Common/Conditions/SelectOptions";
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 
 function CreateLogisticsMove(props) {
-  let url = useSelector((state) => state.logisticsMoveURL)
-  axios.defaults.baseURL = url
+  let Moveurl = useSelector((state) => state.logisticsMoveURL)
+  // axios.defaults.baseURL = Moveurl
   // useEffect
-
+  // 지역에 따라서 창고목록변경
   // usestate
   const [datas, setDatas] = useState({
     location: "",
@@ -27,12 +27,47 @@ function CreateLogisticsMove(props) {
     inst_deadline: "",
     unit: "",
   })
+  // useEffect
+  // 지역에 따라서 창고목록변경
+  let WarehouseUrl = useSelector((state) => state.warehouseURL)
+  let InventoryURL = useSelector((state) => state.inventoryURL)
+  const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
+  const [item_names, setItem_names] = useState(["전체보기"])
+  useEffect(() => {
+    axios.defaults.baseURL = WarehouseUrl
+    axios.get(`warehouse/${datas.location}`)
+      .then((res) => {
+        setWarehouse_codes(["전체보기"])
+        for (let index = 0; index < res.data.length; index++) {
+          setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
+        }
+        // console.log(warehouse_codes)
+      })
+      .catch((err) => { console.log(err) })
+  }, [datas.location])
+  // 지역에따라서 아이템명변경
+  useEffect(() => {
+    axios.defaults.baseURL = InventoryURL
+    axios.get(`inventory/${datas.location}`)
+      .then((res) => {
+        setItem_names(["전체보기"])
+        console.log(res)
+        for (let index = 0; index < res.data.length; index++) {
+          setItem_names(warehouse_codes => [...warehouse_codes, res.data[index].item_name])
+        }
+        // console.log(warehouse_codes)
+      })
+      .catch((err) => { console.log(err) })
+  }, [datas.location])
+
+
+
   const selectDatas = [
     { name: "location", selectOption: location, grid: 1 },
     { name: "unit", selectOption: unit, grid: 1 },
-    { name: "from_warehouse", selectOption: warehouse_code, grid: 1 },
-    { name: "to_warehouse", selectOption: warehouse_code, grid: 1 },
-    { name: "item_name", selectOption: item_name, grid: 2 },
+    { name: "from_warehouse", selectOption: warehouse_codes, grid: 1 },
+    { name: "to_warehouse", selectOption: warehouse_codes, grid: 1 },
+    { name: "item_name", selectOption: item_names, grid: 2 },
   ]
   const inputDatas = [
     { name: "lot_no", type: "number" },
@@ -65,7 +100,7 @@ function CreateLogisticsMove(props) {
               [props.openData]: false,
             })
           }
-          
+
         >
           <Transition.Child
             as={Fragment}
@@ -132,7 +167,7 @@ function CreateLogisticsMove(props) {
                     <button
                       type="button"
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() =>  props.setOpens({
+                      onClick={() => props.setOpens({
                         ...props.opens,
                         [props.openData]: false,
                       })}

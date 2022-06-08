@@ -15,10 +15,10 @@ export let { handleTabTitle } = tabTitle.actions;
 
 // 물류입고 url
 let logisticsImportURL = createSlice({
-  name: "logisticsURL",
+  name: "logisticsImportURL",
   initialState: "http://192.168.0.10:8081",
   reducers: {
-    handleLogisticsURL(state, newState) {
+    handleLogisticsImportURL(state, newState) {
       return newState;
     },
   },

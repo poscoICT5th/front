@@ -23,14 +23,14 @@ function LogisticsExport() {
   const [logisticsExportList, setLogisticsExportList] = useState([])
 
   const [datas, setDatas] = useState({
-    status: "",
-    location: "",
-    product_family: "",
-    lot_no: "",
-    item_no: "",
-    item_name: "",
-    from_warehouse: "",
-    unit: "",
+    status: "전체보기",
+    location: "전체보기",
+    product_family: "전체보기",
+    lot_no: "전체보기",
+    item_no: "전체보기",
+    item_name: "전체보기",
+    from_warehouse: "전체보기",
+    unit: "전체보기",
     min_weight: 0,
     max_weight: 10000000,
     min_thickness: 0,
@@ -43,11 +43,11 @@ function LogisticsExport() {
     max_ex_amount: 10000000,
     min_width: 0,
     max_width: 10000000,
-    target: "",
-    order_date: "",
-    inst_reg_date: "",
-    inst_deadline: "",
-    done_date: "",
+    target: "전체보기",
+    order_date: "전체보기",
+    inst_reg_date: "전체보기",
+    inst_deadline: "전체보기",
+    done_date: "전체보기",
   })
 
   const th = [

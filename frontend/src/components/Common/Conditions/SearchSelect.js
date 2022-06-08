@@ -17,11 +17,13 @@ function SearchSelect(props) {
             <div className="col-span-2">
                 <Select
                     // mode="multiple"
+                    showSearch
                     allowClear
                     style={{
                         width: '100%',
                     }}
-                    placeholder="Please select"
+
+                    placeholder={props.name}
                     defaultValue={[]}
                     onChange={handleChange}
                 >

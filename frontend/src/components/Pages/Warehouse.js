@@ -29,15 +29,15 @@ function Warehouse(props) {
   //usestate
   const [warehouseList, setWarehouseList] = useState([]);
   const [datas, setDatas] = useState({
-    location: "",
-    warehouse_code: "",
-    purpose: "",
-    warehouse_code_desc: "",
-    use: "",
+    location: "전체보기",
+    warehouse_code: "전체보기",
+    purpose: "전체보기",
+    warehouse_code_desc: "전체보기",
+    use: "전체보기",
     maximum_weight: 0,
     maximum_count: 0,
-    inventory_using: "",
-    remarks: "",
+    inventory_using: "전체보기",
+    remarks: "전체보기",
   });
   //통신오는 순서로 맞춰주기
   const th = [

@@ -24,13 +24,13 @@ function LosgisticsMove() {
   // usestate
   const [logisticsMoveList, setLogisticsMoveList] = useState([])
   const [datas, setDatas] = useState({
-    status: "",
-    location: "",
-    instruction_no: "",
-    lot_no: "",
-    item_no: "",
-    item_name: "",
-    to_warehouse: "",
+    status: "전체보기",
+    location: "전체보기",
+    instruction_no: "전체보기",
+    lot_no: "전체보기",
+    item_no: "전체보기",
+    item_name: "전체보기",
+    to_warehouse: "전체보기",
     min_weight: 0,
     max_weight: 10000000,
     min_thickness: 0,
@@ -41,10 +41,10 @@ function LosgisticsMove() {
     max_move_amount: 10000000,
     min_width: 0,
     max_width: 10000000,
-    inst_reg_date_Date: "",
-    inst_deadline: "",
-    done_date: "",
-    unit: "",
+    inst_reg_date_Date: "전체보기",
+    inst_deadline: "전체보기",
+    done_date: "전체보기",
+    unit: "전체보기",
   })
   const th = [
     "status",
