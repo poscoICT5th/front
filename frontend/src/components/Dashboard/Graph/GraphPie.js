@@ -5,7 +5,7 @@ import React from 'react'
 function GraphPie(props) {
     const options = {
         chart: {
-            type: 'pie'
+            type: 'scatter'
         },
         title: {
             text: props.title

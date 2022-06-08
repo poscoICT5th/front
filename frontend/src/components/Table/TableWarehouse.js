@@ -195,7 +195,7 @@ function TableWarehouse(props) {
             id="tableTitle"
             component="div"
           >
-            출고관리
+          창고관리
           </Typography>
         )}
 
