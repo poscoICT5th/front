@@ -19,8 +19,9 @@ function MapDetail(props) {
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
   useEffect(() => {
-    axios.get(`/${props.warehouse_code}`).then((res) => {
-    });
+    // axios.get(`/${props.warehouse_code}`).then((res) => {
+    //   console.log(res.data);
+    // });
   }, [open]);
   // usestate
   const [datas, setDatas] = useState({

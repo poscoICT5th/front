@@ -87,7 +87,6 @@ function CreateLogisticsImport(props) {
   const cancelButtonRef = useRef(null);
   return (
     <div>
-      <span className="ml-3 text-sm font-medium">입고예정등록</span>
       <Transition.Root show={props.createLogisticsImportOpen} as={Fragment}>
         <Dialog
           as="div"

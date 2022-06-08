@@ -12,10 +12,13 @@ import Warehouse from './components/Pages/Warehouse'
 import Dashboard from './components/Pages/Dashboard'
 import Sidebar from './components/Common/Sidebar'
 import Map from './components/Map/Map'
-import Map3 from './components/Map/Map3'
-import Map4 from './components/Map/Map4'
+import Column from './components/Map/Column'
 import Footer from './components/Common/Footer';
 import Header from './components/Common/Header';
+import GraphPie from './components/Dashboard/Graph/GraphPie';
+import Demo from './components/Map/Demo'
+import Treemap from './components/Map/Treemap'
+import Pie from './components/Map/Pie'
 
 function App() {
   let isLogin = localStorage.getItem('token');
@@ -66,8 +69,11 @@ function App() {
               <Route path="/Inventory" element={<Inventory />} />
               <Route path="/Warehouse" element={<Warehouse />} />
               <Route path="/Map" element={<Map />} />
-              <Route path="/Map3" element={<Map3 />} />
-              <Route path="/Map4" element={<Map4 />} />
+              <Route path="/Column" element={<Column />} />
+              <Route path="/GraphPie" element={<GraphPie />} />
+              <Route path="/Demo" element={<Demo />} />
+              <Route path="/Treemap" element={<Treemap />} />
+              <Route path="/Pie" element={<Pie />} />
             </Routes></div>
         </div>
         <Footer />

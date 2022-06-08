@@ -88,7 +88,6 @@ function CreateLogisticsMove(props) {
   const cancelButtonRef = useRef(null);
   return (
     <div>
-      <span className="ml-3 text-sm font-medium">창고 이동 요청</span>
       <Transition.Root show={props.createLogisticsMoveOpen} as={Fragment}>
         <Dialog
           as="div"

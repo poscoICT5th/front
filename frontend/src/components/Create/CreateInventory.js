@@ -7,7 +7,6 @@ function CreateInventory(props) {
   const cancelButtonRef = useRef(null)
   return (
     <div>
-      <span className="ml-3">재고 생성</span>
       <Transition.Root show={props.createLogisticsImportOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setCreateLogisticsImportOpen}>
           <Transition.Child
