@@ -27,14 +27,8 @@ function SidebarContent() {
         {
           submenu: "마이페이지",
           no: 11,
-          navigate: "LogisticsImport",
+          navigate: "Mypage",
           d: "M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z",
-        },
-        {
-          submenu: "로그아웃",
-          no: 12,
-          navigate: "/",
-          d: "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1",
         },
       ],
       componentMenu: [],
@@ -315,6 +309,34 @@ function SidebarContent() {
                   </details>
                 );
               })}
+              <div
+                className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-300 hover:text-gray-700"
+                style={
+                  menu === 12
+                    ? { backgroundColor: "gray", color: "white" }
+                    : { backgroundColor: "white" }
+                }
+                onClick={() => {
+                  navigate("/Dashboard");
+                  setMenu(12);
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
+                <span className="ml-3 text-sm font-medium"> 로그아웃 </span>
+              </div>
             </nav>
           </div>
         </div>

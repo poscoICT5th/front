@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Aos from "aos";
 import "aos/dist/aos.css";
 import './App.css'
@@ -17,7 +17,7 @@ import Map4 from './components/Map/Map4'
 import Footer from './components/Common/Footer';
 import Header from './components/Common/Header';
 function App() {
-  let isLogin = localStorage.getItem('id');
+  let isLogin = localStorage.getItem('token');
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
@@ -26,18 +26,26 @@ function App() {
   // dark모드
   const [isDark, setIsDark] = useState(false);
   const [mouse, setmouse] = useState(-1)
+  const [viewSidebar, setViewSidebar] = useState(false)
+  const nowURL = useLocation().pathname;
+  useEffect(() => {
+    if (nowURL !== "/") {
+      setViewSidebar(true)
+    } else {
+      setViewSidebar(false)
+    }
+  }, [nowURL])
+
 
   // 마우스위치 가져오기
   document.addEventListener('mousemove', logKey);
   function logKey(e) {
-    if (e.clientX <= 30) {
-      setmouse(0)
-    }
+    setmouse(e.clientX)
   }
 
   return (
     <div data-aos="fade-up" >
-      <div className="border-l-8 border-sky-500">
+      <div className={"" + (viewSidebar ? "border-l-8 border-sky-500" : "")}>
         <div className="">
           {
             isLogin

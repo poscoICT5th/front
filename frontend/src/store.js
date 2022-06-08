@@ -58,8 +58,8 @@ let warehouseURL = createSlice({
     },
   },
 });
-
 export let { handleWarehouseURL } = warehouseURL.actions;
+
 // 인벤토리 url
 let inventoryURL = createSlice({
   name: "inventoryURL",
@@ -72,6 +72,18 @@ let inventoryURL = createSlice({
 });
 export let { handleInventoryURL } = inventoryURL.actions;
 
+// 인벤토리 url
+let userURL = createSlice({
+  name: "userURL",
+  initialState: "http://192.168.0.20:8086",
+  reducers: {
+    handleUserURL(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleUserURL } = userURL.actions;
+
 // state등록해주는부분
 export default configureStore({
   // {작명:createSlice만든거.reducer} 사용
@@ -82,6 +94,7 @@ export default configureStore({
     logisticsMoveURL: logisticsMoveURL.reducer,
     warehouseURL: warehouseURL.reducer,
     inventoryURL: inventoryURL.reducer,
+    userURL: userURL.reducer,
   },
 });
 //

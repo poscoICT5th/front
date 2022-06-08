@@ -8,9 +8,11 @@ import SmartFactory from "./Videos/SmartFactory";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import { useSelector } from "react-redux";
+import jwt_decode from "jwt-decode";
 function Login() {
   let navigate = useNavigate();
-
+  let userUrl = useSelector((state) => state.userURL)
   // useEffect
   useEffect(() => {
     if (isLogin) {
@@ -25,18 +27,22 @@ function Login() {
 
   // function
   function Login() {
+    console.log(userUrl)
+    axios.defaults.baseURL = userUrl
     axios.post('/login',
       {
         id: id,
         pw: pw
-      })
+      }
+    )
       .then((res) => {
-
+        console.log(res.data)
+        localStorage.setItem("token", res.data)
+        // var decoded = jwt_decode(res.data);
+        navigate("/Dashboard");
       })
 
       .catch(() => {
-        navigate("/Dashboard"); localStorage.setItem("id", id)
-        localStorage.setItem("pw", pw)
       })
   }
   return (
