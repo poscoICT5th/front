@@ -19,13 +19,54 @@ addTreemapModule(Highcharts);
 
 function Treemap() {
     const [treeData, settreeData] = useState(null);
+    const formatData = (data) => {
 
+      const colours = Highcharts.getOptions().colors; 
+      const formattedData = [];
+      Object.keys(data).forEach((regionName, rIndex) => {  //regionName  나중에 데이터맞게 다 바꾸기 
+        const region = {
+          id: `id_${rIndex}`, // id_1, id_2
+          name: regionName,   // Africa, Americas, Europe
+          color: colours[rIndex],
+        };
+        let regionSum = 0;
+          
+        const countries = Object.keys(data[regionName]);
+        countries.forEach((countryName, cIndex) => {
+          const country = {
+            id: `${region.id}_${cIndex}`,
+            name: countryName,
+            parent: region.id,
+          };
+          formattedData.push(country);
+            
+          Object.keys(data[regionName][countryName]).forEach(
+            (causeName, index) => {
+              const cause = {
+                id: `${country.id}_${index}`,
+                name: causeName,
+                parent: country.id,
+                value: Math.round(
+                  parseFloat(data[regionName][countryName][causeName])
+                ),
+              };
+              formattedData.push(cause);
+              regionSum += cause.value;
+            }
+          );
+        });
+  
+        region.value = Math.round(regionSum); // 대륙 총 인구수 
+        formattedData.push(region);
+      });
+  
+      return formattedData;
+      };
     useEffect(() => {
         axios
-          .get("/")
+          .get("https://gist.githubusercontent.com/whawker/809cae1781f25db5f3c2dd7cee93b017/raw/94ca755307ac5651686467b5fa1844659b5817a3/data.json")
           .then((res) => {
             settreeData(formatData(res.data)); //창고 테이블
-            console.log(res, "ㅇㅇㅇㅇㅇㅇㅇㅇ");
           })
           .catch((err) => {
             console.log(err);
@@ -34,65 +75,23 @@ function Treemap() {
     //usestate
     const [warehouseList, setWarehouseList] = useState([]);
 
-    const formatData = (data) => {
-
-    const colours = Highcharts.getOptions().colors;
-    const formattedData = [];
-    Object.keys(data).forEach((regionName, rIndex) => {
-      const region = {
-        id: `id_${rIndex}`, // id_1, id_2
-        name: regionName,   // Africa, Americas, Europe
-        color: colours[rIndex],
-      };
-      let regionSum = 0;
-        
-      const countries = Object.keys(data[regionName]);
-      countries.forEach((countryName, cIndex) => {
-        const country = {
-          id: `${region.id}_${cIndex}`,
-          name: countryName,
-          parent: region.id,
-        };
-        formattedData.push(country);
-          
-        Object.keys(data[regionName][countryName]).forEach(
-          (causeName, index) => {
-            const cause = {
-              id: `${country.id}_${index}`,
-              name: causeName,
-              parent: country.id,
-              value: Math.round(
-                parseFloat(data[regionName][countryName][causeName])
-              ),
-            };
-            formattedData.push(cause);
-            regionSum += cause.value;
-          }
-        );
-      });
-
-      region.value = Math.round(regionSum / countries.length);
-      formattedData.push(region);
-    });
-
-    return formattedData;
-    };
+    
     
   //url
-  let url = useSelector((state) => state.warehouseURL);
-  axios.defaults.baseURL = url;
+  // let url = useSelector((state) => state.warehouseURL);
+  // axios.defaults.baseURL = url;
 
-  useEffect(() => {
-      axios
-        .get("/")
-        .then((res) => {
-          settreeData(formatData(res.data)); //창고 테이블
-          console.log(res, "ㅇㅇㅇㅇㅇㅇㅇㅇ");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, []);
+  // useEffect(() => {
+  //     axios
+  //       .get("/")
+  //       .then((res) => {
+  //         settreeData(formatData(res.data)); //창고 테이블
+  //         console.log(res, "ㅇㅇㅇㅇㅇㅇㅇㅇ");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }, []);
     
     //axios.get(`/ware`)
   if (!treeData) return null;
