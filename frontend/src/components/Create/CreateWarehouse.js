@@ -31,16 +31,17 @@ function CreateWarehouse(props) {
     remarks: "",
   });
   const selectDatas = [
-    { name: "사업장", selectOption: location, grid: 1 },
-    { name: "용도명", selectOption: purpose, grid: 1 },
-    { name: "사용여부", selectOption: use, grid: 1 },
-    { name: "재고실사", selectOption: inventory_using, grid: 1 },
+    { name: "location", selectOption: location, grid: 1 },
+    { name: "purpose", selectOption: purpose, grid: 1 },
+    { name: "use", selectOption: use, grid: 1 },
+    { name: "inventory_using", selectOption: inventory_using, grid: 1 },
   ];
   const inputDatas = [
-    { name: "저장위치전체명", type: "text" },
-    { name: "최대적치중량", type: "number" },
-    { name: "최대적치매수", type: "number" },
-    { name: "창고코드", type: "text" },
+    { name: "warehouse_code_desc", type: "text" },
+    { name: "maximum_weight", type: "number" },
+    { name: "maximum_count", type: "number" },
+    { name: "warehouse_code", type: "text" },
+    { name: "remarks", type: "text" },
   ];
 
   // function
@@ -58,7 +59,7 @@ function CreateWarehouse(props) {
 
   return (
     <div>
-      
+
       <Transition.Root show={props.createWarehouseOpen} as={Fragment}>
         <Dialog
           as="div"

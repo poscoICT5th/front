@@ -50,15 +50,15 @@ function App() {
   }
 
   return (
-    <div data-aos="fade-up">
-      <div className={"" + (viewSidebar && mouse !== 0 ? "border-l-8 border-sky-500" : "")}>
+    <div data-aos="fade-up" className=''>
+      <div className={"" + (viewSidebar && mouse !== 0 ? "border-l-8 border-green-700" : "")}>
         <div className="">
           {
             isLogin
               ? <Sidebar mouse={mouse} setmouse={setmouse} />
               : null
           }
-          <div className="mx-auto mx-5">
+          <div className="mx-auto mx-5 min-h-screen">
             <Header />
             {/* Routes */}
             <Routes>

@@ -34,9 +34,8 @@ function CreateLogisticsImport(props) {
   });
   // useEffect
   // 지역에 따라서 창고목록변경
-  let LogisticsImportURL = useSelector((state) => state.logisticsImportURL)
+  let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
   let WarehouseUrl = useSelector((state) => state.warehouseURL)
-  let InventoryURL = useSelector((state) => state.inventoryURL)
   const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
   useEffect(() => {
     axios.defaults.baseURL = WarehouseUrl
@@ -60,7 +59,7 @@ function CreateLogisticsImport(props) {
   const inputDatas = [
     { name: "customer", type: "text" },
     { name: "industry_family", type: "text" },
-    { name: "item_no", type: "number" },
+    { name: "item_no", type: "text" },
     { name: "item_name", type: "text" },
     { name: "weight", type: "number" },
     { name: "thickness", type: "number" },
@@ -71,14 +70,18 @@ function CreateLogisticsImport(props) {
     { name: "order_date", type: "date" },
     { name: "inst_deadline", type: "date" },
   ];
-  const dateDatas = [
-  ];
+
   // function
   function request() {
-    axios.defaults.baseURL = LogisticsImportURL
+    axios.defaults.baseURL = logisticsImportURL
     axios
       .post("/import", datas)
       .then((res) => {
+        alert("입고요청이 등록되었습니다.")
+        props.setOpens({
+          ...props.opens,
+          [props.openData]: false,
+        })
       })
       .catch((err) => {
         alert(err);

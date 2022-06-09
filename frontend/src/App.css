@@ -1,1 +1,8 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
+
+.antd-table-custom-class thead th,
+.antd-table-custom-class tbody td {
+  white-space: nowrap;
+  word-break: break-word;
+  word-break: break-all;
+}

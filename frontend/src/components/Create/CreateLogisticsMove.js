@@ -7,8 +7,8 @@ import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 
 function CreateLogisticsMove(props) {
-  let Moveurl = useSelector((state) => state.logisticsMoveURL)
-  // axios.defaults.baseURL = Moveurl
+  let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
+  axios.defaults.baseURL = logisticsMoveURL
   // useEffect
   // 지역에 따라서 창고목록변경
   // usestate
@@ -70,20 +70,23 @@ function CreateLogisticsMove(props) {
     { name: "item_name", selectOption: item_names, grid: 2 },
   ]
   const inputDatas = [
-    { name: "lot_no", type: "number" },
-    { name: "item_no", type: "number" },
+    { name: "lot_no", type: "text" },
+    { name: "item_no", type: "text" },
     { name: "width", type: "number" },
     { name: "weight", type: "number" },
     { name: "thickness", type: "number" },
     { name: "height", type: "number" },
-    { name: "order_amount", type: "number" },
     { name: "move_amount", type: "number" },
+    { name: "inst_deadline", type: "date" },
   ]
   const dateDatas = [
-    { name: "inst_deadline", type: "text" },
   ]
   // function
-  function test(params) {
+  function request(params) {
+    axios.post('/move',
+      datas)
+      .then((res) => { alert(res) })
+      .catch((err) => { alert(err) })
   }
   const cancelButtonRef = useRef(null);
   return (
@@ -177,7 +180,7 @@ function CreateLogisticsMove(props) {
                     <button
                       type="button"
                       className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-sky-300 text-base font-medium text-white  hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => test()}
+                      onClick={() => request()}
                     >
                       Request
                     </button>

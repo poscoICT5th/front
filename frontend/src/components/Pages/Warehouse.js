@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SearchWarehouse from "../Search/SearchWarehouse";
 import TableWarehouse from "../Table/TableWarehouse";
+import TableList from "../Table/TableList";
 
 function Warehouse(props) {
   let url = useSelector((state) => state.warehouseURL);
@@ -25,7 +26,7 @@ function Warehouse(props) {
       });
   }, [click]);
 
-  
+
   //클릭해야 삭제할수있게함.
 
   //usestate
@@ -41,18 +42,18 @@ function Warehouse(props) {
     inventory_using: "전체보기",
     remarks: "전체보기",
   });
-  //통신오는 순서로 맞춰주기
-  // const th = [
-  //   "location",
-  //   "warehouse_code",
-  //   "purpose",
-  //   "warehouse_code_desc",
-  //   "use",
-  //   "maximum_weight",
-  //   "maximum_count",
-  //   "inventory_using",
-  //   "remarks",
-  // ];
+
+  const th = [
+    { "location": 100 },
+    { "warehouse_code": 100 },
+    { "purpose": 180 },
+    { "warehouse_code_desc": 180 },
+    { "use": 100 },
+    { "maximum_weight": 100 },
+    { "maximum_count": 100 },
+    { "inventory_using": 100 },
+    { "remarks": 100 },
+  ]
   // 입고요청 삭제(여러개)
   function deleteWarehouse(warehouse_code) {
     axios.delete(`/${warehouse_code}`).then((res) => {
@@ -76,12 +77,11 @@ function Warehouse(props) {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableWarehouse
-            warehouseList={warehouseList}
+          <TableList
+            dataList={warehouseList}
             datas={datas}
             deleteWarehouse={deleteWarehouse}
-            click={click}
-            setClick={setClick}
+            th={th}
           />
         </div>
       </div>

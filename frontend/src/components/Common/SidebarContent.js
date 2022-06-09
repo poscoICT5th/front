@@ -58,6 +58,7 @@ function SidebarContent() {
           no: 22,
           d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createLogisticsImportOpen",
+          title:"입고등록"
         },
       ],
     },
@@ -86,6 +87,7 @@ function SidebarContent() {
           no: 32,
           d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createLogisticsExportOpen",
+          title:"출고등록"
         },
       ],
     },
@@ -114,6 +116,7 @@ function SidebarContent() {
           no: 42,
           d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createLogisticsMoveOpen",
+          title:"창고이동등록"
         },
       ],
     },
@@ -142,6 +145,7 @@ function SidebarContent() {
           no: 52,
           d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
           openData: "createWarehouseOpen",
+          title:"입고등록"
         },
       ],
     },
@@ -300,6 +304,7 @@ function SidebarContent() {
                                   d={componentData.d}
                                 />
                               </svg>
+                              <span className="ml-3 text-sm font-medium"> {componentData.title} </span>
                               {componentData.component}
                             </button>
                           </div>
