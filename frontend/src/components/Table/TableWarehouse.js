@@ -345,7 +345,7 @@ function TableWarehouse(props) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[25,50,100]}
           component="div"
           count={props.warehouseList.length}
           rowsPerPage={rowsPerPage}

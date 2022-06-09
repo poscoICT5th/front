@@ -6,7 +6,7 @@ import { item_name, location, statusImport, target, unit } from '../Common/Condi
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 function CreateLogisticsExport(props) {
-  let Importurl = useSelector((state) => state.logisticsExportURL)
+  let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
   // axios.defaults.baseURL = Importurl
   // usestate
   const [datas, setDatas] = useState({
@@ -82,24 +82,27 @@ function CreateLogisticsExport(props) {
     { name: "warehouse_code", selectOption: warehouse_codes, grid: 1 },
   ]
   const inputDatas = [
-    { name: "lot_no", type: "number" },
-    { name: "item_no", type: "number" },
+    { name: "lot_no", type: "text" },
+    { name: "item_no", type: "text" },
     { name: "weight", type: "number" },
     { name: "thickness", type: "number" },
     { name: "height", type: "number" },
     { name: "order_amount", type: "number" },
     { name: "ex_amount", type: "number" },
     { name: "ex_remain", type: "number" },
-    { name: "amount", type: "number" },
-  ]
-  const dateDatas = [
-    { name: "order_date", type: "text" },
-    { name: "inst_deadline", type: "text" },
+    { name: "order_date", type: "date" },
+    { name: "inst_deadline", type: "date" },
   ]
   // function
   function request() {
+    axios.defaults.baseURL = logisticsExportURL;
     axios.post('/export', datas)
-      .then((res) => { props.setCreateLogisticsExportOpen(false); })
+      .then((res) => {
+        props.setOpens({
+          ...props.opens,
+          [props.openData]: false,
+        })
+      })
       .catch((err) => { alert(err) })
   }
   const cancelButtonRef = useRef(null)
@@ -154,12 +157,6 @@ function CreateLogisticsExport(props) {
                                   <div className="grid grid-cols-3 gap-4 text-center mt-5">
                                     {inputDatas.map((inputData) => {
                                       return <InputText setDatas={setDatas} datas={datas} name={inputData.name} type={inputData.type} />
-                                    })}
-                                  </div>
-                                  {/* calenders */}
-                                  <div className="grid grid-cols-2 gap-4 text-center mt-5">
-                                    {dateDatas.map((dateData) => {
-                                      return <InputText setDatas={setDatas} datas={datas} name={dateData.name} />
                                     })}
                                   </div>
                                 </div>

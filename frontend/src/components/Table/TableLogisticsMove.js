@@ -237,7 +237,7 @@ function TableLogisticsMove(props) {
             id="tableTitle"
             component="div"
           >
-            출고관리
+            창고이동관리
           </Typography>
         )}
 
@@ -388,7 +388,7 @@ function TableLogisticsMove(props) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[25, 50, 100]}
           component="div"
           count={props.logisticsMoveList.length}
           rowsPerPage={rowsPerPage}

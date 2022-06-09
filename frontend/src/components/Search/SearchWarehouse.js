@@ -45,7 +45,7 @@ function SearchWarehouse(props) {
     <div className="overflow-hidden sm:rounded-md">
       <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
         {/* select */}
-        <div className="grid grid-cols-8 gap-4 text-center">
+        <div className="grid grid-cols-10 gap-4 text-center">
           {selectDatas.map((selectData) => {
             return (
               <SearchSelect
@@ -67,24 +67,22 @@ function SearchWarehouse(props) {
               />
             );
           })}
+          <button
+            className="inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            onClick={() => { }}
+          >
+            삭제
+          </button>
+          <button
+            className="inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            onClick={() => {
+              props.search();
+              props.setClick(!props.click);
+            }}
+          >
+            조건조회
+          </button>
         </div>
-      </div>
-      <div className="px-4 text-right mb-5">
-        <button
-          className="mr-1 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-          onClick={() => { }}
-        >
-          삭제
-        </button>
-        <button
-          className="mr-1 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-          onClick={() => {
-            props.search();
-            props.setClick(!props.click);
-          }}
-        >
-          조건조회
-        </button>
       </div>
     </div>
   );

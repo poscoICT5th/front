@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import SearchLogisticsMove from "../Search/SearchLogisticsMove";
 import TableLogisticsMove from "../Table/TableLogisticsMove";
 import { useSelector } from "react-redux";
+import TableList from "../Table/TableList";
 
 function LosgisticsMove() {
   // axios url
-  let url = useSelector((state) => state.logisticsMoveURL)
-  axios.defaults.baseURL = url
+  let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
 
   // useEffect
   useEffect(() => {
@@ -16,10 +16,11 @@ function LosgisticsMove() {
   }, []);
   const [click, setClick] = useState(false)
   useEffect(() => {
+    axios.defaults.baseURL = logisticsMoveURL
     axios.get('/move')
-      .then((res) => { setLogisticsMoveList(res.data) })
+      .then((res) => { setLogisticsMoveList(res.data); console.log(res.data) })
       .catch((err) => { console.log(err) })
-  }, [click])
+  }, [])
 
   // usestate
   const [logisticsMoveList, setLogisticsMoveList] = useState([])
@@ -46,24 +47,24 @@ function LosgisticsMove() {
     done_date: "전체보기",
     unit: "전체보기",
   })
-  // const th = [
-  //   "status",
-  //   "location",
-  //   "instruction_no",
-  //   "lot_no",
-  //   "item_no",
-  //   "item_name",
-  //   "width",
-  //   "weight",
-  //   "thickness",
-  //   "height",
-  //   "move_amount",
-  //   "from_warehouse",
-  //   "to_warehouse",
-  //   "inst_reg_date",
-  //   "inst_deadline",
-  //   "done_date",
-  // ]
+  const th = [
+    { "status": 100 },
+    { "location": 100 },
+    { "instruction_no": 180 },
+    { "lot_no": 180 },
+    { "item_no": 100 },
+    { "item_name": 100 },
+    { "width": 100 },
+    { "weight": 100 },
+    { "thickness": 100 },
+    { "height": 100 },
+    { "move_amount": 150 },
+    { "from_warehouse": 125 },
+    { "to_warehouse": 110 },
+    { "inst_reg_date": 150 },
+    { "inst_deadline": 150 },
+    { "done_date": 200 },
+  ]
   //function
   function search(params) {
     axios.get('/search', { params: datas })
@@ -83,7 +84,7 @@ function LosgisticsMove() {
         </div >
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsMove logisticsMoveList={logisticsMoveList} datas={datas} deleteRequest={deleteRequest} click={click} setClick={setClick} />
+          <TableList dataList={logisticsMoveList} datas={datas} deleteRequest={deleteRequest} th={th} />
         </div>
       </div>
     </div>

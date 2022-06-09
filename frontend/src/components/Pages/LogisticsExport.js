@@ -5,16 +5,17 @@ import CancelRequest from '../Functions/CancelRequest';
 import SearchLogisticsExport from '../Search/SearchLogisticsExport';
 import TableLogisticsExport from '../Table/TableLogisticsExport';
 import { useSelector } from 'react-redux';
+import TableList from '../Table/TableList';
 
 function LogisticsExport() {
-  let url = useSelector((state) => state.logisticsExportURL)
-  axios.defaults.baseURL = url
+  let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
   const [click, setClick] = useState(false)
   useEffect(() => {
+    axios.defaults.baseURL = logisticsExportURL
     axios.get("/export", {})
       .then((res) => { setLogisticsExportList(res.data) })
   }, [])
@@ -50,30 +51,30 @@ function LogisticsExport() {
     done_date: "전체보기",
   })
 
-  // const th = [
-  //   "status",
-  //   "location",
-  //   "instruction_no",
-  //   "target",
-  //   "lot_no",
-  //   "item_no",
-  //   "item_name",
-  //   "width",
-  //   "weight",
-  //   "thickness",
-  //   "height",
-  //   "order_amount",
-  //   "ex_amount",
-  //   "ex_remain",
-  //   "order_date",
-  //   "inst_reg_date",
-  //   "inst_deadline",
-  //   "done_date",
-  // ]
-
+  const th = [
+    { "status": 100 },
+    { "location": 100 },
+    { "instruction_no": 180 },
+    { "customer": 150 },
+    { "lot_no": 180 },
+    { "item_no": 100 },
+    { "item_name": 100 },
+    { "width": 100 },
+    { "weight": 100 },
+    { "thickness": 100 },
+    { "height": 100 },
+    { "order_amount": 150 },
+    { "ex_amount": 120 },
+    { "ex_remain": 120 },
+    { "order_date": 150 },
+    { "inst_reg_date": 150 },
+    { "inst_deadline": 150 },
+    { "done_date": 200 },
+  ]
   // function
   // 출고 조건검색
   function search(params) {
+    axios.defaults.baseURL = logisticsExportURL
     axios.get('/search', {
       params: datas
     })
@@ -94,7 +95,7 @@ function LogisticsExport() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableLogisticsExport logisticsExportList={logisticsExportList} datas={datas} setClick={setClick} click={click} deleteRequests={deleteRequests} />
+          <TableList dataList={logisticsExportList} datas={datas} setClick={setClick} click={click} deleteRequests={deleteRequests} th={th} />
         </div>
       </div>
     </div>

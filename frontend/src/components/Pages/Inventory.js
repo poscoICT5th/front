@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import SearchInventory from "../Search/SearchInventory";
 import TableInventory from "../Table/TableInventory";
+import TableList from '../Table/TableList';
 
 function Inventory() {
   let url = useSelector((state) => state.inventoryURL)
@@ -44,7 +45,6 @@ function Inventory() {
     weight: "전체보기",
     unit: "전체보기",
     customer: "전체보기",
-    fixed_month: "전체보기",
     width: "전체보기",
     thickness: "전체보기",
     height: "전체보기",
@@ -78,6 +78,30 @@ function Inventory() {
   //   "warehouse_date",
   //   "warehouse_aging ",
   // ];
+  const th = [
+    { "industry_family": 120 },
+    { "stock_type": 100 },
+    { "stock_quality_status": 180 },
+    { "status_cause": 180 },
+    { "location": 100 },
+    { "product_family": 120 },
+    { "warehouse_code": 130 },
+    { "lot_no": 160 },
+    { "item_num": 100 },
+    { "item_desc": 500 },
+    { "item_num": 100 },
+    { "item_name": 430 },
+    { "amount": 100 },
+    { "unit": 100 },
+    { "customer": 130 },
+    { "fixed_month": 100 },
+    { "width": 100 },
+    { "thickness": 100 },
+    { "height": 100 },
+    { "inventory_date": 200 },
+    { "warehouse_date": 200 },
+    { "warehouse_aging": 160 },
+  ]
   // 입고요청 삭제(여러개)
   function deleteInventory(lot_no) {
     axios.delete(`/${lot_no}`)
@@ -107,7 +131,7 @@ function Inventory() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableInventory inventoryList={inventoryList} datas={datas} deleteInventory={deleteInventory} click={click} setClick={setClick} />
+          <TableList dataList={inventoryList} datas={datas} deleteInventory={deleteInventory} th={th} />
         </div>
       </div>
     </div>

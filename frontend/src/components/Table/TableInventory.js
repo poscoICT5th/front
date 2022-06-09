@@ -429,7 +429,7 @@ function TableInventory(props) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[25, 50, 100]}
           component="div"
           count={props.inventoryList.length}
           rowsPerPage={rowsPerPage}
