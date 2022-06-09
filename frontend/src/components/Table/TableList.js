@@ -1,11 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 
 
 function TableList(props) {
     const columns = [];
     const data = [];
-
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const onSelectChange = (newSelectedRowKeys) => {
+        console.log('selectedRowKeys changed: ', selectedRowKeys);
+        setSelectedRowKeys(newSelectedRowKeys);
+    };
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: onSelectChange,
+    };
+    const hasSelected = selectedRowKeys.length > 0;
     props.th.forEach(element => {
         columns.push(
             {
@@ -18,12 +27,12 @@ function TableList(props) {
         )
     })
     props.dataList.forEach(element => {
-        Object.keys(element).map((e)=>{})
         data.push(element)
     });
     return (
         <div>
             <Table
+                rowSelection={rowSelection}
                 columns={columns}
                 dataSource={data}
                 bordered
