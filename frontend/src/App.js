@@ -19,6 +19,7 @@ import GraphPie from './components/Dashboard/Graph/GraphPie';
 import Demo from './components/Map/Demo'
 import Treemap from './components/Map/Treemap'
 import Pie from './components/Map/Pie'
+import Gauge from './components/Map/Gauge'
 
 function App() {
   let isLogin = localStorage.getItem('token');
@@ -74,6 +75,7 @@ function App() {
               <Route path="/Demo" element={<Demo />} />
               <Route path="/Treemap" element={<Treemap />} />
               <Route path="/Pie" element={<Pie />} />
+              <Route path="/Gauge" element={<Gauge />} />
             </Routes></div>
         </div>
         <Footer />
