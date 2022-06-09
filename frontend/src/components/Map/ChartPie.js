@@ -13,7 +13,7 @@ function customizeText(arg) {
     return `${arg.valueText} (${arg.percentText})`;
   }
 
-function Pie() {
+function ChartPie() {
   return (
       <div>
            <PieChart id="pie"
@@ -45,4 +45,4 @@ function Pie() {
   )
 }
 
-export default Pie
+export default ChartPie

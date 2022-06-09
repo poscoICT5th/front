@@ -16,11 +16,11 @@ import Column from './components/Map/Column'
 import Footer from './components/Common/Footer';
 import Header from './components/Common/Header';
 import GraphPie from './components/Dashboard/Graph/GraphPie';
-import Demo from './components/Map/Demo'
-import Treemap from './components/Map/Treemap'
-import Pie from './components/Map/Pie'
-import Gauge from './components/Map/Gauge'
-
+import ChartBar from './components/Map/ChartBar'
+import ChartTreemap from './components/Map/ChartTreemap'
+import ChartPie from './components/Map/ChartPie'
+import Gauge from './components/Map/ChartGauge'
+import NivoPie from './components/Map/NivoPie'
 function App() {
   let isLogin = localStorage.getItem('token');
   useEffect(() => {
@@ -72,10 +72,11 @@ function App() {
               <Route path="/Map" element={<Map />} />
               <Route path="/Column" element={<Column />} />
               <Route path="/GraphPie" element={<GraphPie />} />
-              <Route path="/Demo" element={<Demo />} />
-              <Route path="/Treemap" element={<Treemap />} />
-              <Route path="/Pie" element={<Pie />} />
+              <Route path="/ChartBar" element={<ChartBar />} />
+              <Route path="/ChartTreemap" element={<ChartTreemap />} />
+              <Route path="/ChartPie" element={<ChartPie />} />
               <Route path="/Gauge" element={<Gauge />} />
+              <Route path="/NivoPie" element={<NivoPie />} />
             </Routes></div>
         </div>
         <Footer />

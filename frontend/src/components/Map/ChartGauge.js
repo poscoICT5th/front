@@ -15,7 +15,7 @@ import {
 addHighchartsMore(Highcharts);
 addSolidGaugeModule(Highcharts);
 
-function Gauge() {
+function ChartGauge() {
   const plotOptions = {
     solidgauge: {
       dataLabels: {
@@ -100,4 +100,4 @@ function Gauge() {
   );
 }
 
-export default Gauge;
+export default ChartGauge;

@@ -13,11 +13,11 @@ import {
   Tooltip,
 } from "react-jsx-highcharts";
 import axios from "axios";
-import { useSelector } from "react-redux";
+
 addHeatmapModule(Highcharts);
 addTreemapModule(Highcharts);
 
-function Treemap() {
+function ChartTreemap() {
     const [treeData, settreeData] = useState(null);
     const formatData = (data) => {
 
@@ -134,4 +134,4 @@ function Treemap() {
   );
 }
 
-export default Treemap;
+export default ChartTreemap;
