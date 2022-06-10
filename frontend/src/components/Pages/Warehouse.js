@@ -3,7 +3,6 @@ import Aos from "aos";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SearchWarehouse from "../Search/SearchWarehouse";
-import TableWarehouse from "../Table/TableWarehouse";
 import TableList from "../Table/TableList";
 
 function Warehouse(props) {
@@ -14,8 +13,7 @@ function Warehouse(props) {
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
-  // 맨처음에 전체리스트 불러오기
-  const [click, setClick] = useState(false);
+
   useEffect(() => {
     axios
       .get("/")
@@ -24,10 +22,7 @@ function Warehouse(props) {
       })
       .catch((err) => {
       });
-  }, [click]);
-
-
-  //클릭해야 삭제할수있게함.
+  }, []);
 
   //usestate
   const [warehouseList, setWarehouseList] = useState([]);
@@ -82,6 +77,7 @@ function Warehouse(props) {
             datas={datas}
             deleteWarehouse={deleteWarehouse}
             th={th}
+            title={"warehouse"}
           />
         </div>
       </div>

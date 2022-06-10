@@ -8,7 +8,12 @@ function CreateInventory(props) {
   return (
     <div>
       <Transition.Root show={props.createLogisticsImportOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setCreateLogisticsImportOpen}>
+        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() =>
+          props.setOpens({
+            ...props.opens,
+            [props.openData]: false,
+          })
+        }>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

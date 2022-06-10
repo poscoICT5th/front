@@ -24,7 +24,7 @@ function SearchLogisticsMove(props) {
                     setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
                 }
             })
-            .catch((err) => { console.log(err) })
+            .catch((err) => {  })
     }, [props.datas.location])
     // 지역에따라서 아이템명변경
     useEffect(() => {
@@ -32,12 +32,12 @@ function SearchLogisticsMove(props) {
         axios.get(`inventory/${props.datas.location}`)
             .then((res) => {
                 setItem_names(["전체보기"])
-                console.log(res)
+                
                 for (let index = 0; index < res.data.length; index++) {
                     setItem_names(item_names => [...item_names, res.data[index].item_name])
                 }
             })
-            .catch((err) => { console.log(err) })
+            .catch((err) => {  })
     }, [props.datas.location])
 
     const selectDatas = [

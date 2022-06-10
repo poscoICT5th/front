@@ -1,30 +1,11 @@
-import React, { useEffect } from 'react'
-import Aos from "aos";
-import DashboardHeader from '../Dashboard/DashboardHeader';
-import DashboardCustom from '../Dashboard/DashboardCustom';
-import DashboardTabs from '../Dashboard/DashboardTabs';
-import moment from 'moment';
+import React from 'react'
+import './Dashboard.css'
 function Dashboard() {
-  useEffect(() => {
-    Aos.init({ duration: 1000 });
-  }, []);
-  useEffect(() => {
-    var now = moment().format("YYYY-MM-DD");
-  }, [])
-
   return (
-    <section data-aos="fade-up" className="">
-      <div className="w-full mx-auto">
-        <div className='mb-10'>
-          <DashboardHeader />
-        </div>
-      </div>
-      <div>
-        <DashboardCustom />
-        <DashboardTabs />
-      </div>
-    </section>
-  );
+    <div>
+
+    </div>
+  )
 }
 
-export default Dashboard;
+export default Dashboard

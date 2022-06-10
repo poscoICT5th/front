@@ -23,7 +23,7 @@ function SearchWarehouse(props) {
                     setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
                 }
             })
-            .catch((err) => { console.log(err) })
+            .catch((err) => {  })
     }, [props.datas.location])
     // 지역에따라서 고객처변경
     useEffect(() => {
@@ -31,12 +31,12 @@ function SearchWarehouse(props) {
         axios.get(`inventory/customer/${props.datas.location}`)
             .then((res) => {
                 setCustomers(["전체보기"])
-                console.log(res)
+                
                 for (let index = 0; index < res.data.length; index++) {
                     setCustomers(customers => [...customers, res.data[index].customer])
                 }
             })
-            .catch((err) => { console.log(err) })
+            .catch((err) => {  })
     }, [props.datas.location])
     const selectDatas = [
         { name: "industry_family", selectOption: industry_family, grid: 1 },

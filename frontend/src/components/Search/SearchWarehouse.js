@@ -25,7 +25,7 @@ function SearchWarehouse(props) {
         }
         // console.log(warehouse_codes)
       })
-      .catch((err) => { console.log(err) })
+      .catch((err) => {  })
   }, [props.datas.location])
 
   const selectDatas = [

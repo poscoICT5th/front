@@ -89,7 +89,6 @@ function Inventory() {
     { "lot_no": 160 },
     { "item_num": 100 },
     { "item_desc": 500 },
-    { "item_num": 100 },
     { "item_name": 430 },
     { "amount": 100 },
     { "unit": 100 },
@@ -112,8 +111,8 @@ function Inventory() {
     // axios.post('/import', {
     //   status: "value"
     // })
-    // .then((res) => { console.log(res) })
-    // .catch((err) => { console.log(err) })
+    // .then((res) => {  })
+    // .catch((err) => {  })
   }, [])
   function search() {
   }
@@ -131,7 +130,7 @@ function Inventory() {
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableList dataList={inventoryList} datas={datas} deleteInventory={deleteInventory} th={th} />
+          <TableList dataList={inventoryList} datas={datas} deleteInventory={deleteInventory} th={th} title={"inventory"}/>
         </div>
       </div>
     </div>

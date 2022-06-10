@@ -19,7 +19,7 @@ function LosgisticsMove() {
     axios.defaults.baseURL = logisticsMoveURL
     axios.get('/move')
       .then((res) => { setLogisticsMoveList(res.data); console.log(res.data) })
-      .catch((err) => { console.log(err) })
+      .catch((err) => {  })
   }, [])
 
   // usestate
@@ -80,11 +80,19 @@ function LosgisticsMove() {
       <div className="w-full mx-auto my-10">
         <div className="font-bold text-2xl text-center my-3">창고이동 조회</div>
         < div className="mt-5 md:mt-0 md:col-span-2" >
-          <SearchLogisticsMove datas={datas} setDatas={setDatas} search={search} />
+          <SearchLogisticsMove
+            datas={datas}
+            setDatas={setDatas}
+            search={search} />
         </div >
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableList dataList={logisticsMoveList} datas={datas} deleteRequest={deleteRequest} th={th} />
+          <TableList
+            dataList={logisticsMoveList}
+            datas={datas}
+            deleteRequest={deleteRequest}
+            th={th}
+            title={"logistics"} />
         </div>
       </div>
     </div>

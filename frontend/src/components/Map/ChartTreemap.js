@@ -79,7 +79,7 @@ function ChartTreemap() {
             console.log(res, "treepmap 들어와라");
           })
           .catch((err) => {
-            console.log(err);
+            ;
           });
       }, []);
     //usestate
@@ -99,7 +99,7 @@ function ChartTreemap() {
   //         console.log(res, "ㅇㅇㅇㅇㅇㅇㅇㅇ");
   //       })
   //       .catch((err) => {
-  //         console.log(err);
+  //         ;
   //       });
   //   }, []);
     

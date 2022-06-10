@@ -1,23 +1,34 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import CreateLogisticsExport from '../Create/CreateLogisticsExport';
-import CreateLogisticsImport from '../Create/CreateLogisticsImport';
-import CreateLogisticsMove from '../Create/CreateLogisticsMove';
+import CreateExport from '../Create/CreateExport';
+import CreateImport from '../Create/CreateImport';
+import CreateMove from '../Create/CreateMove';
 import CreateWarehouse from '../Create/CreateWarehouse';
 
 function SidebarContent() {
+  // navigate
   let navigate = useNavigate();
   function navigatePage(component) {
     navigate(`/${component}`);
   }
-  const [opens, setOpens] = useState({
-    createWarehouseOpen: false,
-    createLogisticsImportOpen: false,
-    createLogisticsExportOpen: false,
-    createLogisticsMoveOpen: false,
-    createInventoryOpen: false,
-  });
+  const [openCreate1, setOpenCreate1] = useState(false)
+  const [openCreate2, setOpenCreate2] = useState(false)
+  const [openCreate3, setOpenCreate3] = useState(false)
+  const [openCreate4, setOpenCreate4] = useState(false)
   const [menu, setMenu] = useState(0);
+
+
+
+
+  // useEffect(() => {
+  //   if (lot_nos.length > 0) {
+  //     console.log(datas)
+  //     // setDatas({ ...datas, ["weight"]: lot_no_data[exportDatas.lot_no].weight });
+  //     setDatas({ ...datas, ["thickness"]: 123123 });
+  //     setDatas({ ...datas, "height": lot_no_data[exportDatas.lot_no].height });
+  //   }
+  // }, [exportDatas.lot_no])
+
   const sidebarDatas = [
     {
       menu: "계정",
@@ -47,18 +58,17 @@ function SidebarContent() {
       ],
       componentMenu: [
         {
-          component: (
-            <CreateLogisticsImport
-              createLogisticsImportOpen={opens.createLogisticsImportOpen}
-              setOpens={setOpens}
-              opens={opens}
-              openData={"createLogisticsImportOpen"}
-            />
-          ),
+          component:
+            (
+              <CreateImport
+                openCreate={openCreate1}
+                setOpenCreate={setOpenCreate1} />
+            ),
+          openFunc: setOpenCreate1,
           no: 22,
           d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createLogisticsImportOpen",
-          title:"입고등록"
+          title: "입고등록"
         },
       ],
     },
@@ -77,17 +87,15 @@ function SidebarContent() {
       componentMenu: [
         {
           component: (
-            <CreateLogisticsExport
-              createLogisticsExportOpen={opens.createLogisticsExportOpen}
-              setOpens={setOpens}
-              opens={opens}
-              openData={"createLogisticsExportOpen"}
-            />
+            <CreateExport
+              openCreate={openCreate2}
+              setOpenCreate={setOpenCreate2} />
           ),
+          openFunc: setOpenCreate2,
           no: 32,
           d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createLogisticsExportOpen",
-          title:"출고등록"
+          title: "출고등록"
         },
       ],
     },
@@ -106,17 +114,15 @@ function SidebarContent() {
       componentMenu: [
         {
           component: (
-            <CreateLogisticsMove
-              createLogisticsMoveOpen={opens.createLogisticsMoveOpen}
-              setOpens={setOpens}
-              opens={opens}
-              openData={"createLogisticsMoveOpen"}
-            />
+            <CreateMove
+              openCreate={openCreate3}
+              setOpenCreate={setOpenCreate3} />
           ),
+          openFunc: setOpenCreate3,
           no: 42,
           d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createLogisticsMoveOpen",
-          title:"창고이동등록"
+          title: "창고이동등록"
         },
       ],
     },
@@ -136,16 +142,14 @@ function SidebarContent() {
         {
           component: (
             <CreateWarehouse
-              createWarehouseOpen={opens.createWarehouseOpen}
-              setOpens={setOpens}
-              opens={opens}
-              openData={"createWarehouseOpen"}
-            />
+              openCreate={openCreate4}
+              setOpenCreate={setOpenCreate4} />
           ),
+          openFunc: setOpenCreate4,
           no: 52,
           d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
           openData: "createWarehouseOpen",
-          title:"입고등록"
+          title: "창고등록"
         },
       ],
     },
@@ -284,10 +288,7 @@ function SidebarContent() {
                             <button
                               className="flex items-center w-full px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                               onClick={() => {
-                                setOpens({
-                                  ...opens,
-                                  [componentData.openData]: true,
-                                });
+                                componentData.openFunc(true)
                               }}
                             >
                               <svg

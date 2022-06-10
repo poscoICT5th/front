@@ -25,7 +25,7 @@ function SearchLogisticsImport(props) {
                     setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
                 }
             })
-            .catch((err) => { console.log(err) })
+            .catch((err) => {  })
     }, [props.datas.location])
     // 지역에따라서 아이템명변경
     useEffect(() => {
@@ -33,12 +33,12 @@ function SearchLogisticsImport(props) {
         axios.get(`inventory/${props.datas.location}`)
             .then((res) => {
                 setItem_names(["전체보기"])
-                console.log(res)
+                
                 for (let index = 0; index < res.data.length; index++) {
                     setItem_names(item_names => [...item_names, res.data[index].item_name])
                 }
             })
-            .catch((err) => { console.log(err) })
+            .catch((err) => {  })
     }, [props.datas.location])
     // 지역에따라서 고객처변경
     useEffect(() => {
@@ -46,12 +46,12 @@ function SearchLogisticsImport(props) {
         axios.get(`inventory/customer/${props.datas.location}`)
             .then((res) => {
                 setCustomers(["전체보기"])
-                console.log(res)
+                
                 for (let index = 0; index < res.data.length; index++) {
                     setCustomers(customers => [...customers, res.data[index].customer])
                 }
             })
-            .catch((err) => { console.log(err) })
+            .catch((err) => {  })
     }, [props.datas.location])
 
     const selectDatas = [
@@ -90,15 +90,15 @@ function SearchLogisticsImport(props) {
                     {/* <div className="col-span-1"> */}
                     <button
                         className="col-span-1 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                        onClick={() => { props.deleteRequests() }}
+                        onClick={() => { props.setClickDelete(true) }}
                     >
                         삭제
                     </button>
                     <button
                         className="col-span-1 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                        onClick={() => { props.search() }}
+                        onClick={() => { props.setClickSearch(true) }}
                     >
-                        조건조회
+                        조회
                     </button>
                     {/* </div> */}
                 </div>

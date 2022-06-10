@@ -11,13 +11,13 @@ import { CaretRightOutlined } from '@ant-design/icons';
 function SearchLogisticsExport(props) {
   // useEffect
   // 지역에 따라서 창고목록변경
-  let WarehouseUrl = useSelector((state) => state.warehouseURL)
-  let InventoryURL = useSelector((state) => state.inventoryURL)
+  let warehouseURL = useSelector((state) => state.warehouseURL)
+  let inventoryURL = useSelector((state) => state.inventoryURL)
   const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"])
   const [item_names, setItem_names] = useState(["전체보기"])
   const [customers, setCustomers] = useState(["전체보기"])
   useEffect(() => {
-    axios.defaults.baseURL = WarehouseUrl
+    axios.defaults.baseURL = warehouseURL
     axios.get(`warehouse/${props.datas.location}`)
       .then((res) => {
         setWarehouse_codes(["전체보기"])
@@ -25,33 +25,33 @@ function SearchLogisticsExport(props) {
           setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
         }
       })
-      .catch((err) => { console.log(err) })
+      .catch((err) => { })
   }, [props.datas.location])
   // 지역에따라서 아이템명변경
   useEffect(() => {
-    axios.defaults.baseURL = InventoryURL
+    axios.defaults.baseURL = inventoryURL
     axios.get(`inventory/${props.datas.location}`)
       .then((res) => {
         setItem_names(["전체보기"])
-        console.log(res)
+
         for (let index = 0; index < res.data.length; index++) {
           setItem_names(item_names => [...item_names, res.data[index].item_name])
         }
       })
-      .catch((err) => { console.log(err) })
+      .catch((err) => { })
   }, [props.datas.location])
   // 지역에따라서 고객처변경
   useEffect(() => {
-    axios.defaults.baseURL = InventoryURL
+    axios.defaults.baseURL = inventoryURL
     axios.get(`inventory/customer/${props.datas.location}`)
       .then((res) => {
         setCustomers(["전체보기"])
-        console.log(res)
+
         for (let index = 0; index < res.data.length; index++) {
           setCustomers(customers => [...customers, res.data[index].customer])
         }
       })
-      .catch((err) => { console.log(err) })
+      .catch((err) => { })
   }, [props.datas.location])
 
   const selectDatas = [
@@ -87,15 +87,15 @@ function SearchLogisticsExport(props) {
           })}
           <button
             className="col-span-1 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-            onClick={() => { props.deleteRequests() }}
+            onClick={() => { props.setClickDelete(true) }}
           >
             삭제
           </button>
           <button
             className="col-span-1 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-            onClick={() => { props.search() }}
+            onClick={() => { props.setClickSearch(true) }}
           >
-            조건조회
+            조회
           </button>
         </div>
         <Collapse

@@ -4,23 +4,37 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import SearchLogisticsImport from '../Search/SearchLogisticsImport';
 import TableList from '../Table/TableList';
-import TableLogisticsImport from '../Table/TableLogisticsImport';
 
 
 function LogisticsImport() {
   let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
+  axios.defaults.baseURL = logisticsImportURL
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
+
+  // 전체조회
   useEffect(() => {
-    axios.defaults.baseURL = logisticsImportURL
     axios.get('/import')
-      .then((res) => { setLogisticsImportList(res.data); console.log(res) })
+      .then((res) => { setLogisticsImportList(res.data);  })
   }, [])
 
-  const [click, setClick] = useState(false)
+  // 입고 조건검색
+  const [clickSearch, setClickSearch] = useState(false)
+  useEffect(() => {
+    if (clickSearch) {
+      axios.get('/search', {
+        params: datas
+      })
+        .then((res) => { setLogisticsImportList(res.data); setClickSearch(false) })
+        .catch((err) => { console.log(datas) })
+    }
+  }, [clickSearch])
+
+  // useState
   const [logisticsImportList, setLogisticsImportList] = useState([])
+  const [clickDelete, setClickDelete] = useState(false)
   const [datas, setDatas] = useState({
     status: "전체보기",
     location: "전체보기",
@@ -73,27 +87,7 @@ function LogisticsImport() {
     { "inst_deadline": 200 },
     { "done_date": 200 },
   ]
-  const [deleteDatas, setdeleteDatas] = useState("")
-  // function
-  // 입고 조건검색
-  function search() {
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => { setLogisticsImportList(res.data); console.log(datas) })
-      .catch((err) => { console.log(datas) })
-  }
-  // 입고 전체조회
-  function searchAll() {
-    axios.get('/import')
-      .then((res) => { setLogisticsImportList(res.data) })
-    // .catch((err) => { alert(datas) })
-  }
-  // 입고요청 삭제
-  function deleteRequests(ins_no) {
-    axios.delete(`/import/${ins_no}`)
-      .then((res) => { alert(res.status) })
-  }
+
 
   return (
     <div data-aos="fade-up" className="">
@@ -101,13 +95,27 @@ function LogisticsImport() {
         <div className="font-bold text-2xl text-center my-3">입고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">
-          <SearchLogisticsImport setDatas={setDatas} datas={datas} search={search} searchAll={searchAll} />
+          <SearchLogisticsImport
+            setDatas={setDatas}
+            datas={datas}
+            setClickSearch={setClickSearch}
+            clickSearch={clickSearch}
+            setClickDelete={setClickDelete}
+            clickDelete={clickDelete} />
         </div>
 
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          {/* <TableLogisticsImport logisticsImportList={logisticsImportList} datas={datas} setdeleteDatas={setdeleteDatas} deleteRequests={deleteRequests} click={click} setClick={setClick} /> */}
-          <TableList dataList={logisticsImportList} datas={datas} setdeleteDatas={setdeleteDatas} deleteRequests={deleteRequests} th={th} />
+          <TableList
+            title={"logistics"}
+            part="import"
+            axiosURL={logisticsImportURL}
+            th={th}
+            dataList={logisticsImportList}
+            datas={datas}
+            clickDelete={clickDelete}
+            deleteBodyName="logiImportDeleteList"
+          />
         </div>
       </div>
     </div>
