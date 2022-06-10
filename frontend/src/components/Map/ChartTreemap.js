@@ -13,17 +13,22 @@ import {
   Tooltip,
 } from "react-jsx-highcharts";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
 addHeatmapModule(Highcharts);
 addTreemapModule(Highcharts);
 
 function ChartTreemap() {
     const [treeData, settreeData] = useState(null);
     const formatData = (data) => {
-
       const colours = Highcharts.getOptions().colors; 
       const formattedData = [];
-      Object.keys(data).forEach((regionName, rIndex) => {  //regionName  나중에 데이터맞게 다 바꾸기 
+      Object.keys(data).forEach((regionName, rIndex) => { 
+        // if (regionName === "천안") {
+        //   return;
+        // }
+         //regionName  나중에 데이터맞게 다 바꾸기 
+        console.log(123)
+        console.log(regionName)
         const region = {
           id: `id_${rIndex}`, // id_1, id_2
           name: regionName,   // Africa, Americas, Europe
@@ -33,6 +38,7 @@ function ChartTreemap() {
           
         const countries = Object.keys(data[regionName]);
         countries.forEach((countryName, cIndex) => {
+          console.log(countryName)
           const country = {
             id: `${region.id}_${cIndex}`,
             name: countryName,
@@ -47,7 +53,7 @@ function ChartTreemap() {
                 name: causeName,
                 parent: country.id,
                 value: Math.round(
-                  parseFloat(data[regionName][countryName][causeName])
+                  parseFloat(data[regionName][countryName][causeName]["재고량"])
                 ),
               };
               formattedData.push(cause);
@@ -61,12 +67,16 @@ function ChartTreemap() {
       });
   
       return formattedData;
-      };
+  };
+  let url = useSelector((state) => state.inventoryURL);
+  axios.defaults.baseURL = url;
+
     useEffect(() => {
         axios
-          .get("https://gist.githubusercontent.com/whawker/809cae1781f25db5f3c2dd7cee93b017/raw/94ca755307ac5651686467b5fa1844659b5817a3/data.json")
+          .get("/map")
           .then((res) => {
             settreeData(formatData(res.data)); //창고 테이블
+            console.log(res, "treepmap 들어와라");
           })
           .catch((err) => {
             console.log(err);
@@ -94,6 +104,7 @@ function ChartTreemap() {
   //   }, []);
     
     //axios.get(`/ware`)
+    
   if (!treeData) return null;
 
   const levels = [
