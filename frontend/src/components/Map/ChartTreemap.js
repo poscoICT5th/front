@@ -55,6 +55,7 @@ function ChartTreemap() {
                 value: Math.round(
                   parseFloat(data[regionName][countryName][causeName]["재고량"])
                 ),
+                item:data[regionName][countryName][causeName]["제품명"]
               };
               formattedData.push(cause);
               regionSum += cause.value;
@@ -117,7 +118,7 @@ function ChartTreemap() {
     },
   ];
   const tooltipFormatter = function () {
-    return `${this.key}: ${this.point.value}`;
+    return `${this.point.item}: ${this.point.value}`;
     };
 
   return (

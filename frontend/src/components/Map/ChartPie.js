@@ -19,7 +19,7 @@ function ChartPie() {
            <PieChart id="pie"
         palette="Bright"
         dataSource={dataSource}
-        title="Olympic Medals in 2008"
+        title="안지의 그래프"
       >
         <Legend
           orientation="horizontal"

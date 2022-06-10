@@ -4,6 +4,7 @@ import DashboardCarousel from './DashboardCarousel';
 import GraphPie from './Graph/GraphPie'
 import GraphDonut from './Graph/GraphDonut'
 import { useNavigate } from 'react-router-dom';
+
 function DashboardHeader() {
     let navigate = useNavigate();
     // const onChange = (date) => {
@@ -36,9 +37,7 @@ function DashboardHeader() {
     ])
     return (
         <div className='flex'>
-            <div className=''>
-                <DatePicker className='' onChange={selectDate} />
-            </div>
+           
             <div className="grow grid grid-cols-3 mx-3 gap-4 block shadow-sm rounded-xl focus:outline-none">
                 {
                     cards.map((card) => {
