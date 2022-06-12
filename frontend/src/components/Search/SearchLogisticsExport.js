@@ -63,19 +63,31 @@ function SearchLogisticsExport(props) {
     { name: "warehouse_code", selectOption: warehouse_codes, grid: 1 },
     { name: "customer", selectOption: customers, grid: 1 },
   ]
-  const inputRangeDatas = [
-    { name: "width", inputMin: "min_width", inputMax: "max_width" },
-    { name: "thickness", inputMin: "min_thickness", inputMax: "max_thickness" },
-    { name: "height", inputMin: "min_height", inputMax: "max_height" },
-    { name: "weight", inputMin: "min_weight", inputMax: "max_weight" },
-    { name: "order_amount", inputMin: "min_order_amount", inputMax: "max_order_amount" },
-    { name: "ex_amount", inputMin: "min_ex_amount", inputMax: "max_ex_amount" },
-  ]
+  // const inputRangeDatas = [
+  //   { name: "width", inputMin: "min_width", inputMax: "max_width" },
+  //   { name: "thickness", inputMin: "min_thickness", inputMax: "max_thickness" },
+  //   { name: "height", inputMin: "min_height", inputMax: "max_height" },
+  //   { name: "weight", inputMin: "min_weight", inputMax: "max_weight" },
+  //   { name: "order_amount", inputMin: "min_order_amount", inputMax: "max_order_amount" },
+  //   { name: "ex_amount", inputMin: "min_ex_amount", inputMax: "max_ex_amount" },
+  // ]
   const inputDatas = [
-    { name: "lot_no", type: "text" },
-    { name: "item_no", type: "text" },
-    { name: "order_date", type: "date" },
-    { name: "inst_deadline", type: "date" },
+    { name: "min_width", type: "number", purpose: "search" },
+    { name: "max_width", type: "number", purpose: "search" },
+    { name: "min_thickness", type: "number", purpose: "search" },
+    { name: "max_thickness", type: "number", purpose: "search" },
+    { name: "min_height", type: "number", purpose: "search" },
+    { name: "max_height", type: "number", purpose: "search" },
+    { name: "min_weight", type: "number", purpose: "search" },
+    { name: "max_weight", type: "number", purpose: "search" },
+    { name: "min_order_amount", type: "number", purpose: "search" },
+    { name: "max_order_amount", type: "number", purpose: "search" },
+    { name: "min_ex_amount", type: "number", purpose: "search" },
+    { name: "max_ex_amount", type: "number", purpose: "search" },
+    { name: "lot_no", type: "text", purpose: "search" },
+    { name: "item_no", type: "text", purpose: "search" },
+    { name: "order_date", type: "date", purpose: "search" },
+    { name: "inst_deadline", type: "date", purpose: "search" },
   ]
   const { Panel } = Collapse;
   return (
@@ -107,13 +119,13 @@ function SearchLogisticsExport(props) {
           <Panel header="상세검색" key="1" className="site-collapse-custom-panel bg-white">
 
             {/* inputRange */}
-            <div className="grid grid-cols-6 gap-4 text-center">
+            {/* <div className="grid grid-cols-6 gap-4 text-center">
               {inputRangeDatas.map((inputRangeData) => {
                 return <InputRange setDatas={props.setDatas} datas={props.datas} name={inputRangeData.name} min={inputRangeData.inputMin} max={inputRangeData.inputMax} />
               })}
-            </div>
+            </div> */}
             {/* inputText */}
-            <div className="grid grid-cols-4 gap-4 text-center mt-5">
+            <div className="grid grid-cols-6 gap-4 text-center mt-5">
               {inputDatas.map((inputData) => {
                 return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />
               })}

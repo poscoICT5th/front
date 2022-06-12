@@ -25,6 +25,7 @@ function LogisticsExport() {
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
     if (clickSearch) {
+      console.log(datas)
       axios.get('/search', {
         params: datas
       })

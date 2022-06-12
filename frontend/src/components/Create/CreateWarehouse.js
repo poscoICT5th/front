@@ -27,11 +27,11 @@ function CreateWarehouse(props) {
     { name: "inventory_using", selectOption: inventory_using, grid: 1 },
   ];
   const warehouse_inputDatas = [
-    { name: "warehouse_code_desc", type: "text" },
-    { name: "maximum_weight", type: "number" },
-    { name: "maximum_count", type: "number" },
-    { name: "warehouse_code", type: "text" },
-    { name: "remarks", type: "text" },
+    { name: "warehouse_code_desc", type: "text", purpose: "create" },
+    { name: "maximum_weight", type: "number", purpose: "create" },
+    { name: "maximum_count", type: "number", purpose: "create" },
+    { name: "warehouse_code", type: "text", purpose: "create" },
+    { name: "remarks", type: "text", purpose: "create" },
   ];
 
   // function

@@ -64,14 +64,14 @@ function CreateMove(props) {
         { name: "item_name", selectOption: item_names, grid: 2 },
     ]
     const move_inputDatas = [
-        { name: "lot_no", type: "text" },
-        { name: "item_no", type: "text" },
-        { name: "width", type: "number" },
-        { name: "weight", type: "number" },
-        { name: "thickness", type: "number" },
-        { name: "height", type: "number" },
-        { name: "move_amount", type: "number" },
-        { name: "inst_deadline", type: "date" },
+        { name: "lot_no", type: "text", purpose: "create" },
+        { name: "item_no", type: "text", purpose: "create" },
+        { name: "width", type: "number", purpose: "create" },
+        { name: "weight", type: "number", purpose: "create" },
+        { name: "thickness", type: "number", purpose: "create" },
+        { name: "height", type: "number", purpose: "create" },
+        { name: "move_amount", type: "number", purpose: "create" },
+        { name: "inst_deadline", type: "date", purpose: "create" },
     ]
 
     // function

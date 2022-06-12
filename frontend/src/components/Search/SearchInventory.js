@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { location, warehouse_code, stock_type, status_cause, stock_quality_status, product_family, target, industry_family, customer } from '../Common/Conditions/SelectOptions';
+import { location, stock_type, status_cause, stock_quality_status, product_family, industry_family } from '../Common/Conditions/SelectOptions';
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 import { useSelector } from 'react-redux';
@@ -40,7 +40,6 @@ function SearchWarehouse(props) {
     }, [props.datas.location])
     const selectDatas = [
         { name: "industry_family", selectOption: industry_family, grid: 1 },
-        { name: "customer", selectOption: customer, grid: 1 },
         { name: "stock_type", selectOption: stock_type, grid: 1 },
         { name: "stock_quality_status", selectOption: stock_quality_status, grid: 1 },
         { name: "status_cause", selectOption: status_cause, grid: 1 },

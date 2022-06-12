@@ -53,31 +53,29 @@ function CreateImport(props) {
         { name: "to_warehouse", selectOption: warehouse_codes, grid: 1 },
     ];
     const import_inputDatas = [
-        { name: "customer", type: "text" },
-        { name: "industry_family", type: "text" },
-        { name: "item_no", type: "text" },
-        { name: "item_name", type: "text" },
-        { name: "weight", type: "number" },
-        { name: "thickness", type: "number" },
-        { name: "height", type: "number" },
-        { name: "order_amount", type: "number" },
-        { name: "im_amount", type: "number" },
-        { name: "amount", type: "number" },
-        { name: "order_date", type: "date" },
-        { name: "inst_deadline", type: "date" },
+        { name: "customer", type: "text", purpose: "create" },
+        { name: "industry_family", type: "text", purpose: "create" },
+        { name: "item_no", type: "text", purpose: "create" },
+        { name: "item_name", type: "text", purpose: "create" },
+        { name: "weight", type: "number", purpose: "create" },
+        { name: "thickness", type: "number", purpose: "create" },
+        { name: "height", type: "number", purpose: "create" },
+        { name: "order_amount", type: "number", purpose: "create" },
+        { name: "im_amount", type: "number", purpose: "create" },
+        { name: "amount", type: "number", purpose: "create" },
+        { name: "order_date", type: "date", purpose: "create" },
+        { name: "inst_deadline", type: "date", purpose: "create" },
     ];
 
     // function
     function request() {
+        console.log(importDatas)
         axios.defaults.baseURL = logisticsImportURL
         axios
             .post("/import", importDatas)
             .then((res) => {
                 alert("입고요청이 등록되었습니다.")
-                props.setOpens({
-                    ...props.opens,
-                    [props.openData]: false,
-                })
+                props.setOpenCreate(false)
             })
             .catch((err) => {
                 alert(err);

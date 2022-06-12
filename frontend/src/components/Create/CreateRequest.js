@@ -52,7 +52,7 @@ function CreateRequest(props) {
                                                                     {/* inputs */}
                                                                     <div className="grid grid-cols-3 gap-4 text-center mt-5">
                                                                         {props.inputDatas.map((inputData) => {
-                                                                            return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} value={inputData.value} />
+                                                                            return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} value={inputData.value} purpose={inputData.purpose} />
                                                                         })}
                                                                     </div>
                                                                 </div>
