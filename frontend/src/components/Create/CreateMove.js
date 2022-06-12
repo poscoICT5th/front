@@ -61,7 +61,7 @@ function CreateMove(props) {
         { name: "unit", selectOption: unit, grid: 1 },
         { name: "from_warehouse", selectOption: warehouse_codes, grid: 1 },
         { name: "to_warehouse", selectOption: warehouse_codes, grid: 1 },
-        { name: "item_name", selectOption: item_names, grid: 2 },
+        { name: "item_name", selectOption: item_names, grid: 1 },
     ]
     const move_inputDatas = [
         { name: "lot_no", type: "text", purpose: "create" },

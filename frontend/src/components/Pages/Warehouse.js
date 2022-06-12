@@ -6,14 +6,15 @@ import SearchWarehouse from "../Search/SearchWarehouse";
 import TableList from "../Table/TableList";
 
 function Warehouse(props) {
-  let url = useSelector((state) => state.warehouseURL);
-  axios.defaults.baseURL = url;
+  let warehouseURL = useSelector((state) => state.warehouseURL);
+  axios.defaults.baseURL = warehouseURL;
 
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
 
+  // 창고전체조회(처음에)
   useEffect(() => {
     axios
       .get("/")
@@ -24,8 +25,20 @@ function Warehouse(props) {
       });
   }, []);
 
+  // 창고 조건검색
+  const [clickSearch, setClickSearch] = useState(false)
+  useEffect(() => {
+    if (clickSearch) {
+      axios.get("/search", { params: datas }).then((res) => {
+        setWarehouseList(res.data);
+        setClickSearch(false);
+      });
+    }
+  }, [clickSearch])
+
   //usestate
   const [warehouseList, setWarehouseList] = useState([]);
+  const [clickDelete, setClickDelete] = useState(false)
   const [datas, setDatas] = useState({
     location: "전체보기",
     warehouse_code: "전체보기",
@@ -49,35 +62,38 @@ function Warehouse(props) {
     { "inventory_using": 100 },
     { "remarks": 100 },
   ]
-  // 입고요청 삭제(여러개)
-  function deleteWarehouse(warehouse_code) {
-    axios.delete(`/${warehouse_code}`).then((res) => {
-      alert(res.status);
-    });
-  }
-
-  // function
-  function search() {
-    axios.get("/search", { params: datas }).then((res) => {
-      setWarehouseList(res.data);
-    });
-  }
+  // 창고 삭제(여러개)
+  // function deleteWarehouse(warehouse_code) {
+  //   axios.delete(`/${warehouse_code}`).then((res) => {
+  //     alert(res.status);
+  //   });
+  // }
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
         <div className="font-bold text-2xl text-center my-3">창고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">
-          <SearchWarehouse setDatas={setDatas} datas={datas} search={search} />
+          <SearchWarehouse
+            setDatas={setDatas}
+            datas={datas}
+            setClickSearch={setClickSearch}
+            clickSearch={clickSearch}
+            setClickDelete={setClickDelete}
+            clickDelete={clickDelete}
+          />
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
           <TableList
+            title={"warehouse"}
+            part="warehouse"
+            axiosURL={warehouseURL}
+            th={th}
             dataList={warehouseList}
             datas={datas}
-            deleteWarehouse={deleteWarehouse}
-            th={th}
-            title={"warehouse"}
+            clickDelete={clickDelete}
+            deleteBodyName="logiImportDeleteList"
           />
         </div>
       </div>

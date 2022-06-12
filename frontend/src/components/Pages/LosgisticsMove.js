@@ -9,21 +9,35 @@ import TableList from "../Table/TableList";
 function LosgisticsMove() {
   // axios url
   let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
+  axios.defaults.baseURL = logisticsMoveURL
 
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
+  // 창고이동 전체조회
   const [click, setClick] = useState(false)
   useEffect(() => {
-    axios.defaults.baseURL = logisticsMoveURL
     axios.get('/move')
       .then((res) => { setLogisticsMoveList(res.data); console.log(res.data) })
-      .catch((err) => {  })
+      .catch((err) => { })
   }, [])
+
+  // 창고조건조회
+  const [clickSearch, setClickSearch] = useState(false)
+  useEffect(() => {
+    if (clickSearch) {
+      axios.get('/search', {
+        params: datas
+      })
+        .then((res) => { setLogisticsMoveList(res.data); setClickSearch(false) })
+        .catch((err) => { console.log(datas) })
+    }
+  }, [clickSearch])
 
   // usestate
   const [logisticsMoveList, setLogisticsMoveList] = useState([])
+  const [clickDelete, setClickDelete] = useState(false)
   const [datas, setDatas] = useState({
     status: "전체보기",
     location: "전체보기",
@@ -65,12 +79,6 @@ function LosgisticsMove() {
     { "inst_deadline": 150 },
     { "done_date": 200 },
   ]
-  //function
-  function search(params) {
-    axios.get('/search', { params: datas })
-      .then((res) => { setLogisticsMoveList(res.data) })
-      .catch((err) => { console.log(datas) })
-  }
   function deleteRequest(ins_no) {
     axios.delete(`/move/${ins_no}`)
       .then((res) => { alert(res.status) })
@@ -81,18 +89,25 @@ function LosgisticsMove() {
         <div className="font-bold text-2xl text-center my-3">창고이동 조회</div>
         < div className="mt-5 md:mt-0 md:col-span-2" >
           <SearchLogisticsMove
-            datas={datas}
             setDatas={setDatas}
-            search={search} />
+            datas={datas}
+            setClickSearch={setClickSearch}
+            clickSearch={clickSearch}
+            setClickDelete={setClickDelete}
+            clickDelete={clickDelete} />
         </div >
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
           <TableList
+            title={"logistics"}
+            part="move"
+            axiosURL={logisticsMoveURL}
+            th={th}
             dataList={logisticsMoveList}
             datas={datas}
-            deleteRequest={deleteRequest}
-            th={th}
-            title={"logistics"} />
+            clickDelete={clickDelete}
+            deleteBodyName="logiMoveDeleteList"
+          />
         </div>
       </div>
     </div>

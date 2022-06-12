@@ -16,6 +16,7 @@ function InputText(props) {
                         type={props.type}
                         name={props.name}
                         id={props.name}
+                        min={0}
                         disabled={
                             props.purpose === "create"
                                 && props.type !== "date"

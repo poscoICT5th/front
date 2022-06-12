@@ -17,7 +17,7 @@ function LogisticsImport() {
   // 전체조회
   useEffect(() => {
     axios.get('/import')
-      .then((res) => { setLogisticsImportList(res.data);  })
+      .then((res) => { setLogisticsImportList(res.data); })
   }, [])
 
   // 입고 조건검색

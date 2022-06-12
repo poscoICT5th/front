@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CreateExport from '../Create/CreateExport';
 import CreateImport from '../Create/CreateImport';
 import CreateMove from '../Create/CreateMove';
@@ -15,6 +15,7 @@ function SidebarContent() {
   const [openCreate2, setOpenCreate2] = useState(false)
   const [openCreate3, setOpenCreate3] = useState(false)
   const [openCreate4, setOpenCreate4] = useState(false)
+
   const [menu, setMenu] = useState(0);
 
 
@@ -188,7 +189,7 @@ function SidebarContent() {
                     : { backgroundColor: "white" }
                 }
                 onClick={() => {
-                  navigate("/Dashboard");
+                  // navigate("/Dashboard");
                   setMenu(1);
                 }}
               >
@@ -206,7 +207,8 @@ function SidebarContent() {
                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                   />
                 </svg>
-                <span className="ml-3 text-sm font-medium"> Dashboard </span>
+                {/* <span className="ml-3 text-sm font-medium"> Dashboard </span> */}
+                <Link to="/Dashboard" className="ml-3 text-sm font-medium">Dashboard</Link>
               </div>
               {/*  */}
               {sidebarDatas.map((sidebarData) => {

@@ -9,7 +9,7 @@ function CreateRequest(props) {
     return (
         <div>
             <Transition.Root show={props.open} as={Fragment}>
-                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setOpen}>
+                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={(props.setOpen)}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -44,17 +44,17 @@ function CreateRequest(props) {
                                                             <div className="overflow-hidden sm:rounded-md">
                                                                 <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
                                                                     {/* select */}
-                                                                    <div className="grid grid-cols-3 gap-4 text-center mb-5">
+                                                                    <div className="grid grid-cols-4 gap-4 text-center mb-5">
                                                                         {props.selectDatas.map((selectData) => {
                                                                             return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
                                                                         })}
-                                                                    </div>
-                                                                    {/* inputs */}
-                                                                    <div className="grid grid-cols-3 gap-4 text-center mt-5">
                                                                         {props.inputDatas.map((inputData) => {
                                                                             return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} value={inputData.value} purpose={inputData.purpose} />
                                                                         })}
                                                                     </div>
+                                                                    {/* inputs */}
+                                                                    {/* <div className="grid grid-cols-4 gap-4 text-center mt-5">
+                                                                    </div> */}
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -38,7 +38,7 @@ function TableList(props) {
             data.push({ key: element.warehouse_code, ...element })
         }
     });
-    // 
+    // 삭제(멀티)
     useEffect(() => {
         axios.defaults.baseURL = props.axiosURL
         if (selectedRowKeys.length > 0) {
