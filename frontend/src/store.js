@@ -84,6 +84,54 @@ let userURL = createSlice({
 });
 export let { handleUserURL } = userURL.actions;
 
+// create import suc
+let createImportSuc = createSlice({
+  name: "createImportSuc",
+  initialState: false,
+  reducers: {
+    handleCreateImportSuc(state) {
+      return !state;
+    },
+  },
+});
+export let { handleCreateImportSuc } = createImportSuc.actions;
+
+// create export suc
+let createExportSuc = createSlice({
+  name: "createExportSuc",
+  initialState: false,
+  reducers: {
+    handleCreateExportSuc(state) {
+      return !state;
+    },
+  },
+});
+export let { handleCreateExportSuc } = createExportSuc.actions;
+
+// create export suc
+let createMoveSuc = createSlice({
+  name: "createMoveSuc",
+  initialState: false,
+  reducers: {
+    handleCreateMoveSuc(state) {
+      return !state;
+    },
+  },
+});
+export let { handleCreateMoveSuc } = createMoveSuc.actions;
+
+// create export suc
+let createWarehouseSuc = createSlice({
+  name: "createWarehouseSuc",
+  initialState: false,
+  reducers: {
+    handleCreateWarehouseSuc(state) {
+      return !state;
+    },
+  },
+});
+export let { handleCreateWarehouseSuc } = createWarehouseSuc.actions;
+
 // state등록해주는부분
 export default configureStore({
   // {작명:createSlice만든거.reducer} 사용
@@ -95,6 +143,10 @@ export default configureStore({
     warehouseURL: warehouseURL.reducer,
     inventoryURL: inventoryURL.reducer,
     userURL: userURL.reducer,
+    createImportSuc: createImportSuc.reducer,
+    createExportSuc: createExportSuc.reducer,
+    createMoveSuc: createMoveSuc.reducer,
+    createWarehouseSuc: createWarehouseSuc.reducer,
   },
 });
 //

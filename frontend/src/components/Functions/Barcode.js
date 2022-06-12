@@ -16,7 +16,7 @@ function Barcode(props) {
 
   function createBarcodePrint(props) {
     const canvas = document.createElement('canvas')
-    JsBarcode(canvas, barcodeInfo.lotNumber + barcodeInfo.name, { height: 50, displayValue: false })
+    JsBarcode(canvas, barcodeInfo.instruction_no + barcodeInfo.item_name, { height: 50, displayValue: false })
     let barcodeUrl = canvas.toDataURL('image/png')
     let windowObj = window.open(
       "",
@@ -46,20 +46,20 @@ function Barcode(props) {
                               <td colSpan="1">${barcodeInfo.place}</td>
                               <td colSpan="5" className="barcodeImg">
                                 <img src=${barcodeUrl} alt="바코드 생성 실패"/><br/>
-                                ${barcodeInfo.lotNumber}
+                                ${barcodeInfo.lot_no}
                               </td>
                             </tr>
                             <tr>
                               <td colSpan="1">품명</td>
-                              <td colSpan="5" className="name">${barcodeInfo.name}</td>
+                              <td colSpan="5" className="name">${barcodeInfo.item_name}</td>
                             </tr>
                             <tr>
                               <td>수 / 중량</td>
-                              <td>${barcodeInfo.cnt}</td>
+                              <td>${barcodeInfo.weight}</td>
                               <td>공정</td>
-                              <td>${barcodeInfo.process}</td>
-                              <td>작업자</td>
-                              <td>${barcodeInfo.PIC}</td>
+                              <td>${barcodeInfo.status}</td>
+                              <td>요청지시번호</td>
+                              <td>${barcodeInfo.instruction_no}</td>
                             </tr>
                           </table>
                         </div>`
@@ -73,7 +73,11 @@ function Barcode(props) {
   }
   return (
     <div>
-      <button type="button" onClick={createBarcodePrint}>바코드출력</button>
+      <button type="button" onClick={createBarcodePrint}>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+        </svg>
+      </button>
     </div>
   )
 }

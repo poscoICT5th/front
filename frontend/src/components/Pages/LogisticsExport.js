@@ -1,14 +1,13 @@
 import axios from 'axios';
 import Aos from 'aos';
 import React, { useEffect, useState } from 'react'
-import CancelRequest from '../Functions/CancelRequest';
 import SearchLogisticsExport from '../Search/SearchLogisticsExport';
-import TableLogisticsExport from '../Table/TableLogisticsExport';
 import { useSelector } from 'react-redux';
 import TableList from '../Table/TableList';
 
 function LogisticsExport() {
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
+  let createExportSuc = useSelector((state) => state.createExportSuc)
   axios.defaults.baseURL = logisticsExportURL
   // useEffect
   useEffect(() => {
@@ -32,7 +31,7 @@ function LogisticsExport() {
         .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
         .catch((err) => { console.log(datas); setClickSearch(false) })
     }
-  }, [clickSearch])
+  }, [clickSearch, createExportSuc])
 
 
   // usestate

@@ -8,6 +8,7 @@ import TableList from "../Table/TableList";
 function Warehouse(props) {
   let warehouseURL = useSelector((state) => state.warehouseURL);
   axios.defaults.baseURL = warehouseURL;
+  let createWarehouseSuc = useSelector((state) => state.createWarehouseSuc);
 
   // useEffect
   useEffect(() => {
@@ -34,7 +35,7 @@ function Warehouse(props) {
         setClickSearch(false);
       });
     }
-  }, [clickSearch])
+  }, [clickSearch, createWarehouseSuc])
 
   //usestate
   const [warehouseList, setWarehouseList] = useState([]);

@@ -2,7 +2,6 @@ import axios from "axios";
 import Aos from "aos";
 import React, { useEffect, useState } from "react";
 import SearchLogisticsMove from "../Search/SearchLogisticsMove";
-import TableLogisticsMove from "../Table/TableLogisticsMove";
 import { useSelector } from "react-redux";
 import TableList from "../Table/TableList";
 
@@ -10,11 +9,13 @@ function LosgisticsMove() {
   // axios url
   let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
   axios.defaults.baseURL = logisticsMoveURL
+  let createMoveSuc = useSelector((state) => state.createMoveSuc)
 
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
+
   // 창고이동 전체조회
   const [click, setClick] = useState(false)
   useEffect(() => {
@@ -33,7 +34,7 @@ function LosgisticsMove() {
         .then((res) => { setLogisticsMoveList(res.data); setClickSearch(false) })
         .catch((err) => { console.log(datas) })
     }
-  }, [clickSearch])
+  }, [clickSearch, createMoveSuc])
 
   // usestate
   const [logisticsMoveList, setLogisticsMoveList] = useState([])
@@ -79,10 +80,10 @@ function LosgisticsMove() {
     { "inst_deadline": 150 },
     { "done_date": 200 },
   ]
-  function deleteRequest(ins_no) {
-    axios.delete(`/move/${ins_no}`)
-      .then((res) => { alert(res.status) })
-  }
+  // function deleteRequest(ins_no) {
+  //   axios.delete(`/move/${ins_no}`)
+  //     .then((res) => { alert(res.status) })
+  // }
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import axios from 'axios';
-
+import Barcode from '../Functions/Barcode'
 
 function TableList(props) {
     const columns = [];
@@ -29,9 +29,22 @@ function TableList(props) {
             },
         )
     })
+    // 바코드칼럼 넣기
+    if (props.title === "logistics") {
+        columns.push(
+            {
+                title: "barcode",
+                dataIndex: "barcode",
+                key: "barcode",
+                width: 200,
+                align: "center",
+            },
+
+        )
+    }
     props.dataList.forEach(element => {
         if (props.title === "logistics") {
-            data.push({ key: element.instruction_no, ...element })
+            data.push({ key: element.instruction_no, ...element, "barcode": <Barcode itemData={element} /> })
         } else if (props.title === "inventory") {
             data.push({ key: element.lot_no, ...element })
         } else if (props.title === "warehouse") {
@@ -61,6 +74,7 @@ function TableList(props) {
         <div>
             <Table
                 rowSelection={rowSelection}
+                onDoubleClick={() => { }}
                 columns={columns}
                 dataSource={data}
                 bordered

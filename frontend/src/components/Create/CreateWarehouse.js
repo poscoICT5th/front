@@ -1,10 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { inventory_using, location, purpose, use } from '../Common/Conditions/SelectOptionsCreate';
 import CreateRequest from './CreateRequest'
+import { handleCreateWarehouseSuc } from '../../store'
 
 function CreateWarehouse(props) {
+  const dispatch = useDispatch();
+
   let url = useSelector((state) => state.warehouseURL);
   axios.defaults.baseURL = url;
 
@@ -39,6 +42,9 @@ function CreateWarehouse(props) {
     axios
       .post("/", warehouseDatas)
       .then((res) => {
+        alert("창고가 등록되었습니다.")
+        dispatch(handleCreateWarehouseSuc())
+        props.setOpenCreate(false)
       })
       .catch((err) => {
         alert(err);

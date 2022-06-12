@@ -1,10 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import CreateRequest from './CreateRequest'
 import { location, unit } from '../Common/Conditions/SelectOptionsCreate'
+import { handleCreateMoveSuc } from '../../store'
 
 function CreateMove(props) {
+    const dispatch = useDispatch();
+
     let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
     let warehouseUrl = useSelector((state) => state.warehouseURL)
     let inventoryURL = useSelector((state) => state.inventoryURL)
@@ -78,7 +81,11 @@ function CreateMove(props) {
     function request(params) {
         axios.post('/move',
             moveDatas)
-            .then((res) => { alert(res) })
+            .then((res) => {
+                alert("창고이동요청이 등록되었습니다")
+                dispatch(handleCreateMoveSuc());
+                props.setOpenCreate(false)
+            })
             .catch((err) => { alert(err) })
     }
     return (

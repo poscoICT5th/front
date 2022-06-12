@@ -40,11 +40,9 @@ function InputText(props) {
                         className="block w-full rounded-md text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                         onChange={(date, dateString) => { props.setDatas({ ...props.datas, [props.name]: dateString }); }}
                         placeholder={props.name}
+                        placement='topLeft'
                     />
-
             }
-
-
         </div>
     )
 }

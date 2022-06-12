@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { location, product_family, unit } from '../Common/Conditions/SelectOptionsCreate'
 import CreateRequest from './CreateRequest'
-
+import { handleCreateImportSuc } from '../../store'
 function CreateImport(props) {
+    const dispatch = useDispatch();
     let warehouseURL = useSelector((state) => state.warehouseURL)
     let inventoryURL = useSelector((state) => state.inventoryURL)
     let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
@@ -75,6 +76,7 @@ function CreateImport(props) {
             .post("/import", importDatas)
             .then((res) => {
                 alert("입고요청이 등록되었습니다.")
+                dispatch(handleCreateImportSuc())
                 props.setOpenCreate(false)
             })
             .catch((err) => {
