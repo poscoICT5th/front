@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
-import DatePicker from 'sassy-datepicker';
-import DashboardCarousel from './DashboardCarousel';
-import GraphPie from './Graph/GraphPie'
-import GraphDonut from './Graph/GraphDonut'
 import { useNavigate } from 'react-router-dom';
-
+//대시보드 카드만 있는 코드
 function DashboardHeader() {
     let navigate = useNavigate();
     // const onChange = (date) => {
@@ -36,19 +32,13 @@ function DashboardHeader() {
         },
     ])
     return (
-        <div className='flex'>
-           
-            <div className="grow grid grid-cols-3 mx-3 gap-4 block shadow-sm rounded-xl focus:outline-none">
-                {
-                    cards.map((card) => {
-                        // flex flex-col justify-between
-                        return <div className="p-7 transition-shadow bg-white rounded-lg shadow-xl group hover:shadow-lg h-68 overflow-hidden">
+                      <div className="p-7 transition-shadow bg-white rounded-lg shadow-xl group hover:shadow-lg h-68 overflow-hidden">
                             <div className="px-5">
                                 <div className="grid grid-cols-2">
                                     <div>
-                                        <h5 className="text-4xl font-bold text-sky-600">{card.req}</h5>
+                                        <h5 className="text-4xl font-bold text-sky-600"></h5>
                                         <div className="pt-2 mt-4 border-t-2 border-sky-100">
-                                            <p className="text-sm font-medium tracking-widest text-gray-500 uppercase">{card.subTitle1}</p>
+                                            <p className="text-sm font-medium tracking-widest text-gray-500 uppercase"></p>
                                         </div>
                                     </div>
                                     <div></div>
@@ -56,15 +46,15 @@ function DashboardHeader() {
                                 <div className="grid grid-cols-2">
                                     <div></div>
                                     <div>
-                                        <h5 className="text-4xl font-bold text-sky-600">{card.suc}</h5>
+                                        <h5 className="text-4xl font-bold text-sky-600"></h5>
                                         <div className="pt-2 mt-4 border-t-2 border-sky-100">
-                                            <p className="text-sm font-medium tracking-widest text-gray-500 uppercase">{card.subTitle2}</p>
+                                            <p className="text-sm font-medium tracking-widest text-gray-500 uppercase"></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="inline-flex items-center text-sky-600 mt-5 mx-5">
-                                <div className="text-md font-medium cursor-pointer" onClick={() => { navigate(`/${card.navigate}`) }}>자세히보기</div>
+                                <div className="text-md font-medium cursor-pointer" onClick={() => { navigate(`/${navigate}`) }}>자세히보기</div>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="w-6 h-6 ml-3 transition-transform transform group-hover:translate-x-3"
@@ -76,10 +66,6 @@ function DashboardHeader() {
                                 </svg>
                             </div>
                         </div>
-                    })
-                }
-            </div>
-        </div>
     )
 }
 

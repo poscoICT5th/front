@@ -4,6 +4,8 @@ import moment from "moment";
 import ChartGauge from "../Map/ChartGauge";
 import DatePicker from "sassy-datepicker";
 import ChartPie from "../Map/ChartPie";
+import DashboardHeader from '../Dashboard/DashboardHeader';
+import ChartBar from "../Map/ChartBar";
 
 function Dashboard() {
   useEffect(() => {
@@ -49,37 +51,31 @@ function Dashboard() {
       navigate: "LogisticsMove",
     },
   ]);
-  {
-    /*
-     <div className="rows-span-2 mx-auto">
-            <div> <ChartGauge /></div>
-         <div>22222</div>
-          </div>
-*/
-  }
+
   return (
     <section data-aos="fade-up" className="">
       <div className="grid grid-cols-4 gap-4">  {/*먼저 세로 4칸 만들어주고 */}
-        <div className="col-span-3 grid grid-cols-3"> {/*세로 3줄*/}
-          <div>
+        <div className="col-span-3 grid grid-cols-3 gap-7 drop-shadow-xl"> {/*세로 3줄*/}
+          
+          <div className="grid grid-cols-2 drop-shadow-md">
+            <div>
+            <ChartGauge />
+            </div>
+            <div>
+            <ChartGauge />
+            </div>
+          </div>
+          <div className="drop-shadow-xl">
             <ChartPie />
           </div>
-          <div className="grid grid-cols-2">
-            <div>
-            <ChartGauge />
-            </div>
-            <div>
-            <ChartGauge />
-            </div>
-          </div>
-
-          <div>
+          <div className="mx-auto drop-shadow-xl ">
             <DatePicker className="" onChange={selectDate} />
           </div>
           
-          <div>뭐넣지</div>
-          <div>흠</div>
-          <div>고민중...</div>
+          <div className="col-span-2 drop-shadow-md rounded ">   {/*가로 2칸 차지하기*/}
+            <ChartBar />
+          </div>
+          <div> <ChartGauge /></div>
 
         </div>
 
@@ -89,12 +85,12 @@ function Dashboard() {
 
 
 
-        <div className="grid grid-rows-3">
+        <div className="grid grid-rows-3 ">
           {/*가로 3줄*/}
-          <div>카드
+          <div><DashboardHeader />
           </div>
-          <div>카드</div>
-          <div>카드</div>
+          <div><DashboardHeader /></div>
+          <div><DashboardHeader /></div>
         </div>
 
 

@@ -20,6 +20,7 @@ import ChartBar from './components/Map/ChartBar'
 import ChartTreemap from './components/Map/ChartTreemap'
 import ChartPie from './components/Map/ChartPie'
 import Gauge from './components/Map/ChartGauge'
+import Combi from './components/Map/Combi'
 
 function App() {
   let isLogin = localStorage.getItem('token');
@@ -76,7 +77,7 @@ function App() {
               <Route path="/ChartTreemap" element={<ChartTreemap />} />
               <Route path="/ChartPie" element={<ChartPie />} />
               <Route path="/Gauge" element={<Gauge />} />
-
+              <Route path="/Combi" element={<Combi />} />
             </Routes></div>
         </div>
         <Footer />
