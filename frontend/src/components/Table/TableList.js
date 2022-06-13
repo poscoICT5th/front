@@ -75,7 +75,15 @@ function TableList(props) {
         <div>
             <Table
                 rowSelection={rowSelection}
-                onDoubleClick={() => { }}
+                onRow={(record, rowIndex) => {
+                    return {
+                        onClick: event => { }, // click row
+                        onDoubleClick: event => { console.log(record, rowIndex) }, // double click row
+                        onContextMenu: event => { }, // right button click row
+                        onMouseEnter: event => { }, // mouse enter row
+                        onMouseLeave: event => { }, // mouse leave row
+                    };
+                }}
                 columns={columns}
                 dataSource={data}
                 bordered
