@@ -14,6 +14,8 @@ function CreateMove(props) {
     axios.defaults.baseURL = logisticsMoveURL
     const [warehouse_codes, setWarehouse_codes] = useState([])
     const [item_names, setItem_names] = useState([])
+    const [lot_nos, setLot_nos] = useState([])
+    const [lot_no_data, setLot_no_data] = useState({})
     const [moveDatas, setMoveDatas] = useState({
         location: "",
         lot_no: "",
@@ -58,21 +60,51 @@ function CreateMove(props) {
             .catch((err) => { })
     }, [moveDatas.location])
 
+    // 지역, 창고값을 보내면 lot번호 불러오기
+    useEffect(() => {
+        axios.defaults.baseURL = inventoryURL
+        axios.get(`/location/${moveDatas.location}/warehouse/${moveDatas.from_warehouse}`)
+            .then((res) => {
+                setLot_nos([])
+                for (let index = 0; index < res.data.length; index++) {
+                    setLot_nos(lot_nos => ([...lot_nos, res.data[index].lot_no]))
+                    setLot_no_data(lot_no_data => ({ ...lot_no_data, [res.data[index].lot_no]: res.data[index] }))
+                }
+            })
+            .catch((err) => { })
+    }, [moveDatas.from_warehouse])
+
+    useEffect(() => {
+        if (moveDatas.lot_no) {
+            setMoveDatas(moveDatas =>
+            ({
+                ...moveDatas,
+                "height": lot_no_data[moveDatas.lot_no].height,
+                "thickness": lot_no_data[moveDatas.lot_no].thickness,
+                "weight": lot_no_data[moveDatas.lot_no].weight,
+                "width": lot_no_data[moveDatas.lot_no].width,
+                "item_no": lot_no_data[moveDatas.lot_no].item_no,
+                "item_name": lot_no_data[moveDatas.lot_no].item_name
+            }))
+        } else {
+            console.log("lot_no 값없음")
+        }
+    }, [moveDatas.lot_no])
 
     const move_selectDatas = [
         { name: "location", selectOption: location, grid: 1 },
-        { name: "unit", selectOption: unit, grid: 1 },
         { name: "from_warehouse", selectOption: warehouse_codes, grid: 1 },
+        { name: "lot_no", selectOption: lot_nos, grid: 1 },
         { name: "to_warehouse", selectOption: warehouse_codes, grid: 1 },
-        { name: "item_name", selectOption: item_names, grid: 1 },
+        { name: "unit", selectOption: unit, grid: 1 },
     ]
     const move_inputDatas = [
-        { name: "lot_no", type: "text", purpose: "create" },
-        { name: "item_no", type: "text", purpose: "create" },
-        { name: "width", type: "number", purpose: "create" },
-        { name: "weight", type: "number", purpose: "create" },
-        { name: "thickness", type: "number", purpose: "create" },
-        { name: "height", type: "number", purpose: "create" },
+        // { name: "item_no", type: "text", purpose: "create" },
+        // { name: "item_name", type: "text", purpose: "create" },
+        // { name: "width", type: "number", purpose: "create" },
+        // { name: "weight", type: "number", purpose: "create" },
+        // { name: "thickness", type: "number", purpose: "create" },
+        // { name: "height", type: "number", purpose: "create" },
         { name: "move_amount", type: "number", purpose: "create" },
         { name: "inst_deadline", type: "date", purpose: "create" },
     ]

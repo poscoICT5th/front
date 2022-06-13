@@ -1,9 +1,12 @@
-import { DatePicker, Input } from 'antd';
-import React, { useEffect } from 'react'
+import { Input } from 'antd';
+import React from 'react'
 
 function FixedInput(props) {
     return (
-        <div className="col-span-1">
+        <div className="col-span-1 text-center">
+            <label className="block text-sm font-medium text-gray-700">
+                {props.label}
+            </label>
             <Input
                 min={0}
                 disabled={true}

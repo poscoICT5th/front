@@ -23,7 +23,7 @@ function SidebarContent(props) {
 
   function logout(params) {
     axios.defaults.baseURL = userURL
-    axios.get('/logout')
+    axios.post('/logout')
       .then((res) => {
         alert("로그아웃되었습니다.");
         localStorage.clear()

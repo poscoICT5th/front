@@ -54,7 +54,8 @@ function TableList(props) {
     // 삭제(멀티)
     useEffect(() => {
         axios.defaults.baseURL = props.axiosURL
-        if (selectedRowKeys.length > 0) {
+        if (selectedRowKeys.length > 0 && props.clickDelete) {
+            console.log(selectedRowKeys)
             axios.delete(`/${props.part}`,
                 {
                     data:
@@ -64,7 +65,7 @@ function TableList(props) {
                 }
             )
                 .then((res) => { alert("suc"); props.setClickDelete(false) })
-                .catch((err) => { ; props.setClickDelete(false) })
+                .catch((err) => { props.setClickDelete(false) })
 
         }
     }, [props.clickDelete])

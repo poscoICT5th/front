@@ -11,9 +11,9 @@ function SearchSelect(props) {
     };
     return (
         <div className={"col-span-" + props.grid}>
-            {/* <label htmlFor="dropdown" className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700">
                 {props.name}
-            </label> */}
+            </label>
             <div className="col-span-2">
                 <Select
                     // mode="multiple"

@@ -97,13 +97,13 @@ function SearchLogisticsExport(props) {
             return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
           })}
           <button
-            className="col-span-1 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            className="mt-5 col-span-1 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             onClick={() => { props.setClickDelete(true) }}
           >
             삭제
           </button>
           <button
-            className="col-span-1 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            className="mt-5 col-span-1 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             onClick={() => { props.setClickSearch(true) }}
           >
             조회
@@ -116,14 +116,6 @@ function SearchLogisticsExport(props) {
           className="site-collapse-custom-collapse"
         >
           <Panel header="상세검색" key="1" className="site-collapse-custom-panel bg-white">
-
-            {/* inputRange */}
-            {/* <div className="grid grid-cols-6 gap-4 text-center">
-              {inputRangeDatas.map((inputRangeData) => {
-                return <InputRange setDatas={props.setDatas} datas={props.datas} name={inputRangeData.name} min={inputRangeData.inputMin} max={inputRangeData.inputMax} />
-              })}
-            </div> */}
-            {/* inputText */}
             <div className="grid grid-cols-6 gap-4 text-center mt-5">
               {inputDatas.map((inputData) => {
                 return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />

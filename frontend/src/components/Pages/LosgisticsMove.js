@@ -80,10 +80,7 @@ function LosgisticsMove() {
     { "inst_deadline": 150 },
     { "done_date": 200 },
   ]
-  // function deleteRequest(ins_no) {
-  //   axios.delete(`/move/${ins_no}`)
-  //     .then((res) => { alert(res.status) })
-  // }
+
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -107,6 +104,7 @@ function LosgisticsMove() {
             dataList={logisticsMoveList}
             datas={datas}
             clickDelete={clickDelete}
+            setClickDelete={setClickDelete}
             deleteBodyName="logiMoveDeleteList"
           />
         </div>

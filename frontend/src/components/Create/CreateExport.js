@@ -92,12 +92,16 @@ function CreateExport(props) {
 
   useEffect(() => {
     if (exportDatas.lot_no) {
-      console.log(exportDatas.lot_no)
-      setExportDatas(exportDatas => ({ ...exportDatas, "height": lot_no_data[exportDatas.lot_no].height }))
-      setExportDatas(exportDatas => ({ ...exportDatas, "thickness": lot_no_data[exportDatas.lot_no].thickness }))
-      setExportDatas(exportDatas => ({ ...exportDatas, "weight": lot_no_data[exportDatas.lot_no].weight }))
-      setExportDatas(exportDatas => ({ ...exportDatas, "item_no": lot_no_data[exportDatas.lot_no].item_no }))
-      console.log(exportDatas)
+      setExportDatas(exportDatas =>
+      ({
+        ...exportDatas,
+        "height": lot_no_data[exportDatas.lot_no].height,
+        "thickness": lot_no_data[exportDatas.lot_no].thickness,
+        "weight": lot_no_data[exportDatas.lot_no].weight,
+        "width": lot_no_data[exportDatas.lot_no].width,
+        "item_no": lot_no_data[exportDatas.lot_no].item_no,
+        "item_name": lot_no_data[exportDatas.lot_no].item_name
+      }))
     } else {
       console.log("lot_no 값없음")
     }
@@ -109,7 +113,6 @@ function CreateExport(props) {
     { name: "from_warehouse", selectOption: warehouse_codes, grid: 1 },
     { name: "lot_no", selectOption: lot_nos, grid: 1 },
     { name: "unit", selectOption: unit, grid: 1 },
-    { name: "item_name", selectOption: item_names, grid: 1 },
     { name: "customer", selectOption: customers, grid: 1 },
   ]
   const export_inputDatas = [
@@ -117,26 +120,12 @@ function CreateExport(props) {
     // { name: "weight", type: "number", value: exportDatas.weight, purpose: "create" },
     // { name: "thickness", type: "number", value: exportDatas.thickness, purpose: "create" },
     // { name: "height", type: "number", value: exportDatas.height, purpose: "create" },
-    { name: "order_amount", type: "number", value: exportDatas.order_amount, purpose: "create" },
-    { name: "ex_amount", type: "number", value: exportDatas.ex_amount, purpose: "create" },
-    { name: "ex_remain", type: "number", value: exportDatas.ex_remain, purpose: "create" },
-    { name: "order_date", type: "date", value: exportDatas.order_date, purpose: "create" },
-    { name: "inst_deadline", type: "date", value: exportDatas.inst_deadline, purpose: "create" },
+    { name: "order_amount", type: "number", purpose: "create" },
+    { name: "ex_amount", type: "number", purpose: "create" },
+    { name: "ex_remain", type: "number", purpose: "create" },
+    { name: "order_date", type: "date", purpose: "create" },
+    { name: "inst_deadline", type: "date", purpose: "create" },
   ]
-  // const [export_inputDatas, setExport_inputDatas] = useState(
-  //   [
-  //     { name: "item_no", type: "text", value: exportDatas.item_no, purpose: "create" },
-  //     { name: "weight", type: "number", value: exportDatas.weight, purpose: "create" },
-  //     { name: "thickness", type: "number", value: exportDatas.thickness, purpose: "create" },
-  //     { name: "height", type: "number", value: exportDatas.height, purpose: "create" },
-  //     { name: "order_amount", type: "number", value: exportDatas.order_amount, purpose: "create" },
-  //     { name: "ex_amount", type: "number", value: exportDatas.ex_amount, purpose: "create" },
-  //     { name: "ex_remain", type: "number", value: exportDatas.ex_remain, purpose: "create" },
-  //     { name: "order_date", type: "date", value: exportDatas.order_date, purpose: "create" },
-  //     { name: "inst_deadline", type: "date", value: exportDatas.inst_deadline, purpose: "create" },
-  //   ]
-  // )
-
   // function
   function request() {
     console.log(exportDatas)

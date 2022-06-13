@@ -112,6 +112,7 @@ function LogisticsExport() {
             datas={datas}
             clickDelete={clickDelete}
             deleteBodyName="logiExportDeleteList"
+            setClickDelete={setClickDelete}
           />
         </div>
       </div>

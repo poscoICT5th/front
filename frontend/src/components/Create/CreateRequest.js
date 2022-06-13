@@ -7,12 +7,12 @@ import FixedInput from '../Common/Conditions/FixedInput'
 
 function CreateRequest(props) {
     const cancelButtonRef = useRef(null)
-    // const [fixed_Datas, setFixed_Datas] = useState([
-    //     { name: "item_no", type: "text", purpose: "fixed", value: props.datas.item_no },
-    //     { name: "weight", type: "number", purpose: "fixed", value: props.datas.weight },
-    //     { name: "thickness", type: "number", purpose: "fixed", value: props.datas.thickness },
-    //     { name: "height", type: "number", purpose: "fixed", value: props.datas.height },
-    // ])
+    const [fixed_Datas, setFixed_Datas] = useState([
+        { name: "item_no", type: "text", purpose: "fixed", value: props.datas.item_no },
+        { name: "weight", type: "number", purpose: "fixed", value: props.datas.weight },
+        { name: "thickness", type: "number", purpose: "fixed", value: props.datas.thickness },
+        { name: "height", type: "number", purpose: "fixed", value: props.datas.height },
+    ])
     return (
         <div>
             <Transition.Root show={props.open} as={Fragment}>
@@ -58,15 +58,21 @@ function CreateRequest(props) {
                                                                         {props.inputDatas.map((inputData) => {
                                                                             return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} purpose={inputData.purpose} />
                                                                         })}
-                                                                        <FixedInput value={props.datas.height} />
-                                                                        <FixedInput value={props.datas.weight} />
-                                                                        <FixedInput value={props.datas.thickness} />
-                                                                        <FixedInput value={props.datas.item_no} />
+
 
                                                                     </div>
-                                                                    {/* inputs */}
-                                                                    {/* <div className="grid grid-cols-4 gap-4 text-center mt-5">
-                                                                    </div> */}
+                                                                    {
+                                                                        props.title === "출고요청등록" || props.title === "창고이동등록"
+                                                                            ? <div className='grid grid-cols-6 gap-4'>
+                                                                                <FixedInput value={props.datas.height} label="height" />
+                                                                                <FixedInput value={props.datas.weight} label="weight" />
+                                                                                <FixedInput value={props.datas.thickness} label="thickness" />
+                                                                                <FixedInput value={props.datas.width} label="width" />
+                                                                                <FixedInput value={props.datas.item_no} label="item_no" />
+                                                                                <FixedInput value={props.datas.item_name} label="item_name" />
+                                                                            </div>
+                                                                            : null
+                                                                    }
                                                                 </div>
                                                             </div>
                                                         </div>

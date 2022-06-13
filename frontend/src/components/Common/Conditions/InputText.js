@@ -10,6 +10,9 @@ function InputText(props) {
     };
     return (
         <div className="col-span-1">
+            <label className="block text-sm font-medium text-gray-700">
+                {props.name}
+            </label>
             {
                 props.type !== "date"
                     ? <Input
@@ -20,7 +23,7 @@ function InputText(props) {
                         disabled={
                             props.purpose === "create"
                                 && props.type !== "date"
-                                && props.name ==="width"
+                                && props.name === "width"
                                 ? true
                                 : false}
                         autoComplete="address-level2"
