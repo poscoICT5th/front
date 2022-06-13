@@ -3,9 +3,16 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
+import FixedInput from '../Common/Conditions/FixedInput'
 
 function CreateRequest(props) {
     const cancelButtonRef = useRef(null)
+    // const [fixed_Datas, setFixed_Datas] = useState([
+    //     { name: "item_no", type: "text", purpose: "fixed", value: props.datas.item_no },
+    //     { name: "weight", type: "number", purpose: "fixed", value: props.datas.weight },
+    //     { name: "thickness", type: "number", purpose: "fixed", value: props.datas.thickness },
+    //     { name: "height", type: "number", purpose: "fixed", value: props.datas.height },
+    // ])
     return (
         <div>
             <Transition.Root show={props.open} as={Fragment}>
@@ -49,8 +56,13 @@ function CreateRequest(props) {
                                                                             return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
                                                                         })}
                                                                         {props.inputDatas.map((inputData) => {
-                                                                            return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} value={inputData.value} purpose={inputData.purpose} />
+                                                                            return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} purpose={inputData.purpose} />
                                                                         })}
+                                                                        <FixedInput value={props.datas.height} />
+                                                                        <FixedInput value={props.datas.weight} />
+                                                                        <FixedInput value={props.datas.thickness} />
+                                                                        <FixedInput value={props.datas.item_no} />
+
                                                                     </div>
                                                                     {/* inputs */}
                                                                     {/* <div className="grid grid-cols-4 gap-4 text-center mt-5">

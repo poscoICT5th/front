@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { unit, location, product_family, statusImport } from '../Common/Conditions/SelectOptions';
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
-import InputRange from '../Common/Conditions/InputRange'
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { Collapse } from 'antd';

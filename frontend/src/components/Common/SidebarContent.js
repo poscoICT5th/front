@@ -1,16 +1,19 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import CreateExport from '../Create/CreateExport';
 import CreateImport from '../Create/CreateImport';
 import CreateMove from '../Create/CreateMove';
 import CreateWarehouse from '../Create/CreateWarehouse';
+import { useSelector } from 'react-redux'
 
-function SidebarContent() {
+function SidebarContent(props) {
   // navigate
   let navigate = useNavigate();
   function navigatePage(component) {
     navigate(`/${component}`);
   }
+  let userURL = useSelector((state) => state.userURL)
   const [openCreate1, setOpenCreate1] = useState(false)
   const [openCreate2, setOpenCreate2] = useState(false)
   const [openCreate3, setOpenCreate3] = useState(false)
@@ -18,7 +21,17 @@ function SidebarContent() {
 
   const [menu, setMenu] = useState(0);
 
-
+  function logout(params) {
+    axios.defaults.baseURL = userURL
+    axios.get('/logout')
+      .then((res) => {
+        alert("로그아웃되었습니다.");
+        localStorage.clear()
+        sessionStorage.clear()
+        props.setSidebarOpen(false)
+        navigate('/')
+      })
+  }
 
 
   // useEffect(() => {
@@ -324,10 +337,7 @@ function SidebarContent() {
                     ? { backgroundColor: "gray", color: "white" }
                     : { backgroundColor: "white" }
                 }
-                onClick={() => {
-                  localStorage.clear()
-                  navigate('/')
-                }}
+                onClick={logout}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
