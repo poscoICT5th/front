@@ -41,8 +41,7 @@ function Detail(props) {
                           {
                             Object.entries(props.detailData).map(([key, value], index) => {
                               return <div className="col-span-1">
-
-                                <div className="mt-1 text-sm p-3 text-white-900 sm:mt-0 sm:col-span-2">
+                                <div className="mt-1 text-sm p-3 text-white-900">
                                   <label className="block text-sm font-medium text-gray-300">
                                     {key}
                                   </label>
