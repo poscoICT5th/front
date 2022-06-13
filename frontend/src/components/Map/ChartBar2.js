@@ -1,17 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Highcharts from "highcharts";
-import "./styles1.css";
-
-export default function ColumnChart() {
+import "./styles.css";
+//이게 최종, 가로 bar 차트 
+export default function ChartBar2() {
   const refContainer = useRef(null);
+  const [dataSource, setDataSource] = useState([]);
 
   useEffect(() => {
-    Highcharts.chart(refContainer.current, {
+    const chart = Highcharts.chart(refContainer.current, {
       chart: {
-        type: "column"
+        type: "bar"
       }, // type of the chart
       title: {
-        text: "Column Chart"
+        text: "Bar Chart"
       }, // title of the chart
       subtitle: {
         text: ""
@@ -44,7 +45,19 @@ export default function ColumnChart() {
       credits: {
         enabled: false
       },
-      series: [
+      series: dataSource // set of the data
+    });
+
+    if (dataSource.length > 0) {
+      chart.hideLoading();
+    } else {
+      chart.showLoading();
+    }
+  }, [dataSource]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDataSource([
         {
           name: "Morocco",
           data: [4706, 4702, 3979, 2547, 3999]
@@ -57,9 +70,9 @@ export default function ColumnChart() {
           name: "Canada",
           data: [6100, 5000, 6000, 4800, 4000]
         }
-      ] // set of the data
-    });
-  });
+      ]);
+    }, 2000);
+  }, []);
 
   return (
     <div className="App">

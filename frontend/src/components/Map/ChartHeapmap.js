@@ -7,12 +7,12 @@ import rawData from "./data";
 import { severityHexColors, getColor, rgbObjectToHex } from "./heatmapUtils";
 import "./styles.css";
 import MapList from "./MapList";
-import MapDetail from "../Map/MapDetail";
+import MapDetail from "./MapDetail";
 //눌렀을 때 값을 받아오게
 // 칸을 눌렀을때 말풍선 안에 값을 받아오게 콘솔에 찍히게
 //
 
-function Map4() {
+function ChartHeapmap() {
   HighchartsHeatmap(Highcharts);
   const x = [rawData.E, rawData.D, rawData.C, rawData.B, rawData.A].reverse();
   const data = x
@@ -143,4 +143,4 @@ function Map4() {
   );
 }
 
-export default Map4;
+export default ChartHeapmap;

@@ -3,7 +3,6 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import Aos from "aos";
 import "aos/dist/aos.css";
 import './App.css'
-import './components/Map/styles1.css'
 import Login from './components/Account/Login'
 import LogisticsExport from './components/Pages/LogisticsExport'
 import LogisticsImport from './components/Pages/LogisticsImport'
@@ -12,12 +11,10 @@ import Inventory from './components/Pages/Inventory'
 import Warehouse from './components/Pages/Warehouse'
 import Dashboard from './components/Pages/Dashboard'
 import Sidebar from './components/Common/Sidebar'
-import Map from './components/Map/Map'
-import Column from './components/Map/Column'
 import Footer from './components/Common/Footer';
 import Header from './components/Common/Header';
 import GraphPie from './components/Dashboard/Graph/GraphPie';
-import ChartBar from './components/Map/ChartBar'
+import ChartBar1 from './components/Map/ChartBar1'
 import ChartTreemap from './components/Map/ChartTreemap'
 import ChartPie from './components/Map/ChartPie'
 
@@ -73,13 +70,10 @@ function App() {
               <Route path="/LosgisticsMove" element={<LosgisticsMove />} />
               <Route path="/Inventory" element={<Inventory />} />
               <Route path="/Warehouse" element={<Warehouse />} />
-              <Route path="/Map" element={<Map />} />
-              <Route path="/Column" element={<Column />} />
-              <Route path="/GraphPie" element={<GraphPie />} />
-              <Route path="/ChartBar" element={<ChartBar />} />
               <Route path="/ChartTreemap" element={<ChartTreemap />} />
+              <Route path="/GraphPie" element={<GraphPie />} />
+              <Route path="/ChartBar1" element={<ChartBar1 />} />
               <Route path="/ChartPie" element={<ChartPie />} />
- 
             </Routes></div>
         </div>
         <Footer />

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import Highcharts from "highcharts";
-import "./styles1.css";
+import "./styles.css";
 //6월 13일 line chart 구현 
-export default function LineChart() {
+export default function ChartLine() {
   const refContainer = useRef(null);
   useEffect(() => {
     Highcharts.chart(refContainer.current, {

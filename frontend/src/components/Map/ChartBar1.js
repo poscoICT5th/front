@@ -7,7 +7,7 @@ import highcharts3d from "highcharts/highcharts-3d";
 highcharts3d(Highcharts);
 //3D 막대그래프
 
-function ChartBar(props) {
+function ChartBar1(props) {
   const state = {
     chartOptions: {
       chart: {
@@ -80,4 +80,4 @@ function ChartBar(props) {
   );
 }
 
-export default ChartBar;
+export default ChartBar1;
