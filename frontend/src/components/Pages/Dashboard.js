@@ -6,7 +6,9 @@ import DatePicker from "sassy-datepicker";
 import ChartPie from "../Map/ChartPie";
 import DashboardHeader from '../Dashboard/DashboardHeader';
 import ChartBar from "../Map/ChartBar";
-
+import BarChart from "../Map/BarChart";
+import LineChart from "../Map/LineChart";
+import ColumnChart from "../Map/ColumnChart";
 function Dashboard() {
   useEffect(() => {
     Aos.init({ duration: 1000 });
@@ -55,27 +57,37 @@ function Dashboard() {
   return (
     <section data-aos="fade-up" className="">
       <div className="grid grid-cols-4 gap-4">  {/*먼저 세로 4칸 만들어주고 */}
-        <div className="col-span-3 grid grid-cols-3 gap-7 drop-shadow-xl"> {/*세로 3줄*/}
+        <div className="col-span-3 grid grid-cols-3 grid-rows-4 gap-10 drop-shadow-xl"> {/*세로 3줄 가로 4줄로 만듬*/}
           
           <div className="grid grid-cols-2 drop-shadow-md">
             <div>
-            <ChartGauge />
+      
             </div>
             <div>
-            <ChartGauge />
+           
             </div>
           </div>
-          <div className="drop-shadow-xl">
+          <div className="col-span-2 drop-shadow-xl">
             <ChartPie />
           </div>
-          <div className="mx-auto drop-shadow-xl ">
+          {/*   <div className="mx-auto drop-shadow-xl ">
             <DatePicker className="" onChange={selectDate} />
-          </div>
-          
+          </div> */}
+         
+         
+
+        {/*2번째 줄*/}
           <div className="col-span-2 drop-shadow-md rounded ">   {/*가로 2칸 차지하기*/}
             <ChartBar />
           </div>
-          <div> <ChartGauge /></div>
+          <div> </div>
+        {/*3번째 줄*/}
+        <div> <BarChart /></div>
+        <div className = "col-span-2"> <LineChart /></div>
+    {/*4번째 줄*/}
+        <div>
+        <ColumnChart />
+        </div>
 
         </div>
 
@@ -85,15 +97,15 @@ function Dashboard() {
 
 
 
-        <div className="grid grid-rows-3 ">
-          {/*가로 3줄*/}
+        <div className="grid grid-rows-4 gap-10 ">
+          {/*옆에 카드 3개, 가로 3줄*/}
           <div><DashboardHeader />
           </div>
           <div><DashboardHeader /></div>
           <div><DashboardHeader /></div>
         </div>
-
-
+        
+       
 
 
       </div>

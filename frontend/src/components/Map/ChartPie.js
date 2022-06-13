@@ -1,7 +1,6 @@
 import React from 'react';
 import PieChart, {
   Legend,
-  Export,
   Series,
   Label,
   Font,
@@ -19,7 +18,7 @@ function ChartPie() {
            <PieChart id="pie"
         palette="Bright"
         dataSource={dataSource}
-        title="안지의 그래프"
+        title="Warehouse Chart"
       >
         <Legend
           orientation="horizontal"
@@ -27,7 +26,6 @@ function ChartPie() {
           horizontalAlignment="center"
           verticalAlignment="bottom"
           columnCount={4} />
-        <Export enabled={true} />
         <Series argumentField="country" valueField="medals">
           <Label
             visible={true}

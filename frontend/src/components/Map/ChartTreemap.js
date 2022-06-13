@@ -18,76 +18,74 @@ addHeatmapModule(Highcharts);
 addTreemapModule(Highcharts);
 
 function ChartTreemap() {
-    const [treeData, settreeData] = useState(null);
-    const formatData = (data) => {
-      const colours = Highcharts.getOptions().colors; 
-      const formattedData = [];
-      Object.keys(data).forEach((regionName, rIndex) => { 
-        // if (regionName === "천안") {
-        //   return;
-        // }
-         //regionName  나중에 데이터맞게 다 바꾸기 
-        console.log(123)
-        console.log(regionName)
-        const region = {
-          id: `id_${rIndex}`, // id_1, id_2
-          name: regionName,   // Africa, Americas, Europe
-          color: colours[rIndex],
+  const [treeData, settreeData] = useState(null);
+  const formatData = (data) => {
+    const colours = Highcharts.getOptions().colors;
+    const formattedData = [];
+    Object.keys(data).forEach((locationName, rIndex) => {
+      // if (locationName === "천안") {
+      //   return;
+      // }
+      //locationName  나중에 데이터맞게 다 바꾸기
+      console.log(123);
+      console.log(locationName);
+      const location = {
+        id: `id_${rIndex}`, // id_1, id_2
+        name: locationName, // Africa, Americas, Europe
+        color: colours[rIndex],
+      };
+      let locationSum = 0;
+
+      const countries = Object.keys(data[locationName]);
+      countries.forEach((warehouseName, cIndex) => {
+        console.log(warehouseName);
+        const warehouse = {
+          id: `${location.id}_${cIndex}`,
+          name: warehouseName,
+          parent: location.id,
         };
-        let regionSum = 0;
-          
-        const countries = Object.keys(data[regionName]);
-        countries.forEach((countryName, cIndex) => {
-          console.log(countryName)
-          const country = {
-            id: `${region.id}_${cIndex}`,
-            name: countryName,
-            parent: region.id,
-          };
-          formattedData.push(country);
-            
-          Object.keys(data[regionName][countryName]).forEach(
-            (causeName, index) => {
-              const cause = {
-                id: `${country.id}_${index}`,
-                name: causeName,
-                parent: country.id,
-                value: Math.round(
-                  parseFloat(data[regionName][countryName][causeName]["재고량"])
-                ),
-                item:data[regionName][countryName][causeName]["제품명"]
-              };
-              formattedData.push(cause);
-              regionSum += cause.value;
-            }
-          );
-        });
-  
-        region.value = Math.round(regionSum); // 대륙 총 인구수 
-        formattedData.push(region);
+        formattedData.push(warehouse);
+
+        Object.keys(data[locationName][warehouseName]).forEach(
+          (lot_no, index) => {
+            const item = {
+              id: `${warehouse.id}_${index}`,
+              name: lot_no,
+              parent: warehouse.id,
+              value: Math.round(
+                parseFloat(data[locationName][warehouseName][lot_no]["재고량"])
+              ),
+              item: data[locationName][warehouseName][lot_no]["제품명"],
+            };
+            formattedData.push(item);
+            locationSum += item.value;
+          }
+        );
       });
-  
-      return formattedData;
+
+      location.value = Math.round(locationSum); // 대륙 총 인구수
+      formattedData.push(location);
+    });
+
+    return formattedData;
   };
   let url = useSelector((state) => state.inventoryURL);
   axios.defaults.baseURL = url;
 
-    useEffect(() => {
-        axios
-          .get("/map")
-          .then((res) => {
-            settreeData(formatData(res.data)); //창고 테이블
-            console.log(res, "treepmap 들어와라");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }, []);
-    //usestate
-    const [warehouseList, setWarehouseList] = useState([]);
+  useEffect(() => {
+    axios
+      .get("/map")
+      .then((res) => {
+        settreeData(formatData(res.data)); //창고 테이블
+        console.log(res, "treepmap 들어와라");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  //usestate
+  const [warehouseList, setWarehouseList] = useState([]);
 
-    
-    
   //url
   // let url = useSelector((state) => state.warehouseURL);
   // axios.defaults.baseURL = url;
@@ -103,9 +101,9 @@ function ChartTreemap() {
   //         console.log(err);
   //       });
   //   }, []);
-    
-    //axios.get(`/ware`)
-    
+
+  //axios.get(`/ware`)
+
   if (!treeData) return null;
 
   const levels = [
@@ -118,8 +116,9 @@ function ChartTreemap() {
     },
   ];
   const tooltipFormatter = function () {
-    return `${this.point.item}: ${this.point.value}`;
-    };
+    console.log(this.point.name);
+    return `${this.point.name}: ${this.point.value}`;
+  };
 
   return (
     <div className="app">
@@ -137,6 +136,9 @@ function ChartTreemap() {
               dataLabels={{ enabled: false }}
               levelIsConstant={false}
               levels={levels}
+              onClick={(e) => {
+                console.log(e.target.value);
+              }}
             />
           </YAxis>
           <Tooltip formatter={tooltipFormatter} />

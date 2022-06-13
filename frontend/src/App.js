@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import Aos from "aos";
 import "aos/dist/aos.css";
 import './App.css'
+import './components/Map/styles1.css'
 import Login from './components/Account/Login'
 import LogisticsExport from './components/Pages/LogisticsExport'
 import LogisticsImport from './components/Pages/LogisticsImport'
@@ -19,8 +20,6 @@ import GraphPie from './components/Dashboard/Graph/GraphPie';
 import ChartBar from './components/Map/ChartBar'
 import ChartTreemap from './components/Map/ChartTreemap'
 import ChartPie from './components/Map/ChartPie'
-import Gauge from './components/Map/ChartGauge'
-import Combi from './components/Map/Combi'
 
 function App() {
   let isLogin = localStorage.getItem('token');
@@ -76,8 +75,7 @@ function App() {
               <Route path="/ChartBar" element={<ChartBar />} />
               <Route path="/ChartTreemap" element={<ChartTreemap />} />
               <Route path="/ChartPie" element={<ChartPie />} />
-              <Route path="/Gauge" element={<Gauge />} />
-              <Route path="/Combi" element={<Combi />} />
+ 
             </Routes></div>
         </div>
         <Footer />
