@@ -75,7 +75,7 @@ export let { handleInventoryURL } = inventoryURL.actions;
 // 유저 url
 let userURL = createSlice({
   name: "userURL",
-  initialState: "http://192.168.0.20:8086",
+  initialState: "http://192.168.0.10:8086",
   reducers: {
     handleUserURL(state, newState) {
       return newState;

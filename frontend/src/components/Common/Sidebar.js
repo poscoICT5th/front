@@ -4,35 +4,29 @@ import { XIcon } from "@heroicons/react/outline";
 import SidebarContent from "./SidebarContent";
 import './Sidebar.css'
 function Sidebar(props) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  useEffect(() => {
-    if (props.mouse === 0) {
-      setSidebarOpen(true)
-    }
-  }, [props.mouse])
 
   return (
-    <Transition.Root show={sidebarOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => { setSidebarOpen(false); props.setmouse(-1) }}>
+    <Transition.Root show={props.sidebarOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={() => { props.setSidebarOpen(false); }}>
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="pointer-events-none fixed inset-y-0 left-0 flex max-w-full pr-10">
               <Transition.Child
                 as={Fragment}
-                enter="transform transition ease-in-out duration-500 sm:duration-700"
-                enterFrom="-translate-x-20"
+                enter="transform transition ease-in-out duration-500"
+                enterFrom="-translate-x-full"
                 enterTo="translate-x-0"
-                leave="transform transition ease-in-out duration-500 sm:duration-700"
+                leave="transform transition ease-in-out duration-500"
                 leaveFrom="translate-x-0"
-                leaveTo="-translate-x-20"
+                leaveTo="-translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto relative w-screen max-w-sm">
                   <Transition.Child
                     as={Fragment}
-                    enter="ease-in-out duration-200"
+                    enter="ease-in-out duration-500"
                     enterFrom="opacity-0"
                     enterTo="opacity-100"
-                    leave="ease-in-out duration-200"
+                    leave="ease-in-out duration-500"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
@@ -40,7 +34,7 @@ function Sidebar(props) {
                       <button
                         type="button"
                         className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                        onClick={() => { setSidebarOpen(false); props.setmouse(-1) }}
+                        onClick={() => { props.setSidebarOpen(false); }}
                       >
                         <span className="sr-only">Close panel</span>
                         <XIcon className="h-6 w-6" aria-hidden="true" />
@@ -74,7 +68,9 @@ function Sidebar(props) {
                       </Dialog.Title>
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                      <SidebarContent />
+                      <SidebarContent
+                        setSidebarOpen={props.setSidebarOpen}
+                      />
                     </div>
                   </div>
                 </Dialog.Panel>

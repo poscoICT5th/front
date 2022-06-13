@@ -20,10 +20,7 @@ function InputText(props) {
                         disabled={
                             props.purpose === "create"
                                 && props.type !== "date"
-                                && (props.name === "item_no"
-                                    || props.name === "weight"
-                                    || props.name === "height"
-                                    || props.name === "thickness")
+                                && props.name ==="width"
                                 ? true
                                 : false}
                         autoComplete="address-level2"
