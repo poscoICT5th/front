@@ -14,6 +14,7 @@ import {
 } from "react-jsx-highcharts";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import './styles.css'
 addHeatmapModule(Highcharts);
 addTreemapModule(Highcharts);
 
@@ -121,7 +122,7 @@ function ChartTreemap() {
   };
 
   return (
-    <div className="app">
+    <div className="App">
       <HighchartsProvider Highcharts={Highcharts}>
         <HighchartsChart>
           <Title>창고맵 + 재고현황</Title>

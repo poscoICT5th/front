@@ -10,6 +10,7 @@ import {
   Pane,
   SolidGaugeSeries,
 } from "react-jsx-highcharts";
+import './styles.css'
 
 // Apply addtional modules
 addHighchartsMore(Highcharts);
@@ -53,17 +54,17 @@ function ChartGauge() {
   }
 
   return (
-    <div className="app">
+    <div className="App">
       <HighchartsProvider Highcharts={Highcharts}>
         <HighchartsChart gauge plotOptions={plotOptions}>
           <Pane
-            center={["50%", "85%"]}
-            size="100%"
-            startAngle={-90}
-            endAngle={90}
+            center={["50%", "50%"]}
+            size="80%"
+            startAngle={360}
+            endAngle={0}
             background={{
               backgroundColor: "#EEE",
-              innerRadius: "60%",
+              innerRadius: "100%",
               outerRadius: "100%",
               shape: "arc",
             }}

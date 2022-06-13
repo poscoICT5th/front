@@ -69,7 +69,7 @@ function ChartBar1(props) {
   };
   
   return (
-    <div>
+    <div className="App">
       <HighchartsReact
         style={{ height: "100%" }}
         highcharts={Highcharts}

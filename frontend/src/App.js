@@ -11,6 +11,7 @@ import Inventory from './components/Pages/Inventory'
 import Warehouse from './components/Pages/Warehouse'
 import Dashboard from './components/Pages/Dashboard'
 import Sidebar from './components/Common/Sidebar'
+import Mypage from './components/Account/Mypage'
 import Footer from './components/Common/Footer';
 import Header from './components/Common/Header';
 import GraphPie from './components/Dashboard/Graph/GraphPie';
@@ -70,6 +71,7 @@ function App() {
               <Route path="/LosgisticsMove" element={<LosgisticsMove />} />
               <Route path="/Inventory" element={<Inventory />} />
               <Route path="/Warehouse" element={<Warehouse />} />
+              <Route path="/Mypage" element={<Mypage />} />
               <Route path="/ChartTreemap" element={<ChartTreemap />} />
               <Route path="/GraphPie" element={<GraphPie />} />
               <Route path="/ChartBar1" element={<ChartBar1 />} />

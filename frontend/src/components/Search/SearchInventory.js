@@ -23,7 +23,7 @@ function SearchWarehouse(props) {
                     setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
                 }
             })
-            .catch((err) => {  })
+            .catch((err) => { })
     }, [props.datas.location])
     // 지역에따라서 고객처변경
     useEffect(() => {
@@ -31,12 +31,12 @@ function SearchWarehouse(props) {
         axios.get(`inventory/customer/${props.datas.location}`)
             .then((res) => {
                 setCustomers(["전체보기"])
-                
+
                 for (let index = 0; index < res.data.length; index++) {
                     setCustomers(customers => [...customers, res.data[index].customer])
                 }
             })
-            .catch((err) => {  })
+            .catch((err) => { })
     }, [props.datas.location])
     const selectDatas = [
         { name: "industry_family", selectOption: industry_family, grid: 1 },
@@ -61,21 +61,21 @@ function SearchWarehouse(props) {
         <div className="overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
                 {/* select */}
-                <div className="grid grid-cols-11 gap-4 text-center">
+                <div className="grid grid-cols-10 gap-4 text-center">
                     {selectDatas.map((selectData) => {
                         return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
                     })}
                     <button
-                        className="inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                        onClick={() => { props.search() }}
+                        className="mt-5 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                        onClick={() => { props.setClickDelete(true) }}
                     >
                         삭제
                     </button>
                     <button
-                        className="inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                        onClick={() => { props.search() }}
+                        className="mt-5 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                        onClick={() => { props.setClickSearch(true) }}
                     >
-                        조건조회
+                        조회
                     </button>
                 </div>
                 <Collapse
@@ -85,8 +85,6 @@ function SearchWarehouse(props) {
                     className="site-collapse-custom-collapse"
                 >
                     <Panel header="상세검색" key="1" className="site-collapse-custom-panel bg-white">
-
-                        {/* input */}
                         <div className="grid grid-cols-6 gap-4 text-center">
                             {inputDatas.map((inputData) => {
                                 return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />

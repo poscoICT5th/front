@@ -6,13 +6,13 @@ import HighchartsReact from "highcharts-react-official";
 import rawData from "./data";
 import { severityHexColors, getColor, rgbObjectToHex } from "./heatmapUtils";
 import "./styles.css";
-import MapList from "./MapList";
-import MapDetail from "./MapDetail";
+// import MapList from "./MapList";
+// import MapDetail from "./MapDetail";
 //눌렀을 때 값을 받아오게
 // 칸을 눌렀을때 말풍선 안에 값을 받아오게 콘솔에 찍히게
 //
 
-function ChartHeapmap() {
+function ChartHeatmap() {
   HighchartsHeatmap(Highcharts);
   const x = [rawData.E, rawData.D, rawData.C, rawData.B, rawData.A].reverse();
   const data = x
@@ -136,11 +136,11 @@ function ChartHeapmap() {
     <div className="max-w-screen-2xl mx-auto">
       <HighchartsReact highcharts={Highcharts} options={chartOptions} />
       <div>
-        <MapList dataList={dataList} />
-        <MapDetail warehouse_code={"399"} open={open} setOpen={setOpen} />
+        {/* <MapList dataList={dataList} />
+        <MapDetail warehouse_code={"399"} open={open} setOpen={setOpen} /> */}
       </div>
     </div>
   );
 }
 
-export default ChartHeapmap;
+export default ChartHeatmap;

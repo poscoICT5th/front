@@ -6,8 +6,8 @@ import SearchInventory from "../Search/SearchInventory";
 import TableList from '../Table/TableList';
 
 function Inventory() {
-  let url = useSelector((state) => state.inventoryURL)
-  axios.defaults.baseURL = url
+  let inventoryURL = useSelector((state) => state.inventoryURL)
+  axios.defaults.baseURL = inventoryURL
   let createInventorySuc = useSelector((state) => state.createWarehouseSuc);
   //useEffect
   useEffect(() => {
@@ -24,17 +24,17 @@ function Inventory() {
       .catch((err) => {
       });
   }, []);
-//재고 조건검색
-const [clickSearch, setClickSearch] = useState(false)
-useEffect(() => {
-  if (clickSearch) {
-    axios.get("/search", { params: datas }).then((res) => {
-      setInventoryList(res.data);
-      setClickSearch(false);
-    });
-  }
-}, [clickSearch, createInventorySuc])
-  
+  //재고 조건검색
+  const [clickSearch, setClickSearch] = useState(false)
+  useEffect(() => {
+    if (clickSearch) {
+      axios.get("/search", { params: datas }).then((res) => {
+        setInventoryList(res.data);
+        setClickSearch(false);
+      });
+    }
+  }, [clickSearch, createInventorySuc])
+
   //usestate
   const [clickDelete, setClickDelete] = useState(false)
   const [inventoryList, setInventoryList] = useState([]);
@@ -106,8 +106,8 @@ useEffect(() => {
         <div className="mx-1 mt-2 text-center w-full">
           <TableList
             title={"inventory"}
-            part="inventory"
-            axiosURL={url}
+            part=""
+            axiosURL={inventoryURL}
             th={th}
             dataList={inventoryList}
             datas={datas}
