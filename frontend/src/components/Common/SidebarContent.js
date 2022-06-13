@@ -274,6 +274,7 @@ function SidebarContent(props) {
                             onClick={() => {
                               navigatePage(submenuData.navigate);
                               setMenu(submenuData.no);
+                              props.setSidebarOpen(false)
                             }}
                           >
                             <svg

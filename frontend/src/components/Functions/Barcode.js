@@ -72,9 +72,9 @@ function Barcode(props) {
     }, 1);
   }
   return (
-    <div>
+    <div className="">
       <button type="button" onClick={createBarcodePrint}>
-        <img src="https://w7.pngwing.com/pngs/895/17/png-transparent-computer-icons-barcode-others-miscellaneous-angle-text.png" alt="" srcset="" />
+        ║█║▌║█║▌│║▌║▌█║
       </button>
     </div>
   )
