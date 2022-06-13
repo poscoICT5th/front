@@ -30,7 +30,6 @@ function App() {
 
   // useState
   // dark모드
-
   const [mouse, setmouse] = useState(-1)
   const [viewSidebar, setViewSidebar] = useState(false)
   const nowURL = useLocation().pathname;
@@ -45,14 +44,14 @@ function App() {
   // 마우스위치 가져오기
   document.addEventListener('mousemove', logKey);
   function logKey(e) {
-    if (e.clientX < 30) {
+    if (e.clientX < 5) {
       setmouse(0)
     }
   }
 
   return (
     <div data-aos="fade-up" className=''>
-      <div className={"" + (viewSidebar && mouse !== 0 ? "border-l-8 border-green-700" : "")}>
+      <div className={"" + (viewSidebar && mouse !== 0 ? "border-l-8 border-green-700" : "opacity-10")}>
         <div className="">
           {
             isLogin

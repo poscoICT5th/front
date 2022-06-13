@@ -16,7 +16,7 @@ function Barcode(props) {
 
   function createBarcodePrint(props) {
     const canvas = document.createElement('canvas')
-    JsBarcode(canvas, barcodeInfo.lotNumber + barcodeInfo.name, { height: 50, displayValue: false })
+    JsBarcode(canvas, barcodeInfo.instruction_no + barcodeInfo.item_name, { height: 50, displayValue: false })
     let barcodeUrl = canvas.toDataURL('image/png')
     let windowObj = window.open(
       "",
@@ -46,20 +46,20 @@ function Barcode(props) {
                               <td colSpan="1">${barcodeInfo.place}</td>
                               <td colSpan="5" className="barcodeImg">
                                 <img src=${barcodeUrl} alt="바코드 생성 실패"/><br/>
-                                ${barcodeInfo.lotNumber}
+                                ${barcodeInfo.lot_no}
                               </td>
                             </tr>
                             <tr>
                               <td colSpan="1">품명</td>
-                              <td colSpan="5" className="name">${barcodeInfo.name}</td>
+                              <td colSpan="5" className="name">${barcodeInfo.item_name}</td>
                             </tr>
                             <tr>
                               <td>수 / 중량</td>
-                              <td>${barcodeInfo.cnt}</td>
+                              <td>${barcodeInfo.weight}</td>
                               <td>공정</td>
-                              <td>${barcodeInfo.process}</td>
-                              <td>작업자</td>
-                              <td>${barcodeInfo.PIC}</td>
+                              <td>${barcodeInfo.status}</td>
+                              <td>요청지시번호</td>
+                              <td>${barcodeInfo.instruction_no}</td>
                             </tr>
                           </table>
                         </div>`
@@ -73,7 +73,9 @@ function Barcode(props) {
   }
   return (
     <div>
-      <button type="button" onClick={createBarcodePrint}>바코드출력</button>
+      <button type="button" onClick={createBarcodePrint}>
+        <img src="https://w7.pngwing.com/pngs/895/17/png-transparent-computer-icons-barcode-others-miscellaneous-angle-text.png" alt="" srcset="" />
+      </button>
     </div>
   )
 }

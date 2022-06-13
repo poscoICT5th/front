@@ -57,10 +57,10 @@ function Map() {
       .get("/")
       .then((res) => {
         setWarehouseList(res.data);
-        console.log(res);
+        ;
       })
       .catch((err) => {
-        console.log(err);
+        ;
       });
   }, [click]);
   //여기부터 클릭했을 때 해당하는 로우만 불러오기
@@ -71,7 +71,7 @@ function Map() {
         setWarehouseList(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        ;
       });
   }, [select_warehouse]);
 
