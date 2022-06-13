@@ -1,28 +1,42 @@
 import axios from 'axios';
 import Aos from 'aos';
 import React, { useEffect, useState } from 'react'
-import CancelRequest from '../Functions/CancelRequest';
 import SearchLogisticsExport from '../Search/SearchLogisticsExport';
-import TableLogisticsExport from '../Table/TableLogisticsExport';
 import { useSelector } from 'react-redux';
 import TableList from '../Table/TableList';
 
 function LogisticsExport() {
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
+  let createExportSuc = useSelector((state) => state.createExportSuc)
+  axios.defaults.baseURL = logisticsExportURL
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
-  const [click, setClick] = useState(false)
+
+  // 전체조회
   useEffect(() => {
-    axios.defaults.baseURL = logisticsExportURL
     axios.get("/export", {})
       .then((res) => { setLogisticsExportList(res.data) })
   }, [])
 
+  // 출고조건검색
+  const [clickSearch, setClickSearch] = useState(false)
+  useEffect(() => {
+    if (clickSearch) {
+      console.log(datas)
+      axios.get('/search', {
+        params: datas
+      })
+        .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
+        .catch((err) => { console.log(datas); setClickSearch(false) })
+    }
+  }, [clickSearch, createExportSuc])
+
+
   // usestate
   const [logisticsExportList, setLogisticsExportList] = useState([])
-
+  const [clickDelete, setClickDelete] = useState(false)
   const [datas, setDatas] = useState({
     status: "전체보기",
     location: "전체보기",
@@ -71,31 +85,34 @@ function LogisticsExport() {
     { "inst_deadline": 150 },
     { "done_date": 200 },
   ]
-  // function
-  // 출고 조건검색
-  function search(params) {
-    axios.defaults.baseURL = logisticsExportURL
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => { setLogisticsExportList(res.data); })
-      .catch((err) => { })
-  }
-  function deleteRequests(ins_no) {
-    axios.delete(`/export/${ins_no}`)
-      .then((res) => { alert(res.status) })
-  }
+
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
         <div className="font-bold text-2xl text-center my-3">출고 조회</div>
         {/* Search */}
         <div className="mt-5 md:mt-0 md:col-span-2">
-          <SearchLogisticsExport datas={datas} setDatas={setDatas} search={search} />
+          <SearchLogisticsExport
+            datas={datas}
+            setDatas={setDatas}
+            setClickSearch={setClickSearch}
+            clickSearch={clickSearch}
+            setClickDelete={setClickDelete}
+            clickDelete={clickDelete}
+          />
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableList dataList={logisticsExportList} datas={datas} setClick={setClick} click={click} deleteRequests={deleteRequests} th={th} />
+          <TableList
+            title={"logistics"}
+            part="export"
+            axiosURL={logisticsExportURL}
+            th={th}
+            dataList={logisticsExportList}
+            datas={datas}
+            clickDelete={clickDelete}
+            deleteBodyName="logiExportDeleteList"
+          />
         </div>
       </div>
     </div>

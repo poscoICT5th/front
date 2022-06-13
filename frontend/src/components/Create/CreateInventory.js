@@ -1,6 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
+// import { handleCreateExportSuc } from '../../store'
 
 function CreateInventory(props) {
 
@@ -8,7 +9,12 @@ function CreateInventory(props) {
   return (
     <div>
       <Transition.Root show={props.createLogisticsImportOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setCreateLogisticsImportOpen}>
+        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() =>
+          props.setOpens({
+            ...props.opens,
+            [props.openData]: false,
+          })
+        }>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

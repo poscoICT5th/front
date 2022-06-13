@@ -16,18 +16,17 @@ function Login() {
   // useEffect
   useEffect(() => {
     if (isLogin) {
-      // navigate('/Main')
+      navigate('/Dashboard')
     }
   }, [])
 
   // useState
-  let isLogin = localStorage.getItem('id');
+  let isLogin = localStorage.getItem('token');
   const [id, setId] = useState(null)
   const [pw, setPw] = useState(null)
 
   // function
   function Login() {
-    console.log(userUrl)
     axios.defaults.baseURL = userUrl
     axios.post('/login',
       {
@@ -36,7 +35,6 @@ function Login() {
       }
     )
       .then((res) => {
-        console.log(res.data)
         localStorage.setItem("token", res.data)
         // var decoded = jwt_decode(res.data);
         navigate("/Dashboard");

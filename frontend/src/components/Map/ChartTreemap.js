@@ -98,7 +98,7 @@ function ChartTreemap() {
   //         console.log(res, "ㅇㅇㅇㅇㅇㅇㅇㅇ");
   //       })
   //       .catch((err) => {
-  //         console.log(err);
+  //         ;
   //       });
   //   }, []);
 

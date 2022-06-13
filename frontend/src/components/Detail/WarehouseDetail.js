@@ -22,7 +22,7 @@ function WarehouseDetail(props) {
           setOpen(true);
         }}
       >
-        입고예정등록
+        창고상세보기
       </button>
       <Transition.Root show={open} as={Fragment}>
         <Dialog
