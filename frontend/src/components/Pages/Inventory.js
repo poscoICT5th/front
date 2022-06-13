@@ -86,21 +86,6 @@ useEffect(() => {
     { "warehouse_date": 200 },
     { "warehouse_aging": 160 },
   ]
-  // 입고요청 삭제(여러개)
-  function deleteInventory(lot_no) {
-    axios.delete(`/${lot_no}`)
-      .then((res) => { alert(res.status) })
-  }
-  useEffect(() => {
-    // 재고
-    // axios.post('/import', {
-    //   status: "value"
-    // })
-    // .then((res) => {  })
-    // .catch((err) => {  })
-  }, [])
-
-
 
   return (
     <div data-aos="fade-up" className="">
@@ -120,12 +105,15 @@ useEffect(() => {
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
           <TableList
-             axiosURL={url}
+            title={"inventory"}
+            part="inventory"
+            axiosURL={url}
+            th={th}
             dataList={inventoryList}
             datas={datas}
-            deleteInventory={deleteInventory}
-            th={th}
-            title={"inventory"}
+            clickDelete={clickDelete}
+            deleteBodyName="inventoryDeleteList"
+            setClickDelete={setClickDelete}
           />
         </div>
       </div>

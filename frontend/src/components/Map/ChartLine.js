@@ -10,7 +10,7 @@ export default function ChartLine() {
         type: "line"
       },
       title: {
-        text: "Line Chart"
+        text: "창고 재고증감"
       },
       subtitle: {
         text: ""
@@ -39,9 +39,17 @@ export default function ChartLine() {
       }, // tooltip appears when hovering over a point
       series: [
         {
-          name: "Morocco",
+          name: "포항",
           data: [4706, 4702, 3979, 2547, 3999]
-        }
+        },
+        {
+          name: "천안",
+          data: [5555, 8000, 3000, 4000, 7000]
+        },
+        {
+          name: "광양",
+          data: [5555, 5000, 7000, 3000, 7000]
+        },
       ]
     });
   }, []);

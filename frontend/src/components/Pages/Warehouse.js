@@ -64,12 +64,7 @@ function Warehouse(props) {
     { "inventory_using": 100 },
     { "remarks": 100 },
   ]
-  // 창고 삭제(여러개)
-  // function deleteWarehouse(warehouse_code) {
-  //   axios.delete(`/${warehouse_code}`).then((res) => {
-  //     alert(res.status);
-  //   });
-  // }
+
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -89,13 +84,14 @@ function Warehouse(props) {
         <div className="mx-1 mt-2 text-center w-full">
           <TableList
             title={"warehouse"}
-            part="warehouse"
+            part=""
             axiosURL={warehouseURL}
             th={th}
             dataList={warehouseList}
             datas={datas}
             clickDelete={clickDelete}
             deleteBodyName="warehouseDeleteList"
+            setClickDelete={setClickDelete}
           />
         </div>
       </div>
