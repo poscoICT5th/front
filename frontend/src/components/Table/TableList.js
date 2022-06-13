@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import axios from 'axios';
 import Barcode from '../Functions/Barcode'
+import Detail from '../Detail/Detail';
 
 function TableList(props) {
     const columns = [];
     const data = [];
     // select
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [openDetail, setOpenDetail] = useState(false)
     const onSelectChange = (newSelectedRowKeys) => {
         setSelectedRowKeys(newSelectedRowKeys);
         console.log('selectedRowKeys changed: ', selectedRowKeys);
@@ -36,7 +38,7 @@ function TableList(props) {
                 title: "barcode",
                 dataIndex: "barcode",
                 key: "barcode",
-                width: 200,
+                width: 500,
                 align: "center",
             },
 
@@ -70,7 +72,7 @@ function TableList(props) {
         }
     }, [props.clickDelete])
 
-
+    const [detailData, setDetailData] = useState({})
     return (
         <div>
             <Table
@@ -78,7 +80,7 @@ function TableList(props) {
                 onRow={(record, rowIndex) => {
                     return {
                         onClick: event => { }, // click row
-                        onDoubleClick: event => { console.log(record, rowIndex) }, // double click row
+                        onDoubleClick: event => { setDetailData(record); setOpenDetail(true) }, // double click row
                         onContextMenu: event => { }, // right button click row
                         onMouseEnter: event => { }, // mouse enter row
                         onMouseLeave: event => { }, // mouse leave row
@@ -94,6 +96,7 @@ function TableList(props) {
                     // y: 1500,
                 }}
             />
+            <Detail openDetail={openDetail} setOpenDetail={setOpenDetail} detailData={detailData} />
         </div>
     )
 }
