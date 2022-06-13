@@ -23,6 +23,7 @@ function Warehouse(props) {
         setWarehouseList(res.data);
       })
       .catch((err) => {
+        console.log(err);
       });
   }, []);
 
