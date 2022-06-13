@@ -9,13 +9,13 @@ import TableList from '../Table/TableList';
 function Inventory() {
   let url = useSelector((state) => state.inventoryURL)
   axios.defaults.baseURL = url
-
+  let createInventorySuc = useSelector((state) => state.createWarehouseSuc);
   //useEffect
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
-  //
-  const [click, setClick] = useState(false)
+  //재고전체조회(처음에)
+  //const [click, setClick] = useState(false)
   useEffect(() => {
     axios
       .get("/")
@@ -24,9 +24,20 @@ function Inventory() {
       })
       .catch((err) => {
       });
-  }, [click]);
-
+  }, []);
+//재고 조건검색
+const [clickSearch, setClickSearch] = useState(false)
+useEffect(() => {
+  if (clickSearch) {
+    axios.get("/search", { params: datas }).then((res) => {
+      setInventoryList(res.data);
+      setClickSearch(false);
+    });
+  }
+}, [clickSearch, createInventorySuc])
+  
   //usestate
+  const [clickDelete, setClickDelete] = useState(false)
   const [inventoryList, setInventoryList] = useState([]);
   const [datas, setDatas] = useState({
     industry_family: "전체보기",
@@ -52,32 +63,7 @@ function Inventory() {
     warehouse_date: "전체보기",
     warehouse_aging: "전체보기",
   });
-  //통신오는 순서로 맞춰주기
-  // const th = [
-  //   "industry_family",
-  //   "target",
-  //   "stock_type",
-  //   "stock_quality_status",
-  //   " status_cause",
-  //   "stock_place",
-  //   "product_family",
-  //   "warehouse_code",
-  //   "lot_no",
-  //   "item_num",
-  //   "item_desc",
-  //   "item_name",
-  //   "amount",
-  //   "weight ",
-  //   "unit",
-  //   "customer ",
-  //   "fixed_month",
-  //   "width",
-  //   "thickness ",
-  //   "height",
-  //   "inventory_date",
-  //   "warehouse_date",
-  //   "warehouse_aging ",
-  // ];
+
   const th = [
     { "industry_family": 120 },
     { "stock_type": 100 },
@@ -114,8 +100,9 @@ function Inventory() {
     // .then((res) => {  })
     // .catch((err) => {  })
   }, [])
-  function search() {
-  }
+
+
+
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -125,12 +112,22 @@ function Inventory() {
           <SearchInventory
             setDatas={setDatas}
             datas={datas}
-            search={search}
+            setClickSearch={setClickSearch}
+            clickSearch={clickSearch}
+            setClickDelete={setClickDelete}
+            clickDelete={clickDelete}
           />
         </div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
-          <TableList dataList={inventoryList} datas={datas} deleteInventory={deleteInventory} th={th} title={"inventory"}/>
+          <TableList
+             axiosURL={url}
+            dataList={inventoryList}
+            datas={datas}
+            deleteInventory={deleteInventory}
+            th={th}
+            title={"inventory"}
+          />
         </div>
       </div>
     </div>
