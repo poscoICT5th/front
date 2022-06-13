@@ -20,7 +20,7 @@ import ChartBar from './components/Map/ChartBar'
 import ChartTreemap from './components/Map/ChartTreemap'
 import ChartPie from './components/Map/ChartPie'
 import Gauge from './components/Map/ChartGauge'
-import NivoPie from './components/Map/NivoPie'
+
 function App() {
   let isLogin = localStorage.getItem('token');
   useEffect(() => {
@@ -76,7 +76,7 @@ function App() {
               <Route path="/ChartTreemap" element={<ChartTreemap />} />
               <Route path="/ChartPie" element={<ChartPie />} />
               <Route path="/Gauge" element={<Gauge />} />
-              <Route path="/NivoPie" element={<NivoPie />} />
+
             </Routes></div>
         </div>
         <Footer />
