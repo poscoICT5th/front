@@ -18,6 +18,7 @@ import GraphPie from './components/Dashboard/Graph/GraphPie';
 import ChartBar1 from './components/Map/ChartBar1'
 import ChartTreemap from './components/Map/ChartTreemap'
 import ChartPie from './components/Map/ChartPie'
+import TrendInventory from './components/Trend/TrendInventory'
 
 function App() {
   let isLogin = localStorage.getItem('token');
@@ -76,6 +77,7 @@ function App() {
               <Route path="/GraphPie" element={<GraphPie />} />
               <Route path="/ChartBar1" element={<ChartBar1 />} />
               <Route path="/ChartPie" element={<ChartPie />} />
+              <Route path="/TrendInventory" element={<TrendInventory />} />
             </Routes></div>
         </div>
         <Footer />

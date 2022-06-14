@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import addHeatmapModule from "highcharts/modules/heatmap";
 import addTreemapModule from "highcharts/modules/treemap";
@@ -14,11 +14,12 @@ import {
 } from "react-jsx-highcharts";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import './styles.css'
+import "./styles.css";
 addHeatmapModule(Highcharts);
 addTreemapModule(Highcharts);
 
 function ChartTreemap() {
+  let inventoryURL = useSelector((state) => state.inventoryURL);
   const [treeData, settreeData] = useState(null);
   const formatData = (data) => {
     const colours = Highcharts.getOptions().colors;
@@ -70,10 +71,9 @@ function ChartTreemap() {
 
     return formattedData;
   };
-  let url = useSelector((state) => state.inventoryURL);
-  axios.defaults.baseURL = url;
 
   useEffect(() => {
+    axios.defaults.baseURL = inventoryURL;
     axios
       .get("/map")
       .then((res) => {
@@ -84,26 +84,6 @@ function ChartTreemap() {
         console.log(err);
       });
   }, []);
-  //usestate
-  const [warehouseList, setWarehouseList] = useState([]);
-
-  //url
-  // let url = useSelector((state) => state.warehouseURL);
-  // axios.defaults.baseURL = url;
-
-  // useEffect(() => {
-  //     axios
-  //       .get("/")
-  //       .then((res) => {
-  //         settreeData(formatData(res.data)); //창고 테이블
-  //         console.log(res, "ㅇㅇㅇㅇㅇㅇㅇㅇ");
-  //       })
-  //       .catch((err) => {
-  //         ;
-  //       });
-  //   }, []);
-
-  //axios.get(`/ware`)
 
   if (!treeData) return null;
 

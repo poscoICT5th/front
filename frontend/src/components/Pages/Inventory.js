@@ -72,7 +72,7 @@ function Inventory() {
     { "product_family": 120 },
     { "warehouse_code": 130 },
     { "lot_no": 160 },
-    { "item_num": 100 },
+    { "item_no": 100 },
     { "item_desc": 500 },
     { "item_name": 430 },
     { "amount": 100 },
