@@ -7,6 +7,7 @@ import ChartLine from '../Map/ChartLine'
 import ChartPie from '../Map/ChartPie';
 import ChartGauge from '../Map/ChartGauge';
 import ChartTreemap from '../Map/ChartTreemap'
+import './Dashboard.css'
 function Dashboard() {
   useEffect(() => {
     Aos.init({ duration: 1000 });
@@ -29,30 +30,30 @@ function Dashboard() {
         <div className='grid grid-cols-5 gap-5'>
           <div className='bg-stone-100 rounded-lg grid grid-rows-11 text-left gap-3'>
             <div className='text-center'>오래된순위</div>
-            <div className='bg-stone-300 rounded-lg mx-3 transform transition hover:rotate-180 duration-300'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
           </div>
           <div className='col-span-3 bg-stone-100 rounded-lg'><ChartPie /></div>
           <div className='bg-stone-100 rounded-lg grid grid-rows-11 text-left gap-3'>
             <div className='text-center'>재고많은순</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
-            <div className='bg-stone-300 rounded-lg mx-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
+            <div className='bg-stone-300 rounded-lg mx-3 py-1 px-3'>1</div>
           </div>
         </div>
         <div className='grid grid-cols-5 gap-5'>
