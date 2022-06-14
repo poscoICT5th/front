@@ -10,18 +10,18 @@ export default function ChartLine() {
         type: "line"
       },
       title: {
-        text: "창고 재고증감"
+        text: "창고 별 재고 추이"
       },
       subtitle: {
         text: ""
       },
       xAxis: {
         categories: [
-          "22/11/2020",
-          "23/11/2020",
-          "21/11/2020",
-          "25/11/2020",
-          "26/11/2020"
+          "22/11/2022",
+          "23/11/2022",
+          "24/11/2022",
+          "25/11/2022",
+          "26/11/2022"
         ], // the categories of the X Axis
         crosshair: true
       },
