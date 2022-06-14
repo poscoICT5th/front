@@ -4,7 +4,6 @@ import { ExclamationIcon } from '@heroicons/react/outline'
 import { PaperClipIcon } from '@heroicons/react/solid'
 
 function Detail(props) {
-  console.log(props.detailData)
   const cancelButtonRef = useRef(null)
   return (
     <Transition.Root show={props.openDetail} as={Fragment}>

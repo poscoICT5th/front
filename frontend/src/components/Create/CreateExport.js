@@ -133,8 +133,9 @@ function CreateExport(props) {
     axios.post('/export', exportDatas)
       .then((res) => {
         alert("출고요청이 등록되었습니다")
-        dispatch(handleCreateExportSuc());
+        dispatch(handleCreateExportSuc(true));
         props.setOpenCreate(false)
+        dispatch(handleCreateExportSuc(false));
       })
       .catch((err) => { alert(err) })
   }

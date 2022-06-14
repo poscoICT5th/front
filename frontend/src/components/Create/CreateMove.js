@@ -115,8 +115,9 @@ function CreateMove(props) {
             moveDatas)
             .then((res) => {
                 alert("창고이동요청이 등록되었습니다")
-                dispatch(handleCreateMoveSuc());
+                dispatch(handleCreateMoveSuc(true));
                 props.setOpenCreate(false)
+                dispatch(handleCreateMoveSuc(false));
             })
             .catch((err) => { alert(err) })
     }

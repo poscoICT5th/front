@@ -35,6 +35,7 @@ function Login() {
       }
     )
       .then((res) => {
+        // console.log(res)
         localStorage.setItem("token", res.data)
         // var decoded = jwt_decode(res.data);
         navigate("/Dashboard");

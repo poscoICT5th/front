@@ -30,7 +30,7 @@ function Warehouse(props) {
   // 창고 조건검색
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
-    if (clickSearch) {
+    if (clickSearch || createWarehouseSuc) {
       axios.get("/search", { params: datas }).then((res) => {
         setWarehouseList(res.data);
         setClickSearch(false);

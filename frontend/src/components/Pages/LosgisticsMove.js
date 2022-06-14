@@ -27,7 +27,7 @@ function LosgisticsMove() {
   // 창고조건조회
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
-    if (clickSearch) {
+    if (clickSearch || createMoveSuc) {
       axios.get('/search', {
         params: datas
       })

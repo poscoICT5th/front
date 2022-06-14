@@ -23,7 +23,7 @@ function LogisticsExport() {
   // 출고조건검색
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
-    if (clickSearch) {
+    if (clickSearch || createExportSuc) {
       console.log(datas)
       axios.get('/search', {
         params: datas

@@ -24,8 +24,7 @@ function LogisticsImport() {
   // 입고 조건검색
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
-    console.log("값바뀜ㅇㅇ")
-    if (clickSearch) {
+    if (clickSearch || createImportSuc) {
       axios.get('/search', {
         params: datas
       })

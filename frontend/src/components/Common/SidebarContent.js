@@ -8,12 +8,12 @@ import CreateWarehouse from '../Create/CreateWarehouse';
 import { useSelector } from 'react-redux'
 
 function SidebarContent(props) {
+  let userURL = useSelector((state) => state.userURL)
   // navigate
   let navigate = useNavigate();
   function navigatePage(component) {
     navigate(`/${component}`);
   }
-  let userURL = useSelector((state) => state.userURL)
   const [openCreate1, setOpenCreate1] = useState(false)
   const [openCreate2, setOpenCreate2] = useState(false)
   const [openCreate3, setOpenCreate3] = useState(false)

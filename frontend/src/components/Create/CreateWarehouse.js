@@ -43,8 +43,9 @@ function CreateWarehouse(props) {
       .post("/", warehouseDatas)
       .then((res) => {
         alert("창고가 등록되었습니다.")
-        dispatch(handleCreateWarehouseSuc())
+        dispatch(handleCreateWarehouseSuc(true))
         props.setOpenCreate(false)
+        dispatch(handleCreateWarehouseSuc(false))
       })
       .catch((err) => {
         alert(err);

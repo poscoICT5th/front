@@ -89,8 +89,8 @@ let createImportSuc = createSlice({
   name: "createImportSuc",
   initialState: false,
   reducers: {
-    handleCreateImportSuc(state) {
-      return !state;
+    handleCreateImportSuc(state, newState) {
+      return newState;
     },
   },
 });
@@ -101,8 +101,8 @@ let createExportSuc = createSlice({
   name: "createExportSuc",
   initialState: false,
   reducers: {
-    handleCreateExportSuc(state) {
-      return !state;
+    handleCreateExportSuc(state, newState) {
+      return newState;
     },
   },
 });
@@ -113,8 +113,8 @@ let createMoveSuc = createSlice({
   name: "createMoveSuc",
   initialState: false,
   reducers: {
-    handleCreateMoveSuc(state) {
-      return !state;
+    handleCreateMoveSuc(state, newState) {
+      return newState;
     },
   },
 });
@@ -125,8 +125,8 @@ let createWarehouseSuc = createSlice({
   name: "createWarehouseSuc",
   initialState: false,
   reducers: {
-    handleCreateWarehouseSuc(state) {
-      return !state;
+    handleCreateWarehouseSuc(state, newState) {
+      return newState;
     },
   },
 });

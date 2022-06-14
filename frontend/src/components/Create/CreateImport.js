@@ -76,8 +76,9 @@ function CreateImport(props) {
             .post("/import", importDatas)
             .then((res) => {
                 alert("입고요청이 등록되었습니다.")
-                dispatch(handleCreateImportSuc())
+                dispatch(handleCreateImportSuc(true))
                 props.setOpenCreate(false)
+                dispatch(handleCreateImportSuc(false))
             })
             .catch((err) => {
                 alert(err);
