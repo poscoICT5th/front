@@ -17,11 +17,11 @@ export default function ChartLine() {
       },
       xAxis: {
         categories: [
-          "22/11/2022",
-          "23/11/2022",
-          "24/11/2022",
-          "25/11/2022",
-          "26/11/2022"
+          "1/6/2022",
+          "8/6/2022",
+          "15/6/2022",
+          "22/6/2022",
+          "29/6/2022"
         ], // the categories of the X Axis
         crosshair: true
       },

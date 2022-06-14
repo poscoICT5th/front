@@ -21,6 +21,7 @@ import ChartPie from './components/Map/ChartPie'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
+import TrendInventory from './components/Trend/TrendInventory'
 
 function App() {
   let userURL = useSelector((state) => state.userURL)
@@ -99,6 +100,7 @@ function App() {
               <Route path="/GraphPie" element={<GraphPie />} />
               <Route path="/ChartBar1" element={<ChartBar1 />} />
               <Route path="/ChartPie" element={<ChartPie />} />
+              <Route path="/TrendInventory" element={<TrendInventory />} />
             </Routes></div>
         </div>
         <Footer />
