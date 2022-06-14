@@ -132,6 +132,18 @@ let createWarehouseSuc = createSlice({
 });
 export let { handleCreateWarehouseSuc } = createWarehouseSuc.actions;
 
+// language
+let language = createSlice({
+  name: "language",
+  initialState: "kr",
+  reducers: {
+    handleLanguage(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleLanguage } = language.actions;
+
 // state등록해주는부분
 export default configureStore({
   // {작명:createSlice만든거.reducer} 사용
@@ -147,6 +159,7 @@ export default configureStore({
     createExportSuc: createExportSuc.reducer,
     createMoveSuc: createMoveSuc.reducer,
     createWarehouseSuc: createWarehouseSuc.reducer,
+    language: language.reducer,
   },
 });
 //

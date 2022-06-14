@@ -3,8 +3,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import SidebarContent from "./SidebarContent";
 import './Sidebar.css'
-function Sidebar(props) {
+import { useDispatch } from "react-redux";
+import { handleLanguage } from '../../store'
 
+function Sidebar(props) {
+  const dispatch = useDispatch();
   return (
     <Transition.Root show={props.sidebarOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => { props.setSidebarOpen(false); }}>
@@ -41,9 +44,9 @@ function Sidebar(props) {
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                  <div className="flex h-full flex-col overflow-y-scroll py-6 shadow-xl opacity-100">
                     <div className="px-4 sm:px-6">
-                      <Dialog.Title className="text-lg font-medium text-gray-900 mt-10">
+                      <Dialog.Title className="text-lg font-medium mt-10">
                         <div className="sidebar-header flex items-center justify-center">
                           <div className="inline-flex">
                             {/* <svg
@@ -60,12 +63,19 @@ function Sidebar(props) {
                             <div className="w-14">
                               <img src="../images/Logo.png" alt="" />
                             </div>
-                            <div className="leading-10 text-gray-700 text-2xl font-bold ml-1 uppercase">
+                            <div className="leading-10 text-2xl font-bold ml-1 uppercase">
                               POSCO ICT_5
                             </div>
                           </div>
                         </div>
                       </Dialog.Title>
+                      <div className="text-center grid grid-cols-5 gap-1 w-68 mx-auto hidden">
+                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-south-korea_1f1f0-1f1f7.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("kr")) }} />
+                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-united-states_1f1fa-1f1f8.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("en")) }} />
+                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-china_1f1e8-1f1f3.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("cn")) }} />
+                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-japan_1f1ef-1f1f5.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("jp")) }} />
+                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-vietnam_1f1fb-1f1f3.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("vn")) }} />
+                      </div>
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
                       <SidebarContent

@@ -45,14 +45,14 @@ function Dashboard() {
     <div className='grid grid-cols-10 gap-5 text-center'>
       <div className='col-span-8 grid grid-rows-2 gap-5'>
         <div className='grid grid-cols-5 gap-5'>
-          <div className='bg-stone-100 rounded-lg grid gap-3 py-3 break-words'>
+          <div className='rounded-lg grid gap-3 py-3 break-words'>
             <div className=''>오래된순위</div>
             {agingRankingList.map((agingItem, index) => {
               return <div className='bg-stone-300 rounded-lg mx-3 px-2 text-ellipsis overflow-hidden truncate'>{index + 1}. {agingItem.lot_no}</div>
             })}
           </div>
-          <div className='col-span-3 bg-stone-100 rounded-lg'><ChartPie /></div>
-          <div className='bg-stone-100 rounded-lg grid gap-3 py-3 break-words'>
+          <div className='col-span-3 rounded-lg'><ChartPie /></div>
+          <div className='rounded-lg grid gap-3 py-3 break-words'>
             <div className=''>재고많은순위</div>
             {amountRankingList.map((amountItem) => {
               return <div className='bg-stone-300 rounded-lg mx-3 px-2 text-ellipsis overflow-hidden truncate '>({amountItem.sum}) {amountItem.item_name}</div>
@@ -60,16 +60,16 @@ function Dashboard() {
           </div>
         </div>
         <div className='grid grid-cols-5 gap-5'>
-          <div className="col-span-3 bg-stone-100 rounded-lg p-5"><ChartLine /></div>
-          <div className="col-span-2 bg-stone-100 rounded-lg p-5"><ChartBar1 /></div>
+          <div className="col-span-3 rounded-lg p-5"><ChartLine /></div>
+          <div className="col-span-2 rounded-lg p-5"><ChartBar1 /></div>
         </div>
       </div>
       <div className='col-span-2 grid grid-rows-5 gap-2'>
-        <div className='bg-stone-100 rounded-lg'></div>
-        <div className='bg-stone-100 rounded-lg'></div>
-        <div className='bg-stone-100 rounded-lg'></div>
-        <div className='bg-stone-100 rounded-lg'></div>
-        <div className='bg-stone-100 rounded-lg'></div>
+        <div className='rounded-lg'></div>
+        <div className='rounded-lg'></div>
+        <div className='rounded-lg'></div>
+        <div className='rounded-lg'></div>
+        <div className='rounded-lg'></div>
       </div>
     </div>
   )

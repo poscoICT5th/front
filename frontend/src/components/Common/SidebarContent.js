@@ -19,7 +19,7 @@ function SidebarContent(props) {
   const [openCreate3, setOpenCreate3] = useState(false)
   const [openCreate4, setOpenCreate4] = useState(false)
 
-  const [menu, setMenu] = useState(0);
+  const [menu, setMenu] = useState(-1);
 
   function logout(params) {
     axios.defaults.baseURL = userURL
@@ -187,19 +187,19 @@ function SidebarContent(props) {
   return (
     <div>
       <div className="">
-        <div className="flex flex-col h-full justify-between bg-white">
+        <div className="flex flex-col h-full justify-between">
           <div className="px-4 py-2">
             <nav className="flex flex-col mt-6 space-y-1">
               <div
-                className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-300 hover:text-gray-700"
+                className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
                 style={
-                  menu === 1
+                  menu === 0
                     ? { backgroundColor: "gray", color: "white" }
-                    : { backgroundColor: "white" }
+                    : null
                 }
                 onClick={() => {
                   navigate("/Dashboard");
-                  setMenu(1);
+                  setMenu(0);
                   props.setSidebarOpen(false)
                 }}
               >
@@ -224,7 +224,7 @@ function SidebarContent(props) {
               {sidebarDatas.map((sidebarData) => {
                 return (
                   <details className="group">
-                    <summary className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700 cursor-pointer">
+                    <summary className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700 cursor-pointer">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6"
@@ -262,11 +262,11 @@ function SidebarContent(props) {
                       {sidebarData.subMenu.map((submenuData) => {
                         return (
                           <div
-                            className="flex items-center px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+                            className="flex items-center px-4 py-2 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                             style={
                               menu === submenuData.no
                                 ? { backgroundColor: "gray", color: "white" }
-                                : { backgroundColor: "white" }
+                                : null
                             }
                             onClick={() => {
                               navigatePage(submenuData.navigate);
@@ -299,7 +299,7 @@ function SidebarContent(props) {
                         return (
                           <div>
                             <button
-                              className="flex items-center w-full px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+                              className="flex items-center w-full px-4 py-2 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                               onClick={() => {
                                 componentData.openFunc(true)
                               }}
@@ -329,11 +329,11 @@ function SidebarContent(props) {
                 );
               })}
               <div
-                className="flex items-center px-4 py-2 text-gray-500 rounded-lg cursor-pointer hover:bg-gray-300 hover:text-gray-700"
+                className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-500 hover:text-gray-700"
                 style={
-                  menu === 12
+                  menu === 81
                     ? { backgroundColor: "gray", color: "white" }
-                    : { backgroundColor: "white" }
+                    : null
                 }
                 onClick={logout}
               >

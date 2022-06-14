@@ -91,7 +91,7 @@ function SearchLogisticsExport(props) {
   const { Panel } = Collapse;
   return (
     <div className="overflow-hidden sm:rounded-md">
-      <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
+      <div className="px-4 py-5 sm:p-6 rounded-lg">
         <div className="grid grid-cols-9 gap-4 text-center">
           {selectDatas.map((selectData) => {
             return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
@@ -115,7 +115,7 @@ function SearchLogisticsExport(props) {
           expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
           className="site-collapse-custom-collapse"
         >
-          <Panel header="상세검색" key="1" className="site-collapse-custom-panel bg-white">
+          <Panel header="상세검색" key="1" className="site-collapse-custom-panel">
             <div className="grid grid-cols-6 gap-4 text-center mt-5">
               {inputDatas.map((inputData) => {
                 return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />

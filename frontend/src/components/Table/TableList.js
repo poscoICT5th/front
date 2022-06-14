@@ -77,7 +77,7 @@ function TableList(props) {
                 columns={columns}
                 dataSource={data}
                 bordered
-                pagination={{ pageSize: 20 }}
+                pagination={{ pageSize: 30 }}
                 size="small"
                 scroll={{
                     x: 1500,

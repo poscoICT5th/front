@@ -92,7 +92,7 @@ function SearchLogisticsImport(props) {
     const { Panel } = Collapse;
     return (
         <div className="overflow-hidden sm:rounded-md">
-            <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
+            <div className="px-4 py-5 sm:p-6 rounded-lg">
                 {/* select */}
                 <div className="grid grid-cols-9 gap-4 text-center">
                     {selectDatas.map((selectData) => {
@@ -120,7 +120,7 @@ function SearchLogisticsImport(props) {
                     expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
                     className="site-collapse-custom-collapse"
                 >
-                    <Panel header="상세검색" key="1" className="site-collapse-custom-panel bg-white">
+                    <Panel header="상세검색" key="1" className="site-collapse-custom-panel">
                         {/* inputRange */}
                         {/* <div className="grid grid-cols-6 gap-4 text-center">
                             {inputRangeDatas.map((inputRangeData) => {

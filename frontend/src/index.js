@@ -7,12 +7,21 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 
+import { ThemeSwitcherProvider } from "react-css-theme-switcher";
+
+const themes = {
+  dark: `${process.env.PUBLIC_URL}/dark-theme.css`,
+  light: `${process.env.PUBLIC_URL}/light-theme.css`,
+};
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <ThemeSwitcherProvider themeMap={themes} defaultTheme="light">
+        <App />
+      </ThemeSwitcherProvider>
     </BrowserRouter>
   </Provider>
   // </React.StrictMode>

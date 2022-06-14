@@ -43,7 +43,7 @@ function SearchWarehouse(props) {
 
   return (
     <div className="overflow-hidden sm:rounded-md">
-      <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
+      <div className="px-4 py-5 sm:p-6 rounded-lg">
         {/* select */}
         <div className="grid grid-cols-10 gap-4 text-center">
           {selectDatas.map((selectData) => {

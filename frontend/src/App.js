@@ -22,6 +22,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import TrendInventory from './components/Trend/TrendInventory'
+import { useThemeSwitcher } from "react-css-theme-switcher";
+import { Switch, Input } from "antd";
 
 function App() {
   let userURL = useSelector((state) => state.userURL)
@@ -70,14 +72,31 @@ function App() {
   //   }
   // }
 
+
+  const [isDarkMode, setIsDarkMode] = React.useState();
+  const { switcher, currentTheme, status, themes } = useThemeSwitcher();
+  if (status === "loading") {
+    return null;
+  }
+  const toggleTheme = (isChecked) => {
+    setIsDarkMode(isChecked);
+    switcher({ theme: isChecked ? themes.dark : themes.light });
+  };
   return (
-    <div data-aos="fade-up" className=''>
+    <div data-aos="fade-up" className='fade-in'>
       <div className={viewSidebar ? null : "hidden"}>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 cursor-pointer ml-6 mt-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} onClick={() => { setSidebarOpen(true) }}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+        <div className='flex justify-between m-6'>
+          <div className=''>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} onClick={() => { setSidebarOpen(true) }}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </div>
+          <div>
+            <Switch checked={isDarkMode} onChange={toggleTheme} className="" />
+          </div>
+        </div>
       </div>
-      <div className={"" + (sidebarOpen === false ? null : "opacity-50")}>
+      <div className={"" + (sidebarOpen === false ? null : "opacity-10")}>
         <div className="">
           {
             isLogin
@@ -86,6 +105,7 @@ function App() {
           }
           <div className="mx-auto mx-5 min-h-screen">
             <Header />
+
             {/* Routes */}
             <Routes>
               <Route index element={<Login />} />
