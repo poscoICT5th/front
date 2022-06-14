@@ -84,26 +84,6 @@ function ChartTreemap() {
         console.log(err);
       });
   }, []);
-  //usestate
-  const [warehouseList, setWarehouseList] = useState([]);
-
-  //url
-  // let url = useSelector((state) => state.warehouseURL);
-  // axios.defaults.baseURL = url;
-
-  // useEffect(() => {
-  //     axios
-  //       .get("/")
-  //       .then((res) => {
-  //         settreeData(formatData(res.data)); //창고 테이블
-  //         console.log(res, "ㅇㅇㅇㅇㅇㅇㅇㅇ");
-  //       })
-  //       .catch((err) => {
-  //         ;
-  //       });
-  //   }, []);
-
-  //axios.get(`/ware`)
 
   if (!treeData) return null;
 

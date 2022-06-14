@@ -9,13 +9,13 @@ import PieChart, {
 import { dataSource } from './Piedata.js';
 
 function customizeText(arg) {
-    return `${arg.valueText} (${arg.percentText})`;
-  }
+  return `${arg.valueText} (${arg.percentText})`;
+}
 
 function ChartPie() {
   return (
-      <div>
-           <PieChart id="pie"
+    <div>
+      <PieChart id="pie"
         palette="Bright"
         dataSource={dataSource}
         title="Warehouse Chart"

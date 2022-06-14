@@ -58,7 +58,7 @@ function Sidebar(props) {
                               />
                             </svg> */}
                             <div className="w-14">
-                              <img src="https://opgg-com-image.akamaized.net/attach/images/20200925082143.1409466.gif" alt="" />
+                              <img src="../images/Logo.png" alt="" />
                             </div>
                             <div className="leading-10 text-gray-700 text-2xl font-bold ml-1 uppercase">
                               POSCO ICT_5

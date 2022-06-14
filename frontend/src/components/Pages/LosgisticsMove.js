@@ -76,9 +76,10 @@ function LosgisticsMove() {
     { "move_amount": 150 },
     { "from_warehouse": 125 },
     { "to_warehouse": 110 },
-    { "inst_reg_date": 150 },
-    { "inst_deadline": 150 },
+    { "inst_reg_date": 200 },
+    { "inst_deadline": 200 },
     { "done_date": 200 },
+    { "barcode": 500 },
   ]
 
   return (

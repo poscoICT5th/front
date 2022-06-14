@@ -18,23 +18,46 @@ import GraphPie from './components/Dashboard/Graph/GraphPie';
 import ChartBar1 from './components/Map/ChartBar1'
 import ChartTreemap from './components/Map/ChartTreemap'
 import ChartPie from './components/Map/ChartPie'
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 
 function App() {
-  let isLogin = localStorage.getItem('token');
+  let userURL = useSelector((state) => state.userURL)
+  let navigate = useNavigate();
+  const [isLogin, setisLogin] = useState(localStorage.getItem('token'))
+
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
 
   // useState
-  // dark모드
   const [viewSidebar, setViewSidebar] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const nowURL = useLocation().pathname;
   useEffect(() => {
-    if (nowURL !== "/") {
-      setViewSidebar(true)
-    } else {
+    // 제일 처음에는 사이드바 안보여주기
+    if (nowURL === "/") {
       setViewSidebar(false)
+    } else {
+      setViewSidebar(true)
+      // 중복로그인처리
+      axios.defaults.baseURL = userURL;
+      axios.get('/sessionCheck', {
+        params: {
+          token: localStorage.getItem('token'),
+          sessionID: localStorage.getItem('sessionID')
+        }
+      })
+        .then((res) => {
+          if (res.data === false) {
+            alert("다른사용자가 로그인하여 로그아웃됩니다.");
+            localStorage.clear()
+            sessionStorage.clear()
+            navigate('/')
+          }
+        })
+        .catch((err) => { console.log(err) })
     }
   }, [nowURL])
 
@@ -66,7 +89,7 @@ function App() {
             <Routes>
               <Route index element={<Login />} />
               <Route path="/Dashboard" element={<Dashboard />} />
-              <Route path="/LogisticsImport" element={<LogisticsImport />} />
+              <Route path="/LogisticsImport" element={<LogisticsImport />} children />
               <Route path="/LogisticsExport" element={<LogisticsExport />} />
               <Route path="/LosgisticsMove" element={<LosgisticsMove />} />
               <Route path="/Inventory" element={<Inventory />} />

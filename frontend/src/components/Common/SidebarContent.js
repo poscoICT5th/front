@@ -25,23 +25,13 @@ function SidebarContent(props) {
     axios.defaults.baseURL = userURL
     axios.post('/logout')
       .then((res) => {
-        alert("로그아웃되었습니다.");
         localStorage.clear()
         sessionStorage.clear()
         props.setSidebarOpen(false)
+        alert("로그아웃되었습니다.");
         navigate('/')
       })
   }
-
-
-  // useEffect(() => {
-  //   if (lot_nos.length > 0) {
-  //     console.log(datas)
-  //     // setDatas({ ...datas, ["weight"]: lot_no_data[exportDatas.lot_no].weight });
-  //     setDatas({ ...datas, ["thickness"]: 123123 });
-  //     setDatas({ ...datas, "height": lot_no_data[exportDatas.lot_no].height });
-  //   }
-  // }, [exportDatas.lot_no])
 
   const sidebarDatas = [
     {

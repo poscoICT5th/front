@@ -80,10 +80,11 @@ function LogisticsExport() {
     { "order_amount": 150 },
     { "ex_amount": 120 },
     { "ex_remain": 120 },
-    { "order_date": 150 },
-    { "inst_reg_date": 150 },
-    { "inst_deadline": 150 },
+    { "order_date": 200 },
+    { "inst_reg_date": 200 },
+    { "inst_deadline": 200 },
     { "done_date": 200 },
+    { "barcode": 500 },
   ]
 
   return (

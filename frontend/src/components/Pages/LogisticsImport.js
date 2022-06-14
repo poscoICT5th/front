@@ -87,6 +87,7 @@ function LogisticsImport() {
     { "inst_reg_date": 200 },
     { "inst_deadline": 200 },
     { "done_date": 200 },
+    { "barcode": 500 },
   ]
 
 

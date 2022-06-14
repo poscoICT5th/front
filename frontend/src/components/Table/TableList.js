@@ -31,19 +31,7 @@ function TableList(props) {
             },
         )
     })
-    // 바코드칼럼 넣기
-    if (props.title === "logistics") {
-        columns.push(
-            {
-                title: "barcode",
-                dataIndex: "barcode",
-                key: "barcode",
-                width: 500,
-                align: "center",
-            },
 
-        )
-    }
     props.dataList.forEach(element => {
         if (props.title === "logistics") {
             data.push({ key: element.instruction_no, ...element, "barcode": <Barcode itemData={element} /> })
