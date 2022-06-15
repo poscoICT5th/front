@@ -16,7 +16,7 @@ function CreateImport(props) {
     const [importDatas, setImportDatas] = useState({
         location: "",
         product_family: "",
-        item_no: "",
+        item_code: "",
         item_name: "",
         to_warehouse: "",
         unit: "",
@@ -56,7 +56,7 @@ function CreateImport(props) {
     const import_inputDatas = [
         { name: "customer", type: "text", purpose: "create" },
         { name: "industry_family", type: "text", purpose: "create" },
-        { name: "item_no", type: "text", purpose: "create" },
+        { name: "item_code", type: "text", purpose: "create" },
         { name: "item_name", type: "text", purpose: "create" },
         { name: "weight", type: "number", purpose: "create" },
         { name: "thickness", type: "number", purpose: "create" },

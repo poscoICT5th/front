@@ -22,7 +22,7 @@ function CreateExport(props) {
     location: "",
     target: "",
     lot_no: "",
-    item_no: "",
+    item_code: "",
     item_name: "",
     width: 0,
     weight: 0,
@@ -99,7 +99,7 @@ function CreateExport(props) {
         "thickness": lot_no_data[exportDatas.lot_no].thickness,
         "weight": lot_no_data[exportDatas.lot_no].weight,
         "width": lot_no_data[exportDatas.lot_no].width,
-        "item_no": lot_no_data[exportDatas.lot_no].item_no,
+        "item_code": lot_no_data[exportDatas.lot_no].item_code,
         "item_name": lot_no_data[exportDatas.lot_no].item_name
       }))
     } else {
@@ -116,7 +116,7 @@ function CreateExport(props) {
     { name: "customer", selectOption: customers, grid: 1 },
   ]
   const export_inputDatas = [
-    // { name: "item_no", type: "text", value: exportDatas.item_no, purpose: "create" },
+    // { name: "item_code", type: "text", value: exportDatas.item_code, purpose: "create" },
     // { name: "weight", type: "number", value: exportDatas.weight, purpose: "create" },
     // { name: "thickness", type: "number", value: exportDatas.thickness, purpose: "create" },
     // { name: "height", type: "number", value: exportDatas.height, purpose: "create" },

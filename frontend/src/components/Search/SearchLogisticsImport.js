@@ -84,7 +84,7 @@ function SearchLogisticsImport(props) {
         { name: "min_im_amount", type: "number", purpose: "search" },
         { name: "max_im_amount", type: "number", purpose: "search" },
         { name: "lot_no", type: "text", purpose: "search" },
-        { name: "item_no", type: "text", purpose: "search" },
+        { name: "item_code", type: "text", purpose: "search" },
         { name: "industry_family", type: "text", purpose: "search" },
         { name: "order_date", type: "date", purpose: "search" },
         { name: "inst_deadline", type: "date", purpose: "search" },

@@ -19,7 +19,7 @@ function CreateMove(props) {
     const [moveDatas, setMoveDatas] = useState({
         location: "",
         lot_no: "",
-        item_no: "",
+        item_code: "",
         item_name: "",
         width: 0,
         weight: 0,
@@ -83,7 +83,7 @@ function CreateMove(props) {
                 "thickness": lot_no_data[moveDatas.lot_no].thickness,
                 "weight": lot_no_data[moveDatas.lot_no].weight,
                 "width": lot_no_data[moveDatas.lot_no].width,
-                "item_no": lot_no_data[moveDatas.lot_no].item_no,
+                "item_code": lot_no_data[moveDatas.lot_no].item_code,
                 "item_name": lot_no_data[moveDatas.lot_no].item_name
             }))
         } else {
@@ -99,7 +99,7 @@ function CreateMove(props) {
         { name: "unit", selectOption: unit, grid: 1 },
     ]
     const move_inputDatas = [
-        // { name: "item_no", type: "text", purpose: "create" },
+        // { name: "item_code", type: "text", purpose: "create" },
         // { name: "item_name", type: "text", purpose: "create" },
         // { name: "width", type: "number", purpose: "create" },
         // { name: "weight", type: "number", purpose: "create" },

@@ -8,7 +8,7 @@ import FixedInput from '../Common/Conditions/FixedInput'
 function CreateRequest(props) {
     const cancelButtonRef = useRef(null)
     const [fixed_Datas, setFixed_Datas] = useState([
-        { name: "item_no", type: "text", purpose: "fixed", value: props.datas.item_no },
+        { name: "item_code", type: "text", purpose: "fixed", value: props.datas.item_code },
         { name: "weight", type: "number", purpose: "fixed", value: props.datas.weight },
         { name: "thickness", type: "number", purpose: "fixed", value: props.datas.thickness },
         { name: "height", type: "number", purpose: "fixed", value: props.datas.height },
@@ -67,7 +67,7 @@ function CreateRequest(props) {
                                                                                 <FixedInput value={props.datas.weight} label="weight" />
                                                                                 <FixedInput value={props.datas.thickness} label="thickness" />
                                                                                 <FixedInput value={props.datas.width} label="width" />
-                                                                                <FixedInput value={props.datas.item_no} label="item_no" />
+                                                                                <FixedInput value={props.datas.item_code} label="item_code" />
                                                                                 <FixedInput value={props.datas.item_name} label="item_name" />
                                                                             </div>
                                                                             : null

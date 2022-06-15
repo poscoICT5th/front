@@ -67,7 +67,7 @@ function SearchLogisticsMove(props) {
         { name: "min_move_amount", type: "text", purpose: "search" },
         { name: "max_move_amount", type: "text", purpose: "search" },
         { name: "lot_no", type: "text", purpose: "search" },
-        { name: "item_no", type: "text", purpose: "search" },
+        { name: "item_code", type: "text", purpose: "search" },
         { name: "order_date", type: "date", purpose: "search" },
         { name: "inst_deadline", type: "date", purpose: "search" },
     ]
