@@ -1,13 +1,21 @@
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationIcon } from '@heroicons/react/outline'
-import { PaperClipIcon } from '@heroicons/react/solid'
+import { Fragment, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { ExclamationIcon } from "@heroicons/react/outline";
+import { PaperClipIcon } from "@heroicons/react/solid";
+import Detailupdate from "./Detailupdate";
 
 function Detail(props) {
-  const cancelButtonRef = useRef(null)
+  const cancelButtonRef = useRef(null);
+  
+
   return (
     <Transition.Root show={props.openDetail} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={props.setOpenDetail}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        initialFocus={cancelButtonRef}
+        onClose={props.setOpenDetail}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -36,27 +44,38 @@ function Detail(props) {
                   <div className="sm:flex sm:items-start">
                     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                       <div className="text-center">
-                        <div className='grid grid-cols-5'>
-                          {
-                            Object.entries(props.detailData).map(([key, value], index) => {
-                              return <div className="col-span-1">
-                                <div className="mt-1 text-sm p-3 text-white-900">
-                                  <label className="block text-sm font-medium text-gray-300">
-                                    {key}
-                                  </label>
-                                  <div className="block text-lg font-medium">
-                                    {value}
+                        <div className="grid grid-cols-5">
+                          {Object.entries(props.detailData).map(
+                            ([key, value], index) => {
+                              return (
+                                <div className="col-span-1">
+                                  <div className="mt-1 text-sm p-3 text-white-900">
+                                    <label className="block text-sm font-medium text-gray-300">
+                                      {key}
+                                    </label>
+                                    <div className="block text-lg font-medium">
+                                      {value}
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            })
-                          }
+                              );
+                            }
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                  {props.title === "warehouse" ? (
+                    <Detailupdate
+                      openUpdate={props.openUpdate}
+                      setOpenUpdate={props.setOpenUpdate}
+                      detailData={props.detailData}
+                      setOpenDetail={props.setOpenDetail}
+                    />
+                  ) : null}
+
                   <button
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
@@ -72,7 +91,7 @@ function Detail(props) {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }
 
-export default Detail
+export default Detail;

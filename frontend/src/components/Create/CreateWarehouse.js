@@ -14,13 +14,13 @@ function CreateWarehouse(props) {
   // usestate
   const [warehouseDatas, setWarehouseDatas] = useState({
     location: "",
-    warehouse_code: "",
     purpose: "",
-    warehouse_code_desc: "",
     use: "",
+    inventory_using: "",
+    warehouse_code_desc: "",
     maximum_weight: 0,
     maximum_count: 0,
-    inventory_using: "",
+    warehouse_code: "",
     remarks: "",
   });
   const warehouse_selectDatas = [
@@ -46,6 +46,9 @@ function CreateWarehouse(props) {
         dispatch(handleCreateWarehouseSuc(true))
         props.setOpenCreate(false)
         dispatch(handleCreateWarehouseSuc(false))
+        console.log(warehouseDatas, "우리가보내는data");
+        console.log(res, "받는 data");
+
       })
       .catch((err) => {
         alert(err);

@@ -96,7 +96,12 @@ function SearchLogisticsImport(props) {
                 {/* select */}
                 <div className="grid grid-cols-9 gap-4 text-center">
                     {selectDatas.map((selectData) => {
-                        return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
+                        return <SearchSelect
+                            setDatas={props.setDatas}
+                            datas={props.datas}
+                            name={selectData.name}
+                            selectData={selectData.selectOption}
+                            grid={selectData.grid} />
                     })}
                     {/* <div className="col-span-1"> */}
                     <button

@@ -28,42 +28,47 @@ function Warehouse(props) {
   }, []);
 
   // 창고 조건검색
-  const [clickSearch, setClickSearch] = useState(false)
+  const [clickSearch, setClickSearch] = useState(false);
   useEffect(() => {
-    if (clickSearch || createWarehouseSuc) {
+    axios.defaults.baseURL = warehouseURL;
+    if (clickSearch) {
       axios.get("/search", { params: datas }).then((res) => {
         setWarehouseList(res.data);
         setClickSearch(false);
+        console.log(datas, "우리가 보내는 data"); //우리가 보내는 data
+        console.log(res.data, " res.data 찍어보기");
       });
     }
-  }, [clickSearch, createWarehouseSuc])
+  }, [clickSearch, createWarehouseSuc]);
 
   //usestate
+  const [clickDelete, setClickDelete] = useState(false);
   const [warehouseList, setWarehouseList] = useState([]);
-  const [clickDelete, setClickDelete] = useState(false)
   const [datas, setDatas] = useState({
+    //순서 상관없음
     location: "전체보기",
     warehouse_code: "전체보기",
     purpose: "전체보기",
     warehouse_code_desc: "전체보기",
     use: "전체보기",
-    maximum_weight: 0,
-    maximum_count: 0,
+    min_maximum_weight: 0,
+    max_maximum_weight: 10000000,
+    min_maximum_count: 0,
+    max_maximum_count: 10000000,
     inventory_using: "전체보기",
     remarks: "전체보기",
   });
 
   const th = [
-    { "location": 100 },
-    { "warehouse_code": 100 },
-    { "purpose": 180 },
-    { "warehouse_code_desc": 180 },
-    { "use": 100 },
-    { "maximum_weight": 100 },
-    { "maximum_count": 100 },
-    { "inventory_using": 100 },
-    { "remarks": 100 },
-  ]
+    { location: 100 },
+    { warehouse_code: 100 },
+    { purpose: 180 },
+    { warehouse_code_desc: 180 },
+    { use: 100 },
+    { maximum_weight: 100 },
+    { maximum_count: 100 },
+    { inventory_using: 100 },
+  ];
 
   return (
     <div data-aos="fade-up" className="">
@@ -92,6 +97,7 @@ function Warehouse(props) {
             clickDelete={clickDelete}
             deleteBodyName="warehouseDeleteList"
             setClickDelete={setClickDelete}
+           
           />
         </div>
       </div>
