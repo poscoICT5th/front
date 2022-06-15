@@ -11,7 +11,7 @@ function SearchSelect(props) {
     };
     return (
         <div className={"col-span-" + props.grid}>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium">
                 {props.name}
             </label>
             <div className="col-span-2">

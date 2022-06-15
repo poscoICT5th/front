@@ -23,23 +23,32 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import TrendInventory from './components/Trend/TrendInventory'
 import { useThemeSwitcher } from "react-css-theme-switcher";
-import { Switch, Input } from "antd";
-
+// import { Switch } from "antd";
 function App() {
+  let nowURL = useLocation().pathname
+  let prePath = localStorage.getItem("prePath")
+  useEffect(() => {
+    if (prePath !== nowURL) {
+      console.log(prePath, nowURL)
+      localStorage.setItem("prePath", nowURL)
+      window.location.reload()
+    }
+  }, [nowURL])
+
+
+
   let userURL = useSelector((state) => state.userURL)
   let navigate = useNavigate();
   const [isLogin, setisLogin] = useState(localStorage.getItem('token'))
+  const [theme, setTheme] = useState(localStorage.getItem("theme"));
+  const { switcher, currentTheme, status, themes } = useThemeSwitcher();
+  const [viewSidebar, setViewSidebar] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  localStorage.setItem("URL", nowURL)
 
   useEffect(() => {
     Aos.init({ duration: 1000 });
-  }, []);
-
-  // useState
-  const [viewSidebar, setViewSidebar] = useState(false)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const nowURL = useLocation().pathname;
-  useEffect(() => {
-    // 제일 처음에는 사이드바 안보여주기
     if (nowURL === "/") {
       setViewSidebar(false)
     } else {
@@ -62,29 +71,52 @@ function App() {
         })
         .catch((err) => { console.log(err) })
     }
-  }, [nowURL])
+  }, []);
 
-  // 마우스위치 가져오기
-  // document.addEventListener('mousemove', logKey);
-  // function logKey(e) {
-  //   if (e.clientX < 5) {
-  //     setmouse(0)
-  //   }
-  // }
+  // 페이지전환될때 darkmode 확인
+  useEffect(() => {
+    var element = document.getElementById("theme");
+    if (isLogin) {
+      if (localStorage.getItem("theme") === "light") {
+        setTheme("light")
+        switcher({ theme: themes.light });
+        element.classList.remove("dark");
+        localStorage.setItem("theme", "light")
+      } else {
+        setTheme("dark")
+        switcher({ theme: themes.dark });
+        element.classList.add("dark");
+        localStorage.setItem("theme", "dark")
+      }
+    } else if (isLogin === false && nowURL !== "/") {
+      alert("로그인을 해주세요.")
+      navigate("/")
+    }
+  }, [])
 
-
-  const [isDarkMode, setIsDarkMode] = React.useState();
-  const { switcher, currentTheme, status, themes } = useThemeSwitcher();
-  if (status === "loading") {
-    return null;
+  function changeTheme(params) {
+    var element = document.getElementById("theme");
+    if (isLogin) {
+      if (localStorage.getItem("theme") === "dark") {
+        setTheme("light")
+        switcher({ theme: themes.light });
+        element.classList.remove("dark");
+        localStorage.setItem("theme", "light")
+      } else {
+        setTheme("dark")
+        switcher({ theme: themes.dark });
+        element.classList.add("dark");
+        localStorage.setItem("theme", "dark")
+      }
+    } else if (nowURL !== "/") {
+      alert("로그인을 해주세요.")
+      navigate("/")
+    }
   }
-  const toggleTheme = (isChecked) => {
-    setIsDarkMode(isChecked);
-    switcher({ theme: isChecked ? themes.dark : themes.light });
-  };
+
   return (
     <div data-aos="fade-up" className='fade-in'>
-      <div className={viewSidebar ? null : "hidden"}>
+      <div className={viewSidebar || isLogin ? null : "hidden"}>
         <div className='flex justify-between m-6'>
           <div className=''>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} onClick={() => { setSidebarOpen(true) }}>
@@ -92,7 +124,20 @@ function App() {
             </svg>
           </div>
           <div>
-            <Switch checked={isDarkMode} onChange={toggleTheme} className="" />
+            <button onClick={() => { changeTheme() }}>
+              {
+                theme === "light"
+                  ? <div> {/* light */}
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg></div>
+                  : <div> {/* dark */}
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                  </div>
+              }
+            </button>
           </div>
         </div>
       </div>
@@ -100,17 +145,23 @@ function App() {
         <div className="">
           {
             isLogin
-              ? <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+              ? <Sidebar
+                sidebarOpen={sidebarOpen}
+                setSidebarOpen={setSidebarOpen}
+                setTheme={setTheme}
+                theme={theme}
+                switcher={switcher}
+                themes={themes}
+              />
               : null
           }
           <div className="mx-auto mx-5 min-h-screen">
             <Header />
-
             {/* Routes */}
             <Routes>
               <Route index element={<Login />} />
               <Route path="/Dashboard" element={<Dashboard />} />
-              <Route path="/LogisticsImport" element={<LogisticsImport />} children />
+              <Route path="/LogisticsImport" element={<LogisticsImport />} />
               <Route path="/LogisticsExport" element={<LogisticsExport />} />
               <Route path="/LosgisticsMove" element={<LosgisticsMove />} />
               <Route path="/Inventory" element={<Inventory />} />

@@ -35,13 +35,11 @@ function Login() {
       }
     )
       .then((res) => {
-        console.log(res)
         localStorage.setItem("token", res.data.token)
         localStorage.setItem("sessionID", res.data.sessionID)
-        // var decoded = jwt_decode(res.data);
+        localStorage.setItem("theme", "light")
         navigate("/Dashboard");
       })
-
       .catch(() => {
       })
   }

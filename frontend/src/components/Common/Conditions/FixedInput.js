@@ -4,7 +4,7 @@ import React from 'react'
 function FixedInput(props) {
     return (
         <div className="col-span-1 text-center">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium">
                 {props.label}
             </label>
             <Input

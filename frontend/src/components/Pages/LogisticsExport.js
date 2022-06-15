@@ -58,7 +58,7 @@ function LogisticsExport() {
     max_ex_amount: 10000000,
     min_width: 0,
     max_width: 10000000,
-    target: "전체보기",
+    customer: "전체보기",
     order_date: "전체보기",
     inst_reg_date: "전체보기",
     inst_deadline: "전체보기",

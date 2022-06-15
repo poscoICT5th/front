@@ -21,17 +21,18 @@ function SidebarContent(props) {
 
   const [menu, setMenu] = useState(-1);
 
-  function logout(params) {
+  async function logout(params) {
     axios.defaults.baseURL = userURL
     axios.post('/logout')
       .then((res) => {
         localStorage.clear()
         sessionStorage.clear()
-        props.setSidebarOpen(false)
         alert("로그아웃되었습니다.");
         navigate('/')
+        window.location.reload();
       })
   }
+
 
   const sidebarDatas = [
     {
