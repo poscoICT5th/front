@@ -69,15 +69,15 @@ function Sidebar(props) {
                           </div>
                         </div>
                       </Dialog.Title>
-                      <div className="text-center grid grid-cols-5 gap-1 w-68 mx-auto hidden">
-                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-south-korea_1f1f0-1f1f7.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("kr")) }} />
-                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-united-states_1f1fa-1f1f8.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("en")) }} />
-                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-china_1f1e8-1f1f3.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("cn")) }} />
-                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-japan_1f1ef-1f1f5.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("jp")) }} />
-                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-vietnam_1f1fb-1f1f3.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("vn")) }} />
+                      <div className="text-center grid grid-cols-5 gap-1 w-60 mx-auto">
+                        <img className="cursor-pointer" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-south-korea_1f1f0-1f1f7.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("ko")); localStorage.setItem("language", "ko") }} />
+                        <img className="cursor-pointer" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-united-states_1f1fa-1f1f8.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("en")); localStorage.setItem("language", "en") }} />
+                        <img className="cursor-pointer" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-china_1f1e8-1f1f3.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("cn")); localStorage.setItem("language", "cn") }} />
+                        <img className="cursor-pointer" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-japan_1f1ef-1f1f5.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("jp")); localStorage.setItem("language", "jp") }} />
+                        <img className="cursor-pointer" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-vietnam_1f1fb-1f1f3.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("vn")); localStorage.setItem("language", "vn") }} />
                       </div>
                     </div>
-                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
+                    <div className="relative flex-1 px-4 sm:px-6">
                       <SidebarContent
                         setSidebarOpen={props.setSidebarOpen}
                       />

@@ -38,6 +38,7 @@ function Login() {
         localStorage.setItem("token", res.data.token)
         localStorage.setItem("sessionID", res.data.sessionID)
         localStorage.setItem("theme", "light")
+        localStorage.setItem("language", "ko")
         navigate("/Dashboard");
       })
       .catch(() => {

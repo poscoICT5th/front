@@ -40,13 +40,12 @@ function SearchLogisticsMove(props) {
     }, [props.datas.location])
 
     const selectDatas = [
-        { name: "location", selectOption: location, grid: 1 },
-        { name: "from_warehouse", selectOption: warehouse_codes, grid: 1 },
-        { name: "to_warehouse", selectOption: warehouse_codes, grid: 1 },
-        { name: "status", selectOption: statusMove, grid: 1 },
-        { name: "product_family", selectOption: product_family, grid: 1 },
-        { name: "unit", selectOption: unit, grid: 1 },
-        { name: "item_name", selectOption: item_names, grid: 1 },
+        { name: "location", selectOption: location, grid: 1, "ko": "지역", "cn": "", "jp": "", "vn": "" },
+        { name: "from_warehouse", selectOption: warehouse_codes, grid: 1, "ko": "출발창고", "cn": "", "jp": "", "vn": "" },
+        { name: "to_warehouse", selectOption: warehouse_codes, grid: 1, "ko": "도착창고", "cn": "", "jp": "", "vn": "" },
+        { name: "status", selectOption: statusMove, grid: 1, "ko": "상태", "cn": "", "jp": "", "vn": "" },
+        { name: "unit", selectOption: unit, grid: 1, "ko": "단위", "cn": "", "jp": "", "vn": "" },
+        { name: "item_name", selectOption: item_names, grid: 1, "ko": "제품명", "cn": "", "jp": "", "vn": "" },
     ]
     // const inputRangeDatas = [
     //     { name: "width", inputMin: "min_width", inputMax: "max_width" },
@@ -56,20 +55,21 @@ function SearchLogisticsMove(props) {
     //     { name: "move_amount", inputMin: "min_move_amount", inputMax: "max_move_amount" },
     // ]
     const inputDatas = [
-        { name: "min_width", type: "text", purpose: "search" },
-        { name: "max_width", type: "text", purpose: "search" },
-        { name: "min_thickness", type: "text", purpose: "search" },
-        { name: "max_thickness", type: "text", purpose: "search" },
-        { name: "min_height", type: "text", purpose: "search" },
-        { name: "max_height", type: "text", purpose: "search" },
-        { name: "min_weight", type: "text", purpose: "search" },
-        { name: "max_weight", type: "text", purpose: "search" },
-        { name: "min_move_amount", type: "text", purpose: "search" },
-        { name: "max_move_amount", type: "text", purpose: "search" },
-        { name: "lot_no", type: "text", purpose: "search" },
-        { name: "item_code", type: "text", purpose: "search" },
-        { name: "order_date", type: "date", purpose: "search" },
-        { name: "inst_deadline", type: "date", purpose: "search" },
+        { name: "min_width", type: "number", purpose: "search", "ko": "최소너비", "cn": "", "jp": "", "vn": "" },
+        { name: "max_width", type: "number", purpose: "search", "ko": "최대너비", "cn": "", "jp": "", "vn": "" },
+        { name: "min_thickness", type: "number", purpose: "search", "ko": "최소두께", "cn": "", "jp": "", "vn": "" },
+        { name: "max_thickness", type: "number", purpose: "search", "ko": "최대두께", "cn": "", "jp": "", "vn": "" },
+        { name: "min_height", type: "number", purpose: "search", "ko": "최소높이", "cn": "", "jp": "", "vn": "" },
+        { name: "max_height", type: "number", purpose: "search", "ko": "최대높이", "cn": "", "jp": "", "vn": "" },
+        { name: "min_weight", type: "number", purpose: "search", "ko": "최소무게", "cn": "", "jp": "", "vn": "" },
+        { name: "max_weight", type: "number", purpose: "search", "ko": "최대무게", "cn": "", "jp": "", "vn": "" },
+        { name: "min_move_amount", type: "text", purpose: "search", "ko": "최소이동량", "cn": "", "jp": "", "vn": "" },
+        { name: "max_move_amount", type: "text", purpose: "search", "ko": "최대이동량", "cn": "", "jp": "", "vn": "" },
+        { name: "lot_no", type: "text", purpose: "search", "ko": "롯트번호", "cn": "", "jp": "", "vn": "" },
+        { name: "item_code", type: "text", purpose: "search", "ko": "제품코드", "cn": "", "jp": "", "vn": "" },
+        { name: "inst_reg_date", type: "date", purpose: "search", "ko": "지시등록일", "cn": "", "jp": "", "vn": "" },
+        { name: "inst_deadline", type: "date", purpose: "search", "ko": "지시마감일", "cn": "", "jp": "", "vn": "" },
+        { name: "done_date", type: "date", purpose: "search", "ko": "완료일", "cn": "", "jp": "", "vn": "" },
     ]
     const { Panel } = Collapse;
     return (
@@ -103,7 +103,16 @@ function SearchLogisticsMove(props) {
                             return <InputRange setDatas={props.setDatas} datas={props.datas} name={inputRangeData.name} min={inputRangeData.inputMin} max={inputRangeData.inputMax} />
                         })} */}
                             {inputDatas.map((inputData) => {
-                                return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />
+                                return <InputText
+                                    setDatas={props.setDatas}
+                                    datas={props.datas}
+                                    name={inputData.name}
+                                    type={inputData.type}
+                                    ko={inputData.ko}
+                                    cn={inputData.cn}
+                                    vn={inputData.cn}
+                                    jp={inputData.jp}
+                                />
                             })}
                         </div>
                     </Panel>

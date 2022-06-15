@@ -54,13 +54,13 @@ function SearchLogisticsExport(props) {
   }, [props.datas.location])
 
   const selectDatas = [
-    { name: "location", selectOption: location, grid: 1 },
-    { name: "status", selectOption: statusExport, grid: 1 },
-    { name: "product_family", selectOption: product_family, grid: 1 },
-    { name: "unit", selectOption: unit, grid: 1 },
-    { name: "item_name", selectOption: item_names, grid: 1 },
-    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1 },
-    { name: "customer", selectOption: customers, grid: 1 },
+    { name: "location", selectOption: location, grid: 1, "ko": "지역", "cn": "", "jp": "", "vn": "" },
+    { name: "status", selectOption: statusExport, grid: 1, "ko": "상태", "cn": "", "jp": "", "vn": "" },
+    { name: "product_family", selectOption: product_family, grid: 1, "ko": "제품군", "cn": "", "jp": "", "vn": "" },
+    { name: "unit", selectOption: unit, grid: 1, "ko": "단위", "cn": "", "jp": "", "vn": "" },
+    { name: "item_name", selectOption: item_names, grid: 1, "ko": "제품명", "cn": "", "jp": "", "vn": "" },
+    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1, "ko": "창고코드", "cn": "", "jp": "", "vn": "" },
+    { name: "customer", selectOption: customers, grid: 1, "ko": "고객사", "cn": "", "jp": "", "vn": "" },
   ]
   // const inputRangeDatas = [
   //   { name: "width", inputMin: "min_width", inputMax: "max_width" },
@@ -71,22 +71,22 @@ function SearchLogisticsExport(props) {
   //   { name: "ex_amount", inputMin: "min_ex_amount", inputMax: "max_ex_amount" },
   // ]
   const inputDatas = [
-    { name: "min_width", type: "number", purpose: "search" },
-    { name: "max_width", type: "number", purpose: "search" },
-    { name: "min_thickness", type: "number", purpose: "search" },
-    { name: "max_thickness", type: "number", purpose: "search" },
-    { name: "min_height", type: "number", purpose: "search" },
-    { name: "max_height", type: "number", purpose: "search" },
-    { name: "min_weight", type: "number", purpose: "search" },
-    { name: "max_weight", type: "number", purpose: "search" },
-    { name: "min_order_amount", type: "number", purpose: "search" },
-    { name: "max_order_amount", type: "number", purpose: "search" },
-    { name: "min_ex_amount", type: "number", purpose: "search" },
-    { name: "max_ex_amount", type: "number", purpose: "search" },
-    { name: "lot_no", type: "text", purpose: "search" },
-    { name: "item_code", type: "text", purpose: "search" },
-    { name: "order_date", type: "date", purpose: "search" },
-    { name: "inst_deadline", type: "date", purpose: "search" },
+    { name: "min_width", type: "number", purpose: "search", "ko": "최소너비", "cn": "", "jp": "", "vn": "" },
+    { name: "max_width", type: "number", purpose: "search", "ko": "최대너비", "cn": "", "jp": "", "vn": "" },
+    { name: "min_thickness", type: "number", purpose: "search", "ko": "최소두께", "cn": "", "jp": "", "vn": "" },
+    { name: "max_thickness", type: "number", purpose: "search", "ko": "최대두께", "cn": "", "jp": "", "vn": "" },
+    { name: "min_height", type: "number", purpose: "search", "ko": "최소높이", "cn": "", "jp": "", "vn": "" },
+    { name: "max_height", type: "number", purpose: "search", "ko": "최대높이", "cn": "", "jp": "", "vn": "" },
+    { name: "min_weight", type: "number", purpose: "search", "ko": "최소무게", "cn": "", "jp": "", "vn": "" },
+    { name: "max_weight", type: "number", purpose: "search", "ko": "최대무게", "cn": "", "jp": "", "vn": "" },
+    { name: "min_order_amount", type: "number", purpose: "search", "ko": "최소주문량", "cn": "", "jp": "", "vn": "" },
+    { name: "max_order_amount", type: "number", purpose: "search", "ko": "최대주문량", "cn": "", "jp": "", "vn": "" },
+    { name: "min_ex_amount", type: "number", purpose: "search", "ko": "최소출고량", "cn": "", "jp": "", "vn": "" },
+    { name: "max_ex_amount", type: "number", purpose: "search", "ko": "최대출고량", "cn": "", "jp": "", "vn": "" },
+    { name: "lot_no", type: "text", purpose: "search", "ko": "로트번호", "cn": "", "jp": "", "vn": "" },
+    { name: "item_code", type: "text", purpose: "search", "ko": "물품번호", "cn": "", "jp": "", "vn": "" },
+    { name: "order_date", type: "date", purpose: "search", "ko": "주문일", "cn": "", "jp": "", "vn": "" },
+    { name: "inst_deadline", type: "date", purpose: "search", "ko": "지시마감일", "cn": "", "jp": "", "vn": "" },
   ]
   const { Panel } = Collapse;
   return (
@@ -94,7 +94,17 @@ function SearchLogisticsExport(props) {
       <div className="px-4 py-5 sm:p-6 rounded-lg">
         <div className="grid grid-cols-9 gap-4 text-center">
           {selectDatas.map((selectData) => {
-            return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
+            return <SearchSelect
+              setDatas={props.setDatas}
+              datas={props.datas}
+              name={selectData.name}
+              selectData={selectData.selectOption}
+              grid={selectData.grid}
+              ko={selectData.ko}
+              cn={selectData.cn}
+              vn={selectData.cn}
+              jp={selectData.jp}
+            />
           })}
           <button
             className="mt-5 col-span-1 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
@@ -118,7 +128,16 @@ function SearchLogisticsExport(props) {
           <Panel header="상세검색" key="1" className="site-collapse-custom-panel">
             <div className="grid grid-cols-6 gap-4 text-center mt-5">
               {inputDatas.map((inputData) => {
-                return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />
+                return <InputText
+                  setDatas={props.setDatas}
+                  datas={props.datas}
+                  name={inputData.name}
+                  type={inputData.type}
+                  ko={inputData.ko}
+                  cn={inputData.cn}
+                  vn={inputData.cn}
+                  jp={inputData.jp}
+                />
               })}
             </div>
           </Panel>

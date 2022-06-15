@@ -135,7 +135,7 @@ export let { handleCreateWarehouseSuc } = createWarehouseSuc.actions;
 // language
 let language = createSlice({
   name: "language",
-  initialState: "kr",
+  initialState: localStorage.getItem("language"),
   reducers: {
     handleLanguage(state, newState) {
       return newState;
