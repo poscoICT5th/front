@@ -10,6 +10,9 @@ export default function ChartColumn() {
       chart: {
         type: "column"
       }, // type of the chart
+      credits: {
+        enabled: false
+      },
       title: {
         text: "Column Chart"
       }, // title of the chart

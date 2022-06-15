@@ -3,6 +3,8 @@ import { Table } from 'antd';
 import axios from 'axios';
 import Barcode from '../Functions/Barcode'
 import Detail from '../Detail/Detail';
+import Detailupdate from '../Detail/Detailupdate';
+import { Warehouse } from '@mui/icons-material';
 
 function TableList(props) {
     const columns = [];
@@ -10,6 +12,7 @@ function TableList(props) {
     // select
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [openDetail, setOpenDetail] = useState(false)
+    const [openDetailUpdate, setopenDetailUpdate] = useState(false)
     const onSelectChange = (newSelectedRowKeys) => {
         setSelectedRowKeys(newSelectedRowKeys);
         console.log('selectedRowKeys changed: ', selectedRowKeys);
@@ -61,6 +64,7 @@ function TableList(props) {
     }, [props.clickDelete])
 
     const [detailData, setDetailData] = useState({})
+    const [openUpdate, setOpenUpdate] = useState(false);
     return (
         <div>
             <Table
@@ -84,7 +88,9 @@ function TableList(props) {
                     // y: 1500,
                 }}
             />
-            <Detail openDetail={openDetail} setOpenDetail={setOpenDetail} detailData={detailData} />
+            <Detail openDetail={openDetail} setOpenDetail={setOpenDetail} detailData={detailData} title={props.title}  setOpenUpdate={setOpenUpdate}
+            openUpdate={openUpdate}/>
+           
         </div>
     )
 }

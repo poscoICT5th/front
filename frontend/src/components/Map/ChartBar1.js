@@ -23,6 +23,9 @@ function ChartBar1(props) {
       title: {
         text: "",
       },
+      credits: {
+        enabled: false
+      },
       plotOptions: {
         series: {
           dataLabels: {

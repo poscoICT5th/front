@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Highcharts from "highcharts";
 import "./styles.css";
 //6월 13일 line chart 구현 
-export default function ChartLine() {
+export default function ChartLine1() {
   const refContainer = useRef(null);
   useEffect(() => {
     Highcharts.chart(refContainer.current, {
@@ -13,19 +13,18 @@ export default function ChartLine() {
         enabled: false
       },
       title: {
-        text: "제품군 별 재고 추이"
+        text: " 재고 추이"
       },
       subtitle: {
         text: ""
       },
       xAxis: {
         categories: [
-          "1/1/2022",
-          "1/2/2022",
-          "1/3/2022",
-          "1/4/2022",
-          "1/5/2022",
-          "1/6/2022"
+          "1/6/2022",
+          "8/6/2022",
+          "15/6/2022",
+          "22/6/2022",
+          "29/6/2022"
         ], // the categories of the X Axis
         crosshair: true
       },
@@ -43,16 +42,16 @@ export default function ChartLine() {
       }, // tooltip appears when hovering over a point
       series: [
         {
-          name: "반제품",
-          data: [4706, 4702, 3979, 2547, 3999,5555]
+          name: "포항",
+          data: [4706, 4702, 3979, 2547, 3999]
         },
         {
-          name: "완제품",
-          data: [5555, 8000, 3000, 4000, 7000,5555]
+          name: "천안",
+          data: [5555, 8000, 3000, 4000, 7000]
         },
         {
-          name: "불량품",
-          data: [5555, 5000, 7000, 3000, 7000, 5555]
+          name: "광양",
+          data: [5555, 5000, 7000, 3000, 7000]
         },
       ]
     });
