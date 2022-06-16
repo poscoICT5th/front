@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { location, unit } from '../Common/Conditions/SelectOptionsCreate'
+import { location, product_family, unit } from '../Common/Conditions/SelectOptionsCreate'
 import CreateRequest from './CreateRequest'
 import { handleCreateExportSuc } from '../../store'
 
@@ -10,7 +10,7 @@ function CreateExport(props) {
   let warehouseURL = useSelector((state) => state.warehouseURL)
   let inventoryURL = useSelector((state) => state.inventoryURL)
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
-  let handleCreateExportSuc = useSelector((state) => state.handleCreateExportSuc)
+  // let createExportSuc = useSelector((state) => state.createExportSuc)
 
   const [warehouse_codes, setWarehouse_codes] = useState([])
   const [item_names, setItem_names] = useState([])
@@ -19,23 +19,24 @@ function CreateExport(props) {
   const [lot_no_data, setLot_no_data] = useState({})
   // 출고
   const [exportDatas, setExportDatas] = useState({
-    location: "",
-    target: "",
     lot_no: "",
     item_code: "",
     item_name: "",
-    width: 0,
-    weight: 0,
-    thickness: 0,
-    height: 0,
     order_amount: 0,
-    from_warehouse: "",
     ex_amount: 0,
     ex_remain: 0,
+    unit: "",
+    weight: 0,
+    width: 0,
+    thickness: 0,
+    height: 0,
+    product_family: "",
+    location: "",
+    from_warehouse: "",
+    customer: "",
     order_date: "",
     inst_deadline: "",
-    done_date: "",
-    unit: "",
+
   })
   // 지역정보 보내면 창고목록 가져오기
   useEffect(() => {
@@ -103,28 +104,24 @@ function CreateExport(props) {
         "item_name": lot_no_data[exportDatas.lot_no].item_name
       }))
     } else {
-      console.log("lot_no 값없음")
+
     }
   }, [exportDatas.lot_no])
 
-
   const export_selectDatas = [
-    { name: "location", selectOption: location, grid: 1 },
-    { name: "from_warehouse", selectOption: warehouse_codes, grid: 1 },
-    { name: "lot_no", selectOption: lot_nos, grid: 1 },
-    { name: "unit", selectOption: unit, grid: 1 },
-    { name: "customer", selectOption: customers, grid: 1 },
+    { name: "location", selectOption: location, grid: 1, purpose: "create", "ko": "롯트번호", "cn": "LOT", "jp": "LOT", "vn": "LOT" },
+    { name: "from_warehouse", selectOption: warehouse_codes, grid: 1, purpose: "create", "ko": "출발창고", "cn": "出发仓库", "jp": "出発倉庫", "vn": "kho xuất phát" },
+    { name: "lot_no", selectOption: lot_nos, grid: 1, purpose: "create", "ko": "롯트번호", "cn": "LOT", "jp": "LOT", "vn": "LOT" },
+    { name: "unit", selectOption: unit, grid: 1, purpose: "create", "ko": "단위", "cn": "单位", "jp": "単位", "vn": "đơn vị" },
+    { name: "customer", selectOption: customers, grid: 1, purpose: "create", "ko": "고객사", "cn": "客户公司", "jp": "顧客会社", "vn": "công ty khách hàng" },
+    { name: "product_family", selectOption: product_family, grid: 1, purpose: "create", "ko": "제품군", "cn": "产品群", "jp": "製品群", "vn": "dòng sản phẩm" },
   ]
   const export_inputDatas = [
-    // { name: "item_code", type: "text", value: exportDatas.item_code, purpose: "create" },
-    // { name: "weight", type: "number", value: exportDatas.weight, purpose: "create" },
-    // { name: "thickness", type: "number", value: exportDatas.thickness, purpose: "create" },
-    // { name: "height", type: "number", value: exportDatas.height, purpose: "create" },
-    { name: "order_amount", type: "number", purpose: "create" },
-    { name: "ex_amount", type: "number", purpose: "create" },
-    { name: "ex_remain", type: "number", purpose: "create" },
-    { name: "order_date", type: "date", purpose: "create" },
-    { name: "inst_deadline", type: "date", purpose: "create" },
+    { name: "order_amount", type: "number", purpose: "create", "ko": "주문량", "cn": "订货量", "jp": "注文量", "vn": "lượng đặt hàng", },
+    { name: "ex_amount", type: "number", purpose: "create", "ko": "출고량", "cn": "出库量", "jp": "出庫量", "vn": "lượng xuất kho", },
+    { name: "ex_remain", type: "number", purpose: "create", "ko": "출고잔량", "cn": "出库余量", "jp": "出庫残量", "vn": "số dư xuất kho", },
+    { name: "order_date", type: "date", purpose: "create", "ko": "주문일", "cn": "订货日", "jp": "注文日", "vn": "ngày đặt hàng", },
+    { name: "inst_deadline", type: "date", purpose: "create", "ko": "지시마감일", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị", },
   ]
   // function
   function request() {

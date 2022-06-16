@@ -4,9 +4,11 @@ import axios from 'axios';
 import Barcode from '../Functions/Barcode'
 import Detail from '../Detail/Detail';
 import Detailupdate from '../Detail/Detailupdate';
-import { Warehouse } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 
 function TableList(props) {
+    let store_language = useSelector((state) => state.language)
+    console.log(store_language)
     const columns = [];
     const data = [];
     // select
@@ -21,23 +23,23 @@ function TableList(props) {
         selectedRowKeys,
         onChange: onSelectChange,
     };
-    //
-    // column, data 넣기 
+    // columns 넣기 
     props.th.forEach(element => {
         columns.push(
             {
-                title: Object.keys(element)[0],
-                dataIndex: Object.keys(element)[0],
-                key: Object.keys(element)[0],
-                width: Object.values(element)[0],
+                title: element[localStorage.getItem("language")],
+                dataIndex: element.en,
+                key: element.en,
+                // width: element.size,
                 align: "center",
             },
         )
     })
 
+    // rows 넣기
     props.dataList.forEach(element => {
         if (props.title === "logistics") {
-            data.push({ key: element.instruction_no, ...element, "barcode": <Barcode itemData={element} /> })
+            data.push({ key: element.instruction_no, ...element, "Barcode": <Barcode itemData={element} /> })
         } else if (props.title === "inventory") {
             data.push({ key: element.lot_no, ...element })
         } else if (props.title === "warehouse") {
@@ -84,13 +86,13 @@ function TableList(props) {
                 pagination={{ pageSize: 30 }}
                 size="small"
                 scroll={{
-                    x: 1500,
+                    x: 3000,
                     // y: 1500,
                 }}
             />
-            <Detail openDetail={openDetail} setOpenDetail={setOpenDetail} detailData={detailData} title={props.title}  setOpenUpdate={setOpenUpdate}
-            openUpdate={openUpdate}/>
-           
+            <Detail openDetail={openDetail} setOpenDetail={setOpenDetail} detailData={detailData} title={props.title} setOpenUpdate={setOpenUpdate}
+                openUpdate={openUpdate} />
+
         </div>
     )
 }

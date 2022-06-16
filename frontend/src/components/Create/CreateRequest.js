@@ -8,10 +8,10 @@ import FixedInput from '../Common/Conditions/FixedInput'
 function CreateRequest(props) {
     const cancelButtonRef = useRef(null)
     const [fixed_Datas, setFixed_Datas] = useState([
-        { name: "item_code", type: "text", purpose: "fixed", value: props.datas.item_code },
-        { name: "weight", type: "number", purpose: "fixed", value: props.datas.weight },
-        { name: "thickness", type: "number", purpose: "fixed", value: props.datas.thickness },
-        { name: "height", type: "number", purpose: "fixed", value: props.datas.height },
+        { name: "item_code", type: "text", purpose: "fixed", value: props.datas.item_code, "ko": "제품코드", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm" },
+        { name: "weight", type: "number", purpose: "fixed", value: props.datas.weightm, "ko": "무게", "cn": "份量", "jp": "重さ", "vn": "trọng lượng", },
+        { name: "thickness", type: "number", purpose: "fixed", value: props.datas.thickness, "ko": "두께", "cn": "厚度", "jp": "厚さ", "vn": "độ dày" },
+        { name: "height", type: "number", purpose: "fixed", value: props.datas.height, "ko": "높이", "cn": "高度", "jp": "高さ", "vn": "chiều cao", },
     ])
 
     return (
@@ -54,10 +54,29 @@ function CreateRequest(props) {
                                                                     {/* select */}
                                                                     <div className="grid grid-cols-4 gap-4 text-center mb-5">
                                                                         {props.selectDatas.map((selectData) => {
-                                                                            return <SearchSelect setDatas={props.setDatas} datas={props.datas} name={selectData.name} selectData={selectData.selectOption} grid={selectData.grid} />
+                                                                            return <SearchSelect
+                                                                                setDatas={props.setDatas}
+                                                                                datas={props.datas}
+                                                                                name={selectData.name}
+                                                                                selectData={selectData.selectOption}
+                                                                                grid={selectData.grid}
+                                                                                ko={selectData.ko}
+                                                                                cn={selectData.cn}
+                                                                                jp={selectData.jp}
+                                                                                vn={selectData.vn} />
                                                                         })}
                                                                         {props.inputDatas.map((inputData) => {
-                                                                            return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} purpose={inputData.purpose} />
+                                                                            return <InputText
+                                                                                setDatas={props.setDatas}
+                                                                                datas={props.datas}
+                                                                                name={inputData.name}
+                                                                                type={inputData.type}
+                                                                                purpose={inputData.purpose}
+                                                                                ko={inputData.ko}
+                                                                                cn={inputData.cn}
+                                                                                jp={inputData.jp}
+                                                                                vn={inputData.vn}
+                                                                            />
                                                                         })}
                                                                     </div>
                                                                     {

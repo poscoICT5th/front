@@ -188,7 +188,7 @@ function SidebarContent(props) {
   return (
     <div>
       <div className="">
-        <div className="flex flex-col h-full justify-between">
+        <div className="flex flex-col h-screen justify-between">
           <div className="px-4 py-2">
             <nav className="flex flex-col mt-6 space-y-1">
               <div

@@ -17,19 +17,19 @@ function CreateMove(props) {
     const [lot_nos, setLot_nos] = useState([])
     const [lot_no_data, setLot_no_data] = useState({})
     const [moveDatas, setMoveDatas] = useState({
-        location: "",
         lot_no: "",
         item_code: "",
         item_name: "",
-        width: 0,
+        move_amount: 0,
+        unit: "",
         weight: 0,
+        width: 0,
         thickness: 0,
         height: 0,
-        move_amount: 0,
+        location: "",
         from_warehouse: "",
         to_warehouse: "",
         inst_deadline: "",
-        unit: "",
     })
     // useEffect
     // 지역에 따라서 창고목록변경
@@ -92,25 +92,21 @@ function CreateMove(props) {
     }, [moveDatas.lot_no])
 
     const move_selectDatas = [
-        { name: "location", selectOption: location, grid: 1 },
-        { name: "from_warehouse", selectOption: warehouse_codes, grid: 1 },
-        { name: "lot_no", selectOption: lot_nos, grid: 1 },
-        { name: "to_warehouse", selectOption: warehouse_codes, grid: 1 },
-        { name: "unit", selectOption: unit, grid: 1 },
+        { name: "location", selectOption: location, grid: 1, purpose: "create", "ko": "롯트번호", "cn": "LOT", "jp": "LOT", "vn": "LOT" },
+        { name: "from_warehouse", selectOption: warehouse_codes, grid: 1, purpose: "create", "ko": "출발창고", "cn": "出发仓库", "jp": "出発倉庫", "vn": "kho xuất phát" },
+        { name: "to_warehouse", selectOption: warehouse_codes, grid: 1, purpose: "create", "ko": "출발창고", "cn": "出发仓库", "jp": "出発倉庫", "vn": "kho xuất phát" },
+        { name: "lot_no", selectOption: lot_nos, grid: 1, purpose: "create", "ko": "롯트번호", "cn": "LOT", "jp": "LOT", "vn": "LOT" },
+        { name: "unit", selectOption: unit, grid: 1, purpose: "create", "ko": "단위", "cn": "单位", "jp": "単位", "vn": "đơn vị" },
+
     ]
     const move_inputDatas = [
-        // { name: "item_code", type: "text", purpose: "create" },
-        // { name: "item_name", type: "text", purpose: "create" },
-        // { name: "width", type: "number", purpose: "create" },
-        // { name: "weight", type: "number", purpose: "create" },
-        // { name: "thickness", type: "number", purpose: "create" },
-        // { name: "height", type: "number", purpose: "create" },
-        { name: "move_amount", type: "number", purpose: "create" },
-        { name: "inst_deadline", type: "date", purpose: "create" },
+        { name: "move_amount", type: "number", purpose: "create", "ko": "이동량", "cn": "移动量", "jp": "移動量", "vn": "lượng di chuyển", },
+        { name: "inst_deadline", type: "date", purpose: "create", "ko": "지시마감일", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị", },
     ]
 
     // function
     function request(params) {
+        console.log(moveDatas)
         axios.post('/move',
             moveDatas)
             .then((res) => {

@@ -11,7 +11,7 @@ function SearchSelect(props) {
     const handleChange = (value) => {
         props.setDatas({ ...props.datas, [props.name]: value });
     };
-    let store_language = useSelector((state) => state.language)
+    let store_language = useSelector((state) => state.language.payload)
     const [language, setLanguage] = useState("")
     const [label, setLabel] = useState(props.ko)
     useEffect(() => {

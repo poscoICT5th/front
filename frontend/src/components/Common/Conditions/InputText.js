@@ -36,9 +36,30 @@ function InputText(props) {
         }
     }, [])
 
-    const onChange = (date, dateString) => {
-        console.log(date, dateString);
+
+
+    function onChangeDate(dateString) {
+        if (props.purpose === "search" && dateString === "") {
+            console.log("값비었음")
+            props.setDatas({ ...props.datas, [props.name]: "전체보기" });
+        } else {
+            props.setDatas({ ...props.datas, [props.name]: dateString });
+        }
     };
+
+    function onChangeInput(value) {
+        if (props.purpose === "search" && value.target.value === "" && props.type === "text") {
+            props.setDatas({ ...props.datas, [props.name]: "전체보기" });
+        } else if (props.purpose === "search" && value.target.value === "" && props.type === "number") {
+            if (props.name.includes('min')) {
+                props.setDatas({ ...props.datas, [props.name]: 0 });
+            } else {
+                props.setDatas({ ...props.datas, [props.name]: 10000000 });
+            }
+        } else {
+            props.setDatas({ ...props.datas, [props.name]: value.target.value });
+        }
+    }
     return (
         <div className="col-span-1">
             <label className="block text-sm font-medium">
@@ -59,8 +80,9 @@ function InputText(props) {
                                 : false}
                         autoComplete="address-level2"
                         className="block w-full rounded-md text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
-                        onChange={(e) => { props.setDatas({ ...props.datas, [props.name]: e.target.value }); }}
-                        placeholder={props.name}
+                        onChange={(e) => { onChangeInput(e) }}
+                        placeholder={label}
+                        allowClear
                     />
                     :
                     <DatePicker
@@ -69,9 +91,10 @@ function InputText(props) {
                         id={props.name}
                         autoComplete="address-level2"
                         className="block w-full rounded-md text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
-                        onChange={(date, dateString) => { props.setDatas({ ...props.datas, [props.name]: dateString }); }}
-                        placeholder={props.name}
+                        onChange={(date, dateString) => { onChangeDate(dateString) }}
+                        placeholder={label}
                         placement='topLeft'
+                        allowClear
                     />
             }
         </div>

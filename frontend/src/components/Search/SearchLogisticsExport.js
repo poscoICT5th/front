@@ -54,39 +54,34 @@ function SearchLogisticsExport(props) {
   }, [props.datas.location])
 
   const selectDatas = [
-    { name: "location", selectOption: location, grid: 1, "ko": "지역", "cn": "", "jp": "", "vn": "" },
-    { name: "status", selectOption: statusExport, grid: 1, "ko": "상태", "cn": "", "jp": "", "vn": "" },
-    { name: "product_family", selectOption: product_family, grid: 1, "ko": "제품군", "cn": "", "jp": "", "vn": "" },
-    { name: "unit", selectOption: unit, grid: 1, "ko": "단위", "cn": "", "jp": "", "vn": "" },
-    { name: "item_name", selectOption: item_names, grid: 1, "ko": "제품명", "cn": "", "jp": "", "vn": "" },
-    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1, "ko": "창고코드", "cn": "", "jp": "", "vn": "" },
-    { name: "customer", selectOption: customers, grid: 1, "ko": "고객사", "cn": "", "jp": "", "vn": "" },
+    { name: "location", selectOption: location, grid: 1, purpose: "search", "ko": "지역", "cn": "地域", "jp": "地域", "vn": "khu vực" },
+    { name: "status", selectOption: statusExport, grid: 1, purpose: "search", "ko": "상태", "cn": "状态", "jp": "状態", "vn": "trạng thái" },
+    { name: "product_family", selectOption: product_family, grid: 1, purpose: "search", "ko": "제품군", "cn": "产品群", "jp": "製品群", "vn": "dòng sản phẩm" },
+    { name: "unit", selectOption: unit, grid: 1, purpose: "search", "ko": "단위", "cn": "单位", "jp": "単位", "vn": "đơn vị" },
+    { name: "item_name", selectOption: item_names, grid: 1, purpose: "search", "ko": "제품명", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là" },
+    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1, purpose: "search", "ko": "창고코드", "cn": "仓库代码", "jp": "倉庫コード", "vn": "mã kho" },
+    { name: "customer", selectOption: customers, grid: 1, purpose: "search", "ko": "고객사", "cn": "客户公司", "jp": "顧客会社", "vn": "công ty khách hàng" },
   ]
-  // const inputRangeDatas = [
-  //   { name: "width", inputMin: "min_width", inputMax: "max_width" },
-  //   { name: "thickness", inputMin: "min_thickness", inputMax: "max_thickness" },
-  //   { name: "height", inputMin: "min_height", inputMax: "max_height" },
-  //   { name: "weight", inputMin: "min_weight", inputMax: "max_weight" },
-  //   { name: "order_amount", inputMin: "min_order_amount", inputMax: "max_order_amount" },
-  //   { name: "ex_amount", inputMin: "min_ex_amount", inputMax: "max_ex_amount" },
-  // ]
+
   const inputDatas = [
-    { name: "min_width", type: "number", purpose: "search", "ko": "최소너비", "cn": "", "jp": "", "vn": "" },
-    { name: "max_width", type: "number", purpose: "search", "ko": "최대너비", "cn": "", "jp": "", "vn": "" },
-    { name: "min_thickness", type: "number", purpose: "search", "ko": "최소두께", "cn": "", "jp": "", "vn": "" },
-    { name: "max_thickness", type: "number", purpose: "search", "ko": "최대두께", "cn": "", "jp": "", "vn": "" },
-    { name: "min_height", type: "number", purpose: "search", "ko": "최소높이", "cn": "", "jp": "", "vn": "" },
-    { name: "max_height", type: "number", purpose: "search", "ko": "최대높이", "cn": "", "jp": "", "vn": "" },
-    { name: "min_weight", type: "number", purpose: "search", "ko": "최소무게", "cn": "", "jp": "", "vn": "" },
-    { name: "max_weight", type: "number", purpose: "search", "ko": "최대무게", "cn": "", "jp": "", "vn": "" },
-    { name: "min_order_amount", type: "number", purpose: "search", "ko": "최소주문량", "cn": "", "jp": "", "vn": "" },
-    { name: "max_order_amount", type: "number", purpose: "search", "ko": "최대주문량", "cn": "", "jp": "", "vn": "" },
-    { name: "min_ex_amount", type: "number", purpose: "search", "ko": "최소출고량", "cn": "", "jp": "", "vn": "" },
-    { name: "max_ex_amount", type: "number", purpose: "search", "ko": "최대출고량", "cn": "", "jp": "", "vn": "" },
-    { name: "lot_no", type: "text", purpose: "search", "ko": "로트번호", "cn": "", "jp": "", "vn": "" },
-    { name: "item_code", type: "text", purpose: "search", "ko": "물품번호", "cn": "", "jp": "", "vn": "" },
-    { name: "order_date", type: "date", purpose: "search", "ko": "주문일", "cn": "", "jp": "", "vn": "" },
-    { name: "inst_deadline", type: "date", purpose: "search", "ko": "지시마감일", "cn": "", "jp": "", "vn": "" },
+    { name: "min_width", type: "number", purpose: "search", "ko": "최소너비", "cn": "最小宽度", "jp": "最小幅", "vn": "bề rộng tối thiểu" },
+    { name: "max_width", type: "number", purpose: "search", "ko": "최대너비", "cn": "最大宽度", "jp": "最大幅", "vn": "chiều rộng tối đa" },
+    { name: "min_thickness", type: "number", purpose: "search", "ko": "최소두께", "cn": "最小厚度", "jp": "最小厚さ", "vn": "độ dày tối thiểu" },
+    { name: "max_thickness", type: "number", purpose: "search", "ko": "최대두께", "cn": "最大厚度", "jp": "最大厚さ", "vn": "độ dày tối đa" },
+    { name: "min_height", type: "number", purpose: "search", "ko": "최소높이", "cn": "最小高度", "jp": "最小高さ", "vn": "độ cao tối thiểu" },
+    { name: "max_height", type: "number", purpose: "search", "ko": "최대높이", "cn": "最大高度", "jp": "最大高さ", "vn": "chiều cao tối đa" },
+    { name: "min_weight", type: "number", purpose: "search", "ko": "최소무게", "cn": "最小重量", "jp": "最小重量", "vn": "Trọng lượng tối thiểu" },
+    { name: "max_weight", type: "number", purpose: "search", "ko": "최대무게", "cn": "最大重量", "jp": "最大重量", "vn": "trọng lượng tối đa" },
+    { name: "min_order_amount", type: "number", purpose: "search", "ko": "최소주문량", "cn": "最低订货量", "jp": "最小注文量", "vn": "lượng đặt hàng tối thiểu" },
+    { name: "max_order_amount", type: "number", purpose: "search", "ko": "최대주문량", "cn": "最大订货量", "jp": "最大注文量", "vn": "lượng đặt hàng tối đa" },
+    { name: "min_ex_amount", type: "number", purpose: "search", "ko": "최소출고량", "cn": "最低出库量", "jp": "最小出庫量", "vn": "lượng xuất kho tối thiểu" },
+    { name: "max_ex_amount", type: "number", purpose: "search", "ko": "최대출고량", "cn": "最大出库量", "jp": "最大出庫量", "vn": "lượng xuất kho tối đa" },
+    { name: "lot_no", type: "text", purpose: "search", "ko": "롯트번호", "cn": "LOT", "jp": "LOT", "vn": "LOT" },
+    { name: "item_code", type: "text", purpose: "search", "ko": "제품코드", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm" },
+    { name: "order_date", type: "date", purpose: "search", "ko": "주문일", "cn": "订货日", "jp": "注文日", "vn": "ngày đặt hàng" },
+    { name: "inst_reg_date", type: "date", purpose: "search", "ko": "지시등록일", "cn": "指示登记日", "jp": "指示登録日", "vn": "ngày đăng ký chỉ thị" },
+    { name: "inst_deadline", type: "date", purpose: "search", "ko": "지시마감일", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị" },
+    { name: "done_date", type: "date", purpose: "search", "ko": "완료일", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành" },
   ]
   const { Panel } = Collapse;
   return (
@@ -99,10 +94,11 @@ function SearchLogisticsExport(props) {
               datas={props.datas}
               name={selectData.name}
               selectData={selectData.selectOption}
+              purpose={selectData.purpose}
               grid={selectData.grid}
               ko={selectData.ko}
               cn={selectData.cn}
-              vn={selectData.cn}
+              vn={selectData.vn}
               jp={selectData.jp}
             />
           })}
@@ -133,6 +129,7 @@ function SearchLogisticsExport(props) {
                   datas={props.datas}
                   name={inputData.name}
                   type={inputData.type}
+                  purpose={inputData.purpose}
                   ko={inputData.ko}
                   cn={inputData.cn}
                   vn={inputData.cn}
