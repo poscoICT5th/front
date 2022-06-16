@@ -66,7 +66,7 @@ function TableList(props) {
     }, [props.clickDelete])
 
     const [detailData, setDetailData] = useState({})
-    const [openUpdate, setOpenUpdate] = useState(false);
+    
     return (
         <div>
             <Table
@@ -90,9 +90,12 @@ function TableList(props) {
                     // y: 1500,
                 }}
             />
-            <Detail openDetail={openDetail} setOpenDetail={setOpenDetail} detailData={detailData} title={props.title} setOpenUpdate={setOpenUpdate}
-                openUpdate={openUpdate} />
-
+            <Detail openDetail={openDetail}
+                setOpenDetail={setOpenDetail}
+                detailData={detailData}
+                title={props.title}
+               />
+           
         </div>
     )
 }
