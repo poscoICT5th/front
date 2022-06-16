@@ -59,7 +59,10 @@ function InputText(props) {
                                 : false}
                         autoComplete="address-level2"
                         className="block w-full rounded-md text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
-                        onChange={(e) => { props.setDatas({ ...props.datas, [props.name]: e.target.value }); }}
+                        onChange={(e) => {
+                            props.setDatas
+                            ({ ...props.datas, [props.name]: e.target.value });
+                        }}
                         placeholder={props.name}
                     />
                     :

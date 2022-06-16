@@ -3,10 +3,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import Detail from '../Detail/Detail';
 
 function Detailupdate(props) {
-  const cancelButtonRef = useRef(null);
-  const [openDetail, setOpenDetail] = useState(false)
-  const [detailData, setDetailData] = useState({})
-  const [openUpdate, setOpenUpdate] = useState(false);
+  // const cancelButtonRef = useRef(null);
+
   return (
     // 버튼 false  바꾸고 오픈 으로
     // 하나 꺼주는 버 튼 만들기
@@ -14,8 +12,8 @@ function Detailupdate(props) {
     <div>
       <button
         onClick={() => {
-          props.setOpenDetail(false); //false
-          props.setOpenUpdate(true); //true 
+          props.setOpenDetail(false); //false 기존창 닫아줘야함
+          props.setOpenUpdate(true); //true 수정창 열어주기
         }}
         className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
       >
@@ -25,7 +23,7 @@ function Detailupdate(props) {
         <Dialog
           as="div"
           className="relative z-10"
-          initialFocus={cancelButtonRef}
+          // initialFocus={cancelButtonRef}
           onClose={props.setOpenUpdate}
         >
           <Transition.Child
@@ -57,8 +55,8 @@ function Detailupdate(props) {
                     <button
                       type="button"
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => props.setOpenUpdate(false)}
-                      ref={cancelButtonRef}
+                      onClick={() => props.setOpenUpdate(true)}
+                      // ref={cancelButtonRef}
                     >
                       닫기
                     </button>
@@ -69,9 +67,6 @@ function Detailupdate(props) {
           </div>
         </Dialog>
       </Transition.Root>
-      <Detail openDetail={openDetail} setOpenDetail={setOpenDetail} detailData={detailData} title={props.title}  setOpenUpdate={setOpenUpdate}
-            openUpdate={openUpdate}/>
-
     </div>
   );
 }
