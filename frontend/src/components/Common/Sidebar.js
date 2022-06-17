@@ -3,11 +3,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import SidebarContent from "./SidebarContent";
 import './Sidebar.css'
-import { useDispatch } from "react-redux";
-import { handleLanguage } from '../../store'
 
 function Sidebar(props) {
-  const dispatch = useDispatch();
   return (
     <Transition.Root show={props.sidebarOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => { props.setSidebarOpen(false); }}>
@@ -69,13 +66,13 @@ function Sidebar(props) {
                           </div>
                         </div>
                       </Dialog.Title>
-                      <div className="text-center grid grid-cols-5 gap-1 w-60 mx-auto">
+                      {/* <div className="text-center grid grid-cols-5 gap-1 w-60 mx-auto">
                         <img className="cursor-pointer" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-south-korea_1f1f0-1f1f7.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("ko")); localStorage.setItem("language", "ko") }} />
                         <img className="cursor-pointer" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-united-states_1f1fa-1f1f8.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("en")); localStorage.setItem("language", "en") }} />
                         <img className="cursor-pointer" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-china_1f1e8-1f1f3.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("cn")); localStorage.setItem("language", "cn") }} />
                         <img className="cursor-pointer" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-japan_1f1ef-1f1f5.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("jp")); localStorage.setItem("language", "jp") }} />
                         <img className="cursor-pointer" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/flag-vietnam_1f1fb-1f1f3.png" alt="" srcset="" onClick={() => { dispatch(handleLanguage("vn")); localStorage.setItem("language", "vn") }} />
-                      </div>
+                      </div> */}
                     </div>
                     <div className="relative flex-1 px-4 sm:px-6">
                       <SidebarContent

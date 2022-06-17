@@ -5,9 +5,10 @@ import CreateExport from '../Create/CreateExport';
 import CreateImport from '../Create/CreateImport';
 import CreateMove from '../Create/CreateMove';
 import CreateWarehouse from '../Create/CreateWarehouse';
-import { useSelector } from 'react-redux'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { handleSidebar } from '../../store'
 function SidebarContent(props) {
+  let dispatch = useDispatch();
   let userURL = useSelector((state) => state.userURL)
   // navigate
   let navigate = useNavigate();
@@ -27,6 +28,7 @@ function SidebarContent(props) {
       .then((res) => {
         localStorage.clear()
         sessionStorage.clear()
+        dispatch(handleSidebar(false))
         alert("로그아웃되었습니다.");
         navigate('/')
         window.location.reload();

@@ -27,23 +27,23 @@ function SearchWarehouse(props) {
             res.data[index].warehouse_code
           ]);
         }
-       })
+      })
       .catch((err) => { })
   }, [props.datas.location])
 
   const selectDatas = [
-    { name: "location", selectOption: location, grid: 1 },
-    { name: "purpose", selectOption: purpose, grid: 1 },
-    { name: "use", selectOption: use, grid: 1 },
-    { name: "inventory_using", selectOption: inventory_using, grid: 1 },
-    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1 },
+    { name: "location", selectOption: location, grid: 1, "purpose": "search", "ko": "지역", "cn": "地域", "jp": "地域", "vn": "khu vực" },
+    { name: "purpose", selectOption: purpose, grid: 1, "purpose": "search", "ko": "목적", "cn": "目的", "jp": "目的", "vn": "mục đích" },
+    { name: "use", selectOption: use, grid: 1, "purpose": "search", "ko": "사용여부", "cn": "使用与否", "jp": "使用の有無", "vn": "sự sử dụng hay không" },
+    { name: "inventory_using", selectOption: inventory_using, grid: 1, "purpose": "search", "ko": "실사용여부", "cn": "实际使用与否", "jp": "実使用の有無", "vn": "có sử dụng thực tế hay không" },
+    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1, "purpose": "search", "ko": "창고코드", "cn": "仓库代码", "jp": "倉庫コード", "vn": "mã kho" },
   ];
   const inputDatas = [ //창고에서만 맥시멈을 쓴다. 
-    { name: "warehouse_code_desc", type: "text", purpose: "search" },
-    { name: "min_maximum_weight", type: "text", purpose: "search" },
-    { name: "maximum_weight", type: "number", purpose: "search" },
-    { name: "min_maximum_count", type: "number", purpose: "search" },
-    { name: "maximum_count", type: "number", purpose: "search" },
+    { name: "warehouse_desc", type: "text", "purpose": "search", "ko": "세부설명", "cn": "详细说明", "jp": "細部説明", "vn": "giải thích chi tiết" },
+    { name: "min_maximum_weight", type: "text", "purpose": "search", "ko": "최소적재무게", "cn": "最小装载重量", "jp": "最小積載重量", "vn": "trọng lượng tối thiểu" },
+    { name: "max_maximum_weight", type: "number", "purpose": "search", "ko": "최대적재무게", "cn": "最大装载重量", "jp": "最大積載重量", "vn": "trọng lượng tải tối đa" },
+    { name: "min_maximum_count", type: "number", "purpose": "search", "ko": "최소적재수량", "cn": "最小装载数量", "jp": "最小積載数量", "vn": "lượng tải tối thiểu" },
+    { name: "max_maximum_count", type: "number", "purpose": "search", "ko": "최대적재수량", "cn": "最大装载数量", "jp": "最大積載数量", "vn": "lượng tải tối đa" },
   ];
   const { Panel } = Collapse;
   return (
@@ -59,19 +59,15 @@ function SearchWarehouse(props) {
                 name={selectData.name}
                 selectData={selectData.selectOption}
                 grid={selectData.grid}
+                purpose={selectData.purpose}
+                ko={selectData.ko}
+                cn={selectData.cn}
+                jp={selectData.jp}
+                vn={selectData.vn}
               />
             );
-          })} {/*
-          {inputDatas.map((inputData) => {
-            return (
-              <InputText
-                setDatas={props.setDatas}
-                datas={props.datas}
-                name={inputData.name}
-                type={inputData.type}
-              />
-            );
-          })} */}
+          })}
+
           <button
             className="mt-5 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             onClick={() => { props.setClickDelete(true) }}
@@ -84,37 +80,34 @@ function SearchWarehouse(props) {
               props.setClickSearch(true)
             }}
           >
-            조건조회
+            조회
           </button>
         </div>
         <Collapse
-                    bordered={false}
-                    defaultActiveKey={[]}
-                    expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-                    className="site-collapse-custom-collapse"
-                >
-                    <Panel header="상세검색" key="1" className="site-collapse-custom-panel bg-white">
-                        {/* inputRange */}
-                        {/* <div className="grid grid-cols-6 gap-4 text-center">
-                            {inputRangeDatas.map((inputRangeData) => {
-                                return <InputRange setDatas={props.setDatas} datas={props.datas} name={inputRangeData.name} min={inputRangeData.inputMin} max={inputRangeData.inputMax} />
-                            })}
-                        </div> */}
-                        {/* inputText */}
-                        <div className="grid grid-cols-5 gap-4 text-center">
-                            {inputDatas.map((inputData) => {
-                                return <InputText setDatas={props.setDatas} datas={props.datas} name={inputData.name} type={inputData.type} />
-                            })}
-                        </div>
-                    </Panel>
-                </Collapse>
-
-
-
-
-
-
-
+          bordered={false}
+          defaultActiveKey={[]}
+          expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+          className="site-collapse-custom-collapse"
+          style={{ backgroundColor: "white" }}
+        >
+          <Panel header="상세검색" key="1" className="site-collapse-custom-panel">
+            <div className="grid grid-cols-5 gap-4 text-center">
+              {inputDatas.map((inputData) => {
+                return <InputText
+                  setDatas={props.setDatas}
+                  datas={props.datas}
+                  name={inputData.name}
+                  type={inputData.type}
+                  purpose={inputData.purpose}
+                  ko={inputData.ko}
+                  cn={inputData.cn}
+                  jp={inputData.jp}
+                  vn={inputData.vn}
+                />
+              })}
+            </div>
+          </Panel>
+        </Collapse>
       </div>
     </div>
   );

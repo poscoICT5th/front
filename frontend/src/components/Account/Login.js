@@ -8,10 +8,12 @@ import SmartFactory from "./Videos/SmartFactory";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { handleSidebar } from '../../store'
 import jwt_decode from "jwt-decode";
 function Login() {
   let navigate = useNavigate();
+  let dispatch = useDispatch();
   let userUrl = useSelector((state) => state.userURL)
   // useEffect
   useEffect(() => {
@@ -39,6 +41,7 @@ function Login() {
         localStorage.setItem("sessionID", res.data.sessionID)
         localStorage.setItem("theme", "light")
         localStorage.setItem("language", "ko")
+        dispatch(handleSidebar(true))
         navigate("/Dashboard");
       })
       .catch(() => {

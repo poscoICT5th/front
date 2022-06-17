@@ -19,7 +19,7 @@ root.render(
   // <React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
-      <ThemeSwitcherProvider themeMap={themes} defaultTheme="light">
+      <ThemeSwitcherProvider themeMap={themes} defaultTheme={localStorage.getItem("theme")}>
         <App />
       </ThemeSwitcherProvider>
     </BrowserRouter>

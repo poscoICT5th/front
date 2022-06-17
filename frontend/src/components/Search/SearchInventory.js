@@ -35,7 +35,7 @@ function SearchWarehouse(props) {
           ]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   // 지역에따라서 고객처변경
   useEffect(() => {
@@ -49,7 +49,7 @@ function SearchWarehouse(props) {
           setCustomers((customers) => [...customers, res.data[index].customer]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   // 지역에따라서 아이템명변경
   useEffect(() => {
@@ -66,43 +66,43 @@ function SearchWarehouse(props) {
           ]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   const selectDatas = [
-    { name: "location", selectOption: location, grid: 1 },
-    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1 },
-    { name: "item_name", selectOption: item_names, grid: 1 },
-    { name: "industry_family", selectOption: industry_family, grid: 1 },
-    { name: "stock_type", selectOption: stock_type, grid: 1 },
+    { name: "location", selectOption: location, grid: 1, "purpose": "search", "ko": "지역", "cn": "地域", "jp": "地域", "vn": "khuvực" },
+    { name: "warehouse_code", selectOption: warehouse_codes, grid: 1, "purpose": "search", "ko": "창고코드", "cn": "仓库代码", "jp": "倉庫コード", "vn": "mãkho" },
+    { name: "item_name", selectOption: item_names, grid: 1, "purpose": "search", "ko": "제품명", "cn": "产品名称", "jp": "製品名", "vn": "Tênsảnphẩmlà" },
+    { name: "industry_family", selectOption: industry_family, grid: 1, "purpose": "search", "ko": "산업군", "cn": "产业群", "jp": "産業群", "vn": "lựclượngcôngnghiệp" },
+    { name: "stock_type", selectOption: stock_type, grid: 1, "purpose": "search", "ko": "제품구분", "cn": "产品分类", "jp": "製品区分", "vn": "phânloạisảnphẩm" },
     {
       name: "stock_quality_status",
       selectOption: stock_quality_status,
-      grid: 1,
+      grid: 1
+      , "purpose": "search", "ko": "품질상태", "cn": "质量状态", "jp": "品質状態", "vn": "tìnhtrạngchấtlượng"
     },
-    { name: "status_cause", selectOption: status_cause, grid: 1 },
-    { name: "product_family", selectOption: product_family, grid: 1 },
+    { name: "status_cause", selectOption: status_cause, grid: 1, "purpose": "search", "ko": "상태사유", "cn": "状态事由", "jp": "状態事由", "vn": "lýdotrạngthái" },
+    { name: "product_family", selectOption: product_family, grid: 1, "purpose": "search", "ko": "제품군", "cn": "产品群", "jp": "製品群", "vn": "dòngsảnphẩm" },
   ];
   const inputDatas = [
-    { name: "lot_no", type: "text", purpose: "search" },
-    { name: "item_desc", type: "text", purpose: "search" },
-    { name: "min_width", type: "number", purpose: "search" },
-    { name: "max_width", type: "number", purpose: "search" },
-    { name: "min_thickness", type: "number", purpose: "search" },
-    { name: "max_thickness", type: "number", purpose: "search" },
-    { name: "min_height", type: "number", purpose: "search" },
-    { name: "max_height", type: "number", purpose: "search" },
-    { name: "min_weight", type: "number", purpose: "search" },
-    { name: "max_weight", type: "number", purpose: "search" },
-    { name: "min_amount", type: "number", purpose: "search" },
-    { name: "max_amount", type: "number", purpose: "search" },
-    { name: "customer", type: "text", purpose: "search" },
-    { name: "inventory_date", type: "date" },
-    { name: "warehouse_date", type: "date" },
+    { name: "lot_no", type: "text", "purpose": "search", "ko": "lot번호", "cn": "lot编号", "jp": "lot番号", "vn": "số lot" },
+    { name: "min_width", type: "number", "purpose": "search", "ko": "최소넓이", "cn": "最小宽度", "jp": "最小広さ", "vn": "bề rộng tối thiểu" },
+    { name: "max_width", type: "number", "purpose": "search", "ko": "최대넓이", "cn": "最大宽度", "jp": "最大広さ", "vn": "bề rộng tối đa" },
+    { name: "min_thickness", type: "number", "purpose": "search", "ko": "최소두께", "cn": "最小厚度", "jp": "最小厚さ", "vn": "độ dày tối thiểu" },
+    { name: "max_thickness", type: "number", "purpose": "search", "ko": "최대두께", "cn": "最大厚度", "jp": "最大厚さ", "vn": "độ dày tối đa" },
+    { name: "min_height", type: "number", "purpose": "search", "ko": "최소높이", "cn": "最小高度", "jp": "最小高さ", "vn": "độ cao tối thiểu" },
+    { name: "max_height", type: "number", "purpose": "search", "ko": "최대높이", "cn": "最大高度", "jp": "最大高さ", "vn": "chiều cao tối đa" },
+    { name: "min_weight", type: "number", "purpose": "search", "ko": "최소무게", "cn": "最小重量", "jp": "最小重量", "vn": "Trọng lượng tối thiểu" },
+    { name: "max_weight", type: "number", "purpose": "search", "ko": "최대무게", "cn": "最大重量", "jp": "最大重量", "vn": "trọng lượng tối đa" },
+    { name: "min_amount", type: "number", "purpose": "search", "ko": "최수수량", "cn": "催收货量", "jp": "最収量", "vn": "lượng lớn nhất" },
+    { name: "max_amount", type: "number", "purpose": "search", "ko": "최대수량", "cn": "最大数量", "jp": "最大数量", "vn": "số lượng tối đa" },
+    { name: "customer", type: "text", "purpose": "search", "ko": "고객사", "cn": "客户公司", "jp": "顧客会社", "vn": "công ty khách hàng" },
+    { name: "inventory_date", type: "date", "purpose": "search", "ko": "재고등록일", "cn": "库存登记日", "jp": "在庫登録日", "vn": "ngày đăng ký tồn kho" },
+    { name: "warehouse_date", type: "date", "purpose": "search", "ko": "창고입고일", "cn": "仓库入库日", "jp": "倉庫入庫日", "vn": "công việc nhận kho" },
   ];
   const { Panel } = Collapse;
   return (
     <div className="overflow-hidden sm:rounded-md">
-      <div className="px-4 py-5 bg-white sm:p-6 rounded-lg">
+      <div className="px-4 py-5 sm:p-6 rounded-lg">
         {/* select */}
         <div className="grid grid-cols-10 gap-4 text-center">
           {selectDatas.map((selectData) => {
@@ -113,6 +113,11 @@ function SearchWarehouse(props) {
                 name={selectData.name}
                 selectData={selectData.selectOption}
                 grid={selectData.grid}
+                purpose={selectData.purpose}
+                ko={selectData.ko}
+                cn={selectData.cn}
+                jp={selectData.jp}
+                vn={selectData.vn}
               />
             );
           })}
@@ -144,7 +149,7 @@ function SearchWarehouse(props) {
           <Panel
             header="상세검색"
             key="1"
-            className="site-collapse-custom-panel bg-white"
+            className="site-collapse-custom-panel"
           >
             <div className="grid grid-cols-6 gap-4 text-center">
               {inputDatas.map((inputData) => {
@@ -154,6 +159,11 @@ function SearchWarehouse(props) {
                     datas={props.datas}
                     name={inputData.name}
                     type={inputData.type}
+                    purpose={inputData.purpose}
+                    ko={inputData.ko}
+                    cn={inputData.cn}
+                    jp={inputData.jp}
+                    vn={inputData.vn}
                   />
                 );
               })}
