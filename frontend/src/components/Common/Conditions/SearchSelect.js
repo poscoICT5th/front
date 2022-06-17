@@ -11,26 +11,24 @@ function SearchSelect(props) {
     const handleChange = (value) => {
         props.setDatas({ ...props.datas, [props.name]: value });
     };
-    let store_language = useSelector((state) => state.language.payload)
-    const [language, setLanguage] = useState("")
+    // label 언어설정
+    let store_language = useSelector((state) => state.language)
     const [label, setLabel] = useState(props.ko)
     useEffect(() => {
-        setLanguage(store_language)
-        if (store_language === "ko") {
+        if (localStorage.getItem("language") === "ko") {
             setLabel(props.ko)
-        } else if (store_language === "en") {
+        } else if (localStorage.getItem("language") === "en") {
             setLabel(props.name)
-        } else if (store_language === "cn") {
+        } else if (localStorage.getItem("language") === "cn") {
             setLabel(props.cn)
-        } else if (store_language === "jp") {
+        } else if (localStorage.getItem("language") === "jp") {
             setLabel(props.jp)
-        } else if (store_language === "vn") {
+        } else if (localStorage.getItem("language") === "vn") {
             setLabel(props.vn)
         }
     }, [store_language])
 
     useEffect(() => {
-        setLanguage(localStorage.getItem("language"))
         if (localStorage.getItem("language") === "ko") {
             setLabel(props.ko)
         } else if (localStorage.getItem("language") === "en") {

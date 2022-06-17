@@ -144,6 +144,30 @@ let language = createSlice({
 });
 export let { handleLanguage } = language.actions;
 
+// dark Mode theme
+let theme = createSlice({
+  name: "theme",
+  initialState: localStorage.getItem("theme"),
+  reducers: {
+    handleTheme(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleTheme } = theme.actions;
+
+// sidebar view
+let sidebar = createSlice({
+  name: "sidebar",
+  initialState: false,
+  reducers: {
+    handleSidebar(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleSidebar } = sidebar.actions;
+
 // state등록해주는부분
 export default configureStore({
   // {작명:createSlice만든거.reducer} 사용
@@ -160,6 +184,8 @@ export default configureStore({
     createMoveSuc: createMoveSuc.reducer,
     createWarehouseSuc: createWarehouseSuc.reducer,
     language: language.reducer,
+    theme: theme.reducer,
+    sidebar: sidebar.reducer,
   },
 });
 //

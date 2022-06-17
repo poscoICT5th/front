@@ -24,17 +24,20 @@ function CreateWarehouse(props) {
     remarks: "",
   });
   const warehouse_selectDatas = [
-    { name: "location", selectOption: location, grid: 1 },
-    { name: "purpose", selectOption: purpose, grid: 1 },
-    { name: "use", selectOption: use, grid: 1 },
-    { name: "inventory_using", selectOption: inventory_using, grid: 1 },
+    { name: "location", selectOption: location, grid: 1, "purpose": "create", "ko": "지역", "cn": "地域", "jp": "地域", "vn": "khu vực" },
+    { name: "purpose", selectOption: purpose, grid: 1, "purpose": "create", "ko": "목적", "cn": "目的", "jp": "目的", "vn": "mục đích" },
+    { name: "use", selectOption: use, grid: 1, "purpose": "create", "ko": "사용여부", "cn": "使用与否", "jp": "使用の有無", "vn": "sự sử dụng hay không" },
+    { name: "inventory_using", selectOption: inventory_using, grid: 1, "purpose": "create", "ko": "실사용여부", "cn": "实际使用与否", "jp": "実使用の有無", "vn": "có sử dụng thực tế hay không" },
+
   ];
   const warehouse_inputDatas = [
-    { name: "warehouse_code_desc", type: "text", purpose: "create" },
-    { name: "maximum_weight", type: "number", purpose: "create" },
-    { name: "maximum_count", type: "number", purpose: "create" },
-    { name: "warehouse_code", type: "text", purpose: "create" },
-    { name: "remarks", type: "text", purpose: "create" },
+    { name: "warehouse_desc", type: "text", "purpose": "create", "ko": "세부설명", "cn": "详细说明", "jp": "細部説明", "vn": "giải thích chi tiết" },
+    { name: "min_maximum_weight", type: "text", "purpose": "create", "ko": "최소적재무게", "cn": "最小装载重量", "jp": "最小積載重量", "vn": "trọng lượng tối thiểu" },
+    { name: "max_maximum_weight", type: "number", "purpose": "create", "ko": "최대적재무게", "cn": "最大装载重量", "jp": "最大積載重量", "vn": "trọng lượng tải tối đa" },
+    { name: "min_maximum_count", type: "number", "purpose": "create", "ko": "최소적재수량", "cn": "最小装载数量", "jp": "最小積載数量", "vn": "lượng tải tối thiểu" },
+    { name: "max_maximum_count", type: "number", "purpose": "create", "ko": "최대적재수량", "cn": "最大装载数量", "jp": "最大積載数量", "vn": "lượng tải tối đa" },
+
+
   ];
 
   // function

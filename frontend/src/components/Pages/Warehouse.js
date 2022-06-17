@@ -45,29 +45,33 @@ function Warehouse(props) {
   const [clickDelete, setClickDelete] = useState(false);
   const [warehouseList, setWarehouseList] = useState([]);
   const [datas, setDatas] = useState({
-    //순서 상관없음
-    location: "전체보기",
     warehouse_code: "전체보기",
+    location: "전체보기",
     purpose: "전체보기",
-    warehouse_code_desc: "전체보기",
+    warehouse_desc: "전체보기",
     use: "전체보기",
     min_maximum_weight: 0,
     max_maximum_weight: 10000000,
     min_maximum_count: 0,
     max_maximum_count: 10000000,
+    maximum_weight: "전체보기",
+    maximum_count: "전체보기",
     inventory_using: "전체보기",
     remarks: "전체보기",
+
   });
 
   const th = [
-    { location: 100 },
-    { warehouse_code: 100 },
-    { purpose: 180 },
-    { warehouse_code_desc: 180 },
-    { use: 100 },
-    { maximum_weight: 100 },
-    { maximum_count: 100 },
-    { inventory_using: 100 },
+    { "ko": "창고코드", "en": "warehouse_code", "cn": "仓库代码", "jp": "倉庫コード", "vn": "mã kho" },
+    { "ko": "지역", "en": "location", "cn": "地域", "jp": "地域", "vn": "khu vực" },
+    { "ko": "목적", "en": "purpose", "cn": "目的", "jp": "目的", "vn": "mục đích" },
+    { "ko": "세부설명", "en": "warehouse_desc", "cn": "详细说明", "jp": "細部説明", "vn": "giải thích chi tiết" },
+    { "ko": "사용여부", "en": "use", "cn": "使用与否", "jp": "使用の有無", "vn": "sự sử dụng hay không" },
+    { "ko": "최대적재무게", "en": "maximum_weight", "cn": "最大装载重量", "jp": "最大積載重量", "vn": "trọng lượng tải tối đa" },
+    { "ko": "최대적재수량", "en": "maximum_count", "cn": "最大装载数量", "jp": "最大積載数量", "vn": "lượng tải tối đa" },
+    { "ko": "실사용여부", "en": "inventory_using", "cn": "实际使用与否", "jp": "実使用の有無", "vn": "có sử dụng thực tế hay không" },
+    { "ko": "비고", "en": "remarks", "cn": "备注", "jp": "備考", "vn": "lời bình luận" },
+
   ];
 
   return (
@@ -97,7 +101,7 @@ function Warehouse(props) {
             clickDelete={clickDelete}
             deleteBodyName="warehouseDeleteList"
             setClickDelete={setClickDelete}
-           
+
           />
         </div>
       </div>
