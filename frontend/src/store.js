@@ -132,6 +132,17 @@ let warehouseReload = createSlice({
   },
 });
 export let { handleWarehouseReload } = warehouseReload.actions;
+// create export suc
+let inventoryReload = createSlice({
+  name: "inventoryReload",
+  initialState: false,
+  reducers: {
+    handleInventoryReload(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleInventoryReload } = inventoryReload.actions;
 
 // language
 let language = createSlice({
@@ -184,6 +195,7 @@ export default configureStore({
     exportReload: exportReload.reducer,
     moveReload: moveReload.reducer,
     warehouseReload: warehouseReload.reducer,
+    inventoryReload: inventoryReload.reducer,
     language: language.reducer,
     theme: theme.reducer,
     sidebar: sidebar.reducer,

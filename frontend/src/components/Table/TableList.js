@@ -4,10 +4,17 @@ import axios from 'axios';
 import Barcode from '../Functions/Barcode'
 import Detail from '../Detail/Detail';
 import Detailupdate from '../Detail/Detailupdate';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    handleImportReload,
+    handleExportReload,
+    handleMoveReload,
+    handleWarehouseReload,
+    handleInventoryReload
+} from '../../store'
 
 function TableList(props) {
-    
+    let dispatch = useDispatch();
     const columns = [];
     const data = [];
     // select
@@ -58,17 +65,32 @@ function TableList(props) {
                     }
                 }
             )
-                .then((res) => { 
-                    alert("suc"); 
+                .then((res) => {
+                    alert("suc");
                     props.setClickDelete(false);
-                 })
+                    if (props.title === "logistics") {
+                        dispatch(handleImportReload(true));
+                        dispatch(handleExportReload(true));
+                        dispatch(handleMoveReload(true));
+                        dispatch(handleImportReload(false));
+                        dispatch(handleExportReload(false));
+                        dispatch(handleMoveReload(false));
+                    } else if (props.title === "warehouse") {
+                        dispatch(handleWarehouseReload(true));
+                        dispatch(handleWarehouseReload(false));
+                    } else if (props.title === "inventory") {
+                        dispatch(handleInventoryReload(true));
+                        dispatch(handleInventoryReload(false));
+                    }
+                    props.setOpenCreate(false)
+                })
                 .catch((err) => { props.setClickDelete(false) })
 
         }
     }, [props.clickDelete])
 
     const [detailData, setDetailData] = useState({})
-    
+
     return (
         <div>
             <Table
@@ -96,8 +118,8 @@ function TableList(props) {
                 setOpenDetail={setOpenDetail}
                 detailData={detailData}
                 title={props.title}
-               />
-           
+            />
+
         </div>
     )
 }
