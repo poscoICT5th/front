@@ -88,7 +88,6 @@ function SearchWarehouse(props) {
           defaultActiveKey={[]}
           expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
           className="site-collapse-custom-collapse"
-          style={{ backgroundColor: "white" }}
         >
           <Panel header="상세검색" key="1" className="site-collapse-custom-panel">
             <div className="grid grid-cols-5 gap-4 text-center">

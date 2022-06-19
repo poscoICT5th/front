@@ -7,7 +7,6 @@ import ChartLine from '../Map/ChartLine'
 import ChartPie from '../Map/ChartPie';
 import ChartGauge from '../Map/ChartGauge';
 import ChartTreemap from '../Map/ChartTreemap'
-import './Dashboard.css'
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 function Dashboard() {
@@ -65,11 +64,11 @@ function Dashboard() {
         </div>
       </div>
       <div className='col-span-2 grid grid-rows-5 gap-2'>
-        <div className='rounded-lg'></div>
-        <div className='rounded-lg'></div>
-        <div className='rounded-lg'></div>
-        <div className='rounded-lg'></div>
-        <div className='rounded-lg'></div>
+        <div className='rounded-lg bg-stone-300 text-2xl'>todoList</div>
+        <div className='rounded-lg bg-stone-300 text-2xl'>todoList</div>
+        <div className='rounded-lg bg-stone-300 text-2xl'>todoList</div>
+        <div className='rounded-lg bg-stone-300 text-2xl'>todoList</div>
+        <div className='rounded-lg bg-stone-300 text-2xl'>todoList</div>
       </div>
     </div>
   )

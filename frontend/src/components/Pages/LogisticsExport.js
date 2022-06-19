@@ -7,7 +7,7 @@ import TableList from '../Table/TableList';
 
 function LogisticsExport() {
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
-  let createExportSuc = useSelector((state) => state.createExportSuc)
+  let exportReload = useSelector((state) => state.exportReload)
   axios.defaults.baseURL = logisticsExportURL
   // useEffect
   useEffect(() => {
@@ -23,7 +23,7 @@ function LogisticsExport() {
   // 출고조건검색
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
-    if (clickSearch || createExportSuc) {
+    if (clickSearch || exportReload) {
       console.log(datas)
       axios.get('/search', {
         params: datas
@@ -31,7 +31,7 @@ function LogisticsExport() {
         .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
         .catch((err) => { console.log(datas); setClickSearch(false) })
     }
-  }, [clickSearch, createExportSuc])
+  }, [clickSearch, exportReload])
 
 
   // usestate

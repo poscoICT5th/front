@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import React from 'react'
 
 function useCheckURL() {
-    const [nowURL, setnowURL] = useState("")
-    setnowURL(useLocation().pathname)
-    return nowURL
+  return (
+    <div>useCheckURL</div>
+  )
 }
 
 export default useCheckURL

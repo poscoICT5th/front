@@ -9,7 +9,7 @@ function LosgisticsMove() {
   // axios url
   let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
   axios.defaults.baseURL = logisticsMoveURL
-  let createMoveSuc = useSelector((state) => state.createMoveSuc)
+  let moveReload = useSelector((state) => state.moveReload)
 
   // useEffect
   useEffect(() => {
@@ -27,14 +27,14 @@ function LosgisticsMove() {
   // 창고조건조회
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
-    if (clickSearch || createMoveSuc) {
+    if (clickSearch || moveReload) {
       axios.get('/search', {
         params: datas
       })
         .then((res) => { setLogisticsMoveList(res.data); setClickSearch(false); console.log(datas) })
         .catch((err) => { console.log(datas) })
     }
-  }, [clickSearch, createMoveSuc])
+  }, [clickSearch, moveReload])
 
   // usestate
   const [logisticsMoveList, setLogisticsMoveList] = useState([])

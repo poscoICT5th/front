@@ -84,53 +84,54 @@ let userURL = createSlice({
 });
 export let { handleUserURL } = userURL.actions;
 
-// create import suc
-let createImportSuc = createSlice({
-  name: "createImportSuc",
+// import reload
+let importReload = createSlice({
+  name: "importReload",
   initialState: false,
   reducers: {
-    handleCreateImportSuc(state, newState) {
+    handleImportReload(state, newState) {
+      return newState;
+
+    },
+  },
+});
+export let { handleImportReload } = importReload.actions;
+
+// export reload
+let exportReload = createSlice({
+  name: "exportReload",
+  initialState: false,
+  reducers: {
+    handleExportReload(state, newState) {
       return newState;
     },
   },
 });
-export let { handleCreateImportSuc } = createImportSuc.actions;
+export let { handleExportReload } = exportReload.actions;
 
 // create export suc
-let createExportSuc = createSlice({
-  name: "createExportSuc",
+let moveReload = createSlice({
+  name: "moveReload",
   initialState: false,
   reducers: {
-    handleCreateExportSuc(state, newState) {
+    handleMoveReload(state, newState) {
       return newState;
     },
   },
 });
-export let { handleCreateExportSuc } = createExportSuc.actions;
+export let { handleMoveReload } = moveReload.actions;
 
 // create export suc
-let createMoveSuc = createSlice({
-  name: "createMoveSuc",
+let warehouseReload = createSlice({
+  name: "warehouseReload",
   initialState: false,
   reducers: {
-    handleCreateMoveSuc(state, newState) {
+    handleWarehouseReload(state, newState) {
       return newState;
     },
   },
 });
-export let { handleCreateMoveSuc } = createMoveSuc.actions;
-
-// create export suc
-let createWarehouseSuc = createSlice({
-  name: "createWarehouseSuc",
-  initialState: false,
-  reducers: {
-    handleCreateWarehouseSuc(state, newState) {
-      return newState;
-    },
-  },
-});
-export let { handleCreateWarehouseSuc } = createWarehouseSuc.actions;
+export let { handleWarehouseReload } = warehouseReload.actions;
 
 // language
 let language = createSlice({
@@ -179,10 +180,10 @@ export default configureStore({
     warehouseURL: warehouseURL.reducer,
     inventoryURL: inventoryURL.reducer,
     userURL: userURL.reducer,
-    createImportSuc: createImportSuc.reducer,
-    createExportSuc: createExportSuc.reducer,
-    createMoveSuc: createMoveSuc.reducer,
-    createWarehouseSuc: createWarehouseSuc.reducer,
+    importReload: importReload.reducer,
+    exportReload: exportReload.reducer,
+    moveReload: moveReload.reducer,
+    warehouseReload: warehouseReload.reducer,
     language: language.reducer,
     theme: theme.reducer,
     sidebar: sidebar.reducer,

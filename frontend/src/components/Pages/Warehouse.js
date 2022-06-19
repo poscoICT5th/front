@@ -8,7 +8,7 @@ import TableList from "../Table/TableList";
 function Warehouse(props) {
   let warehouseURL = useSelector((state) => state.warehouseURL);
   axios.defaults.baseURL = warehouseURL;
-  let createWarehouseSuc = useSelector((state) => state.createWarehouseSuc);
+  let warehouseReload = useSelector((state) => state.warehouseReload);
 
   // useEffect
   useEffect(() => {
@@ -39,7 +39,7 @@ function Warehouse(props) {
         console.log(res.data, " res.data 찍어보기");
       });
     }
-  }, [clickSearch, createWarehouseSuc]);
+  }, [clickSearch, warehouseReload]);
 
   //usestate
   const [clickDelete, setClickDelete] = useState(false);

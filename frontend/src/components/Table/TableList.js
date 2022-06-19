@@ -7,8 +7,7 @@ import Detailupdate from '../Detail/Detailupdate';
 import { useSelector } from 'react-redux';
 
 function TableList(props) {
-    let store_language = useSelector((state) => state.language)
-    console.log(store_language)
+    
     const columns = [];
     const data = [];
     // select
@@ -59,7 +58,10 @@ function TableList(props) {
                     }
                 }
             )
-                .then((res) => { alert("suc"); props.setClickDelete(false) })
+                .then((res) => { 
+                    alert("suc"); 
+                    props.setClickDelete(false);
+                 })
                 .catch((err) => { props.setClickDelete(false) })
 
         }

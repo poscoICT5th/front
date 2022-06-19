@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { location, product_family, unit } from '../Common/Conditions/SelectOptionsCreate'
 import CreateRequest from './CreateRequest'
-import { handleCreateExportSuc } from '../../store'
+import { handleExportReload } from '../../store'
 
 function CreateExport(props) {
   const dispatch = useDispatch();
   let warehouseURL = useSelector((state) => state.warehouseURL)
   let inventoryURL = useSelector((state) => state.inventoryURL)
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
-  // let createExportSuc = useSelector((state) => state.createExportSuc)
+  // let exportReload = useSelector((state) => state.exportReload)
 
   const [warehouse_codes, setWarehouse_codes] = useState([])
   const [item_names, setItem_names] = useState([])
@@ -130,9 +130,9 @@ function CreateExport(props) {
     axios.post('/export', exportDatas)
       .then((res) => {
         alert("출고요청이 등록되었습니다")
-        dispatch(handleCreateExportSuc(true));
+        dispatch(handleExportReload(true));
         props.setOpenCreate(false)
-        dispatch(handleCreateExportSuc(false));
+        dispatch(handleExportReload(false));
       })
       .catch((err) => { alert(err) })
   }

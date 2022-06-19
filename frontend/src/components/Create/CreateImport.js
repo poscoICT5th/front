@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { location, product_family, unit } from '../Common/Conditions/SelectOptionsCreate'
 import CreateRequest from './CreateRequest'
-import { handleCreateImportSuc } from '../../store'
+import { handleImportReload } from '../../store'
 function CreateImport(props) {
     const dispatch = useDispatch();
     let warehouseURL = useSelector((state) => state.warehouseURL)
@@ -74,9 +74,9 @@ function CreateImport(props) {
             .post("/import", importDatas)
             .then((res) => {
                 alert("입고요청이 등록되었습니다.")
-                dispatch(handleCreateImportSuc(true))
+                dispatch(handleImportReload(true))
                 props.setOpenCreate(false)
-                dispatch(handleCreateImportSuc(false))
+                dispatch(handleImportReload(false))
             })
             .catch((err) => {
                 alert(err);

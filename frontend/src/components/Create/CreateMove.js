@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CreateRequest from './CreateRequest'
 import { location, unit } from '../Common/Conditions/SelectOptionsCreate'
-import { handleCreateMoveSuc } from '../../store'
+import { handleMoveReload } from '../../store'
 
 function CreateMove(props) {
     const dispatch = useDispatch();
@@ -111,9 +111,9 @@ function CreateMove(props) {
             moveDatas)
             .then((res) => {
                 alert("창고이동요청이 등록되었습니다")
-                dispatch(handleCreateMoveSuc(true));
+                dispatch(handleMoveReload(true));
                 props.setOpenCreate(false)
-                dispatch(handleCreateMoveSuc(false));
+                dispatch(handleMoveReload(false));
             })
             .catch((err) => { alert(err) })
     }

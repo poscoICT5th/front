@@ -106,7 +106,7 @@ function ChartTreemap() {
       <HighchartsProvider Highcharts={Highcharts}>
         <HighchartsChart>
           <Title>창고맵 + 재고현황</Title>
-          <Subtitle>서브제목인데 뭔가를 적어주면 좋지않을까?</Subtitle>
+          <Subtitle></Subtitle>
           <XAxis />
           <YAxis>
             <TreemapSeries

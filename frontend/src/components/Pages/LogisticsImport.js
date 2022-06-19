@@ -8,7 +8,7 @@ import TableList from '../Table/TableList';
 
 function LogisticsImport() {
   let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
-  let createImportSuc = useSelector((state) => state.createImportSuc)
+  let importReload = useSelector((state) => state.importReload)
   axios.defaults.baseURL = logisticsImportURL
   // useEffect
   useEffect(() => {
@@ -24,14 +24,14 @@ function LogisticsImport() {
   // 입고 조건검색
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
-    if (clickSearch || createImportSuc) {
+    if (clickSearch || importReload) {
       axios.get('/search', {
         params: datas
       })
         .then((res) => { setLogisticsImportList(res.data); setClickSearch(false); console.log(datas); console.log(res.data) })
         .catch((err) => { console.log(datas) })
     }
-  }, [clickSearch, createImportSuc])
+  }, [clickSearch, importReload])
 
   // useState
   const [logisticsImportList, setLogisticsImportList] = useState([])

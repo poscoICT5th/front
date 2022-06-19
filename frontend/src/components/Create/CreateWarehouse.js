@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { inventory_using, location, purpose, use } from '../Common/Conditions/SelectOptionsCreate';
 import CreateRequest from './CreateRequest'
-import { handleCreateWarehouseSuc } from '../../store'
+import { handleWarehouseReload } from '../../store'
 
 function CreateWarehouse(props) {
   const dispatch = useDispatch();
@@ -46,9 +46,9 @@ function CreateWarehouse(props) {
       .post("/", warehouseDatas)
       .then((res) => {
         alert("창고가 등록되었습니다.")
-        dispatch(handleCreateWarehouseSuc(true))
+        dispatch(handleWarehouseReload(true))
         props.setOpenCreate(false)
-        dispatch(handleCreateWarehouseSuc(false))
+        dispatch(handleWarehouseReload(false))
         console.log(warehouseDatas, "우리가보내는data");
         console.log(res, "받는 data");
 

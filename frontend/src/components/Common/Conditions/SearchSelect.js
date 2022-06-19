@@ -55,7 +55,7 @@ function SearchSelect(props) {
                         width: '100%',
                     }}
 
-                    placeholder={props.name}
+                    placeholder={label}
                     defaultValue={[]}
                     onChange={handleChange}
                 >
