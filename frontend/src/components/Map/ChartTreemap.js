@@ -20,6 +20,7 @@ addTreemapModule(Highcharts);
 
 function ChartTreemap() {
   let inventoryURL = useSelector((state) => state.inventoryURL);
+  console.log(inventoryURL)
   const [treeData, settreeData] = useState(null);
   const formatData = (data) => {
     const colours = Highcharts.getOptions().colors;
@@ -97,7 +98,6 @@ function ChartTreemap() {
     },
   ];
   const tooltipFormatter = function () {
-    console.log(this.point.name);
     return `${this.point.name}: ${this.point.value}`;
   };
 
