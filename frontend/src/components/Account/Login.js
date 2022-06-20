@@ -59,7 +59,7 @@ function Login() {
                             color: "#010101",
                             distance: 150,
                             enable: true,
-                            opacity: 0.5,
+                            opacity: 0.1,
                             width: 1,
                         },
                         collisions: {
@@ -83,7 +83,7 @@ function Login() {
                             value: 70,
                         },
                         opacity: {
-                            value: 0.5,
+                            value: 0.2,
                         },
                         shape: {
                             type: "circle",

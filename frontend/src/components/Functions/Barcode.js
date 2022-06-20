@@ -16,7 +16,7 @@ function Barcode(props) {
 
   function createBarcodePrint(props) {
     const canvas = document.createElement('canvas')
-    JsBarcode(canvas, barcodeInfo.instruction_no, { height: 50, displayValue: false })
+    JsBarcode(canvas, barcodeInfo.lot_no, { height: 50, displayValue: false })
     let barcodeUrl = canvas.toDataURL('image/png')
     let windowObj = window.open(
       "",
