@@ -26,7 +26,13 @@ function LoginContent() {
   function Login() {
     axios.defaults.baseURL = userUrl
     if (!id || !pw) {
-      setAlertOpen(true)
+      if (!id && !pw) {
+        alert("아아디와 비밀번호를 입력해주세요")
+      } else if (!id && pw) {
+        alert("아이디를 입력해주세요")
+      } else if (id && !pw) {
+        alert("비밀번호를 입력해주세요")
+      }
     } else {
       axios.post('/login',
         {
@@ -43,7 +49,7 @@ function LoginContent() {
           navigate("/Dashboard");
         })
         .catch(() => {
-          setAlertOpen(true)
+          alert("로그인이 실패했습니다. 계정을 확인해주세요.")
         })
     }
   }
