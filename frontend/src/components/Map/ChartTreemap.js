@@ -20,18 +20,11 @@ addTreemapModule(Highcharts);
 
 function ChartTreemap() {
   let inventoryURL = useSelector((state) => state.inventoryURL);
-  console.log(inventoryURL)
   const [treeData, settreeData] = useState(null);
   const formatData = (data) => {
     const colours = Highcharts.getOptions().colors;
     const formattedData = [];
     Object.keys(data).forEach((locationName, rIndex) => {
-      // if (locationName === "천안") {
-      //   return;
-      // }
-      //locationName  나중에 데이터맞게 다 바꾸기
-      console.log(123);
-      console.log(locationName);
       const location = {
         id: `id_${rIndex}`, // id_1, id_2
         name: locationName, // Africa, Americas, Europe
@@ -79,7 +72,6 @@ function ChartTreemap() {
       .get("/map")
       .then((res) => {
         settreeData(formatData(res.data)); //창고 테이블
-        console.log(res, "treepmap 들어와라");
       })
       .catch((err) => {
         console.log(err);
