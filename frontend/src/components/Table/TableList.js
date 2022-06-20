@@ -3,7 +3,6 @@ import { Table } from 'antd';
 import axios from 'axios';
 import Barcode from '../Functions/Barcode'
 import Detail from '../Detail/Detail';
-import Detailupdate from '../Detail/Detailupdate';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     handleImportReload,
@@ -126,7 +125,7 @@ function TableList(props) {
                 pagination={{ pageSize: 30 }}
                 size="small"
                 scroll={{
-                    x: 3000,
+                    x: 2500,
                     // y: 1500,
                 }}
             />

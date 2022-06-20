@@ -92,63 +92,63 @@ function Detail(props) {
                         <div className="grid grid-cols-5">
                           {openUpdate
                             ? Object.entries(props.detailData).map(
-                                ([key, value], index) => {
-                                  return (
-                                    <div className="col-span-1">
-                                      <div className="mt-1 text-sm p-3 text-white-900">
-                                        <label className="block text-sm font-medium text-gray-300">
-                                          {key}
-                                        </label>
-                                        <div className="block text-lg font-medium">
-                                          <input
-                                            name="value"
-                                            type="text"
-                                            autoComplete="email"
-                                            required
-                                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
-                                            placeholder={value}
-                                            disabled={
-                                              //조건 넣어주기  && ||
-                                              [
-                                                "inventory_using",
-                                                "purpose",
-                                                "use",
-                                              ].includes(key)
-                                                ? false
-                                                : true
-                                            }
-                                            onChange={(e) => {
-                                              setDatas(
-                                                // 여기서 setdatas 에 바꾼 값 넣어주기 .
-                                                {
-                                                  ...datas,
-                                                  [key]: e.target.value,
-                                                }
-                                              );
-                                            }}
-                                          />
-                                        </div>
+                              ([key, value], index) => {
+                                return (
+                                  <div className="col-span-1">
+                                    <div className="mt-1 text-sm p-3 text-white-900">
+                                      <label className="block text-sm font-medium text-gray-300">
+                                        {key}
+                                      </label>
+                                      <div className="block text-lg font-medium">
+                                        <input
+                                          name="value"
+                                          type="text"
+                                          autoComplete="email"
+                                          required
+                                          className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
+                                          placeholder={value}
+                                          disabled={
+                                            //조건 넣어주기  && ||
+                                            [
+                                              "inventory_using",
+                                              "purpose",
+                                              "use",
+                                            ].includes(key)
+                                              ? false
+                                              : true
+                                          }
+                                          onChange={(e) => {
+                                            setDatas(
+                                              // 여기서 setdatas 에 바꾼 값 넣어주기 .
+                                              {
+                                                ...datas,
+                                                [key]: e.target.value,
+                                              }
+                                            );
+                                          }}
+                                        />
                                       </div>
                                     </div>
-                                  );
-                                }
-                              )
+                                  </div>
+                                );
+                              }
+                            )
                             : Object.entries(props.detailData).map(
-                                ([key, value], index) => {
-                                  return (
-                                    <div className="col-span-1">
-                                      <div className="mt-1 text-sm p-3 text-white-900">
-                                        <label className="block text-sm font-medium text-gray-300">
-                                          {key}
-                                        </label>
-                                        <div className="block text-lg font-medium">
-                                          {value}
-                                        </div>
+                              ([key, value], index) => {
+                                return (
+                                  <div className="col-span-1">
+                                    <div className="mt-1 text-sm p-3 text-white-900">
+                                      <label className="block text-sm font-medium text-gray-300">
+                                        {key}
+                                      </label>
+                                      <div className="block text-lg font-medium">
+                                        {value}
                                       </div>
                                     </div>
-                                  );
-                                }
-                              )}
+                                  </div>
+                                );
+                              }
+                            )}
                         </div>
                       </div>
                     </div>
@@ -173,16 +173,20 @@ function Detail(props) {
                     >
                       저장
                     </button>
-                  ) : (
-                    <button
-                      type="button"
-                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => setOpenUpdate(true)}
-                      ref={cancelButtonRef}
-                    >
-                      수정
-                    </button>
-                  )}
+                  ) : null
+                  }
+                  {
+                    !openUpdate && props.title === "warehouse"
+                      ? <button
+                        type="button"
+                        className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                        onClick={() => setOpenUpdate(true)}
+                        ref={cancelButtonRef}
+                      >
+                        수정
+                      </button>
+                      : null
+                  }
                 </div>
               </Dialog.Panel>
             </Transition.Child>

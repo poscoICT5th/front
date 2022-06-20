@@ -157,12 +157,12 @@ function App() {
               : null
           }
           <div className="mx-auto mx-5 min-h-screen">
-            {
+            {/* {
               nowURL !== "/"
                 ?
                 <Header />
                 : null
-            }
+            } */}
             {/* Routes */}
             <Routes>
               <Route index element={<Login />} />
@@ -180,7 +180,12 @@ function App() {
               <Route path="/TrendInventory" element={<TrendInventory />} />
             </Routes></div>
         </div>
-        {/* <Footer /> */}
+        {
+          nowURL !== "/"
+            ? <Footer />
+            : null
+        }
+
       </div>
     </div>
   )
