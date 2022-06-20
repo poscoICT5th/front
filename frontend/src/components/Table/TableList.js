@@ -15,6 +15,7 @@ import {
 
 function TableList(props) {
     let dispatch = useDispatch();
+    let store_language = useSelector((state) => state.language)
     const columns = [];
     const data = [];
     // select
@@ -29,7 +30,7 @@ function TableList(props) {
         selectedRowKeys,
         onChange: onSelectChange,
     };
-    // columns 넣기 
+
     props.th.forEach(element => {
         columns.push(
             {
@@ -41,6 +42,21 @@ function TableList(props) {
             },
         )
     })
+
+    useEffect(() => {
+        props.th.forEach(element => {
+            columns.push(
+                {
+                    title: element[localStorage.getItem("language")],
+                    dataIndex: element.en,
+                    key: element.en,
+                    // width: element.size,
+                    align: "center",
+                },
+            )
+        })
+
+    }, [store_language])
 
     // rows 넣기
     props.dataList.forEach(element => {
