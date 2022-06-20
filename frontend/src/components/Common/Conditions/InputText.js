@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 function InputText(props) {
-    let store_language = useSelector((state) => state.language.payload)
+    let store_language = useSelector((state) => state.language)
     const [label, setLabel] = useState(props.ko)
     useEffect(() => {
         if (localStorage.getItem("language") === "ko") {
