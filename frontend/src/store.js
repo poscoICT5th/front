@@ -16,7 +16,7 @@ export let { handleTabTitle } = tabTitle.actions;
 // 물류입고 url
 let logisticsImportURL = createSlice({
   name: "logisticsImportURL",
-  initialState: "http://192.168.0.10:8081",
+  initialState: "http://35.77.20.236:8080/import",
   reducers: {
     handleLogisticsImportURL(state, newState) {
       return newState;
@@ -28,7 +28,7 @@ export let { handleLogisticsImportURL } = logisticsImportURL.actions;
 // 물류출고 url
 let logisticsExportURL = createSlice({
   name: "logisticsExportURL",
-  initialState: "http://192.168.0.10:8082",
+  initialState: "http://13.230.30.203/export",
   reducers: {
     handleLogisticsURL(state, newState) {
       return newState;
@@ -39,7 +39,7 @@ export let { handleLogisticsExportURL } = logisticsExportURL.actions;
 // 물류이동 url
 let logisticsMoveURL = createSlice({
   name: "logisticsMoveURL",
-  initialState: "http://192.168.0.10:8083",
+  initialState: "http://35.77.44.58:8080/move",
   reducers: {
     handleLogisticsURL(state, newState) {
       return newState;
@@ -51,7 +51,7 @@ export let { handleLogisticsMoveURL } = logisticsMoveURL.actions;
 // 창고 url
 let warehouseURL = createSlice({
   name: "warehouseURL",
-  initialState: "http://192.168.0.20:8084",
+  initialState: "http://35.74.235.120:8080/warehouse",
   reducers: {
     handleWarehouseURL(state, newState) {
       return newState;
@@ -63,7 +63,7 @@ export let { handleWarehouseURL } = warehouseURL.actions;
 // 인벤토리 url
 let inventoryURL = createSlice({
   name: "inventoryURL",
-  initialState: "http://192.168.0.20:8085",
+  initialState: "http://13.230.73.69:8080/inventory",
   reducers: {
     handleInventoryURL(state, newState) {
       return newState;
@@ -75,7 +75,7 @@ export let { handleInventoryURL } = inventoryURL.actions;
 // 유저 url
 let userURL = createSlice({
   name: "userURL",
-  initialState: "http://192.168.0.10:8086",
+  initialState: "http://18.177.162.121:8080/user",
   reducers: {
     handleUserURL(state, newState) {
       return newState;
@@ -179,6 +179,30 @@ let sidebar = createSlice({
   },
 });
 export let { handleSidebar } = sidebar.actions;
+
+// alertSuc
+let alertSuc = createSlice({
+  name: "alertSuc",
+  initialState: false,
+  reducers: {
+    handleAlertSuc(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleAlertSuc } = alertSuc.actions;
+
+// alertFailed
+let alertFailed = createSlice({
+  name: "alertFailed",
+  initialState: false,
+  reducers: {
+    handleAlertFailed(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleAlertFailed } = alertFailed.actions;
 
 // state등록해주는부분
 export default configureStore({

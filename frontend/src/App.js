@@ -78,7 +78,7 @@ function App() {
       }
     } else if (isLogin === null && nowURL !== "/") {
       alert("로그인을 해주세요.")
-      // navigate("/")
+      navigate("/")
     }
   }, [])
 
