@@ -1,5 +1,8 @@
 import React from "react";
 import ChartLine from "../Map/ChartLine";
+import ChartLine1 from "../Map/ChartLine1";
+import ChartLine2 from "../Map/ChartLine2";
+
 function TrendInventory() {
     //판매량을 보여주고
     // 재고 회전율은 완제품만 하는걸로 
@@ -31,8 +34,8 @@ function TrendInventory() {
 
       <div className="grid grid-cols-3 grid-rows-1 gap-3 bg-stone-100 rounded-lg">
         <div><ChartLine /></div>
-        <div><ChartLine /></div>
-        <div><ChartLine /></div>
+        <div><ChartLine1 /></div>
+        <div><ChartLine2 /></div>
       </div>
     </div>
   );

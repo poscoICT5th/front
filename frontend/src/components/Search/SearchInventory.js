@@ -93,7 +93,7 @@ function SearchWarehouse(props) {
     { name: "max_height", type: "number", "purpose": "search", "ko": "최대높이", "cn": "最大高度", "jp": "最大高さ", "vn": "chiều cao tối đa" },
     { name: "min_weight", type: "number", "purpose": "search", "ko": "최소무게", "cn": "最小重量", "jp": "最小重量", "vn": "Trọng lượng tối thiểu" },
     { name: "max_weight", type: "number", "purpose": "search", "ko": "최대무게", "cn": "最大重量", "jp": "最大重量", "vn": "trọng lượng tối đa" },
-    { name: "min_amount", type: "number", "purpose": "search", "ko": "최수수량", "cn": "催收货量", "jp": "最収量", "vn": "lượng lớn nhất" },
+    { name: "min_amount", type: "number", "purpose": "search", "ko": "최소수량", "cn": "催收货量", "jp": "最収量", "vn": "lượng lớn nhất" },
     { name: "max_amount", type: "number", "purpose": "search", "ko": "최대수량", "cn": "最大数量", "jp": "最大数量", "vn": "số lượng tối đa" },
     { name: "customer", type: "text", "purpose": "search", "ko": "고객사", "cn": "客户公司", "jp": "顧客会社", "vn": "công ty khách hàng" },
     { name: "inventory_date", type: "date", "purpose": "search", "ko": "재고등록일", "cn": "库存登记日", "jp": "在庫登録日", "vn": "ngày đăng ký tồn kho" },

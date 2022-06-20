@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Highcharts from "highcharts";
 import "./styles.css";
 //6월 13일 line chart 구현 
-export default function ChartLine1() {
+export default function ChartLine2() {
   const refContainer = useRef(null);
   useEffect(() => {
     Highcharts.chart(refContainer.current, {
@@ -13,7 +13,7 @@ export default function ChartLine1() {
         enabled: false
       },
       title: {
-        text: " 완제품 재고 추이"
+        text: " 불량품 재고 추이"
       },
       subtitle: {
         text: ""
