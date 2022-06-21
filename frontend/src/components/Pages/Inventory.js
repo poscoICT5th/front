@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SearchInventory from "../Search/SearchInventory";
 import TableList from "../Table/TableList";
+import PageButtonGroup from "../Common/PageButtonGroup";
 
 function Inventory() {
   let inventoryURL = useSelector((state) => state.inventoryURL);
@@ -105,6 +106,8 @@ function Inventory() {
             clickDelete={clickDelete}
           />
         </div>
+
+     <div><PageButtonGroup /></div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
           <TableList
