@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { location, product_family, unit } from '../Common/Conditions/SelectOptionsCreate'
 import CreateRequest from './CreateRequest'
 import { handleImportReload } from '../../store'
+import CreateImportUpload from './CreateImportUpload'
+
+
 function CreateImport(props) {
     const dispatch = useDispatch();
     let warehouseURL = useSelector((state) => state.warehouseURL)
     let inventoryURL = useSelector((state) => state.inventoryURL)
-    let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
 
     const [warehouse_codes, setWarehouse_codes] = useState([])
 
@@ -66,26 +68,12 @@ function CreateImport(props) {
         { name: "inst_deadline", type: "date", purpose: "create", "ko": "지시마감일", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị" },
     ];
 
-    // function
-    function request() {
-        console.log(importDatas)
-        axios.defaults.baseURL = logisticsImportURL
-        axios
-            .post("/import", importDatas)
-            .then((res) => {
-                alert("입고요청이 등록되었습니다.")
-                dispatch(handleImportReload(true))
-                props.setOpenCreate(false)
-                dispatch(handleImportReload(false))
-            })
-            .catch((err) => {
-                alert(err);
-            });
-    }
+
+
 
     return (
         <div>
-            <CreateRequest
+            {/* <CreateRequest
                 open={props.openCreate}
                 setOpen={props.setOpenCreate}
                 title="입고등록"
@@ -94,6 +82,10 @@ function CreateImport(props) {
                 datas={importDatas}
                 setDatas={setImportDatas}
                 request={request}
+            /> */}
+            <CreateImportUpload
+                open={props.openCreate}
+                setOpen={props.setOpenCreate}
             />
         </div>
     )

@@ -1,9 +1,10 @@
-import { Fragment, useRef, useState } from 'react'
+import React, { useEffect, Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 import FixedInput from '../Common/Conditions/FixedInput'
+
 
 function CreateRequest(props) {
     const cancelButtonRef = useRef(null)
@@ -14,6 +15,9 @@ function CreateRequest(props) {
         { name: "height", type: "number", purpose: "fixed", value: props.datas.height, "ko": "높이", "cn": "高度", "jp": "高さ", "vn": "chiều cao", },
     ])
 
+
+
+   
     return (
         <div>
             <Transition.Root show={props.open} as={Fragment}>
@@ -116,6 +120,7 @@ function CreateRequest(props) {
                                         >
                                             Request
                                         </button>
+                                       
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
