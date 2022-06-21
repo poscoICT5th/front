@@ -11,6 +11,7 @@ import {
     handleWarehouseReload,
     handleInventoryReload
 } from '../../store'
+import PageButtonGroup from '../Common/PageButtonGroup';
 
 function TableList(props) {
     let dispatch = useDispatch();
@@ -22,8 +23,8 @@ function TableList(props) {
     const [openDetail, setOpenDetail] = useState(false)
     const [openDetailUpdate, setopenDetailUpdate] = useState(false)
     const onSelectChange = (newSelectedRowKeys) => {
-        setSelectedRowKeys(newSelectedRowKeys);
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
+        setSelectedRowKeys(newSelectedRowKeys); 
+        console.log('selectedRowKeys changed: ', selectedRowKeys); //이 키를 받아서 모달창에 띄워라 .. 
     };
     const rowSelection = {
         selectedRowKeys,
@@ -105,9 +106,13 @@ function TableList(props) {
     }, [props.clickDelete])
 
     const [detailData, setDetailData] = useState({})
+    //강화 !!
 
     return (
         <div>
+            <div><PageButtonGroup
+                  selectedRowKeys={selectedRowKeys}
+             /></div>
             <Table
                 rowSelection={rowSelection}
                 onRow={(record, rowIndex) => {

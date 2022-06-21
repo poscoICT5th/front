@@ -106,8 +106,6 @@ function Inventory() {
             clickDelete={clickDelete}
           />
         </div>
-
-     <div><PageButtonGroup /></div>
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
           <TableList
