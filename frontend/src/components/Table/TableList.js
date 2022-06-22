@@ -20,6 +20,7 @@ function TableList(props) {
     const data = [];
     // select
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [selectedRows, setselectedRows] = useState([]); //선택한 행을 통째로 받아오기.
     const [openDetail, setOpenDetail] = useState(false)
     const [openDetailUpdate, setopenDetailUpdate] = useState(false)
     const onSelectChange = (newSelectedRowKeys) => {
@@ -29,6 +30,11 @@ function TableList(props) {
     const rowSelection = {
         selectedRowKeys,
         onChange: onSelectChange,
+        onSelect: (record, selected, selectedRows) => {
+            console.log(record)
+            console.log(selected)
+            setselectedRows(selectedRows) //여기서 찍어보니까 된다.
+        }
     };
 
     props.th.forEach(element => {
@@ -49,7 +55,7 @@ function TableList(props) {
                 {
                     title: element[localStorage.getItem("language")],
                     dataIndex: element.en,
-                    key: element.en,
+                    key: element,
                     // width: element.size,
                     align: "center",
                 },
@@ -111,11 +117,12 @@ function TableList(props) {
     return (
         <div>
             <div><PageButtonGroup
-                  selectedRowKeys={selectedRowKeys}
+                selectedRowKeys={selectedRowKeys}
+                selectedRows={selectedRows}
              /></div>
             <Table
                 rowSelection={rowSelection}
-                onRow={(record, rowIndex) => {
+                onRow={(record, rowIndex, data) => {
                     return {
                         onClick: event => { }, // click row
                         onDoubleClick: event => { setDetailData(record); setOpenDetail(true) }, // double click row
@@ -133,6 +140,7 @@ function TableList(props) {
                     x: 2500,
                     // y: 1500,
                 }}
+                // onSelect={onSelect}
             />
             <Detail openDetail={openDetail}
                 setOpenDetail={setOpenDetail}

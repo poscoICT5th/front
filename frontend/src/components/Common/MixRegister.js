@@ -24,7 +24,8 @@ function MixRegister() {
     <p>강화 조합</p>
   
               <Form.Item
-                name="name"
+          name="name"
+          
                 label="name"
                 rules={[
                   {
