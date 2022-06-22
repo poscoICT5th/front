@@ -54,7 +54,7 @@ function CreateRequest(props) {
                                                             <div className="overflow-hidden sm:rounded-md">
                                                                 <div className="px-4 py-5 sm:p-6 rounded-lg">
                                                                     {/* select */}
-                                                                    <div className="grid grid-cols-4 gap-4 text-center mb-5">
+                                                                    <div className="grid grid-cols-6 gap-4 text-center mb-5">
                                                                         {props.selectDatas.map((selectData) => {
                                                                             return <SearchSelect
                                                                                 setDatas={props.setDatas}
@@ -84,16 +84,15 @@ function CreateRequest(props) {
                                                                     {
                                                                         props.title === "출고요청등록" || props.title === "창고이동등록"
                                                                             ? <div className='grid grid-cols-6 gap-4'>
-                                                                                <FixedInput value={props.datas.height} label="height" />
-                                                                                <FixedInput value={props.datas.weight} label="weight" />
-                                                                                <FixedInput value={props.datas.thickness} label="thickness" />
-                                                                                <FixedInput value={props.datas.width} label="width" />
-                                                                                <FixedInput value={props.datas.item_code} label="item_code" />
-                                                                                <FixedInput value={props.datas.item_name} label="item_name" />
+                                                                                <FixedInput value={props.datas.width} data={fixed_Datas[0]} />
+                                                                                <FixedInput value={props.datas.weight} data={fixed_Datas[1]} />
+                                                                                <FixedInput value={props.datas.thickness} data={fixed_Datas[2]} />
+                                                                                <FixedInput value={props.datas.height} data={fixed_Datas[3]} />
+                                                                                <FixedInput value={props.datas.item_code} data={fixed_Datas[4]} />
+                                                                                <FixedInput value={props.datas.item_name} data={fixed_Datas[5]} />
                                                                             </div>
                                                                             : null
                                                                     }
-                                                                  
                                                                 </div>
                                                             </div>
                                                         </div>

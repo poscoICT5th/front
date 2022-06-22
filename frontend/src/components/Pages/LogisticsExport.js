@@ -11,7 +11,7 @@ function LogisticsExport() {
   axios.defaults.baseURL = logisticsExportURL
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 1000 });
+    Aos.init({ duration: 2000 });
   }, []);
 
   // 전체조회
@@ -119,7 +119,7 @@ function LogisticsExport() {
             dataList={logisticsExportList}
             datas={datas}
             clickDelete={clickDelete}
-            deleteBodyName="logiExportDeleteList"
+            deleteBodyName="logiExportList"
             setClickDelete={setClickDelete}
           />
         </div>

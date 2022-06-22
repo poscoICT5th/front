@@ -12,7 +12,7 @@ function LogisticsImport() {
   axios.defaults.baseURL = logisticsImportURL
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 1000 });
+    Aos.init({ duration: 2000 });
   }, []);
 
   // 전체조회
@@ -140,7 +140,7 @@ function LogisticsImport() {
             dataList={logisticsImportList}
             datas={datas}
             clickDelete={clickDelete}
-            deleteBodyName="logiImportDeleteList"
+            deleteBodyName="logiImportList"
             setClickDelete={setClickDelete}
           />
         </div>

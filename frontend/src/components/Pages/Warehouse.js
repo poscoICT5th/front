@@ -12,7 +12,7 @@ function Warehouse(props) {
 
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 1000 });
+    Aos.init({ duration: 2000 });
   }, []);
 
   // 창고전체조회(처음에)
@@ -99,7 +99,7 @@ function Warehouse(props) {
             dataList={warehouseList}
             datas={datas}
             clickDelete={clickDelete}
-            deleteBodyName="warehouseDeleteList"
+            deleteBodyName="warehouseList"
             setClickDelete={setClickDelete}
 
           />

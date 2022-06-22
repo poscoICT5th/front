@@ -148,7 +148,7 @@ export let { handleInventoryReload } = inventoryReload.actions;
 // language
 let language = createSlice({
   name: "language",
-  initialState: localStorage.getItem("language"),
+  initialState: sessionStorage.getItem("language"),
   reducers: {
     handleLanguage(state, newState) {
       return newState;
@@ -160,7 +160,7 @@ export let { handleLanguage } = language.actions;
 // dark Mode theme
 let theme = createSlice({
   name: "theme",
-  initialState: localStorage.getItem("theme"),
+  initialState: sessionStorage.getItem("theme"),
   reducers: {
     handleTheme(state, newState) {
       return newState;

@@ -13,7 +13,7 @@ function LosgisticsMove() {
 
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 1000 });
+    Aos.init({ duration: 2000 });
   }, []);
 
   // 창고이동 전체조회
@@ -108,7 +108,7 @@ function LosgisticsMove() {
             datas={datas}
             clickDelete={clickDelete}
             setClickDelete={setClickDelete}
-            deleteBodyName="logiMoveDeleteList"
+            deleteBodyName="logiMoveList"
           />
         </div>
       </div>

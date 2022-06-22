@@ -48,9 +48,9 @@ function SearchWarehouse(props) {
   const { Panel } = Collapse;
   return (
     <div className="overflow-hidden sm:rounded-md">
-      <div className="px-4 py-5 sm:p-6 rounded-lg">
+      <div className="py-5 rounded-lg">
         {/* select */}
-        <div className="grid grid-cols-7 gap-4 text-center">
+        <div className="grid grid-cols-10 gap-4 text-center">
           {selectDatas.map((selectData) => {
             return (
               <SearchSelect
@@ -67,15 +67,30 @@ function SearchWarehouse(props) {
               />
             );
           })}
+          {inputDatas.map((inputData) => {
+            return <InputText
+              setDatas={props.setDatas}
+              datas={props.datas}
+              name={inputData.name}
+              type={inputData.type}
+              purpose={inputData.purpose}
+              ko={inputData.ko}
+              cn={inputData.cn}
+              jp={inputData.jp}
+              vn={inputData.vn}
+            />
+          })}
 
+        </div>
+        <div className="text-right">
           <button
-            className="mt-5 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            className="mt-2 w-20 mr-2 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             onClick={() => { props.setClickDelete(true) }}
           >
             삭제
           </button>
           <button
-            className="mt-5 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            className="mt-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             onClick={() => {
               props.setClickSearch(true)
             }}
@@ -83,7 +98,7 @@ function SearchWarehouse(props) {
             조회
           </button>
         </div>
-        <Collapse
+        {/* <Collapse
           bordered={false}
           defaultActiveKey={[]}
           expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
@@ -106,7 +121,7 @@ function SearchWarehouse(props) {
               })}
             </div>
           </Panel>
-        </Collapse>
+        </Collapse> */}
       </div>
     </div>
   );

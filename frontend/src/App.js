@@ -30,16 +30,23 @@ function App() {
   let sidebar = useSelector((state) => state.sidebar)
   let dispatch = useDispatch();
   let navigate = useNavigate();
-  let isLogin = localStorage.getItem('token')
+  let isLogin = sessionStorage.getItem('token')
 
   let nowURL = useLocation().pathname
   const { currentTheme, status, themes } = useThemeSwitcher();
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const { switcher } = useThemeSwitcher({ theme: localStorage.getItem("theme") })
+  const { switcher } = useThemeSwitcher({ theme: sessionStorage.getItem("theme") })
+  const [language, setLanguage] = useState(sessionStorage.getItem("language"))
   // AOS
   useEffect(() => {
-    Aos.init({ duration: 1000 });
+    Aos.init({ duration: 2000 });
   }, []);
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate('/Dashboard')
+    }
+  }, [])
 
   // 중복로그인처리
   useEffect(() => {
@@ -47,14 +54,14 @@ function App() {
     if (nowURL !== "/") {
       axios.get('/sessionCheck', {
         params: {
-          token: localStorage.getItem('token'),
-          sessionID: localStorage.getItem('sessionID')
+          token: sessionStorage.getItem('token'),
+          sessionID: sessionStorage.getItem('sessionID')
         }
       })
         .then((res) => {
           if (res.data === false) {
             alert("다른사용자가 로그인하여 로그아웃됩니다.");
-            localStorage.clear()
+            sessionStorage.clear()
             sessionStorage.clear()
             navigate('/')
           }
@@ -67,7 +74,7 @@ function App() {
   // 페이지전환될때 darkmode 확인
   useEffect(() => {
     if (isLogin) {
-      if (localStorage.getItem("theme") === "light") {
+      if (sessionStorage.getItem("theme") === "light") {
         element.classList.remove("dark");
         switcher({ theme: themes.light });
         dispatch(handleTheme("light"))
@@ -84,22 +91,22 @@ function App() {
 
 
   function changeTheme() {
-    if (localStorage.getItem("theme") === "dark") {
+    if (sessionStorage.getItem("theme") === "dark") {
       dispatch(handleTheme("light"))
       switcher({ theme: themes.light });
       element.classList.remove("dark");
-      localStorage.setItem("theme", "light")
+      sessionStorage.setItem("theme", "light")
     } else {
       dispatch(handleTheme("dark"))
       switcher({ theme: themes.dark });
       element.classList.add("dark");
-      localStorage.setItem("theme", "dark")
+      sessionStorage.setItem("theme", "dark")
     }
   }
   const { Option } = Select;
   const settingLanguage = (value) => {
     dispatch(handleLanguage(value))
-    localStorage.setItem("language", value)
+    sessionStorage.setItem("language", value)
   };
   return (
     <div data-aos="fade-up" className='fade-in'>
@@ -113,10 +120,10 @@ function App() {
           <div className='flex'>
             <div>
               <Select
-                defaultValue={localStorage.getItem("language")}
+                defaultValue={"한국어"}
                 onChange={(e) => { settingLanguage(e); }}
               >
-                <Option value="ko">한국어</Option>
+                <Option value="ko" defaultValue>한국어</Option>
                 <Option value="en">영어</Option>
                 <Option value="jp">일본어</Option>
                 <Option value="cn">중국어</Option>
@@ -126,7 +133,7 @@ function App() {
             <div>
               <Button onClick={() => { changeTheme() }} className="">
                 {
-                  localStorage.getItem("theme") === "light"
+                  sessionStorage.getItem("theme") === "light"
                     ? <div> {/* light */}
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -185,7 +192,6 @@ function App() {
             ? <Footer />
             : null
         }
-
       </div>
     </div>
   )
