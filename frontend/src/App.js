@@ -43,7 +43,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && nowURL === '/') {
       navigate('/Dashboard')
     }
   }, [])
