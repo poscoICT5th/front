@@ -121,10 +121,16 @@ function SearchLogisticsImport(props) {
                 {/* <div className="col-span-1"> */}
                 <div className='text-right'>
                     <button
+                        className="mt-2 mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                        onClick={() => { props.setClickDelete(true) }}
+                    >
+                        되돌리기
+                    </button>
+                    <button
                         className="mt-2 mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                         onClick={() => { props.setClickDelete(true) }}
                     >
-                        삭제
+                        요청취소
                     </button>
                     <button
                         className="mt-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"

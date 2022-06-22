@@ -119,7 +119,7 @@ function LogisticsExport() {
             dataList={logisticsExportList}
             datas={datas}
             clickDelete={clickDelete}
-            deleteBodyName="logiExportDeleteList"
+            deleteBodyName="logiExportList"
             setClickDelete={setClickDelete}
           />
         </div>

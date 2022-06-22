@@ -140,7 +140,7 @@ function LogisticsImport() {
             dataList={logisticsImportList}
             datas={datas}
             clickDelete={clickDelete}
-            deleteBodyName="logiImportDeleteList"
+            deleteBodyName="logiImportList"
             setClickDelete={setClickDelete}
           />
         </div>

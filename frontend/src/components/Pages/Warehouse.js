@@ -99,7 +99,7 @@ function Warehouse(props) {
             dataList={warehouseList}
             datas={datas}
             clickDelete={clickDelete}
-            deleteBodyName="warehouseDeleteList"
+            deleteBodyName="warehouseList"
             setClickDelete={setClickDelete}
 
           />

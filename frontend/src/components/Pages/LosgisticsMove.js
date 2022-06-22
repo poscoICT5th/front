@@ -108,7 +108,7 @@ function LosgisticsMove() {
             datas={datas}
             clickDelete={clickDelete}
             setClickDelete={setClickDelete}
-            deleteBodyName="logiMoveDeleteList"
+            deleteBodyName="logiMoveList"
           />
         </div>
       </div>
