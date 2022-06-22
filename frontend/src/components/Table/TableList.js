@@ -40,7 +40,7 @@ function TableList(props) {
     props.th.forEach(element => {
         columns.push(
             {
-                title: element[localStorage.getItem("language")],
+                title: element[sessionStorage.getItem("language")],
                 dataIndex: element.en,
                 key: element.en,
                 // width: element.size,
@@ -53,7 +53,7 @@ function TableList(props) {
         props.th.forEach(element => {
             columns.push(
                 {
-                    title: element[localStorage.getItem("language")],
+                    title: element[sessionStorage.getItem("language")],
                     dataIndex: element.en,
                     key: element,
                     // width: element.size,

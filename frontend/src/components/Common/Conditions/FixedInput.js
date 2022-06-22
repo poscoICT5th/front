@@ -9,30 +9,30 @@ function FixedInput(props) {
     useEffect(() => {
         setLanguage(store_language)
         if (store_language === "ko") {
-            setLabel(props.value.ko)
+            setLabel(props.data.ko)
         } else if (store_language === "en") {
-            setLabel(props.value.name)
+            setLabel(props.data.name)
         } else if (store_language === "cn") {
-            setLabel(props.value.cn)
+            setLabel(props.data.cn)
         } else if (store_language === "jp") {
-            setLabel(props.value.jp)
+            setLabel(props.data.jp)
         } else if (store_language === "vn") {
-            setLabel(props.value.vn)
+            setLabel(props.data.vn)
         }
     }, [store_language])
 
     useEffect(() => {
-        setLanguage(localStorage.getItem("language"))
-        if (localStorage.getItem("language") === "ko") {
-            setLabel(props.value.ko)
-        } else if (localStorage.getItem("language") === "en") {
-            setLabel(props.value.name)
-        } else if (localStorage.getItem("language") === "cn") {
-            setLabel(props.value.cn)
-        } else if (localStorage.getItem("language") === "jp") {
-            setLabel(props.value.jp)
-        } else if (localStorage.getItem("language") === "vn") {
-            setLabel(props.value.vn)
+        setLanguage(sessionStorage.getItem("language"))
+        if (sessionStorage.getItem("language") === "ko") {
+            setLabel(props.data.ko)
+        } else if (sessionStorage.getItem("language") === "en") {
+            setLabel(props.data.name)
+        } else if (sessionStorage.getItem("language") === "cn") {
+            setLabel(props.data.cn)
+        } else if (sessionStorage.getItem("language") === "jp") {
+            setLabel(props.data.jp)
+        } else if (sessionStorage.getItem("language") === "vn") {
+            setLabel(props.data.vn)
         }
     }, [])
     return (

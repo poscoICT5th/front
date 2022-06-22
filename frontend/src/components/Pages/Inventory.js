@@ -11,7 +11,7 @@ function Inventory() {
   let createInventorySuc = useSelector((state) => state.warehouseReload);
   //useEffect
   useEffect(() => {
-    Aos.init({ duration: 1000 });
+    Aos.init({ duration: 2000 });
   }, []);
 
   //재고전체조회(처음에)

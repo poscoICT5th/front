@@ -11,7 +11,7 @@ function LogisticsExport() {
   axios.defaults.baseURL = logisticsExportURL
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 1000 });
+    Aos.init({ duration: 2000 });
   }, []);
 
   // 전체조회
