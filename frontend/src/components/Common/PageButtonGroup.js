@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { Form, Input, notification,Button, Modal  } from "antd";
-import {
-  BorderTopOutlined,
-} from '@ant-design/icons';
+import { Form, Input, notification, Button, Modal } from "antd";
+import { BorderTopOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import MixRegister from "./MixRegister";
@@ -10,22 +8,16 @@ import MixRegister from "./MixRegister";
 function PageButtonGroup(props) {
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [successVisible, setSuccessVisible] = useState(false);
   const [form] = Form.useForm();
 
   const showModal = () => {
-    if (props.selectedRowKeys.length>5) {
-      openNotification('top');
-    }else{setIsModalVisible(true);}
+    if (props.selectedRowKeys.length > 5) {
+      openNotification("top");
+    } else {
+      setIsModalVisible(true);
+    }
     //클릭하면 모달창 띄우기
-    
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
   };
 
   //input
@@ -51,38 +43,35 @@ function PageButtonGroup(props) {
   const onReset = () => {
     form.resetFields();
   };
-  //예외처리 
+  //예외처리
   const openNotification = (placement) => {
     notification.info({
       message: `X강화 금지X`,
-      description:
-        '최대 강화 갯수를 초과하였습니다...다시해!',
+      description: "최대 강화 갯수를 초과하였습니다...다시해!",
       placement,
     });
   };
   //usestate
   const [mixDatas, setMixDatas] = useState({
     lot_no: "",
-
   });
-//axios
+  //axios
   function mixregist(values) {
     axios.defaults.baseURL = inventoryURL;
     console.log(values);
     axios
-      .post("/mix", [values])
-      .then((res)=> {
-        alert("강화성공")
+      .post("/produce", [values])
+      .then((res) => {
+        alert("성공");
+        setSuccessVisible(true);
       })
       .catch((err) => {
-        alert(err);
-
+        setSuccessVisible(true);
       });
   }
 
   return (
     <div>
-    
       <div className="text-right">
         <Button
           onClick={showModal}
@@ -95,8 +84,12 @@ function PageButtonGroup(props) {
         <Modal
           title="강화 시작!!!"
           visible={isModalVisible}
-          onOk={handleOk}
-          onCancel={handleCancel}
+          onOk={() => {
+            setIsModalVisible(true);
+          }}
+          onCancel={() => {
+            setIsModalVisible(false);
+          }}
         >
           <Form
             {...layout}
@@ -104,36 +97,59 @@ function PageButtonGroup(props) {
             name="control-hooks"
             onFinish={mixregist}
           >
-            { //input 에 lot_no 를 자동으로 채워준다.
-              props.selectedRowKeys.length <6 ?
-              props.selectedRowKeys.map((lot_no) => {
-                return <Form.Item
-                name={lot_no}
-                label={lot_no}
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              }) : <div>강화 최대 갯수를 초과하였습니다..</div>
-              
-                
+            {
+              //input 에 lot_no 를 자동으로 채워준다.
+              props.selectedRows.length < 6 ? (
+                props.selectedRows.map((value) => {
+                  return (
+                    <Form.Item
+                      name={value.lot_no}
+                      label={value.lot_no}
+                      rules={[
+                        {
+                          required: true,
+                        },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  );
+                })
+              ) : (
+                <div>강화 최대 갯수를 초과하였습니다..</div>
+              )
             }
             <Form.Item {...tailLayout}>
-            <MixRegister />
-              <Button type="primary" htmlType="submit" >
+              <button  onClick={mixregist}>
                 강화띠리링~
-              </Button>
-              <Button htmlType="button" onClick={onReset}>
+              </button>
+              <button  onClick={onReset}>
                 Reset
-              </Button>
+              </button>
             </Form.Item>
           </Form>
         </Modal>
       </div>
+      <Modal
+        title="강화 성공!!!"
+        visible={successVisible}
+        onOk={() => {
+          setSuccessVisible(true);
+        }}
+        onCancel={() => {
+          setSuccessVisible(false);
+        }}
+      >
+        <Form.Item
+          name="name"
+          label="name"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        ></Form.Item>
+      </Modal>
     </div>
   );
 }
