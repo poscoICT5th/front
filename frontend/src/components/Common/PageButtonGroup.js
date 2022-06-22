@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Form, Input, notification, Button, Modal } from "antd";
-import { BorderTopOutlined } from "@ant-design/icons";
+import React, { Fragment, useRef, useEffect, useState } from "react";
+import { Form, notification} from "antd";
 import axios from "axios";
 import { useSelector } from "react-redux";
-
+import { Dialog, Transition } from "@headlessui/react";
 function PageButtonGroup(props) {
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
   const [form] = Form.useForm();
+  const cancelButtonRef = useRef(null);
+
+  //모달 새롭게 만들기
+  const [openUpdate, setOpenUpdate] = useState(false);
 
   const showModal = () => {
     if (props.selectedRowKeys.length > 5 || props.selectedRowKeys.length < 2) {
@@ -114,7 +117,6 @@ function PageButtonGroup(props) {
       })
       .catch((err) => {
         alert("실패");
-        setSuccessVisible(true);
       });
   }
   function createValue(lot_no, amount) {
@@ -145,91 +147,166 @@ function PageButtonGroup(props) {
 
   return (
     <div>
-      <div className="text-right">
-        {/* 강화버튼 */}
-        <Button
-          onClick={showModal}
-          type="button"
-          className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 
-          shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 
-          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        >
-          재료강화
-        </Button>
-        {/* 첫번째모달 */}
-        <Modal
-          title="강화 시작!!!"
-          visible={isModalVisible}
-          onOk={() => {
-            setIsModalVisible(true);
-          }}
-          onCancel={() => {
-            setIsModalVisible(false);
-          }}
-        >
-          <Form
-            {...layout}
-            form={form}
-            name="control-hooks"
-            onFinish={mixregist}
+      <button
+            onClick={showModal}
+            className="mt-5 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
           >
-            {
+            재료강화
+          </button>
+    <Transition.Root show={isModalVisible} as={Fragment}>
+    <Dialog
+      as="div"
+      className="relative z-10"
+      initialFocus={cancelButtonRef}
+      onClose={() => {
+        setIsModalVisible(false);
+        props.setOpenDetail(false);
+      }}
+    >
+      <Transition.Child
+        as={Fragment}
+        enter="ease-out duration-300"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="ease-in duration-200"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+      </Transition.Child>
+
+      <div className="fixed z-10 inset-0 overflow-y-auto">
+        <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <Dialog.Panel className="relative bg-white dark:bg-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-auto max-w-3/5">
+              <div className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="shadow overflow-hidden sm:rounded-lg">
+                    <div className="text-center">
+                        <div className="grid grid-cols-5">
+                            {/* input 창 만들기 */}
+                           
+                            
+                            { 
               //input 에 lot_no 를 자동으로 채워준다.
               props.selectedRows.length < 6 ? (
                 props.selectedRows.map((value) => {
-                  return (
-                    <Form.Item
-                      name={value.lot_no}
-                      label={value.lot_no}
-                      type="number"
-                      rules={[
-                        {
-                          required: true,
-                        },
-                      ]}
-                    >
-                      <Input
-                        onChange={(e) => {
-                          setValue(value.lot_no, e.target.value);
-                        }}
-                        placeholder="갯수를 입력하세요."
-                      />
-                    </Form.Item>
-                  );
+                
+                  //   <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                  //   First name
+                  // </label>
+                  //      <input
+                  //                   type="text"
+                  //                   name="first-name"
+                  //                   id="first-name"
+                  //                   autoComplete="given-name"
+                  //                   className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
+                  //             />
+                   
+                  
                 })
               ) : (
                 <div>강화 최대 갯수를 초과하였습니다</div>
-              )
+                              )
+                            
             }
-            <Form.Item {...tailLayout}>
-              <button className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 
-          shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 
-          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={mixregist}>강화</button>
-              <button className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 
-          shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 
-          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={onReset}>Reset</button>
-            </Form.Item>
-          </Form>
-        </Modal>
-      </div>
-      {/* 두번째모달 */}
-      <Modal
-        title="강화 성공!!!"
-        visible={successVisible}
-        onOk={() => {
-          setIsModalVisible(false);
-        }}
-        // onOk={() => {
-        //   setSuccessVisible(true);
-        // }}
-        onCancel={() => {
-          setSuccessVisible(false);
-        }}
 
-      >
-        <p>강화에 성공했습니다!</p>
-      </Modal>
-    </div>
+                            {/*
+                            
+                            이전코드 복붙
+                            
+                            */}
+                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                                    First name
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="first-name"
+                                    id="first-name"
+                                    autoComplete="given-name"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
+                              />
+                              <div className="">
+                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                                    First name
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="first-name"
+                                    id="first-name"
+                                    autoComplete="given-name"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
+                                  />
+                                </div>
+                                <div className="">
+                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                                    First name
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="first-name"
+                                    id="first-name"
+                                    autoComplete="given-name"
+                                    className="block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
+                                  />
+                                </div>
+                               
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button
+                  type="button"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={() => props.setOpenDetail(false)}
+                  ref={cancelButtonRef}
+                >
+                  닫기
+                </button>
+
+                {openUpdate ? (
+                  <button
+                    type="button"
+                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={() => mixregist()}
+                    ref={cancelButtonRef}
+                  >
+                    저장
+                  </button>
+                ) : null
+                }
+                {
+                  !openUpdate && props.title === "warehouse"
+                    ? <button
+                      type="button"
+                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                      onClick={() => setOpenUpdate(true)}
+                      ref={cancelButtonRef}
+                    >
+                      수정
+                    </button>
+                    : null
+                }
+              </div>
+            </Dialog.Panel>
+          </Transition.Child>
+        </div>
+      </div>
+    </Dialog>
+      </Transition.Root>
+      </div>
   );
 }
 
