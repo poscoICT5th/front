@@ -3,42 +3,42 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 
 function FixedInput(props) {
-    let store_language = useSelector((state) => state.language.payload)
+    let store_language = useSelector((state) => state.language)
     const [language, setLanguage] = useState("")
     const [label, setLabel] = useState(props.ko)
     useEffect(() => {
         setLanguage(store_language)
         if (store_language === "ko") {
-            setLabel(props.ko)
+            setLabel(props.value.ko)
         } else if (store_language === "en") {
-            setLabel(props.name)
+            setLabel(props.value.name)
         } else if (store_language === "cn") {
-            setLabel(props.cn)
+            setLabel(props.value.cn)
         } else if (store_language === "jp") {
-            setLabel(props.jp)
+            setLabel(props.value.jp)
         } else if (store_language === "vn") {
-            setLabel(props.vn)
+            setLabel(props.value.vn)
         }
     }, [store_language])
 
     useEffect(() => {
         setLanguage(localStorage.getItem("language"))
         if (localStorage.getItem("language") === "ko") {
-            setLabel(props.ko)
+            setLabel(props.value.ko)
         } else if (localStorage.getItem("language") === "en") {
-            setLabel(props.name)
+            setLabel(props.value.name)
         } else if (localStorage.getItem("language") === "cn") {
-            setLabel(props.cn)
+            setLabel(props.value.cn)
         } else if (localStorage.getItem("language") === "jp") {
-            setLabel(props.jp)
+            setLabel(props.value.jp)
         } else if (localStorage.getItem("language") === "vn") {
-            setLabel(props.vn)
+            setLabel(props.value.vn)
         }
     }, [])
     return (
         <div className="col-span-1 text-center">
             <label className="block text-sm font-medium">
-                {props.label}
+                {label}
             </label>
             <Input
                 min={0}

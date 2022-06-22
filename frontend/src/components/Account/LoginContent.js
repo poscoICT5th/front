@@ -25,33 +25,26 @@ function LoginContent() {
   // function
   function Login() {
     axios.defaults.baseURL = userUrl
-    if (!id || !pw) {
-      // if (!id && !pw) {
-      //   alert("아아디와 비밀번호를 입력해주세요")
-      // } else if (!id && pw) {
-      //   alert("아이디를 입력해주세요")
-      // } else if (id && !pw) {
-      //   alert("비밀번호를 입력해주세요")
-      // }
-    } else {
-      axios.post('/login',
-        {
-          id: id,
-          pw: pw
-        }
-      )
-        .then((res) => {
-          localStorage.setItem("token", res.data.token)
-          localStorage.setItem("sessionID", res.data.sessionID)
-          localStorage.setItem("theme", "light")
-          localStorage.setItem("language", "ko")
-          dispatch(handleSidebar(true))
-          navigate("/Dashboard");
-        })
-        .catch(() => {
-          alert("로그인이 실패했습니다. 계정을 확인해주세요.")
-        })
-    }
+
+    console.log(id + pw)
+    axios.post('/login',
+      {
+        id: id,
+        pw: pw
+      }
+    )
+      .then((res) => {
+        console.log(res.data)
+        localStorage.setItem("token", res.data.token)
+        localStorage.setItem("sessionID", res.data.sessionID)
+        localStorage.setItem("theme", "light")
+        localStorage.setItem("language", "ko")
+        dispatch(handleSidebar(true))
+        navigate("/Dashboard");
+      })
+      .catch(() => {
+        alert("로그인이 실패했습니다. 계정을 확인해주세요.")
+      })
   }
   // Alert
   const [alertOpen, setAlertOpen] = useState(false)
@@ -63,7 +56,6 @@ function LoginContent() {
       {/* Login */}
       <div className="login min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 m-auto">
         <div className="max-w-md w-full space-y-8">
-          <form>
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
                 <input
@@ -106,7 +98,6 @@ function LoginContent() {
                 Sign in
               </button>
             </div>
-          </form>
         </div>
       </div>
     </div>

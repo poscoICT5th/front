@@ -86,9 +86,9 @@ function SearchLogisticsImport(props) {
     const { Panel } = Collapse;
     return (
         <div className="overflow-hidden sm:rounded-md">
-            <div className="px-4 py-5 sm:p-6 rounded-lg">
+            <div className="py-5 rounded-lg">
                 {/* select */}
-                <div className="grid grid-cols-9 gap-4 text-center">
+                <div className="grid grid-cols-8 gap-4 text-center">
                     {selectDatas.map((selectData) => {
                         return <SearchSelect
                             setDatas={props.setDatas}
@@ -118,7 +118,6 @@ function SearchLogisticsImport(props) {
                     </button>
                     {/* </div> */}
                 </div>
-
                 <Collapse
                     bordered={false}
                     defaultActiveKey={[]}
@@ -126,7 +125,7 @@ function SearchLogisticsImport(props) {
                     className="site-collapse-custom-collapse"
                 >
                     <Panel header="상세검색" key="1" className="site-collapse-custom-panel">
-                        <div className="grid grid-cols-6 gap-4 text-center mt-5">
+                        <div className="grid grid-cols-7 gap-4 text-center">
                             {inputDatas.map((inputData) => {
                                 return <InputText
                                     setDatas={props.setDatas}
