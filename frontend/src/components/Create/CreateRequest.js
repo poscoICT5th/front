@@ -9,15 +9,14 @@ import FixedInput from '../Common/Conditions/FixedInput'
 function CreateRequest(props) {
     const cancelButtonRef = useRef(null)
     const [fixed_Datas, setFixed_Datas] = useState([
-        { name: "item_code", type: "text", purpose: "fixed", value: props.datas.item_code, "ko": "제품코드", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm" },
+        { name: "width", type: "text", purpose: "fixed", value: props.datas.item_code, "ko": "넓이", "cn": "广度", "jp": "広さ", "vn": "bề rộng" },
         { name: "weight", type: "number", purpose: "fixed", value: props.datas.weightm, "ko": "무게", "cn": "份量", "jp": "重さ", "vn": "trọng lượng", },
         { name: "thickness", type: "number", purpose: "fixed", value: props.datas.thickness, "ko": "두께", "cn": "厚度", "jp": "厚さ", "vn": "độ dày" },
         { name: "height", type: "number", purpose: "fixed", value: props.datas.height, "ko": "높이", "cn": "高度", "jp": "高さ", "vn": "chiều cao", },
+        { name: "item_code", type: "number", purpose: "fixed", value: props.datas.item_code, "ko": "제품코드", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm" },
+        { name: "item_name", type: "number", purpose: "fixed", value: props.datas.item_name, "ko": "제품명", "cn": "产品名称", "jp": "製品名", "vn": "Tênsảnphẩmlà" },
     ])
 
-
-
-   
     return (
         <div>
             <Transition.Root show={props.open} as={Fragment}>
@@ -33,7 +32,6 @@ function CreateRequest(props) {
                     >
                         <div className="fixed inset-0 transition-opacity bg-opacity-75" />
                     </Transition.Child>
-
                     <div className="fixed z-10 inset-0 overflow-y-auto">
                         <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
                             <Transition.Child
@@ -95,6 +93,7 @@ function CreateRequest(props) {
                                                                             </div>
                                                                             : null
                                                                     }
+                                                                  
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -120,7 +119,6 @@ function CreateRequest(props) {
                                         >
                                             Request
                                         </button>
-                                       
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>

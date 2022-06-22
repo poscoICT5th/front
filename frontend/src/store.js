@@ -16,7 +16,8 @@ export let { handleTabTitle } = tabTitle.actions;
 // 물류입고 url
 let logisticsImportURL = createSlice({
   name: "logisticsImportURL",
-  initialState: "http://35.77.20.236:8080/import",
+  // initialState: "http://35.77.20.236:8080/import",
+  initialState: "http://192.168.0.10:8081",
   reducers: {
     handleLogisticsImportURL(state, newState) {
       return newState;
@@ -63,7 +64,7 @@ export let { handleWarehouseURL } = warehouseURL.actions;
 // 인벤토리 url
 let inventoryURL = createSlice({
   name: "inventoryURL",
-  initialState: "http://192.168.0.20:8085/inventory",
+  initialState: "http://13.230.73.69:8080/inventory",
   reducers: {
     handleInventoryURL(state, newState) {
       return newState;

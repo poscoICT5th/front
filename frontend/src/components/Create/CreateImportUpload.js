@@ -80,10 +80,7 @@ function CreateImportUpload(props) {
 
     };
     let dispatch = useDispatch();
-    // function
-    function request() {
 
-    }
     return (
         <div>
             <Transition.Root show={props.open} as={Fragment}>
@@ -127,14 +124,15 @@ function CreateImportUpload(props) {
                                                                             <button className='btn'>Upload</button>
                                                                         </ReactFileReader> */}
                                                                         <div>
-                                                                            <label htmlFor="csvInput" style={{ display: "block" }}>
-                                                                                Enter CSV File
-                                                                            </label>
+                                                                            <div>
+                                                                                파일을 등록해주세요
+                                                                            </div>
                                                                             <input
                                                                                 onChange={handleFileChange}
                                                                                 id="csvInput"
                                                                                 name="file"
                                                                                 type="File"
+                                                                                className=''
                                                                             />
                                                                         </div>
                                                                     </div>
