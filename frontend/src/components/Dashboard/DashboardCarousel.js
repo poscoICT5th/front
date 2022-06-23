@@ -21,13 +21,13 @@ function DashboardCarousel() {
                 onSlideChange={() => console.log('slide change')}
             >
                 <SwiperSlide>
-                    <a class="block" href="">
+                    <a className="block" href="">
 
-                        <div class="p-4">
-                            <h5 class="text-xl font-bold text-gray-900">
+                        <div className="p-4">
+                            <h5 className="text-xl font-bold text-gray-900">
                                 Finding the Journey to Mordor
                             </h5>
-                            <p class="mt-2 text-gray-500">
+                            <p className="mt-2 text-gray-500">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero
                                 labore natus atque, ducimus sed.
                             </p>
@@ -35,13 +35,13 @@ function DashboardCarousel() {
                     </a>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <a class="block" href="">
+                    <a className="block" href="">
 
-                        <div class="p-4">
-                            <h5 class="text-xl font-bold text-gray-900">
+                        <div className="p-4">
+                            <h5 className="text-xl font-bold text-gray-900">
                                 Finding the Journey to Mordor
                             </h5>
-                            <p class="mt-2 text-gray-500">
+                            <p className="mt-2 text-gray-500">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero
                                 labore natus atque, ducimus sed.
                             </p>
@@ -49,13 +49,13 @@ function DashboardCarousel() {
                     </a>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <a class="block" href="">
+                    <a className="block" href="">
 
-                        <div class="p-4">
-                            <h5 class="text-xl font-bold text-gray-900">
+                        <div className="p-4">
+                            <h5 className="text-xl font-bold text-gray-900">
                                 Finding the Journey to Mordor
                             </h5>
-                            <p class="mt-2 text-gray-500">
+                            <p className="mt-2 text-gray-500">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero
                                 labore natus atque, ducimus sed.
                             </p>
@@ -63,13 +63,13 @@ function DashboardCarousel() {
                     </a>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <a class="block" href="">
+                    <a className="block" href="">
 
-                        <div class="p-4">
-                            <h5 class="text-xl font-bold text-gray-900">
+                        <div className="p-4">
+                            <h5 className="text-xl font-bold text-gray-900">
                                 Finding the Journey to Mordor
                             </h5>
-                            <p class="mt-2 text-gray-500">
+                            <p className="mt-2 text-gray-500">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero
                                 labore natus atque, ducimus sed.
                             </p>
@@ -77,13 +77,13 @@ function DashboardCarousel() {
                     </a>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <a class="block" href="">
+                    <a className="block" href="">
 
-                        <div class="p-4">
-                            <h5 class="text-xl font-bold text-gray-900">
+                        <div className="p-4">
+                            <h5 className="text-xl font-bold text-gray-900">
                                 Finding the Journey to Mordor
                             </h5>
-                            <p class="mt-2 text-gray-500">
+                            <p className="mt-2 text-gray-500">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero
                                 labore natus atque, ducimus sed.
                             </p>
@@ -91,13 +91,13 @@ function DashboardCarousel() {
                     </a>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <a class="block" href="">
+                    <a className="block" href="">
 
-                        <div class="p-4">
-                            <h5 class="text-xl font-bold text-gray-900">
+                        <div className="p-4">
+                            <h5 className="text-xl font-bold text-gray-900">
                                 Finding the Journey to Mordor
                             </h5>
-                            <p class="mt-2 text-gray-500">
+                            <p className="mt-2 text-gray-500">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero
                                 labore natus atque, ducimus sed.
                             </p>

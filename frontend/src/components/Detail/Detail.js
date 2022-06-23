@@ -47,9 +47,6 @@ function Detail(props) {
     setDatas({ ...props.detailData });
   }, [props.detailData.warehouse_code]);
 
-  console.log(datas.location, " 지역이다... ");
-  console.log(datas.warehouse_code, "warehouse 코드이다... ");
-
   return (
     <Transition.Root show={props.openDetail} as={Fragment}>
       <Dialog
