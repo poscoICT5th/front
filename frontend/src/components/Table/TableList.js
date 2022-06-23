@@ -123,18 +123,6 @@ function TableList(props) {
         <div>
             {
                 props.title === "inventory"
-<<<<<<< HEAD
-                    ?<div>
-                    <PageButtonGroup
-                    selectedRowKeys={selectedRowKeys}
-                            selectedRows={selectedRows}
-                    />
-                </div>
-                 : null
-}
-            
-
-=======
                     ? <div>
                         <PageButtonGroup
                             selectedRowKeys={selectedRowKeys}
@@ -143,7 +131,7 @@ function TableList(props) {
                     </div>
                     : null
             }
->>>>>>> cho
+
             <Table
                 rowSelection={rowSelection}
                 onRow={(record, rowIndex, data) => {
