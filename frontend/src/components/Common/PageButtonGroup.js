@@ -193,19 +193,18 @@ function PageButtonGroup(props) {
                     <div className="sm:flex sm:items-start">
                       <div className="shadow overflow-hidden sm:rounded-lg">
                         <div className="text-center">
-                          <div className="grid grid-rows-12">
+                          <div className="grid grid-rows-12 m-4">
                             {/* input 창 만들기 */}
                             {
                               props.selectedRows.length < 6 ? (
                                 props.selectedRows.map((value) => {
                                   return (
-                                    <div className="grid grid-row">
-                                      <label
-                                        htmlFor="first-name"
-                                        className="block text-sm font-medium text-gray-700 grid-cols-8"
+                                    <div className="span-row-1 mt-3 grid grid-cols-2 gap-3">
+                                      <div
+                                        className="text-md font-medium text-gray-700 grid-cols-8 py-2.5"
                                       >
                                         {value.lot_no}
-                                      </label>
+                                      </div>
                                       <input
                                         type="text"
                                         name="first-name"
@@ -220,10 +219,8 @@ function PageButtonGroup(props) {
                                 )): (<div>강화 최대 갯수를 초과하였습니다</div>)
 
                             }
-                            
-                            
+
                             {/*이전코드 복붙*/}
-                    
                           </div>
                         </div>
                       </div>
@@ -233,7 +230,7 @@ function PageButtonGroup(props) {
                     <button
                       type="button"
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => props.setOpenDetail(false)}
+                      onClick={() =>setIsModalVisible(false)}
                       ref={cancelButtonRef}
                     >
                       닫기
@@ -263,6 +260,7 @@ function PageButtonGroup(props) {
           onClose={() => {
             setIsModalVisible(false);
             // props.setOpenDetail(false);
+            setSuccessVisible(false)
           }}
         >
           <Transition.Child
@@ -307,8 +305,8 @@ function PageButtonGroup(props) {
                       type="button"
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                       onClick={() => {
-                        props.setOpenDetail(false);
-                        //setSuccessVisible(false);
+                        setIsModalVisible(false);
+                        setSuccessVisible(false);
                       }}
                       ref={cancelButtonRef}
                     >
