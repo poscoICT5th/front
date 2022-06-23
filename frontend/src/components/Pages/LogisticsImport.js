@@ -33,6 +33,40 @@ function LogisticsImport() {
     }
   }, [clickSearch, importReload])
 
+  // 입고 되돌리기
+  const [clickRollback, setClickRollback] = useState(false)
+  const [rollBackList, setRollBackList] = useState([])
+  const [rollBackCheckList, setRollBackCheckList] = useState([])
+  const [rollBackPos, setRollBackPos] = useState(true)
+
+  useEffect(() => {
+    if (clickRollback) {
+      setRollBackPos(true)
+      rollBack();
+    }
+    async function rollBack() {
+      if (clickRollback || importReload) {
+        const first = await rollBackCheckList.map((value) => {
+          if (value.status !== "입고취소") {
+            console.log(123123)
+            setRollBackPos(false)
+          }
+        })
+        if (rollBackPos) {
+          axios.put('/rollback',
+            rollBackList
+          )
+            .then((res) => { setClickRollback(false); })
+            .catch((err) => { console.log(rollBackList); setClickRollback(false); })
+        } else {
+
+        }
+      }
+    }
+
+  }, [clickRollback, importReload])
+
+
   // useState
   const [logisticsImportList, setLogisticsImportList] = useState([])
   const [clickDelete, setClickDelete] = useState(false)
@@ -127,7 +161,9 @@ function LogisticsImport() {
             setClickSearch={setClickSearch}
             clickSearch={clickSearch}
             setClickDelete={setClickDelete}
-            clickDelete={clickDelete} />
+            clickDelete={clickDelete}
+            setClickRollback={setClickRollback}
+          />
         </div>
 
         {/* table */}
@@ -142,6 +178,8 @@ function LogisticsImport() {
             clickDelete={clickDelete}
             deleteBodyName="logiImportList"
             setClickDelete={setClickDelete}
+            setRollBackCheckList={setRollBackCheckList}
+            setRollBackList={setRollBackList}
           />
         </div>
       </div>
