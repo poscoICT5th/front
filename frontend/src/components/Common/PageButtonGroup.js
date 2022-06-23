@@ -12,7 +12,6 @@ function PageButtonGroup(props) {
 
   //모달 새롭게 만들기
   const [openUpdate, setOpenUpdate] = useState(false);
-  console.log(props.selectedRowKeys.amount, "이거 마이너스 막아야함 !!!");
 
   const showModal = () => {
     if (props.selectedRowKeys.length > 5 || props.selectedRowKeys.length < 2) {
@@ -101,7 +100,6 @@ function PageButtonGroup(props) {
     }
   }, [props.selectedRows]);
 
-  console.log(props.selectedRows);
   let data = {
     consumedProducts: consumedProductsList,
     newProduct: newProductList,
