@@ -24,16 +24,20 @@ function TableList(props) {
     const [openDetail, setOpenDetail] = useState(false)
     const [openDetailUpdate, setopenDetailUpdate] = useState(false)
     const onSelectChange = (newSelectedRowKeys) => {
-        setSelectedRowKeys(newSelectedRowKeys); 
+        setSelectedRowKeys(newSelectedRowKeys);
+        props.setRollBackList(newSelectedRowKeys)
         console.log('selectedRowKeys changed: ', selectedRowKeys); //이 키를 받아서 모달창에 띄워라 .. 
     };
     const rowSelection = {
+
         selectedRowKeys,
         onChange: onSelectChange,
         onSelect: (record, selected, selectedRows) => {
             console.log(record)
             console.log(selected)
             setselectedRows(selectedRows) //여기서 찍어보니까 된다.
+            // rollback
+            props.setRollBackCheckList(selectedRows)
         }
     };
 
@@ -118,16 +122,14 @@ function TableList(props) {
         <div>
             {
                 props.title === "inventory"
-                    ?<div>
-                    <PageButtonGroup
-                    selectedRowKeys={selectedRowKeys}
-                    selectedRows={selectedRows}
-                    />
-                </div>
-                 : null
-}
-            
-
+                    ? <div>
+                        <PageButtonGroup
+                            selectedRowKeys={selectedRowKeys}
+                            selectedRows={selectedRows}
+                        />
+                    </div>
+                    : null
+            }
             <Table
                 rowSelection={rowSelection}
                 onRow={(record, rowIndex, data) => {
@@ -148,7 +150,7 @@ function TableList(props) {
                     x: 2500,
                     // y: 1500,
                 }}
-                // onSelect={onSelect}
+            // onSelect={onSelect}
             />
             <Detail openDetail={openDetail}
                 setOpenDetail={setOpenDetail}
