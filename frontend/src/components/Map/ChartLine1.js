@@ -13,7 +13,7 @@ export default function ChartLine1() {
         enabled: false
       },
       title: {
-        text: " 완제품 재고 추이"
+        text: " Rotor 재고 추이"
       },
       subtitle: {
         text: ""

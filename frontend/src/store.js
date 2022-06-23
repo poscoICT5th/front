@@ -52,7 +52,8 @@ export let { handleLogisticsMoveURL } = logisticsMoveURL.actions;
 // 창고 url
 let warehouseURL = createSlice({
   name: "warehouseURL",
-  initialState: "http://35.74.235.120:8080/warehouse",
+  // initialState: "http://35.74.235.120:8080/warehouse",
+  initialState: "http://192.168.0.20:8084",
   reducers: {
     handleWarehouseURL(state, newState) {
       return newState;

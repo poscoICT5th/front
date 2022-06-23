@@ -52,8 +52,8 @@ function PageButtonGroup(props) {
   //예외처리
   const openNotification = (placement) => {
     notification.info({
-      message: `X강화 금지X`,
-      description: "강화 갯수는 2~5개 사이입니다!",
+      message: `제품 가공 실패!`,
+      description: "강화 갯수는 2~5개 사이로 다시 입력해주세요!",
       placement,
     });
   };
@@ -86,7 +86,7 @@ function PageButtonGroup(props) {
         industry_family: props.selectedRows[0].industry_family,
         stock_type: props.selectedRows[0].stock_type,
         product_family: props.selectedRows[0].product_family,
-        state: "완제품",
+        state: "",
         location: props.selectedRows[0].location,
         warehouse_code: props.warehouse_code,
         item_code: props.selectedRows[0].item_code,
@@ -114,11 +114,16 @@ function PageButtonGroup(props) {
     let mixPos = true;
     // if (props.selectedRows.length > 0) {
     // }
+    //stateㄱ ㅏ 이동중일때 
+
     await props.selectedRows.forEach((element) => {
-      if (0 > element.amount) {
+      if (0 > element.amount ) {
         mixPos = false;
         alert(element.lot_no + "제품의 재고가 존재하지 않습니다.");
         setIsModalVisible(false);
+      } else if (element.state !== "") {
+        mixPos = false;
+        alert(element.lot_no + "제품은 사용할 수 없습니다.");
       }
     });
     if (mixPos) {

@@ -13,7 +13,7 @@ export default function ChartLine2() {
         enabled: false
       },
       title: {
-        text: " 불량품 재고 추이"
+        text: " 제품군별 재고 추이"
       },
       subtitle: {
         text: ""
