@@ -9,8 +9,12 @@ function PageButtonGroup(props) {
   const [successVisible, setSuccessVisible] = useState(false);
   const [form] = Form.useForm();
   const cancelButtonRef = useRef(null);
-
+  //InventoryMix.js
   //모달 새롭게 만들기
+
+  //제품 가공
+  //재료 배합
+  //
   const [openUpdate, setOpenUpdate] = useState(false);
 
   const showModal = () => {
@@ -104,13 +108,29 @@ function PageButtonGroup(props) {
     consumedProducts: consumedProductsList,
     newProduct: newProductList,
   };
+  //selectedRows 는 여러행이 담겨져있는것.
   //axios
-  function mixregist() {
+  async function mixregist() {
+    let mixPos = true;
+    // if (props.selectedRows.length > 0) {
+    // }
+    await props.selectedRows.forEach((element) => {
+      if (0 > element.amount) {
+        mixPos = false;
+        alert(element.lot_no + "제품의 재고가 존재하지 않습니다.");
+        setIsModalVisible(false);
+      }
+    });
+    if (mixPos) {
+      createAxios();
+    }
+  }
+  function createAxios() {
     axios.defaults.baseURL = inventoryURL;
-    console.log(data);
     axios
       .post("/produce", data)
       .then((res) => {
+        // console.log(res, "받아온데이터");
         alert("성공");
         setSuccessVisible(true);
       })
@@ -144,14 +164,18 @@ function PageButtonGroup(props) {
     }
   }
 
+  useEffect(() => {}, [props.selectedRows]);
+
   return (
     <div>
+      <div className="text-right">
       <button
         onClick={showModal}
-        className="mt-5 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+        className="mb-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-700 hover:bg-emerald-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
       >
-        재료강화
-      </button>
+        제품 가공
+        </button>
+        </div>
       {/* 첫번째 모달*/}
       <Transition.Root show={isModalVisible} as={Fragment}>
         <Dialog
@@ -160,7 +184,7 @@ function PageButtonGroup(props) {
           initialFocus={cancelButtonRef}
           onClose={() => {
             setIsModalVisible(false);
-            props.setOpenDetail(false);
+            //props.setOpenDetail(false);
           }}
         >
           <Transition.Child
@@ -193,14 +217,11 @@ function PageButtonGroup(props) {
                         <div className="text-center">
                           <div className="grid grid-rows-12 m-4">
                             {/* input 창 만들기 */}
-                            {
-                              props.selectedRows.length < 6 ? (
-                                props.selectedRows.map((value) => {
+                            {props.selectedRows.length < 6
+                              ? props.selectedRows.map((value) => {
                                   return (
                                     <div className="span-row-1 mt-3 grid grid-cols-2 gap-3">
-                                      <div
-                                        className="text-md font-medium text-gray-700 grid-cols-8 py-2.5"
-                                      >
+                                      <div className="text-md font-medium text-gray-700 grid-cols-8 py-2.5">
                                         {value.lot_no}
                                       </div>
                                       <input
@@ -210,13 +231,17 @@ function PageButtonGroup(props) {
                                         autoComplete="given-name"
                                         className="grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                         placeholder="갯수를 입력하세요."
+                                        onChange={(e) => {
+                                          setValue(
+                                            value.lot_no,
+                                            e.target.value
+                                          );
+                                        }}
                                       />
                                     </div>
-                                  )
-                                }
-                                )): (<div>강화 최대 갯수를 초과하였습니다</div>)
-
-                            }
+                                  );
+                                })
+                              : null}
 
                             {/*이전코드 복붙*/}
                           </div>
@@ -228,18 +253,18 @@ function PageButtonGroup(props) {
                     <button
                       type="button"
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() =>setIsModalVisible(false)}
+                      onClick={() => setIsModalVisible(false)}
                       ref={cancelButtonRef}
                     >
                       닫기
                     </button>
                     <button
-                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 
-          shadow-sm px-4 py-2 dark:bg-gray-700 text-base font-medium dark:text-white hover:bg-gray-50 
+                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300
+          shadow-sm px-4 py-2 bg-green-500 text-base font-medium dark:text-white hover:bg-gray-50 
           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                       onClick={mixregist}
                     >
-                      강화
+                      제품 가공
                     </button>
                   </div>
                 </Dialog.Panel>
@@ -258,7 +283,7 @@ function PageButtonGroup(props) {
           onClose={() => {
             setIsModalVisible(false);
             // props.setOpenDetail(false);
-            setSuccessVisible(false)
+            setSuccessVisible(false);
           }}
         >
           <Transition.Child
@@ -292,7 +317,7 @@ function PageButtonGroup(props) {
                           <div className="grid grid-cols-5">
                             {/* input 창 만들기 */}
 
-                            <p>강화에 성공했습니다!</p>
+                            <p>제품 가공을 완료하였습니다.</p>
                           </div>
                         </div>
                       </div>

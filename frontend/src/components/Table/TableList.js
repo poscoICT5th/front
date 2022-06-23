@@ -23,6 +23,7 @@ function TableList(props) {
     const [selectedRows, setselectedRows] = useState([]); //선택한 행을 통째로 받아오기.
     const [openDetail, setOpenDetail] = useState(false)
     const [openDetailUpdate, setopenDetailUpdate] = useState(false)
+    const [record, setrecord] = useState([]);
     const onSelectChange = (newSelectedRowKeys) => {
         setSelectedRowKeys(newSelectedRowKeys); 
         console.log('selectedRowKeys changed: ', selectedRowKeys); //이 키를 받아서 모달창에 띄워라 .. 
@@ -31,7 +32,7 @@ function TableList(props) {
         selectedRowKeys,
         onChange: onSelectChange,
         onSelect: (record, selected, selectedRows) => {
-            console.log(record)
+            console.log(record.amount)
             console.log(selected)
             setselectedRows(selectedRows) //여기서 찍어보니까 된다.
         }
@@ -121,7 +122,7 @@ function TableList(props) {
                     ?<div>
                     <PageButtonGroup
                     selectedRowKeys={selectedRowKeys}
-                    selectedRows={selectedRows}
+                            selectedRows={selectedRows}
                     />
                 </div>
                  : null
