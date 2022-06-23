@@ -29,12 +29,13 @@ function Login() {
       }
     )
       .then((res) => {
+        console.log(res)
         sessionStorage.setItem("token", res.data.token)
         sessionStorage.setItem("sessionID", res.data.sessionID)
         sessionStorage.setItem("theme", "light")
         sessionStorage.setItem("language", "ko")
         dispatch(handleSidebar(true))
-        navigate("/Dashboard");
+        // navigate("/Dashboard");
       })
       .catch(() => {
         alert("로그인이 실패했습니다. 계정을 확인해주세요.")
@@ -53,7 +54,7 @@ function Login() {
               <input
                 id="id-address"
                 name="id"
-                type="id"
+                type="text"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
                 placeholder="id"
                 onChange={(e) => { setId(e.target.value) }}
