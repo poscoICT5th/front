@@ -11,32 +11,8 @@ function Inventory() {
   let createInventorySuc = useSelector((state) => state.warehouseReload);
   //useEffect
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
-
-  //재고전체조회(처음에)
-  useEffect(() => {
-    axios.defaults.baseURL = inventoryURL;
-    axios
-      .get("/")
-      .then((res) => {
-        setInventoryList(res.data);
-      })
-      .catch((err) => { });
-  }, []);
-
-  //재고 조건검색
-  const [clickSearch, setClickSearch] = useState(false);
-  useEffect(() => {
-    axios.defaults.baseURL = inventoryURL;
-    if (clickSearch) {
-      axios.get("/search", { params: datas }).then((res) => {
-        setInventoryList(res.data);
-        setClickSearch(false);
-        console.log(res.data);
-      });
-    }
-  }, [clickSearch, createInventorySuc]);
 
   //usestate
   const [clickDelete, setClickDelete] = useState(false);
@@ -67,6 +43,32 @@ function Inventory() {
     min_width: 0,
     max_width: 10000000,
   });
+
+  //재고전체조회(처음에)
+  useEffect(() => {
+    axios.defaults.baseURL = inventoryURL;
+    axios
+      .get("/")
+      .then((res) => {
+        setInventoryList(res.data);
+      })
+      .catch((err) => { });
+  }, []);
+
+  //재고 조건검색
+  const [clickSearch, setClickSearch] = useState(false);
+  useEffect(() => {
+    axios.defaults.baseURL = inventoryURL;
+    // if (clickSearch) {
+    axios.get("/search", { params: datas }).then((res) => {
+      setInventoryList(res.data);
+      setClickSearch(false);
+      console.log(res.data);
+    });
+    // }
+  }, [clickSearch, createInventorySuc, datas]);
+
+
 
   const th = [
     { "ko": "lot번호", "en": "lot_no", "cn": "lot编号", "jp": "lot番号", "vn": "sốlot" },

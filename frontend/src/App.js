@@ -40,7 +40,7 @@ function App() {
   const [language, setLanguage] = useState(sessionStorage.getItem("language"))
   // AOS
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   
   useEffect(() => {

@@ -9,11 +9,10 @@ import { handleExportReload } from '../../store'
 function LogisticsExport() {
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
   let exportReload = useSelector((state) => state.exportReload)
-  axios.defaults.baseURL = logisticsExportURL
   let dispatch = useDispatch();
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   // usestate
   const [logisticsExportList, setLogisticsExportList] = useState([])
@@ -49,6 +48,7 @@ function LogisticsExport() {
   })
   // 전체조회
   useEffect(() => {
+    axios.defaults.baseURL = logisticsExportURL
     axios.get("/export", {})
       .then((res) => { setLogisticsExportList(res.data) })
   }, [])
@@ -56,17 +56,15 @@ function LogisticsExport() {
   // 출고조건검색
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
-    if (clickSearch || exportReload) {
-      console.log(datas)
-      axios.get('/search', {
-        params: datas
-      })
-        .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
-        .catch((err) => { console.log(datas); setClickSearch(false) })
-    }
+    // if (clickSearch || exportReload) {
+    axios.defaults.baseURL = logisticsExportURL
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
+      .catch((err) => { console.log(datas); setClickSearch(false) })
+    // }
   }, [clickSearch, exportReload, datas])
-
-
 
 
   const th = [
@@ -96,25 +94,29 @@ function LogisticsExport() {
 
   ]
 
-  // 입고 되돌리기
+  // 출고 되돌리기
   const [clickRollback, setClickRollback] = useState(false)
   const [rollBackList, setRollBackList] = useState([])
   const [rollBackCheckList, setRollBackCheckList] = useState([])
 
   function rollBackAxios(params) {
-    console.log(rollBackList)
-    axios.put('/import/rollback', {
-      logiImportList: rollBackList
+    axios.defaults.baseURL = logisticsExportURL
+    axios.put('/export/rollback', {
+      logiExportList: rollBackList
     }
     )
-      .then((res) => { setClickRollback(false); console.log(res.data); dispatch(handleExportReload(true)); dispatch(handleExportReload(false)) })
+      .then((res) => {
+        setClickRollback(false);
+        dispatch(handleExportReload(true));
+        dispatch(handleExportReload(false))
+      })
       .catch((err) => { setClickRollback(false); })
   }
   async function rollBack() {
     setClickRollback(false)
     let rollBackPos = true;
     await rollBackCheckList.forEach((element) => {
-      if (element.status !== "입고취소") {
+      if (element.status !== "출고취소") {
         rollBackPos = false
         alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
       }
@@ -130,6 +132,8 @@ function LogisticsExport() {
     }
   }, [clickRollback])
 
+  // 바코드 여러개출력
+  const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
 
   return (
     <div data-aos="fade-up" className="">
@@ -144,6 +148,8 @@ function LogisticsExport() {
             clickSearch={clickSearch}
             setClickDelete={setClickDelete}
             clickDelete={clickDelete}
+            setClickRollback={setClickRollback}
+            setClickBarcodePrint={setClickBarcodePrint}
           />
         </div>
         {/* table */}
@@ -159,7 +165,10 @@ function LogisticsExport() {
             deleteBodyName="logiExportList"
             setClickDelete={setClickDelete}
             setRollBackCheckList={setRollBackCheckList}
+            rollBackCheckList={rollBackCheckList}
             setRollBackList={setRollBackList}
+            clickBarcodePrint={clickBarcodePrint}
+            setClickBarcodePrint={setClickBarcodePrint}
           />
         </div>
       </div>

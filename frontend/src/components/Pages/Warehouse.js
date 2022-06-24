@@ -12,11 +12,12 @@ function Warehouse(props) {
 
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
 
   // 창고전체조회(처음에)
   useEffect(() => {
+    axios.defaults.baseURL = warehouseURL;
     axios
       .get("/")
       .then((res) => {
@@ -31,15 +32,15 @@ function Warehouse(props) {
   const [clickSearch, setClickSearch] = useState(false);
   useEffect(() => {
     axios.defaults.baseURL = warehouseURL;
-    if (clickSearch) {
-      axios.get("/search", { params: datas }).then((res) => {
-        setWarehouseList(res.data);
-        setClickSearch(false);
-        console.log(datas, "우리가 보내는 data"); //우리가 보내는 data
-        console.log(res.data, " res.data 찍어보기");
-      });
-    }
-  }, [clickSearch, warehouseReload]);
+    // if (clickSearch) {
+    axios.get("/search", { params: datas }).then((res) => {
+      setWarehouseList(res.data);
+      setClickSearch(false);
+      console.log(datas, "우리가 보내는 data"); //우리가 보내는 data
+      console.log(res.data, " res.data 찍어보기");
+    });
+    // }
+  }, [clickSearch, warehouseReload, datas]);
 
   //usestate
   const [clickDelete, setClickDelete] = useState(false);
