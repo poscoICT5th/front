@@ -1,6 +1,6 @@
 import JsBarcode from 'jsbarcode'
 import React, { useEffect, useState } from 'react'
-function Barcode(props) {
+function BarcodeX(props) {
   // let barcodeInfo = {
   //   "lotNumber": "34646546465653",
   //   "place": "포항 공장",
@@ -80,4 +80,4 @@ function Barcode(props) {
   )
 }
 
-export default Barcode
+export default BarcodeX

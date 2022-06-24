@@ -2,19 +2,22 @@ import axios from "axios";
 import Aos from "aos";
 import React, { useEffect, useState } from "react";
 import SearchLogisticsMove from "../Search/SearchLogisticsMove";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TableList from "../Table/TableList";
+import { handleMoveReload } from "../../store"
 
 function LosgisticsMove() {
   // axios url
   let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
   axios.defaults.baseURL = logisticsMoveURL
   let moveReload = useSelector((state) => state.moveReload)
+  let dispatch = useDispatch();
 
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
+
   // usestate
   const [logisticsMoveList, setLogisticsMoveList] = useState([])
   const [clickDelete, setClickDelete] = useState(false)
@@ -54,11 +57,11 @@ function LosgisticsMove() {
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
     // if (clickSearch || moveReload) {
-      axios.get('/search', {
-        params: datas
-      })
-        .then((res) => { setLogisticsMoveList(res.data); setClickSearch(false); console.log(datas) })
-        .catch((err) => { console.log(datas) })
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => { setLogisticsMoveList(res.data); setClickSearch(false); console.log(datas) })
+      .catch((err) => { console.log(datas) })
     // }
   }, [clickSearch, moveReload, datas])
 
@@ -84,8 +87,46 @@ function LosgisticsMove() {
     { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
 
+  // 출고 되돌리기
+  const [clickRollback, setClickRollback] = useState(false)
   const [rollBackList, setRollBackList] = useState([])
   const [rollBackCheckList, setRollBackCheckList] = useState([])
+
+  function rollBackAxios(params) {
+    console.log(rollBackList)
+    axios.put('/move/rollback', {
+      logiMoveList: rollBackList
+    }
+    )
+      .then((res) => {
+        setClickRollback(false);
+        dispatch(handleMoveReload(true));
+        dispatch(handleMoveReload(false))
+      })
+      .catch((err) => { setClickRollback(false); })
+  }
+  async function rollBack() {
+    setClickRollback(false)
+    let rollBackPos = true;
+    await rollBackCheckList.forEach((element) => {
+      if (element.status !== "출고취소") {
+        rollBackPos = false
+        alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
+      }
+    })
+    if (rollBackPos) {
+      rollBackAxios()
+    }
+  }
+
+  useEffect(() => {
+    if (clickRollback || moveReload) {
+      rollBack();
+    }
+  }, [clickRollback])
+
+  // 바코드 여러개출력
+  const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
 
   return (
     <div data-aos="fade-up" className="">
@@ -98,7 +139,10 @@ function LosgisticsMove() {
             setClickSearch={setClickSearch}
             clickSearch={clickSearch}
             setClickDelete={setClickDelete}
-            clickDelete={clickDelete} />
+            clickDelete={clickDelete}
+            setClickRollback={setClickRollback}
+            setClickBarcodePrint={setClickBarcodePrint}
+          />
         </div >
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
@@ -113,7 +157,10 @@ function LosgisticsMove() {
             setClickDelete={setClickDelete}
             deleteBodyName="logiMoveList"
             setRollBackCheckList={setRollBackCheckList}
+            rollBackCheckList={rollBackCheckList}
             setRollBackList={setRollBackList}
+            clickBarcodePrint={clickBarcodePrint}
+            setClickBarcodePrint={setClickBarcodePrint}
           />
         </div>
       </div>

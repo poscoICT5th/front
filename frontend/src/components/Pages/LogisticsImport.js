@@ -78,29 +78,38 @@ function LogisticsImport() {
       logiImportList: rollBackList
     }
     )
-      .then((res) => { setClickRollback(false); console.log(res.data); dispatch(handleImportReload(true)); dispatch(handleImportReload(false)) })
+      .then((res) => {
+        setClickRollback(false);
+        alert("선택한 요청을 되돌렸습니다.(말이쁘게수정해야함)");
+        dispatch(handleImportReload(true));
+        dispatch(handleImportReload(false))
+      })
       .catch((err) => { setClickRollback(false); })
   }
   async function rollBack() {
     setClickRollback(false)
     let rollBackPos = true;
+    // 롤백할수 있는 목록들인지 체크중
     await rollBackCheckList.forEach((element) => {
       if (element.status !== "입고취소") {
         rollBackPos = false
         alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
       }
     })
+    // 롤백할수있는 목록들이라면 axios 통신
     if (rollBackPos) {
       rollBackAxios()
     }
   }
 
   useEffect(() => {
-    if (clickRollback || importReload) {
+    if (clickRollback) {
       rollBack();
     }
   }, [clickRollback])
 
+  // 바코드 여러개출력
+  const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
 
 
   // const th = [
@@ -167,6 +176,7 @@ function LogisticsImport() {
             setClickDelete={setClickDelete}
             clickDelete={clickDelete}
             setClickRollback={setClickRollback}
+            setClickBarcodePrint={setClickBarcodePrint}
           />
         </div>
 
@@ -183,7 +193,10 @@ function LogisticsImport() {
             deleteBodyName="logiImportList"
             setClickDelete={setClickDelete}
             setRollBackCheckList={setRollBackCheckList}
+            rollBackCheckList={rollBackCheckList}
             setRollBackList={setRollBackList}
+            clickBarcodePrint={clickBarcodePrint}
+            setClickBarcodePrint={setClickBarcodePrint}
           />
         </div>
       </div>

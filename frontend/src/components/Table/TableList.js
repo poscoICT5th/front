@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import axios from 'axios';
-import Barcode from '../Functions/Barcode'
+import Barcode from '../Functions/BarcodeX'
 import Detail from '../Detail/Detail';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -12,6 +12,7 @@ import {
     handleInventoryReload
 } from '../../store'
 import PageButtonGroup from '../Common/PageButtonGroup';
+import BarcodePrint from '../Functions/BarcodePrint';
 
 function TableList(props) {
     let dispatch = useDispatch();
@@ -37,6 +38,7 @@ function TableList(props) {
             props.setRollBackCheckList(selectedRows)
         },
         onSelectAll: (selected, selectedRows, changeRows) => {
+            setselectedRows(selectedRows) //여기서 찍어보니까 된다.
             props.setRollBackCheckList(selectedRows)
         }
     };
@@ -53,6 +55,22 @@ function TableList(props) {
         )
     })
 
+    function handleStores() {
+        if (props.title === "logistics") {
+            dispatch(handleImportReload(true));
+            dispatch(handleExportReload(true));
+            dispatch(handleMoveReload(true));
+            dispatch(handleImportReload(false));
+            dispatch(handleExportReload(false));
+            dispatch(handleMoveReload(false));
+        } else if (props.title === "warehouse") {
+            dispatch(handleWarehouseReload(true));
+            dispatch(handleWarehouseReload(false));
+        } else if (props.title === "inventory") {
+            dispatch(handleInventoryReload(true));
+            dispatch(handleInventoryReload(false));
+        }
+    }
     useEffect(() => {
         props.th.forEach(element => {
             columns.push(
@@ -71,17 +89,32 @@ function TableList(props) {
     // rows 넣기
     props.dataList.forEach(element => {
         if (props.title === "logistics") {
-            data.push({ key: element.instruction_no, ...element, "Barcode": <Barcode itemData={element} /> })
+            data.push({ key: element.instruction_no, ...element, "Barcode": <BarcodePrint items={[element]} /> })
         } else if (props.title === "inventory") {
             data.push({ key: element.lot_no, ...element })
         } else if (props.title === "warehouse") {
             data.push({ key: element.warehouse_code, ...element })
         }
     });
+
+    // 삭제할수 있는지 체크하는 함수
+    function checkDeletePos() {
+        let check = true
+        props.rollBackCheckList.map((element) => {
+            console.log(element)
+            if (element.done_date !== null || element.status.includes("중")) {
+                console.log("includes가 적용되고있는건가")
+                check = false
+                return check
+            }
+        })
+        return check
+    }
     // 삭제(멀티)
     useEffect(() => {
         axios.defaults.baseURL = props.axiosURL
-        if (selectedRowKeys.length > 0 && props.clickDelete) {
+        if (selectedRowKeys.length > 0 && props.clickDelete && checkDeletePos()) {
+            console.log(checkDeletePos())
             axios.delete(`/${props.part}`,
                 {
                     data:
@@ -93,24 +126,16 @@ function TableList(props) {
                 .then((res) => {
                     alert("suc");
                     props.setClickDelete(false);
-                    if (props.title === "logistics") {
-                        dispatch(handleImportReload(true));
-                        dispatch(handleExportReload(true));
-                        dispatch(handleMoveReload(true));
-                        dispatch(handleImportReload(false));
-                        dispatch(handleExportReload(false));
-                        dispatch(handleMoveReload(false));
-                    } else if (props.title === "warehouse") {
-                        dispatch(handleWarehouseReload(true));
-                        dispatch(handleWarehouseReload(false));
-                    } else if (props.title === "inventory") {
-                        dispatch(handleInventoryReload(true));
-                        dispatch(handleInventoryReload(false));
-                    }
+                    handleStores();
                     props.setOpenCreate(false)
                 })
                 .catch((err) => { props.setClickDelete(false) })
 
+        } else if (selectedRowKeys.length > 0 && props.clickDelete && checkDeletePos() === false) {
+            alert("처리중이거나 완료된 요청은 삭제가 불가능합니다.")
+            console.log(checkDeletePos())
+            props.setClickDelete(false);
+            handleStores();
         }
     }, [props.clickDelete])
 
@@ -150,14 +175,19 @@ function TableList(props) {
                     x: 2500,
                     // y: 1500,
                 }}
-            // onSelect={onSelect}
             />
             <Detail openDetail={openDetail}
                 setOpenDetail={setOpenDetail}
                 detailData={detailData}
                 title={props.title}
             />
-
+            <div className="hidden">
+                <BarcodePrint
+                    items={selectedRows}
+                    clickBarcodePrint={props.clickBarcodePrint}
+                    setClickBarcodePrint={props.setClickBarcodePrint}
+                />
+            </div>
         </div>
     )
 }

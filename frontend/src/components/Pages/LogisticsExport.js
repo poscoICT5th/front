@@ -67,8 +67,6 @@ function LogisticsExport() {
   }, [clickSearch, exportReload, datas])
 
 
-
-
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
@@ -96,25 +94,29 @@ function LogisticsExport() {
 
   ]
 
-  // 입고 되돌리기
+  // 출고 되돌리기
   const [clickRollback, setClickRollback] = useState(false)
   const [rollBackList, setRollBackList] = useState([])
   const [rollBackCheckList, setRollBackCheckList] = useState([])
 
   function rollBackAxios(params) {
     console.log(rollBackList)
-    axios.put('/import/rollback', {
-      logiImportList: rollBackList
+    axios.put('/export/rollback', {
+      logiExportList: rollBackList
     }
     )
-      .then((res) => { setClickRollback(false); console.log(res.data); dispatch(handleExportReload(true)); dispatch(handleExportReload(false)) })
+      .then((res) => {
+        setClickRollback(false);
+        dispatch(handleExportReload(true));
+        dispatch(handleExportReload(false))
+      })
       .catch((err) => { setClickRollback(false); })
   }
   async function rollBack() {
     setClickRollback(false)
     let rollBackPos = true;
     await rollBackCheckList.forEach((element) => {
-      if (element.status !== "입고취소") {
+      if (element.status !== "출고취소") {
         rollBackPos = false
         alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
       }
@@ -130,6 +132,8 @@ function LogisticsExport() {
     }
   }, [clickRollback])
 
+  // 바코드 여러개출력
+  const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
 
   return (
     <div data-aos="fade-up" className="">
@@ -144,6 +148,8 @@ function LogisticsExport() {
             clickSearch={clickSearch}
             setClickDelete={setClickDelete}
             clickDelete={clickDelete}
+            setClickRollback={setClickRollback}
+            setClickBarcodePrint={setClickBarcodePrint}
           />
         </div>
         {/* table */}
@@ -159,7 +165,10 @@ function LogisticsExport() {
             deleteBodyName="logiExportList"
             setClickDelete={setClickDelete}
             setRollBackCheckList={setRollBackCheckList}
+            rollBackCheckList={rollBackCheckList}
             setRollBackList={setRollBackList}
+            clickBarcodePrint={clickBarcodePrint}
+            setClickBarcodePrint={setClickBarcodePrint}
           />
         </div>
       </div>
