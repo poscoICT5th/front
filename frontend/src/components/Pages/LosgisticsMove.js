@@ -15,27 +15,6 @@ function LosgisticsMove() {
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
-
-  // 창고이동 전체조회
-  const [click, setClick] = useState(false)
-  useEffect(() => {
-    axios.get('/move')
-      .then((res) => { setLogisticsMoveList(res.data); console.log(res.data) })
-      .catch((err) => { })
-  }, [])
-
-  // 창고조건조회
-  const [clickSearch, setClickSearch] = useState(false)
-  useEffect(() => {
-    if (clickSearch || moveReload) {
-      axios.get('/search', {
-        params: datas
-      })
-        .then((res) => { setLogisticsMoveList(res.data); setClickSearch(false); console.log(datas) })
-        .catch((err) => { console.log(datas) })
-    }
-  }, [clickSearch, moveReload])
-
   // usestate
   const [logisticsMoveList, setLogisticsMoveList] = useState([])
   const [clickDelete, setClickDelete] = useState(false)
@@ -63,6 +42,27 @@ function LosgisticsMove() {
     inst_deadline: "전체보기",
     done_date: "전체보기",
   })
+  // 창고이동 전체조회
+  const [click, setClick] = useState(false)
+  useEffect(() => {
+    axios.get('/move')
+      .then((res) => { setLogisticsMoveList(res.data); console.log(res.data) })
+      .catch((err) => { })
+  }, [])
+
+  // 창고조건조회
+  const [clickSearch, setClickSearch] = useState(false)
+  useEffect(() => {
+    // if (clickSearch || moveReload) {
+      axios.get('/search', {
+        params: datas
+      })
+        .then((res) => { setLogisticsMoveList(res.data); setClickSearch(false); console.log(datas) })
+        .catch((err) => { console.log(datas) })
+    // }
+  }, [clickSearch, moveReload, datas])
+
+
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },

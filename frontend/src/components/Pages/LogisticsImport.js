@@ -1,72 +1,21 @@
 import Aos from 'aos';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SearchLogisticsImport from '../Search/SearchLogisticsImport';
 import TableList from '../Table/TableList';
+import { handleImportReload } from '../../store'
 
 
 function LogisticsImport() {
   let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
   let importReload = useSelector((state) => state.importReload)
   axios.defaults.baseURL = logisticsImportURL
+  let dispatch = useDispatch();
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
-
-  // 전체조회
-  useEffect(() => {
-    axios.get('/import')
-      .then((res) => { setLogisticsImportList(res.data); })
-  }, [])
-
-  // 입고 조건검색
-  const [clickSearch, setClickSearch] = useState(false)
-  useEffect(() => {
-    if (clickSearch || importReload) {
-      axios.get('/search', {
-        params: datas
-      })
-        .then((res) => { setLogisticsImportList(res.data); setClickSearch(false); console.log(datas); console.log(res.data) })
-        .catch((err) => { console.log(datas) })
-    }
-  }, [clickSearch, importReload])
-
-  // 입고 되돌리기
-  const [clickRollback, setClickRollback] = useState(false)
-  const [rollBackList, setRollBackList] = useState([])
-  const [rollBackCheckList, setRollBackCheckList] = useState([])
-  const [rollBackPos, setRollBackPos] = useState(true)
-
-  useEffect(() => {
-    if (clickRollback) {
-      setRollBackPos(true)
-      rollBack();
-    }
-    async function rollBack() {
-      if (clickRollback || importReload) {
-        const first = await rollBackCheckList.map((value) => {
-          if (value.status !== "입고취소") {
-            console.log(123123)
-            setRollBackPos(false)
-          }
-        })
-        if (rollBackPos) {
-          axios.put('/rollback',
-            rollBackList
-          )
-            .then((res) => { setClickRollback(false); })
-            .catch((err) => { console.log(rollBackList); setClickRollback(false); })
-        } else {
-
-        }
-      }
-    }
-
-  }, [clickRollback, importReload])
-
-
   // useState
   const [logisticsImportList, setLogisticsImportList] = useState([])
   const [clickDelete, setClickDelete] = useState(false)
@@ -99,6 +48,61 @@ function LogisticsImport() {
     inst_deadline: "전체보기",
     done_date: "전체보기",
   })
+
+  // 전체조회
+  useEffect(() => {
+    axios.get('/import')
+      .then((res) => { setLogisticsImportList(res.data); })
+  }, [])
+
+  // 입고 조건검색
+  const [clickSearch, setClickSearch] = useState(false)
+  useEffect(() => {
+    // if (clickSearch || importReload) {
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => { setLogisticsImportList(res.data); setClickSearch(false); })
+      .catch((err) => { console.log(err) })
+    // }
+  }, [clickSearch, importReload, datas])
+
+  // 입고 되돌리기
+  const [clickRollback, setClickRollback] = useState(false)
+  const [rollBackList, setRollBackList] = useState([])
+  const [rollBackCheckList, setRollBackCheckList] = useState([])
+
+  function rollBackAxios(params) {
+    console.log(rollBackList)
+    axios.put('/import/rollback', {
+      logiImportList: rollBackList
+    }
+    )
+      .then((res) => { setClickRollback(false); console.log(res.data); dispatch(handleImportReload(true)); dispatch(handleImportReload(false)) })
+      .catch((err) => { setClickRollback(false); })
+  }
+  async function rollBack() {
+    setClickRollback(false)
+    let rollBackPos = true;
+    await rollBackCheckList.forEach((element) => {
+      if (element.status !== "입고취소") {
+        rollBackPos = false
+        alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
+      }
+    })
+    if (rollBackPos) {
+      rollBackAxios()
+    }
+  }
+
+  useEffect(() => {
+    if (clickRollback || importReload) {
+      rollBack();
+    }
+  }, [clickRollback])
+
+
+
   // const th = [
   //   { "instruction_no": 180 },
   //   { "status": 100 },

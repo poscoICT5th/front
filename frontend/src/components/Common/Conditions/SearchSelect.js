@@ -41,6 +41,15 @@ function SearchSelect(props) {
             setLabel(props.vn)
         }
     }, [])
+
+    function onChangeInput(value) {
+        console.log(value)
+        if (props.purpose === "search" && value === undefined) {
+            props.setDatas({ ...props.datas, [props.name]: "전체보기" });
+        } else {
+            props.setDatas({ ...props.datas, [props.name]: value });
+        }
+    }
     return (
         <div className={"col-span-" + props.grid}>
             <label className="block text-sm font-medium">
@@ -58,7 +67,7 @@ function SearchSelect(props) {
 
                     placeholder={label}
                     defaultValue={[]}
-                    onChange={handleChange}
+                    onChange={onChangeInput}
                 >
                     {options}
                 </Select>

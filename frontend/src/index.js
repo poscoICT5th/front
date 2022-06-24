@@ -8,7 +8,6 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
-import ScrollToTop from "./components/Common/ScrollToTop";
 
 const themes = {
   dark: `${process.env.PUBLIC_URL}/dark-theme.css`,
@@ -21,7 +20,6 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <ThemeSwitcherProvider themeMap={themes} defaultTheme={sessionStorage.getItem("theme")}>
-        <ScrollToTop />
         <App />
       </ThemeSwitcherProvider>
     </BrowserRouter>

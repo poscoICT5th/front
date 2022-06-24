@@ -2,38 +2,19 @@ import axios from 'axios';
 import Aos from 'aos';
 import React, { useEffect, useState } from 'react'
 import SearchLogisticsExport from '../Search/SearchLogisticsExport';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TableList from '../Table/TableList';
+import { handleExportReload } from '../../store'
 
 function LogisticsExport() {
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
   let exportReload = useSelector((state) => state.exportReload)
   axios.defaults.baseURL = logisticsExportURL
+  let dispatch = useDispatch();
   // useEffect
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
-
-  // 전체조회
-  useEffect(() => {
-    axios.get("/export", {})
-      .then((res) => { setLogisticsExportList(res.data) })
-  }, [])
-
-  // 출고조건검색
-  const [clickSearch, setClickSearch] = useState(false)
-  useEffect(() => {
-    if (clickSearch || exportReload) {
-      console.log(datas)
-      axios.get('/search', {
-        params: datas
-      })
-        .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
-        .catch((err) => { console.log(datas); setClickSearch(false) })
-    }
-  }, [clickSearch, exportReload])
-
-
   // usestate
   const [logisticsExportList, setLogisticsExportList] = useState([])
   const [clickDelete, setClickDelete] = useState(false)
@@ -66,6 +47,27 @@ function LogisticsExport() {
     inst_deadline: "전체보기",
     done_date: "전체보기",
   })
+  // 전체조회
+  useEffect(() => {
+    axios.get("/export", {})
+      .then((res) => { setLogisticsExportList(res.data) })
+  }, [])
+
+  // 출고조건검색
+  const [clickSearch, setClickSearch] = useState(false)
+  useEffect(() => {
+    if (clickSearch || exportReload) {
+      console.log(datas)
+      axios.get('/search', {
+        params: datas
+      })
+        .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
+        .catch((err) => { console.log(datas); setClickSearch(false) })
+    }
+  }, [clickSearch, exportReload, datas])
+
+
+
 
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
@@ -94,6 +96,41 @@ function LogisticsExport() {
 
   ]
 
+  // 입고 되돌리기
+  const [clickRollback, setClickRollback] = useState(false)
+  const [rollBackList, setRollBackList] = useState([])
+  const [rollBackCheckList, setRollBackCheckList] = useState([])
+
+  function rollBackAxios(params) {
+    console.log(rollBackList)
+    axios.put('/import/rollback', {
+      logiImportList: rollBackList
+    }
+    )
+      .then((res) => { setClickRollback(false); console.log(res.data); dispatch(handleExportReload(true)); dispatch(handleExportReload(false)) })
+      .catch((err) => { setClickRollback(false); })
+  }
+  async function rollBack() {
+    setClickRollback(false)
+    let rollBackPos = true;
+    await rollBackCheckList.forEach((element) => {
+      if (element.status !== "입고취소") {
+        rollBackPos = false
+        alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
+      }
+    })
+    if (rollBackPos) {
+      rollBackAxios()
+    }
+  }
+
+  useEffect(() => {
+    if (clickRollback || exportReload) {
+      rollBack();
+    }
+  }, [clickRollback])
+
+
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -121,6 +158,8 @@ function LogisticsExport() {
             clickDelete={clickDelete}
             deleteBodyName="logiExportList"
             setClickDelete={setClickDelete}
+            setRollBackCheckList={setRollBackCheckList}
+            setRollBackList={setRollBackList}
           />
         </div>
       </div>

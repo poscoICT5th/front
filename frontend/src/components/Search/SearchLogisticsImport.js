@@ -118,7 +118,7 @@ function SearchLogisticsImport(props) {
                     })}
                 </div>
                 {/* <div className="col-span-1"> */}
-                <div className='text-right'>
+                <div className='text-right mt-5'>
                     <button
                         className="mt-2 mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                         onClick={() => { props.setClickRollback(true) }}

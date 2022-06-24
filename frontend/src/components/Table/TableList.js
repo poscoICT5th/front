@@ -22,22 +22,21 @@ function TableList(props) {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setselectedRows] = useState([]); //선택한 행을 통째로 받아오기.
     const [openDetail, setOpenDetail] = useState(false)
-    const [openDetailUpdate, setopenDetailUpdate] = useState(false)
-    const [record, setrecord] = useState([]);
+
     const onSelectChange = (newSelectedRowKeys) => {
         setSelectedRowKeys(newSelectedRowKeys);
         props.setRollBackList(newSelectedRowKeys)
         console.log('selectedRowKeys changed: ', selectedRowKeys); //이 키를 받아서 모달창에 띄워라 .. 
     };
     const rowSelection = {
-
         selectedRowKeys,
         onChange: onSelectChange,
         onSelect: (record, selected, selectedRows) => {
-            console.log(record.amount)
-            console.log(selected)
             setselectedRows(selectedRows) //여기서 찍어보니까 된다.
             // rollback
+            props.setRollBackCheckList(selectedRows)
+        },
+        onSelectAll: (selected, selectedRows, changeRows) => {
             props.setRollBackCheckList(selectedRows)
         }
     };
@@ -83,7 +82,6 @@ function TableList(props) {
     useEffect(() => {
         axios.defaults.baseURL = props.axiosURL
         if (selectedRowKeys.length > 0 && props.clickDelete) {
-            console.log(selectedRowKeys)
             axios.delete(`/${props.part}`,
                 {
                     data:

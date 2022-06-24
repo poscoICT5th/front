@@ -164,18 +164,18 @@ function PageButtonGroup(props) {
     }
   }
 
-  useEffect(() => {}, [props.selectedRows]);
+  useEffect(() => { }, [props.selectedRows]);
 
   return (
     <div>
       <div className="text-right">
-      <button
-        onClick={showModal}
-        className="mb-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-700 hover:bg-emerald-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-      >
-        제품 가공
+        <button
+          onClick={showModal}
+          className="mb-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-700 hover:bg-emerald-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+        >
+          제품 가공
         </button>
-        </div>
+      </div>
       {/* 첫번째 모달*/}
       <Transition.Root show={isModalVisible} as={Fragment}>
         <Dialog
@@ -219,28 +219,28 @@ function PageButtonGroup(props) {
                             {/* input 창 만들기 */}
                             {props.selectedRows.length < 6
                               ? props.selectedRows.map((value) => {
-                                  return (
-                                    <div className="span-row-1 mt-3 grid grid-cols-2 gap-3">
-                                      <div className="text-md font-medium text-gray-700 grid-cols-8 py-2.5">
-                                        {value.lot_no}
-                                      </div>
-                                      <input
-                                        type="text"
-                                        name="first-name"
-                                        id="first-name"
-                                        autoComplete="given-name"
-                                        className="grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
-                                        placeholder="갯수를 입력하세요."
-                                        onChange={(e) => {
-                                          setValue(
-                                            value.lot_no,
-                                            e.target.value
-                                          );
-                                        }}
-                                      />
+                                return (
+                                  <div className="span-row-1 mt-3 grid grid-cols-2 gap-3">
+                                    <div className="text-md font-medium text-gray-700 grid-cols-8 py-2.5">
+                                      {value.lot_no}
                                     </div>
-                                  );
-                                })
+                                    <input
+                                      type="text"
+                                      name="first-name"
+                                      id="first-name"
+                                      autoComplete="given-name"
+                                      className="grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
+                                      placeholder="갯수를 입력하세요."
+                                      onChange={(e) => {
+                                        setValue(
+                                          value.lot_no,
+                                          e.target.value
+                                        );
+                                      }}
+                                    />
+                                  </div>
+                                );
+                              })
                               : null}
 
                             {/*이전코드 복붙*/}

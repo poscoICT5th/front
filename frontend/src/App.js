@@ -25,6 +25,7 @@ import TrendInventory from './components/Trend/TrendInventory'
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import { handleTheme, handleLanguage } from './store'
 import { Button, Select } from 'antd';
+import Tracking from './components/Detail/Tracking';
 function App() {
   let userURL = useSelector((state) => state.userURL)
   let sidebar = useSelector((state) => state.sidebar)
@@ -40,6 +41,10 @@ function App() {
   // AOS
   useEffect(() => {
     Aos.init({ duration: 2000 });
+  }, []);
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
@@ -185,6 +190,7 @@ function App() {
               <Route path="/ChartBar1" element={<ChartBar1 />} />
               <Route path="/ChartPie" element={<ChartPie />} />
               <Route path="/TrendInventory" element={<TrendInventory />} />
+              <Route path="/Tracking" element={<Tracking />} />
             </Routes></div>
         </div>
         {
