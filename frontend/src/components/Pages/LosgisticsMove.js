@@ -9,13 +9,11 @@ import { handleMoveReload } from "../../store"
 function LosgisticsMove() {
   // axios url
   let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
-  axios.defaults.baseURL = logisticsMoveURL
   let moveReload = useSelector((state) => state.moveReload)
   let dispatch = useDispatch();
-
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
 
   // usestate
@@ -48,14 +46,16 @@ function LosgisticsMove() {
   // 창고이동 전체조회
   const [click, setClick] = useState(false)
   useEffect(() => {
+    axios.defaults.baseURL = logisticsMoveURL
     axios.get('/move')
       .then((res) => { setLogisticsMoveList(res.data); console.log(res.data) })
       .catch((err) => { })
   }, [])
 
-  // 창고조건조회
+  // 창고이동조건조회
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
+    axios.defaults.baseURL = logisticsMoveURL
     // if (clickSearch || moveReload) {
     axios.get('/search', {
       params: datas
@@ -94,6 +94,7 @@ function LosgisticsMove() {
 
   function rollBackAxios(params) {
     console.log(rollBackList)
+    axios.defaults.baseURL = logisticsMoveURL
     axios.put('/move/rollback', {
       logiMoveList: rollBackList
     }

@@ -12,7 +12,7 @@ import axios from 'axios';
 function Dashboard() {
   let inventoryURL = useSelector((state) => state.inventoryURL)
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   const [tenSeconds, setTenSeconds] = useState(false)
   const [agingRankingList, setAgingRankingList] = useState([])

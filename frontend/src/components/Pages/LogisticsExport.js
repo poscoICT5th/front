@@ -9,11 +9,10 @@ import { handleExportReload } from '../../store'
 function LogisticsExport() {
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
   let exportReload = useSelector((state) => state.exportReload)
-  axios.defaults.baseURL = logisticsExportURL
   let dispatch = useDispatch();
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   // usestate
   const [logisticsExportList, setLogisticsExportList] = useState([])
@@ -49,6 +48,7 @@ function LogisticsExport() {
   })
   // 전체조회
   useEffect(() => {
+    axios.defaults.baseURL = logisticsExportURL
     axios.get("/export", {})
       .then((res) => { setLogisticsExportList(res.data) })
   }, [])
@@ -56,14 +56,14 @@ function LogisticsExport() {
   // 출고조건검색
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
-    if (clickSearch || exportReload) {
-      console.log(datas)
-      axios.get('/search', {
-        params: datas
-      })
-        .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
-        .catch((err) => { console.log(datas); setClickSearch(false) })
-    }
+    // if (clickSearch || exportReload) {
+    axios.defaults.baseURL = logisticsExportURL
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
+      .catch((err) => { console.log(datas); setClickSearch(false) })
+    // }
   }, [clickSearch, exportReload, datas])
 
 
@@ -100,7 +100,7 @@ function LogisticsExport() {
   const [rollBackCheckList, setRollBackCheckList] = useState([])
 
   function rollBackAxios(params) {
-    console.log(rollBackList)
+    axios.defaults.baseURL = logisticsExportURL
     axios.put('/export/rollback', {
       logiExportList: rollBackList
     }

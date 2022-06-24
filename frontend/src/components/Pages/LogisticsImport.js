@@ -14,7 +14,7 @@ function LogisticsImport() {
   let dispatch = useDispatch();
   // useEffect
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
   // useState
   const [logisticsImportList, setLogisticsImportList] = useState([])
@@ -25,18 +25,18 @@ function LogisticsImport() {
     lot_no: "전체보기",
     item_code: "전체보기",
     item_name: "전체보기",
-    min_order_amount: 0,
+    min_order_amount: -1,
     max_order_amount: 10000000,
-    min_im_amount: 0,
+    min_im_amount: -1,
     max_im_amount: 10000000,
     unit: "전체보기",
-    min_weight: 0,
+    min_weight: -1,
     max_weight: 10000000,
-    min_thickness: 0,
+    min_thickness: -1,
     max_thickness: 10000000,
-    min_height: 0,
+    min_height: -1,
     max_height: 10000000,
-    min_width: 0,
+    min_width: -1,
     max_width: 10000000,
     industry_family: "전체보기",
     product_family: "전체보기",
@@ -51,6 +51,7 @@ function LogisticsImport() {
 
   // 전체조회
   useEffect(() => {
+    axios.defaults.baseURL = logisticsImportURL
     axios.get('/import')
       .then((res) => { setLogisticsImportList(res.data); })
   }, [])
@@ -59,10 +60,11 @@ function LogisticsImport() {
   const [clickSearch, setClickSearch] = useState(false)
   useEffect(() => {
     // if (clickSearch || importReload) {
+    axios.defaults.baseURL = logisticsImportURL
     axios.get('/search', {
       params: datas
     })
-      .then((res) => { setLogisticsImportList(res.data); setClickSearch(false); })
+      .then((res) => { setLogisticsImportList(res.data); setClickSearch(false); console.log(res.data) })
       .catch((err) => { console.log(err) })
     // }
   }, [clickSearch, importReload, datas])
@@ -73,7 +75,7 @@ function LogisticsImport() {
   const [rollBackCheckList, setRollBackCheckList] = useState([])
 
   function rollBackAxios(params) {
-    console.log(rollBackList)
+    axios.defaults.baseURL = logisticsImportURL
     axios.put('/import/rollback', {
       logiImportList: rollBackList
     }

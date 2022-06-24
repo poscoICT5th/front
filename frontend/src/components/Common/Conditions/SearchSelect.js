@@ -58,7 +58,6 @@ function SearchSelect(props) {
 
             <div className="col-span-2">
                 <Select
-                    // mode="multiple"
                     showSearch
                     allowClear
                     style={{
@@ -67,7 +66,7 @@ function SearchSelect(props) {
 
                     placeholder={label}
                     defaultValue={[]}
-                    onChange={onChangeInput}
+                    onChange={(e) => { onChangeInput(e) }}
                 >
                     {options}
                 </Select>
