@@ -28,7 +28,7 @@ export default class App extends Component {
 
         labels: {
           formatter: function () {
-            console.log(this);
+          //  console.log(this);
             return numberFormat.format(this.value)  //.format(여기에 json 두번째 데이터들어감)
 
           }
