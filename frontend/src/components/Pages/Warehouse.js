@@ -74,6 +74,9 @@ function Warehouse(props) {
 
   ];
 
+  const [rollBackList, setRollBackList] = useState([])
+  const [rollBackCheckList, setRollBackCheckList] = useState([])
+
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -101,7 +104,8 @@ function Warehouse(props) {
             clickDelete={clickDelete}
             deleteBodyName="warehouseList"
             setClickDelete={setClickDelete}
-
+            setRollBackCheckList={setRollBackCheckList}
+            setRollBackList={setRollBackList}
           />
         </div>
       </div>

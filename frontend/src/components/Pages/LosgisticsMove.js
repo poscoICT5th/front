@@ -84,6 +84,9 @@ function LosgisticsMove() {
     { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
 
+  const [rollBackList, setRollBackList] = useState([])
+  const [rollBackCheckList, setRollBackCheckList] = useState([])
+
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -109,6 +112,8 @@ function LosgisticsMove() {
             clickDelete={clickDelete}
             setClickDelete={setClickDelete}
             deleteBodyName="logiMoveList"
+            setRollBackCheckList={setRollBackCheckList}
+            setRollBackList={setRollBackList}
           />
         </div>
       </div>
