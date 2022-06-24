@@ -13,6 +13,7 @@ import {
 } from '../../store'
 import PageButtonGroup from '../Common/PageButtonGroup';
 import BarcodePrint from '../Functions/BarcodePrint';
+import Popup from './Popup';
 
 function TableList(props) {
     let dispatch = useDispatch();
@@ -141,7 +142,12 @@ function TableList(props) {
 
     const [detailData, setDetailData] = useState({})
     //강화 !!
-
+    const [visiblePopup, setVisiblePopup] = useState(false)
+    const [popupXY, setPopupXY] = useState({
+        X: 0,
+        Y: 0
+    })
+    const [popupData, setPopupData] = useState({})
     return (
         <div>
             {
@@ -159,9 +165,15 @@ function TableList(props) {
                 rowSelection={rowSelection}
                 onRow={(record, rowIndex, data) => {
                     return {
-                        onClick: event => { }, // click row
+                        onClick: event => { setVisiblePopup(false) }, // click row
                         onDoubleClick: event => { setDetailData(record); setOpenDetail(true) }, // double click row
-                        onContextMenu: event => { }, // right button click row
+                        onContextMenu: event => {
+                            event.preventDefault();
+                            setPopupXY({ ...popupXY, "X": event.pageX, "Y": event.pageY })
+                            setVisiblePopup(true)
+                            setPopupData(record)
+
+                        }, // right button click row
                         onMouseEnter: event => { }, // mouse enter row
                         onMouseLeave: event => { }, // mouse leave row
                     };
@@ -175,6 +187,13 @@ function TableList(props) {
                     x: 2500,
                     // y: 1500,
                 }}
+            />
+            <Popup
+                visiblePopup={visiblePopup}
+                popupXY={popupXY}
+                popupData={[popupData]}
+                clickBarcodePrint={props.clickBarcodePrint}
+                setClickBarcodePrint={props.setClickBarcodePrint}
             />
             <Detail openDetail={openDetail}
                 setOpenDetail={setOpenDetail}
