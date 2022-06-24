@@ -32,7 +32,7 @@ function TrendInventory() {
         <div className="mx-auto">60%</div>
       </div>
 
-      <div className="grid grid-cols-3 grid-rows-1 gap-3 bg-stone-100 rounded-lg">
+      <div className="grid grid-cols-1 grid-rows-3 gap-3 bg-stone-100 rounded-lg">
         <div><ChartLine /></div>
         <div><ChartLine1 /></div>
         <div><ChartLine2 /></div>

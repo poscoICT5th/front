@@ -1,66 +1,121 @@
-import React, { useEffect, useRef } from "react";
-import Highcharts from "highcharts";
-import "./styles.css";
-//6월 13일 line chart 구현 
-export default function ChartLine1() {
-  const refContainer = useRef(null);
-  useEffect(() => {
-    Highcharts.chart(refContainer.current, {
-      chart: {
-        type: "line"
+import React, { Component } from 'react'
+import ReactHighcharts from 'react-highcharts/ReactHighstock.src'
+import priceData from './btcdata.json'
+import moment from 'moment'
+
+export default class App extends Component {
+  render() {
+    const options = {style: 'number', currency: 'USD'};
+    const numberFormat = new Intl.DateTimeFormat('en-US', options);
+    // const date = '20220101'
+    // const options = {
+    //   weekday: 'long',
+    //   year: 'numeric',
+    //   month: 'long',
+    //   day: 'numeric',
+    // }
+    //MM/DD/YYYY
+    
+    function name(params) {
+      
+    }
+
+    console.log(numberFormat , " 이게 도대체 뭘까");
+    const configPrice = {
+      
+      yAxis: [{
+        offset: 20,
+
+        labels: {
+          formatter: function () {
+            console.log(this);
+            return numberFormat.format(this.value)  //.format(여기에 json 두번째 데이터들어감)
+
+          }
+          ,
+          x: -15,
+          style: {
+            "color": "#000", "position": "absolute"
+
+          },
+          align: 'left'
+        },
       },
+        
+      ],
+      tooltip: {
+        shared: true,
+        formatter: function () {
+          return numberFormat.format(this.y, 0) +  '</b><br/>' + moment(this.x).format('MMMM Do YYYY, h:mm')
+        }
+      },
+      plotOptions: {
+        series: {
+          showInNavigator: true,
+          gapSize: 6,
+
+        }
+      },
+      rangeSelector: {
+        selected: 1
+      },
+      title: {
+        text: `Bitcoin stock price`
+      },
+      chart: {
+        height: 600,
+      },
+  
       credits: {
         enabled: false
       },
-      title: {
-        text: " Rotor 재고 추이"
-      },
-      subtitle: {
-        text: ""
+  
+      legend: {
+        enabled: true
       },
       xAxis: {
-        categories: [
-          "1/1/2022",
-          "1/2/2022",
-          "1/3/2022",
-          "1/4/2022",
-          "1/5/2022",
-          "1/6/2022"
-        ], // the categories of the X Axis
-        crosshair: true
+        type: 'date',
       },
-      yAxis: {
-        min: 2000, // minimum value of the Y Axis
-        title: {
-          text: "Number of Covid cases"
-        } // the title of the Y Axis
+      rangeSelector: {
+        buttons: [{
+          type: 'day',
+          count: 1,
+          text: '1d',
+        }, {
+          type: 'day',
+          count: 7,
+          text: '7d'
+        }, {
+          type: 'month',
+          count: 1,
+          text: '1m'
+        }, {
+          type: 'month',
+          count: 3,
+          text: '3m'
+        },
+          {
+          type: 'all',
+          text: 'All'
+        }],
+        selected: 4
       },
-      tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat:
-          '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style="padding:0"><b>{point.y}</b></td></tr>'
-      }, // tooltip appears when hovering over a point
-      series: [
-        {
-          name: "반제품",
-          data: [4706, 4702, 3979, 2547, 3999, 3999]
+      series: [{
+        name: 'Price',
+        type: 'spline',
+  
+        data: priceData,
+        tooltip: {
+          valueDecimals: 2
         },
-        {
-          name: "완제품",
-          data: [5555, 8000, 3000, 4000, 7000, 3999]
-        },
-        {
-          name: "불량품",
-          data: [5555, 5000, 7000, 3000, 7000, 3999]
-        },
+  
+      }
       ]
-    });
-  }, []);
-
-  return (
-    <div className="App">
-      <div ref={refContainer} />
-    </div>
-  );
+    };
+    return (
+      <div>
+         <ReactHighcharts config = {configPrice}></ReactHighcharts>
+      </div>
+    )
+  }
 }
