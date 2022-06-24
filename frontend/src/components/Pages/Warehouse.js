@@ -15,6 +15,25 @@ function Warehouse(props) {
     Aos.init({ duration: 1000 });
   }, []);
 
+  //usestate
+  const [clickDelete, setClickDelete] = useState(false);
+  const [warehouseList, setWarehouseList] = useState([]);
+  const [datas, setDatas] = useState({
+    warehouse_code: "전체보기",
+    location: "전체보기",
+    purpose: "전체보기",
+    warehouse_desc: "전체보기",
+    use: "전체보기",
+    min_maximum_weight: 0,
+    max_maximum_weight: 10000000,
+    min_maximum_count: 0,
+    max_maximum_count: 10000000,
+    maximum_weight: "전체보기",
+    maximum_count: "전체보기",
+    inventory_using: "전체보기",
+    remarks: "전체보기",
+  });
+
   // 창고전체조회(처음에)
   useEffect(() => {
     axios.defaults.baseURL = warehouseURL;
@@ -42,25 +61,7 @@ function Warehouse(props) {
     // }
   }, [clickSearch, warehouseReload, datas]);
 
-  //usestate
-  const [clickDelete, setClickDelete] = useState(false);
-  const [warehouseList, setWarehouseList] = useState([]);
-  const [datas, setDatas] = useState({
-    warehouse_code: "전체보기",
-    location: "전체보기",
-    purpose: "전체보기",
-    warehouse_desc: "전체보기",
-    use: "전체보기",
-    min_maximum_weight: 0,
-    max_maximum_weight: 10000000,
-    min_maximum_count: 0,
-    max_maximum_count: 10000000,
-    maximum_weight: "전체보기",
-    maximum_count: "전체보기",
-    inventory_using: "전체보기",
-    remarks: "전체보기",
 
-  });
 
   const th = [
     { "ko": "창고코드", "en": "warehouse_code", "cn": "仓库代码", "jp": "倉庫コード", "vn": "mã kho" },

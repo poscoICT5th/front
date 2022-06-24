@@ -18,7 +18,7 @@ function BarcodePrint(props) {
     }
 
     useEffect(() => {
-        if (props.items.length > 0 && props.clickBarcodePrint) {
+        if (props.items.length > 0 && props.clickBarcodePrint === true) {
             onClickPrint()
         }
     }, [props.clickBarcodePrint])
@@ -29,7 +29,17 @@ function BarcodePrint(props) {
             <div ref={printRef} className="hidden">
                 {
                     props.items.map((item) => {
-                        return <Barcode value={item.lot_no} />
+                        return <div className="grid grid-rows-4 border-stone-700 bg-black">
+                            <div className="row-span-2">
+                                <Barcode value={item.lot_no} />
+                            </div>
+                            <div className=''>
+                                <div>LOT : {item.lot_no}  지시번호 : {item.instruction_no}</div>
+                            </div>
+                            <div className=''>
+                                <div>물품명 : {item.item_name}  공정상태 : {item.status}</div>
+                            </div>
+                        </div>
                     })
                 }
             </div>
