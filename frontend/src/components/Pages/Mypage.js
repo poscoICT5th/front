@@ -6,7 +6,7 @@ const { Meta } = Card;
 
 function Mypage() {
   return (
-    <div className="w-2/3 mx-auto">
+    <div className="w-2/3 mx-auto" data-aos="fade-up">
       <div className="grid grid-cols-4 gap-1 text-center">
         <div className="mx-auto">
           <img

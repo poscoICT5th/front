@@ -1,42 +1,9 @@
-import React from 'react';
-import 'antd/dist/antd.css';
-//import './index.css';
-import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
-import { Card, Col, Row, Statistic } from 'antd';
+import React from 'react'
 
-const Timeline = () => (
-  <div className="site-statistic-demo-card">
-    <Row gutter={16}>
-      <Col span={12}>
-        <Card>
-          <Statistic
-            title="작업률"
-            value={11.28}
-            precision={2}
-            valueStyle={{
-              color: '#3f8600',
-            }}
-            prefix={<ArrowUpOutlined />}
-            suffix="%"
-          />
-        </Card>
-      </Col>
-      <Col span={12}>
-        <Card>
-          <Statistic
-            title="Idle"
-            value={9.3}
-            precision={2}
-            valueStyle={{
-              color: '#cf1322',
-            }}
-            prefix={<ArrowDownOutlined />}
-            suffix="%"
-          />
-        </Card>
-      </Col>
-    </Row>
-  </div>
-);
+function Timeline() {
+  return (
+    <div>Timeline</div>
+  )
+}
 
-export default Timeline;
+export default Timeline

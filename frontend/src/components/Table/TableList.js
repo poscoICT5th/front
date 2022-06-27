@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import axios from 'axios';
-import Barcode from '../Functions/BarcodeX'
 import Detail from '../Detail/Detail';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -72,6 +71,7 @@ function TableList(props) {
             dispatch(handleInventoryReload(false));
         }
     }
+
     useEffect(() => {
         props.th.forEach(element => {
             columns.push(
@@ -169,10 +169,11 @@ function TableList(props) {
                         onDoubleClick: event => { setDetailData(record); setOpenDetail(true) }, // double click row
                         onContextMenu: event => {
                             event.preventDefault();
-                            setPopupXY({ ...popupXY, "X": event.pageX, "Y": event.pageY })
-                            setVisiblePopup(true)
-                            setPopupData(record)
-
+                            if (!["inventory", "warehouse"].includes(props.title)) {
+                                setPopupXY({ ...popupXY, "X": event.pageX, "Y": event.pageY })
+                                setVisiblePopup(true)
+                                setPopupData(record)
+                            }
                         }, // right button click row
                         onMouseEnter: event => { }, // mouse enter row
                         onMouseLeave: event => { }, // mouse leave row

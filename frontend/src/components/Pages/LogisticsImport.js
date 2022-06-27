@@ -12,10 +12,7 @@ function LogisticsImport() {
   let importReload = useSelector((state) => state.importReload)
   axios.defaults.baseURL = logisticsImportURL
   let dispatch = useDispatch();
-  // useEffect
-  useEffect(() => {
-    Aos.init({ duration: 1000 });
-  }, []);
+
   // useState
   const [logisticsImportList, setLogisticsImportList] = useState([])
   const [clickDelete, setClickDelete] = useState(false)

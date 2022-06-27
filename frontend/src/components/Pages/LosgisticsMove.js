@@ -11,10 +11,6 @@ function LosgisticsMove() {
   let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
   let moveReload = useSelector((state) => state.moveReload)
   let dispatch = useDispatch();
-  // useEffect
-  useEffect(() => {
-    Aos.init({ duration: 1000 });
-  }, []);
 
   // usestate
   const [logisticsMoveList, setLogisticsMoveList] = useState([])
