@@ -1,9 +1,9 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactHighcharts from "react-highcharts/ReactHighstock.src";
-import priceData from "./btcdata.json";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import axios from "axios";
+
 //파악 완료
 
 function ChartLine() {
@@ -20,11 +20,11 @@ function ChartLine() {
       .then((res) => {
         res.data.forEach((element) => {
           setLineData((lineData) => [
-            ...lineData,
+            ...lineData, //[,] 형태로 만들어주기위해 넣는다.
             setLineDataAxios(element.date, element.inven_motor),
           ]);
         });
-        console.log(lineData);
+       // console.log(lineData, "라인데이터 ");
       })
       .catch((err) => {
         console.log(err);

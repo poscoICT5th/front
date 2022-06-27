@@ -1,66 +1,151 @@
-import React, { useEffect, useRef } from "react";
-import Highcharts from "highcharts";
-import "./styles.css";
-//6월 13일 line chart 구현 
-export default function ChartLine2() {
-  const refContainer = useRef(null);
+import React, { useEffect, useState } from "react";
+import ReactHighcharts from "react-highcharts/ReactHighstock.src";
+import moment from "moment";
+import { useSelector } from "react-redux";
+import axios from "axios";
+
+//Strip 재고 추이
+function ChartLine() {
+  const [lineData, setLineData] = useState([]);
+  //axios
+  let inventoryURL = useSelector((state) => state.inventoryURL);
+  function setLineDataAxios(date, value) {
+    return [parseInt(date), value];
+  }
   useEffect(() => {
-    Highcharts.chart(refContainer.current, {
-      chart: {
-        type: "line"
-      },
-      credits: {
-        enabled: false
-      },
-      title: {
-        text: " 제품군별 재고 추이"
-      },
-      subtitle: {
-        text: ""
-      },
-      xAxis: {
-        categories: [
-          "1/1/2022",
-          "1/2/2022",
-          "1/3/2022",
-          "1/4/2022",
-          "1/5/2022",
-          "1/6/2022"
-        ], // the categories of the X Axis
-        crosshair: true
-      },
-      yAxis: {
-        min: 2000, // minimum value of the Y Axis
-        title: {
-          text: "Number of Covid cases"
-        } // the title of the Y Axis
-      },
-      tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat:
-          '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style="padding:0"><b>{point.y}</b></td></tr>'
-      }, // tooltip appears when hovering over a point
-      series: [
-        {
-          name: "반제품",
-          data: [4706, 4702, 3979, 2547, 3999, 7000]
-        },
-        {
-          name: "완제품",
-          data: [5555, 8000, 3000, 4000, 7000, 8000]
-        },
-        {
-          name: "불량품",
-          data: [5555, 5000, 7000, 3000, 7000, 9000]
-        },
-      ]
-    });
+    axios.defaults.baseURL = inventoryURL;
+    axios
+      .get("/trend")
+      .then((res) => {
+        res.data.forEach((element) => {
+          setLineData((lineData) => [
+            ...lineData, //[,] 형태로 만들어주기위해 넣는다.
+            setLineDataAxios(element.date, element.inven_strip),
+
+          ]);
+        });
+        console.log(lineData, "라인데이터 ");
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
+  const options = { style: "currency", currency: "USD" };
+  const numberFormat = new Intl.NumberFormat("en-US", options);
+
+  const configPrice = {
+    yAxis: [
+      {
+        offset: 20,
+        labels: {
+          formatter: function () {
+            // const a = [1000,2000,3000,40000];
+            //return numberFormat.format(123456)
+            return this.value; //jason 두번째 값을 엑시오스에서 받아서 여기서 뿌려주면된다.
+            // y 축 완성
+          },
+          x: -15,
+          style: {
+            color: "#000",
+            position: "absolute",
+          },
+          align: "left",
+        },
+      },
+    ],
+
+    tooltip: {
+      shared: true,
+      formatter: function () {
+        return (
+          numberFormat.format(this.y, 0) +
+          "</b><br/>" +
+          moment(this.x).format("MMMM Do YYYY, h:mm")
+        );
+        // return 1000;
+      },
+    },
+    plotOptions: {
+      series: {
+        showInNavigator: true,
+        gapSize: 6,
+      },
+    },
+    rangeSelector: {
+      selected: 1,
+    },
+    title: {
+      text: `Strip 재고 추이`,
+    },
+    chart: {
+      height: 600,
+    },
+
+    credits: {
+      enabled: false,
+    },
+
+    legend: {
+      enabled: true,
+    },
+    xAxis: {
+      type: "date",
+      // categories: [
+      //   "1/7/2019"
+      // ]
+    },
+    //위에 버튼
+    rangeSelector: {
+      buttons: [
+        {
+          type: "day",
+          count: 1,
+          text: "1d",
+        },
+        {
+          type: "day",
+          count: 7,
+          text: "7d",
+        },
+        {
+          type: "month",
+          count: 1,
+          text: "1m",
+        },
+        {
+          type: "month",
+          count: 3,
+          text: "3m",
+        },
+        {
+          type: "all",
+          text: "All",
+        },
+      ],
+      selected: 4,
+    },
+
+    //밑에 범위 박스
+    series: [
+      {
+        name: "재고량",
+        type: "spline",
+
+        data: lineData,
+        tooltip: {
+          valueDecimals: 2,
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="App">
-      <div ref={refContainer} />
+    <div>
+      <ReactHighcharts config={configPrice}></ReactHighcharts>
     </div>
   );
 }
+
+export default ChartLine;
