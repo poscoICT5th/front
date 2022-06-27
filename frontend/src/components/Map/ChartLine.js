@@ -24,7 +24,7 @@ function ChartLine() {
             setLineDataAxios(element.date, element.inven_motor),
           ]);
         });
-       // console.log(lineData, "라인데이터 ");
+       console.log(lineData, "라인데이터 ");
       })
       .catch((err) => {
         console.log(err);
@@ -42,7 +42,7 @@ function ChartLine() {
           formatter: function () {
             // const a = [1000,2000,3000,40000];
             //return numberFormat.format(123456)
-            return this.value; //jason 두번째 값을 엑시오스에서 받아서 여기서 뿌려주면된다.
+            return this.value; //jason 두번째 값을 엑시오스에서 받아서 여기서 뿌려주면된다. [날짜, 재고량]
             // y 축 완성
           },
           x: -15,
@@ -59,8 +59,10 @@ function ChartLine() {
       shared: true,
       formatter: function () {
         return (
-          numberFormat.format(this.y, 0) +
-          "</b><br/>" +
+          //numberFormat.format(this.y, 0) +
+          this.y +
+          
+          "개</b><br/>" +
           moment(this.x).format("MMMM Do YYYY, h:mm")
         );
         // return 1000;
@@ -100,11 +102,6 @@ function ChartLine() {
       buttons: [
         {
           type: "day",
-          count: 1,
-          text: "1d",
-        },
-        {
-          type: "day",
           count: 7,
           text: "7d",
         },
@@ -123,7 +120,7 @@ function ChartLine() {
           text: "All",
         },
       ],
-      selected: 4,
+      selected: 2,
     },
 
     //밑에 범위 박스

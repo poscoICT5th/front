@@ -61,8 +61,8 @@ function ChartLine() {
       shared: true,
       formatter: function () {
         return (
-          numberFormat.format(this.y, 0) +
-          "</b><br/>" +
+          this.y +
+          "개</b><br/>" +
           moment(this.x).format("MMMM Do YYYY, h:mm")
         );
         // return 1000;
@@ -102,11 +102,6 @@ function ChartLine() {
       buttons: [
         {
           type: "day",
-          count: 1,
-          text: "1d",
-        },
-        {
-          type: "day",
           count: 7,
           text: "7d",
         },
@@ -125,7 +120,7 @@ function ChartLine() {
           text: "All",
         },
       ],
-      selected: 4,
+      selected: 2,
     },
 
     //밑에 범위 박스
