@@ -19,6 +19,7 @@ function TableList(props) {
     let store_language = useSelector((state) => state.language)
     const columns = [];
     const data = [];
+    
     // select
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setselectedRows] = useState([]); //선택한 행을 통째로 받아오기.

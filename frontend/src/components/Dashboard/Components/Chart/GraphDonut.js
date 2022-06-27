@@ -20,7 +20,7 @@ function GraphDonut() {
         options: {
             chart: {
                 type: 'donut',
-                width:'130%'
+                width: '130%'
             },
             legend: {
                 position: 'bottom'

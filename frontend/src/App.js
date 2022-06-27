@@ -14,10 +14,6 @@ import Sidebar from './components/Common/Sidebar'
 import Mypage from './components/Pages/Mypage'
 import Footer from './components/Common/Footer';
 import Header from './components/Common/Header';
-import GraphPie from './components/Dashboard/Graph/GraphPie';
-import ChartBar1 from './components/Map/ChartBar1'
-import ChartTreemap from './components/Map/ChartTreemap'
-import ChartPie from './components/Map/ChartPie'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
@@ -151,10 +147,6 @@ function App() {
               <Route path="/Inventory" element={<Inventory />} />
               <Route path="/Warehouse" element={<Warehouse />} />
               <Route path="/Mypage" element={<Mypage />} />
-              <Route path="/ChartTreemap" element={<ChartTreemap />} />
-              <Route path="/GraphPie" element={<GraphPie />} />
-              <Route path="/ChartBar1" element={<ChartBar1 />} />
-              <Route path="/ChartPie" element={<ChartPie />} />
               <Route path="/TrendInventory" element={<TrendInventory />} />
               <Route path="/Tracking" element={<Tracking />} />
             </Routes></div>

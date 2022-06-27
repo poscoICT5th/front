@@ -97,6 +97,7 @@ function LosgisticsMove() {
     )
       .then((res) => {
         setClickRollback(false);
+        alert("선택한 요청을 되돌렸습니다.(말이쁘게수정해야함)");
         dispatch(handleMoveReload(true));
         dispatch(handleMoveReload(false))
       })
@@ -106,7 +107,8 @@ function LosgisticsMove() {
     setClickRollback(false)
     let rollBackPos = true;
     await rollBackCheckList.forEach((element) => {
-      if (element.status !== "출고취소") {
+      console.log(element)
+      if (element.status !== "이동취소") {
         rollBackPos = false
         alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
       }
@@ -117,7 +119,7 @@ function LosgisticsMove() {
   }
 
   useEffect(() => {
-    if (clickRollback || moveReload) {
+    if (clickRollback) {
       rollBack();
     }
   }, [clickRollback])

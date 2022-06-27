@@ -110,31 +110,6 @@ function LogisticsImport() {
   // 바코드 여러개출력
   const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
 
-
-  // const th = [
-  //   { "instruction_no": 180 },
-  //   { "status": 100 },
-  //   { "lot_no": 180 },
-  //   { "item_code": 100 },
-  //   { "item_name": 300 },
-  //   { "order_amount": 150 },
-  //   { "im_amount": 120 },
-  //   { "unit": 100 },
-  //   { "weight": 100 },
-  //   { "width": 100 },
-  //   { "thickness": 100 },
-  //   { "height": 100 },
-  //   { "industry_family": 180 },
-  //   { "product_family": 150 },
-  //   { "location": 100 },
-  //   { "to_warehouse": 125 },
-  //   { "customer": 100 },
-  //   { "order_date": 200 },
-  //   { "inst_reg_date": 200 },
-  //   { "inst_deadline": 200 },
-  //   { "done_date": 200 },
-  //   { "barcode": 500 },
-  // ]
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
@@ -158,8 +133,6 @@ function LogisticsImport() {
     { "ko": "지시마감일", "en": "inst_deadline", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị", "size": 300 },
     { "ko": "완료일", "en": "done_date", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành", "size": 300 },
     { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
-
-
   ]
   return (
     <div data-aos="fade-up" className="">
