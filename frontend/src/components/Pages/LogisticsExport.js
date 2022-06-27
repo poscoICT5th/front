@@ -87,8 +87,6 @@ function LogisticsExport() {
     { "ko": "지시마감일", "en": "inst_deadline", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị", "size": 300 },
     { "ko": "완료일", "en": "done_date", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành", "size": 300 },
     { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
-
-
   ]
 
   // 출고 되돌리기
@@ -104,6 +102,7 @@ function LogisticsExport() {
     )
       .then((res) => {
         setClickRollback(false);
+        alert("선택한 요청을 되돌렸습니다.(말이쁘게수정해야함)");
         dispatch(handleExportReload(true));
         dispatch(handleExportReload(false))
       })
@@ -113,6 +112,7 @@ function LogisticsExport() {
     setClickRollback(false)
     let rollBackPos = true;
     await rollBackCheckList.forEach((element) => {
+      console.log(element)
       if (element.status !== "출고취소") {
         rollBackPos = false
         alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
