@@ -10,9 +10,9 @@ function Inventory() {
   let inventoryURL = useSelector((state) => state.inventoryURL);
   let createInventorySuc = useSelector((state) => state.warehouseReload);
   //useEffect
-  useEffect(() => {
-    Aos.init({ duration: 1000 });
-  }, []);
+  // useEffect(() => {
+  //   Aos.init({ duration: 1000 });
+  // }, []);
 
   //usestate
   const [clickDelete, setClickDelete] = useState(false);

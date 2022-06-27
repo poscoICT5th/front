@@ -10,11 +10,6 @@ function Warehouse(props) {
   axios.defaults.baseURL = warehouseURL;
   let warehouseReload = useSelector((state) => state.warehouseReload);
 
-  // useEffect
-  useEffect(() => {
-    Aos.init({ duration: 1000 });
-  }, []);
-
   //usestate
   const [clickDelete, setClickDelete] = useState(false);
   const [warehouseList, setWarehouseList] = useState([]);

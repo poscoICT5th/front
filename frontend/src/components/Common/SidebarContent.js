@@ -22,20 +22,6 @@ function SidebarContent(props) {
 
   const [menu, setMenu] = useState(-1);
 
-  async function logout(params) {
-    axios.defaults.baseURL = userURL
-    axios.post('/logout')
-      .then((res) => {
-        sessionStorage.clear()
-        sessionStorage.clear()
-        dispatch(handleSidebar(false))
-        alert("로그아웃되었습니다.");
-        navigate('/')
-        window.location.reload();
-      })
-  }
-
-
   const sidebarDatas = [
     {
       menu: "계정",
@@ -53,7 +39,7 @@ function SidebarContent(props) {
     },
     {
       menu: "입고관리",
-      no: 0,
+      no: 1,
       d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01",
       subMenu: [
         {
@@ -81,7 +67,7 @@ function SidebarContent(props) {
     },
     {
       menu: "출고관리",
-      no: 0,
+      no: 2,
       d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
       subMenu: [
         {
@@ -108,7 +94,7 @@ function SidebarContent(props) {
     },
     {
       menu: "창고이동관리",
-      no: 0,
+      no: 3,
       d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
       subMenu: [
         {
@@ -135,7 +121,7 @@ function SidebarContent(props) {
     },
     {
       menu: "창고관리",
-      no: 0,
+      no: 4,
       d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
       subMenu: [
         {
@@ -162,7 +148,7 @@ function SidebarContent(props) {
     },
     {
       menu: "재고관리",
-      no: 0,
+      no: 5,
       d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
       subMenu: [
         {
@@ -201,7 +187,7 @@ function SidebarContent(props) {
                     : null
                 }
                 onClick={() => {
-                  navigate("/Dashboard");
+                  navigatePage("Dashboard");
                   setMenu(0);
                   props.setSidebarOpen(false)
                 }}
@@ -331,31 +317,6 @@ function SidebarContent(props) {
                   </details>
                 );
               })}
-              <div
-                className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-500 hover:text-gray-700"
-                style={
-                  menu === 81
-                    ? { backgroundColor: "gray", color: "white" }
-                    : null
-                }
-                onClick={logout}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                  />
-                </svg>
-                <span className="ml-3 text-sm font-medium"> 로그아웃 </span>
-              </div>
             </nav>
           </div>
         </div>

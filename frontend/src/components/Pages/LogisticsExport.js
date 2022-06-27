@@ -10,10 +10,7 @@ function LogisticsExport() {
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
   let exportReload = useSelector((state) => state.exportReload)
   let dispatch = useDispatch();
-  // useEffect
-  useEffect(() => {
-    Aos.init({ duration: 1000 });
-  }, []);
+
   // usestate
   const [logisticsExportList, setLogisticsExportList] = useState([])
   const [clickDelete, setClickDelete] = useState(false)

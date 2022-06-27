@@ -5,15 +5,11 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
 import { handleSidebar } from '../../store'
-import jwt_decode from "jwt-decode";
-import Alert from "../Common/AlertFailed";
+
 function Login() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
   let userUrl = useSelector((state) => state.userURL)
-  // useEffect
-
-
   // useState
   const [id, setId] = useState("")
   const [pw, setPw] = useState("")
@@ -46,9 +42,6 @@ function Login() {
         alert("로그인이 실패했습니다. 계정을 확인해주세요.")
       })
   }
-  // Alert
-  const [alertOpen, setAlertOpen] = useState(false)
-
   return (
     <div className="h-screen">
       <div className="login min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 m-auto">
