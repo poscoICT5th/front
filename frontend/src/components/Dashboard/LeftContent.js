@@ -5,7 +5,8 @@ import DashboardImport from './Components/Table/DashboardImport'
 import DashboardExport from './Components/Table/DashboardExport'
 import DashboardMove from './Components/Table/DashboardMove'
 import moment from "moment";
-import DashboardRankingList from './Components/List/DashboardRankingList'
+import DashboardRankingList from './DashboardRankingList'
+import WarehouiseChart from './Components/Chart/WarehouseChart'
 function LeftContent() {
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -36,6 +37,14 @@ function LeftContent() {
                 disabled: false,
                 defaultChecked: false,
                 component: <DashboardRankingList />
+            }
+        } else if (value === "warehouse") {
+            return {
+                label: "창고현황",
+                value: value,
+                disabled: false,
+                defaultChecked: false,
+                component: <WarehouiseChart />
             }
         }
         return {

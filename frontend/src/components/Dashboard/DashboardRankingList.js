@@ -21,22 +21,22 @@ function DashboardRankingList() {
         }, 11000);
     }, []);
     return (
-        <div className=''>
-            <div className='rounded-lg h-full grid grid-rows-11 gap-3 text-center'>
-                <div className="">오래된순위</div>
+        <div className='grid grid-cols-2 gap-5'>
+            <div className='rounded-lg grid grid-rows-11 gap-3 text-center'>
+                <div className="font-bold">오래된순위</div>
                 {agingRankingList.map((agingItem, index) => {
                     return (
-                        <div className="bg-cyan-500 rounded-lg mx-3 px-2 text-ellipsis overflow-hidden truncate">
+                        <div className="bg-cyan-200 rounded-lg px-2 py-2 text-ellipsis overflow-hidden truncate">
                             {index + 1}. {agingItem.lot_no}
                         </div>
                     );
                 })}
             </div>
-            <div className='rounded-lg h-full grid grid-rows-11 gap-3 text-center'>
-                <div className="">재고많은순위</div>
+            <div className='rounded-lg grid grid-rows-11 gap-3 text-center'>
+                <div className="font-bold">재고많은순위</div>
                 {amountRankingList.map((amountItem) => {
                     return (
-                        <div className="bg-cyan-500 rounded-lg mx-3 px-2 text-ellipsis overflow-hidden truncate ">
+                        <div className="bg-cyan-200 rounded-lg px-2 py-2 text-ellipsis overflow-hidden truncate ">
                             ({amountItem.sum}) {amountItem.item_name}
                         </div>
                     );

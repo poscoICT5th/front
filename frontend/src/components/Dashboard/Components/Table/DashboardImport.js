@@ -54,9 +54,9 @@ function DashboardImport() {
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
     { "ko": "lot번호", "en": "lot_no", "cn": "lot编号", "jp": "lot番号", "vn": "số lot", "size": 300 },
     // { "ko": "제품코드", "en": "item_code", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm", "size": 300 },
-    { "ko": "제품명", "en": "item_name", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là", "size": 300 },
-    { "ko": "주문량", "en": "order_amount", "cn": "订货量", "jp": "注文量", "vn": "lượng đặt hàng", "size": 300 },
-    { "ko": "입고수량", "en": "im_amount", "cn": "入库数量", "jp": "入庫数量", "vn": "số lượng nhập kho", "size": 300 },
+    // { "ko": "제품명", "en": "item_name", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là", "size": 300 },
+    // { "ko": "주문량", "en": "order_amount", "cn": "订货量", "jp": "注文量", "vn": "lượng đặt hàng", "size": 300 },
+    // { "ko": "입고수량", "en": "im_amount", "cn": "入库数量", "jp": "入庫数量", "vn": "số lượng nhập kho", "size": 300 },
     // { "ko": "단위", "en": "unit", "cn": "单位", "jp": "単位", "vn": "đơn vị", "size": 300 },
     // { "ko": "무게", "en": "weight", "cn": "份量", "jp": "重さ", "vn": "trọng lượng", "size": 300 },
     // { "ko": "넓이", "en": "width", "cn": "广度", "jp": "広さ", "vn": "bề rộng", "size": 300 },
@@ -66,7 +66,7 @@ function DashboardImport() {
     // { "ko": "제품군", "en": "product_family", "cn": "产品群", "jp": "製品群", "vn": "dòng sản phẩm", "size": 300 },
     // { "ko": "지역", "en": "location", "cn": "地域", "jp": "地域", "vn": "khu vực", "size": 300 },
     { "ko": "창고코드", "en": "to_warehouse", "cn": "仓库代码", "jp": "倉庫コード", "vn": "mã kho", "size": 300 },
-    { "ko": "고객사", "en": "customer", "cn": "客户公司", "jp": "顧客会社", "vn": "công ty khách hàng", "size": 300 },
+    // { "ko": "고객사", "en": "customer", "cn": "客户公司", "jp": "顧客会社", "vn": "công ty khách hàng", "size": 300 },
     // { "ko": "주문일", "en": "order_date", "cn": "订货日", "jp": "注文日", "vn": "ngày đặt hàng", "size": 300 },
     // { "ko": "지시등록일", "en": "inst_reg_date", "cn": "指示登记日", "jp": "指示登録日", "vn": "ngày đăng ký chỉ thị", "size": 300 },
     // { "ko": "지시마감일", "en": "inst_deadline", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị", "size": 300 },
@@ -109,10 +109,8 @@ function DashboardImport() {
       <Table
         columns={columns}
         dataSource={logisticsImportList}
-        scroll={{
-          x: 1500,
-          y: 500,
-        }}
+        pagination={false}
+        size="small"
       />
     </div>
   )

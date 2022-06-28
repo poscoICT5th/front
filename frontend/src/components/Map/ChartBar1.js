@@ -70,14 +70,14 @@ function ChartBar1(props) {
       },
     },
   };
-  
+
   return (
     <div className="App">
       <HighchartsReact
         style={{ height: "100%" }}
         highcharts={Highcharts}
         options={state.chartOptions}
-        // callback={}
+      // callback={}
       />
     </div>
   );

@@ -1,70 +1,79 @@
 import React, { useEffect, useState } from 'react'
-import { Tab } from '@headlessui/react'
-import { useSelector } from 'react-redux';
-import axios from "axios"
-import RightContent from '../Dashboard/RightContent';
-import LeftContent from '../Dashboard/LeftContent';
+import DashboardImport from '../Dashboard/Components/Table/DashboardImport'
+import DashboardExport from '../Dashboard/Components/Table/DashboardExport'
+import DashboardMove from '../Dashboard/Components/Table/DashboardMove'
+import moment from 'moment'
+import DashboardRankingList from '../Dashboard/DashboardRankingList'
+import DashboardMainChart from '../Dashboard/DashboardMainChart'
+import RightContent from '../Dashboard/RightContent'
 function Dashboard() {
+  const [now, setNow] = useState(moment().format("YY.MM.DD HH:mm:ss"))
+  const [second, setSecond] = useState(false)
+  useEffect(() => {
+    setNow(moment().format("YY.MM.DD HH:mm:ss"))
+    setTimeout(() => {
+      setSecond(!second)
+    }, 1000);
+  }, [second])
 
-
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
-  let [categories] = useState({
-    Recent: [
-      {
-        id: 1,
-        title: 'Does drinking coffee make you smarter?',
-        date: '5h ago',
-        commentCount: 5,
-        shareCount: 2,
-      },
-      {
-        id: 2,
-        title: "So you've bought coffee... now what?",
-        date: '2h ago',
-        commentCount: 3,
-        shareCount: 2,
-      },
-    ],
-    Popular: [
-      {
-        id: 1,
-        title: 'Is tech making coffee better or worse?',
-        date: 'Jan 7',
-        commentCount: 29,
-        shareCount: 16,
-      },
-      {
-        id: 2,
-        title: 'The most innovative things happening in coffee',
-        date: 'Mar 19',
-        commentCount: 24,
-        shareCount: 12,
-      },
-    ],
-    Trending: [
-      {
-        id: 1,
-        title: 'Ask Me Anything: 10 answers to your questions about coffee',
-        date: '2d ago',
-        commentCount: 9,
-        shareCount: 5,
-      },
-      {
-        id: 2,
-        title: "The worst advice we've ever heard about coffee",
-        date: '4d ago',
-        commentCount: 1,
-        shareCount: 2,
-      },
-    ],
-  })
   return (
-    <div data-aos="fade-up">
-      <div className='grid grid-cols-7 gap-5 h-full'>
-        <LeftContent />
-        <RightContent />
+    <div>
+      <div className='text-2xl text-center my-3'>{now}</div>
+      <div className="grid grid-cols-6 grid-rows-2 gap-5 text-center">
+        <div className="rounded-lg col-span-2 gap-5 h-full">
+          <DashboardRankingList />
+        </div>
+        <div className="rounded-lg col-span-3 grid grid-rows-5 gap-2">
+          <div className='row-span-4'>test</div>
+          <div className='row-span-1 rounded-lg grid grid-cols-2 gap-2'>
+            <div>
+              <button
+                className="w-full inline-flex justify-center py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-500 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                onClick={() => {
+
+                }}
+              >
+                입고관리
+              </button>
+            </div>
+            <div>
+              <button
+                className="w-full inline-flex justify-center py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-500 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                onClick={() => {
+
+                }}
+              >
+                출고관리
+              </button>
+            </div>
+            <div>
+              <button
+                className="w-full inline-flex justify-center py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-500 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                onClick={() => {
+
+                }}
+              >
+                창고이동관리
+              </button>
+            </div>
+            <div>
+              <button
+                className="w-full inline-flex justify-center py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-500 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                onClick={() => {
+
+                }}
+              >
+                창고관리
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <RightContent />
+        </div>
+        <div className="bg-cyan-0 rounded-lg col-span-2"><div className='my-3 text-lg font-bold'>입고</div><DashboardImport /></div>
+        <div className="bg-cyan-0 rounded-lg col-span-2"><div className='my-3 text-lg font-bold'>출고</div><DashboardExport /></div>
+        <div className="bg-cyan-0 rounded-lg col-span-2"><div className='my-3 text-lg font-bold'>창고이동</div><DashboardMove /></div>
       </div>
     </div>
   )

@@ -47,8 +47,8 @@ function DashboardMove() {
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
     { "ko": "lot번호", "en": "lot_no", "cn": "lot编号", "jp": "lot番号", "vn": "số lot", "size": 300 },
     // { "ko": "제품코드", "en": "item_code", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm", "size": 300 },
-    { "ko": "제품명", "en": "item_name", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là", "size": 300 },
-    { "ko": "이동량", "en": "move_amount", "cn": "移动量", "jp": "移動量", "vn": "lượng di chuyển", "size": 300 },
+    // { "ko": "제품명", "en": "item_name", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là", "size": 300 },
+    // { "ko": "이동량", "en": "move_amount", "cn": "移动量", "jp": "移動量", "vn": "lượng di chuyển", "size": 300 },
     // { "ko": "단위", "en": "unit", "cn": "单位", "jp": "単位", "vn": "đơn vị", "size": 300 },
     // { "ko": "무게", "en": "weight", "cn": "份量", "jp": "重さ", "vn": "trọng lượng", "size": 300 },
     // { "ko": "넓이", "en": "width", "cn": "广度", "jp": "広さ", "vn": "bề rộng", "size": 300 },
@@ -96,10 +96,8 @@ function DashboardMove() {
       <Table
         columns={columns}
         dataSource={logisticsMoveList}
-        scroll={{
-          x: 1500,
-          y: 500,
-        }}
+        pagination={false}
+        size="small"
       />
     </div>
   )

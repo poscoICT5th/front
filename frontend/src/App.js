@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom'
 import TrendInventory from './components/Trend/TrendInventory'
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import { handleTheme, handleLanguage } from './store'
-import Tracking from './components/Detail/Tracking';
+import Tracking from './components/Pages/Tracking';
 
 function App() {
   let userURL = useSelector((state) => state.userURL)
