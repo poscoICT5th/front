@@ -15,6 +15,8 @@ import {
 import axios from "axios";
 import { useSelector } from "react-redux";
 import "./styles.css";
+
+import Map3d from "../Map/Map3d";
 addHeatmapModule(Highcharts);
 addTreemapModule(Highcharts);
 
@@ -94,29 +96,32 @@ function ChartTreemap() {
   };
 
   return (
-    <div className="App">
-      <HighchartsProvider Highcharts={Highcharts}>
-        <HighchartsChart>
-          <Title>창고맵 + 재고현황</Title>
-          <Subtitle></Subtitle>
-          <XAxis />
-          <YAxis>
-            <TreemapSeries
-              data={treeData}
-              allowDrillToNode
-              layoutAlgorithm="squarified"
-              animationLimit={1000}
-              dataLabels={{ enabled: false }}
-              levelIsConstant={false}
-              levels={levels}
-              onClick={(e) => {
-                console.log(e.target.value);
-              }}
-            />
-          </YAxis>
-          <Tooltip formatter={tooltipFormatter} />
-        </HighchartsChart>
-      </HighchartsProvider>
+    // <div className="App">
+    //   <HighchartsProvider Highcharts={Highcharts}>
+    //     <HighchartsChart>
+    //       <Title>창고맵 + 재고현황</Title>
+    //       <Subtitle></Subtitle>
+    //       <XAxis />
+    //       <YAxis>
+    //         <TreemapSeries
+    //           data={treeData}
+    //           allowDrillToNode
+    //           layoutAlgorithm="squarified"
+    //           animationLimit={1000}
+    //           dataLabels={{ enabled: false }}
+    //           levelIsConstant={false}
+    //           levels={levels}
+    //           onClick={(e) => {
+    //             console.log(e.target.value);
+    //           }}
+    //         />
+    //       </YAxis>
+    //       <Tooltip formatter={tooltipFormatter} />
+    //     </HighchartsChart>
+    //   </HighchartsProvider>
+    // </div>
+    <div>
+      <Map3d />
     </div>
   );
 }

@@ -24,7 +24,7 @@ function ChartBar1(props) {
         text: "",
       },
       credits: {
-        enabled: false
+        enabled: true
       },
       plotOptions: {
         series: {
