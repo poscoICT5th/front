@@ -90,6 +90,7 @@ function ChartLine() {
 
     legend: {
       enabled: true,
+    
     },
     xAxis: {
       type: "date",

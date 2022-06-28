@@ -13,6 +13,7 @@ import {
 import PageButtonGroup from '../Common/PageButtonGroup';
 import BarcodePrint from '../Functions/BarcodePrint';
 import Popup from './Popup';
+import Invenupdate from '../Common/Invenupdate';
 
 function TableList(props) {
     let dispatch = useDispatch();
@@ -157,9 +158,16 @@ function TableList(props) {
                             selectedRowKeys={selectedRowKeys}
                             selectedRows={selectedRows}
                         />
+                        <Invenupdate
+                        selectedRowKeys={selectedRowKeys}
+                        selectedRows={selectedRows}
+                        
+                        />
                     </div>
+                    
                     : null
             }
+            
 
             <Table
                 rowSelection={rowSelection}

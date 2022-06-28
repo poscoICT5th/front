@@ -40,6 +40,14 @@ export const stock_quality_status = [
 export const status_cause = [
     "전체보기", "각인대기", "각인미완료", "각인완료 대치완료", "각인완료", "대차부족", "원자재불량", "선별완료", "포장대기", "포장미완료", "재선별완료", "재고분류"
 ]
+// 안지꺼
+export const inventory_stock_quality_status = [
+    "합격", "불합격"
+]
+// 상태사유 안지꺼
+export const inventory_status_cause = [
+    "각인대기", "각인미완료", "각인완료 대치완료", "각인완료", "대차부족", "원자재불량", "선별완료", "포장대기", "포장미완료", "재선별완료", "재고분류"
+]
 // 사업장
 export const stock_place = [
     "전체보기", "포항", "광양", "천안"

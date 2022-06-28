@@ -80,7 +80,7 @@ function Header(props) {
           <div className='mt-1.5 mr-2 cursor-pointer'>
             <Dropdown overlay={menu}>
               <Space>
-                {userName} {position}님 안녕하세요
+                {userName} {position}안지 님 안녕하세요
                 <DownOutlined />
               </Space>
             </Dropdown>
