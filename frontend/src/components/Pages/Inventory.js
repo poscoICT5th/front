@@ -106,6 +106,7 @@ function Inventory() {
             setDatas={setDatas}
             datas={datas}
             setClickSearch={setClickSearch}
+            
             clickSearch={clickSearch}
             setClickDelete={setClickDelete}
             clickDelete={clickDelete}

@@ -43,7 +43,7 @@ function PageButtonGroup(props) {
   };
 
   const onFinish = (values) => {
-    console.log(values);
+    //console.log(values);
   };
 
   const onReset = () => {
@@ -53,7 +53,7 @@ function PageButtonGroup(props) {
   const openNotification = (placement) => {
     notification.info({
       message: `제품 가공 실패!`,
-      description: "강화 갯수는 2~5개 사이로 다시 입력해주세요!",
+      description: "제품 가공 원료를 2~5개 사이로 다시 선택해주세요!",
       placement,
     });
   };

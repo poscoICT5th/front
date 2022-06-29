@@ -15,8 +15,8 @@ import {
 import axios from "axios";
 import { useSelector } from "react-redux";
 import "./styles.css";
+import Echarts1 from './Echarts1'
 
-import Map3d from "../Map/Map3d";
 addHeatmapModule(Highcharts);
 addTreemapModule(Highcharts);
 
@@ -36,7 +36,7 @@ function ChartTreemap() {
 
       const countries = Object.keys(data[locationName]);
       countries.forEach((warehouseName, cIndex) => {
-        console.log(warehouseName);
+       // console.log(warehouseName);
         const warehouse = {
           id: `${location.id}_${cIndex}`,
           name: warehouseName,
@@ -121,7 +121,8 @@ function ChartTreemap() {
     //   </HighchartsProvider>
     // </div>
     <div>
-      <Map3d />
+        <div>창고맵 + 재고현황</div>
+      <Echarts1 />
     </div>
   );
 }

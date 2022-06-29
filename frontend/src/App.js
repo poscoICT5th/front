@@ -21,6 +21,7 @@ import TrendInventory from './components/Trend/TrendInventory'
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import { handleTheme, handleLanguage } from './store'
 import Tracking from './components/Pages/Tracking';
+import ChartTreemap from './components/Map/ChartTreemap';
 
 function App() {
   let userURL = useSelector((state) => state.userURL)
@@ -149,6 +150,8 @@ function App() {
               <Route path="/Mypage" element={<Mypage />} />
               <Route path="/TrendInventory" element={<TrendInventory />} />
               <Route path="/Tracking" element={<Tracking />} />
+              <Route path="/ChartTreemap" element={<ChartTreemap />} />
+
             </Routes></div>
         </div>
         {
