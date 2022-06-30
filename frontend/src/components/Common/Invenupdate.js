@@ -20,8 +20,9 @@ function Invenupdate(props) {
     stock_quality_status: "",
     status_cause: "",
   });
-
-  useEffect(() => { //두번버튼 클릭해야 실
+  const [dm, setDm] = useState("");
+  useEffect(() => {
+    //두번버튼 클릭해야 실
     setDatas({ ...datas, statusChangeList: props.selectedRowKeys });
   }, [props.selectedRowKeys]);
 
@@ -34,10 +35,11 @@ function Invenupdate(props) {
       .put("/statuschange", datas)
       .then((res) => {
         console.log(res, "받아온데이터 여기여기");
-        alert("axios 성공");
+        //alert("axios 성공");
+        setIsModalVisible(false);
       })
       .catch((err) => {
-        alert("실패");
+        alert("수정 실패");
       });
   }
   //클릭하면 모달창 띄우기
@@ -154,9 +156,26 @@ function Invenupdate(props) {
                                   vn={selectData.vn}
                                   setDatas={setDatas}
                                   datas={datas}
+                                  dm={dm}
                                 />
                               );
                             })}
+                            {datas.status_cause === "직접입력" ? (
+                              <input
+                                type="text"
+                                name="first-name"
+                                id="first-name"
+                                autoComplete="given-name"
+                                className="grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
+                                placeholder="사유를 입력하세요."
+                                onChange={(e) => {
+                                  setDatas({
+                                    ...datas,
+                                    status_cause: e.target.value,
+                                  });
+                                }}
+                              />
+                            ) : null}
                           </div>
                         </div>
                       </div>

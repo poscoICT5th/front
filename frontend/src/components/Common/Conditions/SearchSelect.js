@@ -46,15 +46,20 @@ function SearchSelect(props) {
   }, []);
 
   function onChangeInput(value) {
-    console.log(value);
+    //console.log(value);
     if (props.purpose === "search" && value === undefined) {
       props.setDatas({ ...props.datas, [props.name]: "전체보기" });
     } else {
       props.setDatas({ ...props.datas, [props.name]: value });
     }
   }
-  function name(params) { //합격 선택했을 때 상태사유에 null 값을 넣기 
-    
+  function onChangeInput2(value) {
+    if (props.datas.stock_quality_status === "합격") {
+      //합격 선택했을 때 상태사유에 null 값을 넣기
+      props.setDatas({ ...props.datas, [props.name]: "" });
+    } else {
+      props.setDatas({ ...props.datas, [props.name]: value });
+    }
   }
 
   return (
@@ -71,10 +76,12 @@ function SearchSelect(props) {
             placeholder={label}
             defaultValue={[]}
             onChange={(e) => {
-              onChangeInput(e); //선택한 '합격'
-             
+              onChangeInput2(e); //선택한 '합격'
             }}
-            disabled={props.datas.stock_quality_status === "합격" && props.name==="status_cause"}
+            disabled={
+              props.datas.stock_quality_status === "합격" &&
+              props.name === "status_cause"
+            }
           >
             {options}
           </Select>
