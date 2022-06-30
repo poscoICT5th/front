@@ -67,7 +67,7 @@ function CreateImportUpload(props) {
                 .then((res) => {
                     alert("입고요청이 등록되었습니다.")
                     dispatch(handleImportReload(true))
-                    props.setOpenCreate(false)
+                    props.setOpen(false)
                     dispatch(handleImportReload(false))
                 })
                 .catch((err) => {
@@ -96,7 +96,6 @@ function CreateImportUpload(props) {
                     >
                         <div className="fixed inset-0 transition-opacity bg-opacity-75" />
                     </Transition.Child>
-
                     <div className="fixed z-10 inset-0 overflow-y-auto">
                         <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
                             <Transition.Child
@@ -119,10 +118,6 @@ function CreateImportUpload(props) {
                                                             <div className="overflow-hidden sm:rounded-md">
                                                                 <div className="px-4 py-5 sm:p-6 rounded-lg">
                                                                     <div>
-                                                                        {/* <ReactFileReader fileTypes={[".csv", ".zip"]} base64={true}
-                                                                            multipleFiles={true} handleFiles={handleFiles}>
-                                                                            <button className='btn'>Upload</button>
-                                                                        </ReactFileReader> */}
                                                                         <div>
                                                                             <div>
                                                                                 파일을 등록해주세요

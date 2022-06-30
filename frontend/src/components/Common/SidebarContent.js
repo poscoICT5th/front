@@ -1,12 +1,10 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CreateExport from '../Create/CreateExport';
 import CreateImport from '../Create/CreateImport';
 import CreateMove from '../Create/CreateMove';
 import CreateWarehouse from '../Create/CreateWarehouse';
 import { useDispatch, useSelector } from 'react-redux'
-import { handleSidebar } from '../../store'
 import jwtDecode from 'jwt-decode';
 function SidebarContent(props) {
   let dispatch = useDispatch();
@@ -31,7 +29,7 @@ function SidebarContent(props) {
   const [openCreate3, setOpenCreate3] = useState(false)
   const [openCreate4, setOpenCreate4] = useState(false)
   const [menu, setMenu] = useState(-1);
-  const [sidebarDatas, setSidebarDatas] = useState([
+  const sidebarDatas = [
     {
       menu: "입고관리",
       no: 20,
@@ -173,7 +171,7 @@ function SidebarContent(props) {
       ],
       componentMenu: [],
     },
-  ]);
+  ];
   return (
     <div>
       <div className="">

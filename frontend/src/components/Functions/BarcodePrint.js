@@ -12,8 +12,8 @@ function BarcodePrint(props) {
         windowObj.document.writeln(printContent.innerHTML);
         windowObj.document.close();
         windowObj.focus();
-        windowObj.print();
-        windowObj.close();
+        // windowObj.print();
+        // windowObj.close();
         props.setClickBarcodePrint(false)
     }
 

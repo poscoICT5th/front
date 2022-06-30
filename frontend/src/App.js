@@ -23,6 +23,7 @@ import { handleTheme, handleLanguage } from './store'
 import Tracking from './components/Pages/Tracking';
 import ChartTreemap from './components/Map/ChartTreemap';
 import CreateAccount from './components/Pages/CreateAccount';
+import { BackTop } from "antd";
 
 function App() {
   let userURL = useSelector((state) => state.userURL);
@@ -113,6 +114,17 @@ function App() {
     }
   }
 
+  // 
+  const style = {
+    height: 40,
+    width: 40,
+    lineHeight: '40px',
+    borderRadius: 4,
+    backgroundColor: '#1088e9',
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 14,
+  };
   return (
     <div data-aos="fade-up" className="fade-in">
       {/* Header */}
@@ -156,6 +168,11 @@ function App() {
             </Routes></div>
         </div>
         {nowURL !== "/" ? <Footer /> : null}
+        <BackTop>
+          <div >
+            up
+          </div>
+        </BackTop>
       </div>
     </div>
   );

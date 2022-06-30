@@ -4,7 +4,6 @@ function Footer() {
     return (
         <footer className="text-center">
             <div className="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
-                <button onClick={() => { window.scrollTo(0, 0); }}>test</button>
                 <div className="max-w-2xl mx-auto space-y-6">
                     <nav
                         className="relative flex flex-wrap justify-center gap-8 p-3 text-sm font-bold border-4 border-gray rounded-xl"
