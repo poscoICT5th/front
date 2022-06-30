@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import CreateExport from '../Create/CreateExport';
 import CreateImport from '../Create/CreateImport';
@@ -7,9 +7,20 @@ import CreateMove from '../Create/CreateMove';
 import CreateWarehouse from '../Create/CreateWarehouse';
 import { useDispatch, useSelector } from 'react-redux'
 import { handleSidebar } from '../../store'
+import jwtDecode from 'jwt-decode';
 function SidebarContent(props) {
   let dispatch = useDispatch();
   let userURL = useSelector((state) => state.userURL)
+
+  const [createUser, setCreateUser] = useState(false)
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      if (jwtDecode(sessionStorage.getItem('token')).info.auth === "1") {
+        setCreateUser(true)
+      }
+    }
+  }, [])
+
   // navigate
   let navigate = useNavigate();
   function navigatePage(component) {
@@ -19,27 +30,11 @@ function SidebarContent(props) {
   const [openCreate2, setOpenCreate2] = useState(false)
   const [openCreate3, setOpenCreate3] = useState(false)
   const [openCreate4, setOpenCreate4] = useState(false)
-
   const [menu, setMenu] = useState(-1);
-
-  const sidebarDatas = [
-    {
-      menu: "계정",
-      no: 0,
-      d: "M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z",
-      subMenu: [
-        {
-          submenu: "마이페이지",
-          no: 11,
-          navigate: "Mypage",
-          d: "M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z",
-        },
-      ],
-      componentMenu: [],
-    },
+  const [sidebarDatas, setSidebarDatas] = useState([
     {
       menu: "입고관리",
-      no: 1,
+      no: 20,
       d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01",
       subMenu: [
         {
@@ -67,7 +62,7 @@ function SidebarContent(props) {
     },
     {
       menu: "출고관리",
-      no: 2,
+      no: 30,
       d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
       subMenu: [
         {
@@ -94,7 +89,7 @@ function SidebarContent(props) {
     },
     {
       menu: "창고이동관리",
-      no: 3,
+      no: 40,
       d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
       subMenu: [
         {
@@ -121,7 +116,7 @@ function SidebarContent(props) {
     },
     {
       menu: "창고관리",
-      no: 4,
+      no: 50,
       d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
       subMenu: [
         {
@@ -140,7 +135,7 @@ function SidebarContent(props) {
           ),
           openFunc: setOpenCreate4,
           no: 52,
-          d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
+          d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createWarehouseOpen",
           title: "창고등록"
         },
@@ -148,7 +143,7 @@ function SidebarContent(props) {
     },
     {
       menu: "재고관리",
-      no: 5,
+      no: 60,
       d: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01z",
       subMenu: [
         {
@@ -167,18 +162,18 @@ function SidebarContent(props) {
           submenu: "재고Trend",
           no: 63,
           navigate: "TrendInventory",
-          d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
+          d: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
         },
         {
           submenu: "재고역추적",
           no: 64,
           navigate: "Tracking",
-          d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
+          d: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10",
         },
       ],
       componentMenu: [],
     },
-  ];
+  ]);
   return (
     <div>
       <div className="">
@@ -215,6 +210,70 @@ function SidebarContent(props) {
                 <span className="ml-3 text-sm font-medium"> Dashboard </span>
                 {/* <Link to="/Dashboard" className="ml-3 text-sm font-medium">Dashboard</Link> */}
               </div>
+              <div
+                className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
+                style={
+                  menu === 1
+                    ? { backgroundColor: "gray", color: "white" }
+                    : null
+                }
+                onClick={() => {
+                  navigatePage("Mypage");
+                  setMenu(1);
+                  props.setSidebarOpen(false)
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                  />
+                </svg>
+                <span className="ml-3 text-sm font-medium"> 마이페이지 </span>
+                {/* <Link to="/Dashboard" className="ml-3 text-sm font-medium">Dashboard</Link> */}
+              </div>
+              {
+                createUser
+                  ? <div
+                    className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
+                    style={
+                      menu === 2
+                        ? { backgroundColor: "gray", color: "white" }
+                        : null
+                    }
+                    onClick={() => {
+                      navigatePage("CreateAccount");
+                      setMenu(2);
+                      props.setSidebarOpen(false)
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span className="ml-3 text-sm font-medium"> 계정생성 </span>
+                  </div>
+                  : null
+              }
+
               {/*  */}
               {sidebarDatas.map((sidebarData) => {
                 return (

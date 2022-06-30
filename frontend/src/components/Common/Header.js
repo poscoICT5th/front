@@ -53,7 +53,7 @@ function Header(props) {
         {
           key: '1',
           label: (
-            <div onClick={()=>{navigate("Mypage")}}>마이페이지</div>
+            <div onClick={() => { navigate("Mypage") }}>마이페이지</div>
           ),
         },
         {

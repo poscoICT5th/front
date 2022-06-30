@@ -170,14 +170,10 @@ function TableList(props) {
                         <Invenupdate
                             selectedRowKeys={selectedRowKeys}
                             selectedRows={selectedRows}
-
                         />
                     </div>
-
                     : null
             }
-
-
             <Table
                 rowSelection={rowSelection}
                 onRow={(record, rowIndex, data) => {

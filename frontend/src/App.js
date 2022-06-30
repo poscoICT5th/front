@@ -22,6 +22,7 @@ import { useThemeSwitcher } from "react-css-theme-switcher";
 import { handleTheme, handleLanguage } from './store'
 import Tracking from './components/Pages/Tracking';
 import ChartTreemap from './components/Map/ChartTreemap';
+import CreateAccount from './components/Pages/CreateAccount';
 
 function App() {
   let userURL = useSelector((state) => state.userURL)
@@ -151,7 +152,7 @@ function App() {
               <Route path="/TrendInventory" element={<TrendInventory />} />
               <Route path="/Tracking" element={<Tracking />} />
               <Route path="/ChartTreemap" element={<ChartTreemap />} />
-
+              <Route path="/CreateAccount" element={<CreateAccount />} />
             </Routes></div>
         </div>
         {

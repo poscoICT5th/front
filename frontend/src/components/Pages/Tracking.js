@@ -17,7 +17,7 @@ function Tracking() {
         }]
     };
     return (
-        <div className='' id='tracking'>
+        <div className='' id='tracking' data-aos="fade-up">
             <AnimatedTree
                 data={data}
                 height={700}

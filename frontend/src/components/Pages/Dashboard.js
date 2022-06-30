@@ -17,7 +17,7 @@ function Dashboard() {
   }, [second])
 
   return (
-    <div>
+    <div data-aos="fade-up">
       <div className='text-2xl text-center my-3'>{now}</div>
       <div className="grid grid-cols-6 grid-rows-2 gap-5 text-center">
         <div className="rounded-lg col-span-2 gap-5 h-full">
