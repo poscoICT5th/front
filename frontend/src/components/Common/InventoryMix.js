@@ -18,7 +18,7 @@ function InventoryMix(props) {
   const [openUpdate, setOpenUpdate] = useState(false);
 
   const showModal = () => {
-    if (props.selectedRowKeys.length > 5 || props.selectedRowKeys.length < 2) {
+    if (props.selectedRowKeys.length > 5 || props.selectedRowKeys.length < 1) {
       openNotification("top");
     } else {
       setIsModalVisible(true);
@@ -53,7 +53,7 @@ function InventoryMix(props) {
   const openNotification = (placement) => {
     notification.info({
       message: `제품 가공 실패!`,
-      description: "제품 가공 원료를 2~5개 사이로 다시 선택해주세요!",
+      description: "제품 가공 원료를 1~5개 사이로 다시 선택해주세요!",
       placement,
     });
   };

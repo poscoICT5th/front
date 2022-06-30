@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Select } from "antd";
 import { useSelector } from "react-redux";
-import Invenupdate from "../Invenupdate"
+import Invenupdate from "../Invenupdate";
 function SearchSelect(props) {
   const { Option } = Select;
-    const options = [];
-    console.log(props.selectData)
+  const options = [];
+  //console.log(props.selectData)
   for (let i = 0; i < props.selectData.length; i++) {
     options.push(
       <Option key={props.selectData[i]}>{props.selectData[i]}</Option>
@@ -53,6 +53,10 @@ function SearchSelect(props) {
       props.setDatas({ ...props.datas, [props.name]: value });
     }
   }
+  function name(params) { //합격 선택했을 때 상태사유에 null 값을 넣기 
+    
+  }
+
   return (
     <div className={"col-span-" + props.grid}>
       <label className="block text-sm font-medium">{label}</label>
@@ -67,8 +71,10 @@ function SearchSelect(props) {
             placeholder={label}
             defaultValue={[]}
             onChange={(e) => {
-              onChangeInput(e);
+              onChangeInput(e); //선택한 '합격'
+             
             }}
+            disabled={props.datas.stock_quality_status === "합격" && props.name==="status_cause"}
           >
             {options}
           </Select>
@@ -88,8 +94,7 @@ function SearchSelect(props) {
             }}
           >
             {options}
-            </Select>
-
+          </Select>
         </div>
       )}
     </div>

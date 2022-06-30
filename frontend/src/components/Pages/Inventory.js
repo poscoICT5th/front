@@ -63,7 +63,7 @@ function Inventory() {
     axios.get("/search", { params: datas }).then((res) => {
       setInventoryList(res.data);
       setClickSearch(false);
-      console.log(res.data);
+      //console.log(res.data);
     });
     // }
   }, [clickSearch, createInventorySuc, datas]);

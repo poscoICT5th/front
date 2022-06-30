@@ -1,7 +1,10 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import SearchSelect from "./Conditions/SearchSelect";
-import { inventory_status_cause, inventory_stock_quality_status } from "./Conditions/SelectOptions";
+import {
+  inventory_status_cause,
+  inventory_stock_quality_status,
+} from "./Conditions/SelectOptions";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { notification } from "antd";
@@ -18,30 +21,20 @@ function Invenupdate(props) {
     status_cause: "",
   });
 
+  useEffect(() => { //두번버튼 클릭해야 실
+    setDatas({ ...datas, statusChangeList: props.selectedRowKeys });
+  }, [props.selectedRowKeys]);
+
   //수정 버튼 클릭하면
-  function update() {
-    let templist = props.selectedRows.reduce((acc, cur) => {
-      acc.push(cur.lot_no)
-      return acc 
-    }, [])
-    console.log(templist)
-    setTimeout(() => {
-      setDatas({ ...datas, "statusChangeList": [...templist] })
-      
-      console.log(datas,12312312)
-    }, 1)
-    // console.log(props.selectedRows)
-    // createAxios();
-  }
   //axios
-  function createAxios() {
+  function update() {
+    console.log(datas);
     axios.defaults.baseURL = inventoryURL;
     axios
       .put("/statuschange", datas)
       .then((res) => {
-         console.log(res, "받아온데이터 여기여기");
+        console.log(res, "받아온데이터 여기여기");
         alert("axios 성공");
-       
       })
       .catch((err) => {
         alert("실패");
@@ -52,45 +45,43 @@ function Invenupdate(props) {
     if (props.selectedRowKeys.length > 0) {
       setIsModalVisible(true);
     } else {
-      openNotification("top");
+      openNotification("top"); //alert 창 띄우기
     }
-    
   };
-    //예외처리
-    const openNotification = (placement) => {
-      notification.info({
-        message: `수정 실패!`,
-        description: "제품을 선택해주세요!",
-        placement,
-      });
-    };
+  //예외처리
+  const openNotification = (placement) => {
+    notification.info({
+      message: `수정 실패!`,
+      description: "제품을 선택해주세요!",
+      placement,
+    });
+  };
   //셀렉트 데이터 가져오기
   const selectData = [
     {
-        name: "stock_quality_status",
-        selectOption: inventory_stock_quality_status,
-        grid: 1,
-        purpose: "inventory",
-        ko: "품질상태",
-        cn: "质量状态",
-        jp: "品質状態",
-        vn: "tìnhtrạngchấtlượng",
-      },
-      {
-        name: "status_cause",
-        selectOption: inventory_status_cause,
-        grid: 1,
-        purpose: "inventory",
-        ko: "상태사유",
-        cn: "状态事由",
-        jp: "状態事由",
-        vn: "lýdotrạngthái",
-        }
-  ]
+      name: "stock_quality_status",
+      selectOption: inventory_stock_quality_status,
+      grid: 1,
+      purpose: "inventory",
+      ko: "품질상태",
+      cn: "质量状态",
+      jp: "品質状態",
+      vn: "tìnhtrạngchấtlượng",
+    },
+    {
+      name: "status_cause",
+      selectOption: inventory_status_cause,
+      grid: 1,
+      purpose: "inventory",
+      ko: "상태사유",
+      cn: "状态事由",
+      jp: "状態事由",
+      vn: "lýdotrạngthái",
+    },
+  ];
   // const [selectData, setselectData] = useState({
   //   });
-  
-  
+
   return (
     <div>
       <button
@@ -139,7 +130,7 @@ function Invenupdate(props) {
                       <div className="shadow overflow-hidden sm:rounded-lg">
                         <div className="text-center">
                           <div className="grid grid-rows-12 m-4">
-                            {/* input 창 만들기 */} 
+                            {/* input 창 만들기 */}
                             {props.selectedRows.map((value) => {
                               return (
                                 <div className="span-row-1 mt-3 grid grid-cols-2 gap-3">
@@ -148,10 +139,9 @@ function Invenupdate(props) {
                                   </div>
                                 </div>
                               );
-                            })
-                            }
+                            })}
                             {selectData.map((selectData) => {
-                              console.log(selectData.selectOption, " 이거 뭔지");
+                              //      console.log(selectData.selectOption, " 이거 뭔지");
                               return (
                                 <SearchSelect
                                   name={selectData.name}
@@ -166,8 +156,7 @@ function Invenupdate(props) {
                                   datas={datas}
                                 />
                               );
-                          })}
-
+                            })}
                           </div>
                         </div>
                       </div>
@@ -182,14 +171,16 @@ function Invenupdate(props) {
                     >
                       닫기
                     </button>
-                    { <button
-                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300
+                    {
+                      <button
+                        className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300
           shadow-sm px-4 py-2 bg-green-500 text-base font-medium dark:text-white hover:bg-gray-50 
           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={update}
-                    >
-                      제품상태변경
-                    </button> }
+                        onClick={update}
+                      >
+                        제품상태변경
+                      </button>
+                    }
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
