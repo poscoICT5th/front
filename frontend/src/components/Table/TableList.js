@@ -10,7 +10,7 @@ import {
     handleWarehouseReload,
     handleInventoryReload
 } from '../../store'
-import PageButtonGroup from '../Common/PageButtonGroup';
+import InventoryMix from '../Common/InventoryMix';
 import BarcodePrint from '../Functions/BarcodePrint';
 import Popup from './Popup';
 import Invenupdate from '../Common/Invenupdate';
@@ -163,7 +163,7 @@ function TableList(props) {
             {
                 props.title === "inventory"
                     ? <div>
-                        <PageButtonGroup
+                        <InventoryMix
                             selectedRowKeys={selectedRowKeys}
                             selectedRows={selectedRows}
                         />
