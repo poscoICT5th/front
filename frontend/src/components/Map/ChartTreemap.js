@@ -40,7 +40,7 @@ function Echarts1() {
       .get(`/map/${location}`)
       .then((res) => {
         res.data.forEach((element) => {
-          //console.log(res.data, " 데이터 들어온거 ");
+          console.log(res.data, " 데이터 들어온거 ");
           //  console.log(element, " 데이터 들어온거 ");
           setLineData(lineData => [
             ...lineData, //[,] 형태로 만들어주기위해 넣는다.
