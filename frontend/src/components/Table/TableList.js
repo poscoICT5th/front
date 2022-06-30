@@ -20,7 +20,7 @@ function TableList(props) {
     let store_language = useSelector((state) => state.language)
     const columns = [];
     const data = [];
-    
+
     // select
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setselectedRows] = useState([]); //선택한 행을 통째로 받아오기.
@@ -50,9 +50,16 @@ function TableList(props) {
             {
                 title: element[sessionStorage.getItem("language")],
                 dataIndex: element.en,
-                key: element.en,
+                key: element,
                 // width: element.size,
                 align: "center",
+                // sorter: (a, b) => a[element.en] - b[element.en],
+                sorter: (a, b) => {
+                    if (a[element.en] < b[element.en]) return -1;
+                    if (a[element.en] > b[element.en]) return 1;
+                    if (a[element.en] === b[element.en]) return 0;
+                    else return -1;
+                }
             },
         )
     })
@@ -83,6 +90,7 @@ function TableList(props) {
                     key: element,
                     // width: element.size,
                     align: "center",
+                    sorter: (a, b) => a[element.en] - b[element.en],
                 },
             )
         })
@@ -160,15 +168,15 @@ function TableList(props) {
                             selectedRows={selectedRows}
                         />
                         <Invenupdate
-                        selectedRowKeys={selectedRowKeys}
-                        selectedRows={selectedRows}
-                        
+                            selectedRowKeys={selectedRowKeys}
+                            selectedRows={selectedRows}
+
                         />
                     </div>
-                    
+
                     : null
             }
-            
+
 
             <Table
                 rowSelection={rowSelection}

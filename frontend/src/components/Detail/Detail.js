@@ -13,10 +13,8 @@ function Detail(props) {
     setDatas({
       text: e.target.value,
     });
-    console.log(e.target.value);
   };
   function save(params) {
-    console.log(datas, " 고치는 값이 datas 에 들어와야하고 ,, ");
     axios
       .put(`/${props.detailData.warehouse_code}`, datas) //보내기만 하면됨 수정이기 때문에
       .then((res) => {
@@ -132,18 +130,19 @@ function Detail(props) {
                             )
                             : Object.entries(props.detailData).map(
                               ([key, value], index) => {
-                                return (
-                                  <div className="col-span-1">
-                                    <div className="mt-1 text-sm p-3 text-white-900">
-                                      <label className="block text-sm font-medium text-gray-300">
-                                        {key}
-                                      </label>
-                                      <div className="block text-lg font-medium">
-                                        {value}
+                                if (key !== "key")
+                                  return (
+                                    <div className="col-span-1">
+                                      <div className="mt-1 text-sm p-3 text-white-900">
+                                        <label className="block text-sm font-medium text-gray-300">
+                                          {key}
+                                        </label>
+                                        <div className="block text-lg font-medium">
+                                          {value}
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                );
+                                  );
                               }
                             )}
                         </div>
