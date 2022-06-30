@@ -182,14 +182,18 @@ function TableList(props) {
                         onDoubleClick: event => { setDetailData(record); setOpenDetail(true) }, // double click row
                         onContextMenu: event => {
                             event.preventDefault();
-                            if (!["inventory", "warehouse"].includes(props.title)) {
+                            if (!["warehouse"].includes(props.title)) {
                                 setPopupXY({ ...popupXY, "X": event.pageX, "Y": event.pageY })
                                 setVisiblePopup(true)
                                 setPopupData(record)
                             }
                         }, // right button click row
                         onMouseEnter: event => { }, // mouse enter row
-                        onMouseLeave: event => { }, // mouse leave row
+                        onMouseLeave: event => {
+                            if (event.pageY > popupXY.Y - 20 || event.pageY < popupXY.Y + 20) {
+                                setVisiblePopup(true)
+                            }
+                        }, // mouse leave row
                     };
                 }}
                 columns={columns}
@@ -206,6 +210,7 @@ function TableList(props) {
                 visiblePopup={visiblePopup}
                 popupXY={popupXY}
                 popupData={[popupData]}
+                title={props.title}
                 clickBarcodePrint={props.clickBarcodePrint}
                 setClickBarcodePrint={props.setClickBarcodePrint}
             />
