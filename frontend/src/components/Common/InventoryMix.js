@@ -3,7 +3,7 @@ import { Form, notification } from "antd";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
-function PageButtonGroup(props) {
+function InventoryMix(props) {
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
@@ -351,4 +351,4 @@ function PageButtonGroup(props) {
   );
 }
 
-export default PageButtonGroup;
+export default InventoryMix;
