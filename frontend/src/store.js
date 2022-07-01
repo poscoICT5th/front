@@ -86,6 +86,18 @@ let userURL = createSlice({
 });
 export let { handleUserURL } = userURL.actions;
 
+// 추적 url
+let traceBack = createSlice({
+  name: "traceBack",
+  initialState: "http://192.168.0.10:8087",
+  reducers: {
+    handletraceBack(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handletraceBack } = traceBack.actions;
+
 // import reload
 let importReload = createSlice({
   name: "importReload",
@@ -111,7 +123,7 @@ let exportReload = createSlice({
 });
 export let { handleExportReload } = exportReload.actions;
 
-// create export suc
+// move reload
 let moveReload = createSlice({
   name: "moveReload",
   initialState: false,
@@ -123,7 +135,7 @@ let moveReload = createSlice({
 });
 export let { handleMoveReload } = moveReload.actions;
 
-// create export suc
+// warehouse reload
 let warehouseReload = createSlice({
   name: "warehouseReload",
   initialState: false,
@@ -134,7 +146,7 @@ let warehouseReload = createSlice({
   },
 });
 export let { handleWarehouseReload } = warehouseReload.actions;
-// create export suc
+// inventory reload
 let inventoryReload = createSlice({
   name: "inventoryReload",
   initialState: false,
@@ -194,6 +206,18 @@ let alertSuc = createSlice({
 });
 export let { handleAlertSuc } = alertSuc.actions;
 
+// alertSucMessage
+let alertSucMessage = createSlice({
+  name: "alertSucMessage",
+  initialState: "",
+  reducers: {
+    handleAlertSucMessage(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleAlertSucMessage } = alertSucMessage.actions;
+
 // alertFailed
 let alertFailed = createSlice({
   name: "alertFailed",
@@ -205,6 +229,18 @@ let alertFailed = createSlice({
   },
 });
 export let { handleAlertFailed } = alertFailed.actions;
+
+// alertFailed 메시지
+let alertFailedMessage = createSlice({
+  name: "alertFailedMessage",
+  initialState: "",
+  reducers: {
+    handleAlertFailedMessage(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleAlertFailedMessage } = alertFailedMessage.actions;
 
 // state등록해주는부분
 export default configureStore({
@@ -225,6 +261,11 @@ export default configureStore({
     language: language.reducer,
     theme: theme.reducer,
     sidebar: sidebar.reducer,
+    traceBack: traceBack.reducer,
+    alertSuc: alertSuc.reducer,
+    alertSucMessage: alertSucMessage.reducer,
+    alertFailed: alertFailed.reducer,
+    alertFailedMessage: alertFailedMessage.reducer,
   },
 });
 //

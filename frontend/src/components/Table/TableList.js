@@ -194,9 +194,10 @@ function TableList(props) {
                         }, // right button click row
                         onMouseEnter: event => { }, // mouse enter row
                         onMouseLeave: event => {
-                            if (event.pageY > popupXY.Y - 20 || event.pageY < popupXY.Y + 20) {
-                                setVisiblePopup(true)
-                            }
+                            // if (event.pageY > popupXY.Y - 20 || event.pageY < popupXY.Y + 20) {
+                            //     setVisiblePopup(true)
+                            //     console.log(popupXY.Y)
+                            // }
                         }, // mouse leave row
                     };
                 }}

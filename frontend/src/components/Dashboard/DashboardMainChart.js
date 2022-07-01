@@ -1,28 +1,54 @@
 import React from 'react'
-import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts";
-function DashboardMainChart() {
+import EChartsReact from "echarts-for-react";
 
-    const options = {
-        chart: {
-            type: 'pie'
+function DashboardMainChart() {
+    var option = {
+        tooltip: {
+            trigger: 'item'
         },
-        title: {
-            text: 'Main Chart'
+        legend: {
+            top: '5%',
+            left: 'center'
         },
         series: [
             {
-                data: [["입고", 23], ["출고", 21], ["찰고이동", 18]]
+                name: 'Access From',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: '40',
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [
+                    { value: 1048, name: 'Search Engine' },
+                    { value: 735, name: 'Direct' },
+                    { value: 580, name: 'Email' },
+                    { value: 484, name: 'Union Ads' },
+                    { value: 300, name: 'Video Ads' }
+                ]
             }
         ]
     };
-
+    const opts = { renderer: "canvas" };
     return (
-        <div>
-            <HighchartsReact
-                highcharts={Highcharts}
-                options={options}
-            />
+        <div className="mt-10" id="echart" style={{ height: "200%", width:"100%",margin: "0 auto" }}>
+            <EChartsReact option={option} opts={opts} />
         </div>
     )
 }
