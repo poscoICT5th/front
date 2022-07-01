@@ -4,8 +4,8 @@ function AlertFailed(props) {
     const cancelButtonRef = useRef(null)
     return (
         <div>
-            <Transition.Root show={props.alertOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => { props.setAlertOpen(false) }}>
+            <Transition.Root show={props.open} as={Fragment}>
+                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => { props.setOpen(false) }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -33,16 +33,16 @@ function AlertFailed(props) {
                                     <div className="flex flex-col p-5 rounded-lg shadow bg-white">
                                         <div className="flex flex-col items-center text-center">
                                             <div className="inline-block p-4 bg-yellow-50 rounded-full">
-                                                <svg className="w-12 h-12 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z" /></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                </svg>
                                             </div>
-                                            <h2 className="mt-2 font-semibold text-gray-800">알람창</h2>
-                                            <p className="mt-2 text-sm text-gray-600 leading-relaxed">{props.content}</p>
+                                            <p className="my-5 text-sm text-gray-600 leading-relaxed">{props.message}</p>
                                         </div>
-
                                         <div className="mt-3">
                                             <button
                                                 className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
-                                                onClick={() => { props.setAlertOpen(false) }}>
+                                                onClick={() => { props.setOpen(false) }}>
                                                 Cancel
                                             </button>
                                         </div>

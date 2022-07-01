@@ -4,9 +4,9 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
-import { handleSidebar } from '../../store'
+import { handleSidebar, handleAlertFailed, handleAlertFailedMessage } from '../../store'
 
-function Login() {
+function Login(props) {
   let navigate = useNavigate();
   let dispatch = useDispatch();
   let userUrl = useSelector((state) => state.userURL)
@@ -39,7 +39,8 @@ function Login() {
         navigate("/Dashboard");
       })
       .catch(() => {
-        alert("로그인이 실패했습니다. 계정을 확인해주세요.")
+        props.setAlertFailedOpen(true)
+        props.setAlertMessage("로그인 계정을 다시 확인해주세요")
       })
   }
   return (

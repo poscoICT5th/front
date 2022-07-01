@@ -12,7 +12,6 @@ function Popup(props) {
                 left: `${props.popupXY.X - 50}px`,
                 top: `${props.popupXY.Y - 90}px`
             }}>
-            {/* <li>{props.popupXY.X}, {props.popupXY.Y}</li> */}
             {
                 props.title === "inventory"
                     ?
@@ -20,7 +19,7 @@ function Popup(props) {
                         <TrackingModal
                             openTracking={openTracking}
                             setOpenTracking={setOpenTracking}
-
+                            item={props.popupData[0]}
                         />
                     </li>
                     : <li>

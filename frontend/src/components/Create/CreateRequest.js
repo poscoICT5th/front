@@ -147,7 +147,7 @@ function CreateRequest(props) {
                                     })}
                                   </div>
                                   {props.title === "출고요청등록" ||
-                                  props.title === "창고이동등록" ? (
+                                    props.title === "창고이동등록" ? (
                                     <div className="grid grid-cols-6 gap-4">
                                       <FixedInput
                                         value={props.datas.width}

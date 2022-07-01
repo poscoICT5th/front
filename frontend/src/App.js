@@ -24,6 +24,8 @@ import Tracking from './components/Pages/Tracking';
 import ChartTreemap from './components/Map/ChartTreemap';
 import CreateAccount from './components/Pages/CreateAccount';
 import { BackTop } from "antd";
+import AlertSuc from "./components/Common/AlertSuc";
+import AlertFailed from "./components/Common/AlertFailed";
 
 function App() {
   let userURL = useSelector((state) => state.userURL);
@@ -113,18 +115,10 @@ function App() {
       sessionStorage.setItem("theme", "dark");
     }
   }
-
-  // 
-  const style = {
-    height: 40,
-    width: 40,
-    lineHeight: '40px',
-    borderRadius: 4,
-    backgroundColor: '#1088e9',
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 14,
-  };
+  // alert button
+  const [alertSucOpen, setAlertSucOpen] = useState(false)
+  const [alertFailedOpen, setAlertFailedOpen] = useState(false)
+  const [alertMessage, setAlertMessage] = useState("")
   return (
     <div data-aos="fade-up" className="fade-in">
       {/* Header */}
@@ -151,20 +145,22 @@ function App() {
             />
           ) : null}
           <div className="mx-auto mx-5 min-h-screen">
+            <AlertSuc open={alertSucOpen} setOpen={alertSucOpen} message={alertMessage} />
+            <AlertFailed open={alertFailedOpen} setOpen={setAlertFailedOpen} message={alertMessage} />
             {/* Routes */}
             <Routes>
-              <Route index element={<Login />} />
-              <Route path="/Dashboard" element={<Dashboard />} />
-              <Route path="/LogisticsImport" element={<LogisticsImport />} />
-              <Route path="/LogisticsExport" element={<LogisticsExport />} />
-              <Route path="/LosgisticsMove" element={<LosgisticsMove />} />
-              <Route path="/Inventory" element={<Inventory />} />
-              <Route path="/Warehouse" element={<Warehouse />} />
-              <Route path="/Mypage" element={<Mypage />} />
-              <Route path="/TrendInventory" element={<TrendInventory />} />
-              <Route path="/Tracking" element={<Tracking />} />
-              <Route path="/ChartTreemap" element={<ChartTreemap />} />
-              <Route path="/CreateAccount" element={<CreateAccount />} />
+              <Route index element={<Login alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/Dashboard" element={<Dashboard alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/LogisticsImport" element={<LogisticsImport alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/LogisticsExport" element={<LogisticsExport alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/LosgisticsMove" element={<LosgisticsMove alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/Inventory" element={<Inventory alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/Warehouse" element={<Warehouse alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/Mypage" element={<Mypage alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/TrendInventory" element={<TrendInventory alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/Tracking" element={<Tracking alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/ChartTreemap" element={<ChartTreemap alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
+              <Route path="/CreateAccount" element={<CreateAccount alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
             </Routes></div>
         </div>
         {nowURL !== "/" ? <Footer /> : null}
