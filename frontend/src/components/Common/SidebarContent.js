@@ -1,33 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import CreateExport from '../Create/CreateExport';
-import CreateImport from '../Create/CreateImport';
-import CreateMove from '../Create/CreateMove';
-import CreateWarehouse from '../Create/CreateWarehouse';
-import { useDispatch, useSelector } from 'react-redux'
-import jwtDecode from 'jwt-decode';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CreateExport from "../Create/CreateExport";
+import CreateImport from "../Create/CreateImport";
+import CreateMove from "../Create/CreateMove";
+import CreateWarehouse from "../Create/CreateWarehouse";
+import { useDispatch, useSelector } from "react-redux";
+import jwtDecode from "jwt-decode";
+import Mypage from "../Pages/Mypage";
 function SidebarContent(props) {
   let dispatch = useDispatch();
-  let userURL = useSelector((state) => state.userURL)
+  let userURL = useSelector((state) => state.userURL);
 
-  const [createUser, setCreateUser] = useState(false)
+  const [createUser, setCreateUser] = useState(false);
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
-      if (jwtDecode(sessionStorage.getItem('token')).info.auth === "1") {
-        setCreateUser(true)
+      if (jwtDecode(sessionStorage.getItem("token")).info.auth === "1") {
+        setCreateUser(true);
       }
     }
-  }, [])
+  }, []);
 
   // navigate
   let navigate = useNavigate();
   function navigatePage(component) {
     navigate(`/${component}`);
   }
-  const [openCreate1, setOpenCreate1] = useState(false)
-  const [openCreate2, setOpenCreate2] = useState(false)
-  const [openCreate3, setOpenCreate3] = useState(false)
-  const [openCreate4, setOpenCreate4] = useState(false)
+  const [openCreate1, setOpenCreate1] = useState(false);
+  const [openCreate2, setOpenCreate2] = useState(false);
+  const [openCreate3, setOpenCreate3] = useState(false);
+  const [openCreate4, setOpenCreate4] = useState(false);
   const [menu, setMenu] = useState(-1);
   const sidebarDatas = [
     {
@@ -44,17 +46,17 @@ function SidebarContent(props) {
       ],
       componentMenu: [
         {
-          component:
-            (
-              <CreateImport
-                openCreate={openCreate1}
-                setOpenCreate={setOpenCreate1} />
-            ),
+          component: (
+            <CreateImport
+              openCreate={openCreate1}
+              setOpenCreate={setOpenCreate1}
+            />
+          ),
           openFunc: setOpenCreate1,
           no: 22,
           d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createLogisticsImportOpen",
-          title: "입고등록"
+          title: "입고등록",
         },
       ],
     },
@@ -75,13 +77,14 @@ function SidebarContent(props) {
           component: (
             <CreateExport
               openCreate={openCreate2}
-              setOpenCreate={setOpenCreate2} />
+              setOpenCreate={setOpenCreate2}
+            />
           ),
           openFunc: setOpenCreate2,
           no: 32,
           d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createLogisticsExportOpen",
-          title: "출고등록"
+          title: "출고등록",
         },
       ],
     },
@@ -102,13 +105,14 @@ function SidebarContent(props) {
           component: (
             <CreateMove
               openCreate={openCreate3}
-              setOpenCreate={setOpenCreate3} />
+              setOpenCreate={setOpenCreate3}
+            />
           ),
           openFunc: setOpenCreate3,
           no: 42,
           d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createLogisticsMoveOpen",
-          title: "창고이동등록"
+          title: "창고이동등록",
         },
       ],
     },
@@ -129,13 +133,14 @@ function SidebarContent(props) {
           component: (
             <CreateWarehouse
               openCreate={openCreate4}
-              setOpenCreate={setOpenCreate4} />
+              setOpenCreate={setOpenCreate4}
+            />
           ),
           openFunc: setOpenCreate4,
           no: 52,
           d: "M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z",
           openData: "createWarehouseOpen",
-          title: "창고등록"
+          title: "창고등록",
         },
       ],
     },
@@ -188,7 +193,7 @@ function SidebarContent(props) {
                 onClick={() => {
                   navigatePage("Dashboard");
                   setMenu(0);
-                  props.setSidebarOpen(false)
+                  props.setSidebarOpen(false);
                 }}
               >
                 <svg
@@ -218,7 +223,7 @@ function SidebarContent(props) {
                 onClick={() => {
                   navigatePage("Mypage");
                   setMenu(1);
-                  props.setSidebarOpen(false)
+                  props.setSidebarOpen(false);
                 }}
               >
                 <svg
@@ -238,39 +243,37 @@ function SidebarContent(props) {
                 <span className="ml-3 text-sm font-medium"> 마이페이지 </span>
                 {/* <Link to="/Dashboard" className="ml-3 text-sm font-medium">Dashboard</Link> */}
               </div>
-              {
-                createUser
-                  ? <div
-                    className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
-                    style={
-                      menu === 2
-                        ? { backgroundColor: "gray", color: "white" }
-                        : null
-                    }
-                    onClick={() => {
-                      navigatePage("CreateAccount");
-                      setMenu(2);
-                      props.setSidebarOpen(false)
-                    }}
+              {createUser ? (
+                <div
+                  className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
+                  style={
+                    menu === 2
+                      ? { backgroundColor: "gray", color: "white" }
+                      : null
+                  }
+                  onClick={() => {
+                    navigatePage("CreateAccount");
+                    setMenu(2);
+                    props.setSidebarOpen(false);
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <span className="ml-3 text-sm font-medium"> 계정생성 </span>
-                  </div>
-                  : null
-              }
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span className="ml-3 text-sm font-medium"> 계정생성 </span>
+                </div>
+              ) : null}
 
               {/*  */}
               {sidebarDatas.map((sidebarData) => {
@@ -323,7 +326,7 @@ function SidebarContent(props) {
                             onClick={() => {
                               navigatePage(submenuData.navigate);
                               setMenu(submenuData.no);
-                              props.setSidebarOpen(false)
+                              props.setSidebarOpen(false);
                             }}
                           >
                             <svg
@@ -353,7 +356,7 @@ function SidebarContent(props) {
                             <button
                               className="flex items-center w-full px-4 py-2 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                               onClick={() => {
-                                componentData.openFunc(true)
+                                componentData.openFunc(true);
                               }}
                             >
                               <svg
@@ -370,7 +373,10 @@ function SidebarContent(props) {
                                   d={componentData.d}
                                 />
                               </svg>
-                              <span className="ml-3 text-sm font-medium"> {componentData.title} </span>
+                              <span className="ml-3 text-sm font-medium">
+                                {" "}
+                                {componentData.title}{" "}
+                              </span>
                               {componentData.component}
                             </button>
                           </div>
@@ -385,7 +391,7 @@ function SidebarContent(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default SidebarContent
+export default SidebarContent;

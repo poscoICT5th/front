@@ -12,7 +12,7 @@ import { notification } from "antd";
 function Invenupdate(props) {
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [isModalVisible, setIsModalVisible] = useState(false); //처음모달
-  const [consumedProductsList, setConsumedProductsList] = useState([]);
+  //const [consumedProductsList, setConsumedProductsList] = useState([]);
   //const [change, setChange] = useState("");
   const cancelButtonRef = useRef(null);
   const [datas, setDatas] = useState({
@@ -35,11 +35,11 @@ function Invenupdate(props) {
       .put("/statuschange", datas)
       .then((res) => {
         console.log(res, "받아온데이터 여기여기");
-        //alert("axios 성공");
+        alert("수정이 완료되었습니다.");
         setIsModalVisible(false);
       })
       .catch((err) => {
-        alert("수정 실패");
+        alert("수정을 실패했습니다.");
       });
   }
   //클릭하면 모달창 띄우기

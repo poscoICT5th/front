@@ -8,7 +8,7 @@ highcharts3d(Highcharts);
 //3D 막대그래프
 
 function ChartBar1(props) {
-  const state = {
+const state = {
     chartOptions: {
       chart: {
         type: "column",

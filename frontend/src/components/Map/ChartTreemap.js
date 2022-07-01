@@ -5,13 +5,14 @@ import "echarts-gl";
 import "./styles.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { data } from "jquery";
+import { Radio } from "antd";
 
 function Echarts1() {
   //axios
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [lineData, setLineData] = useState([]);
-
-  const [pointX, setPointX] = useState({
+  const pointX = {
     A: 0,
     B: 1,
     C: 3,
@@ -19,8 +20,9 @@ function Echarts1() {
     E: 5,
     F: 6,
     G: 7,
-  });
-  const [pointY, setPointY] = useState({
+    H: 8,
+  };
+  const pointY = {
     "01": 0,
     "02": 1,
     "03": 3,
@@ -28,69 +30,95 @@ function Echarts1() {
     "05": 5,
     "06": 6,
     "07": 7,
-  });
-  function setLineDataAxios(x, y, inven) {
-    console.log([pointX[x], pointY[y], inven])
-    return [pointX[x], pointY[y], inven];
+    "08": 8,
+  };
+  //라디오 버튼
+
+  function getPointX(params) {
+    return Object.keys(pointX).find((key) => pointX[key] === params);
   }
-  const [location, setLocation] = useState("천안");
+  function getPointY(params) {
+    return Object.keys(pointY).find((key) => pointY[key] === params);
+  }
+  const [location, setLocation] = useState("광양");
+
+  function getLocation() {
+    if (location === "광양") {
+      return "G";
+    } else if (location === "천안") {
+      return "C";
+    } else {
+      return "P";
+    }
+  }
+  //max 값 조정하기
+  function maxupdate() {
+    if (location === "광양") {
+      return 6000;
+    } else if (location === "천안") {
+      return 28000;
+    } else {
+      return 46000;
+    }
+  }
+
+  function setLineDataAxios(item) {
+    return [
+      pointX[item.warehouse_code_string],
+      pointY[item.warehouse_code_int],
+      item.amount,
+    ];
+  }
+
+  //axios
   useEffect(() => {
     axios.defaults.baseURL = inventoryURL;
     axios
       .get(`/map/${location}`)
       .then((res) => {
-        res.data.forEach((element) => {
-          console.log(res.data, " 데이터 들어온거 ");
-          //  console.log(element, " 데이터 들어온거 ");
-          setLineData(lineData => [
-            ...lineData, //[,] 형태로 만들어주기위해 넣는다.
-            setLineDataAxios(
-              element.warehouse_code_string,
-              element.warehouse_code_int,
-              element.amount
-            ),
-          ]);
-        });
+        setLineData(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [location]);
 
-  var hours = ["A", "B", "C", "D", "E", "F", "G"];
-  var days = ["1", "2", "3", "4", "5", "6", "7"];
-  var data = [[1, 1, 700]];
+  var hours = ["A", "B", "C", "D", "E", "F", "G", "H"];
+  var days = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
-  const [options, setOptions] = useState({
-    title: {
-      text: "Warehouse map",
+  var options = {
+    toolbox: {
+      show: true,
+      feature: {
+        dataView: { readOnly: false },
+        saveAsImage: {},
+      },
     },
+    // title: {
+    //   text: "Warehouse map",
+    // },
     tooltip: {
-      // axisPointer: {
-      //   type: 'shadow'
-      // },
       formatter: function (params) {
-        console.log(params, "툴팁이다. ");
-        //  console.log(params.value[2], "params value 이다.  "); //700
-
-        // return params.value[2].toString();
-
         return (
           params.seriesName +
           " <br/>재고량: " +
           params.value[2] +
-          " <br/>x좌표: " +
-          params.value[1]
+          " 개" +
+          " <br/>창고 코드: " +
+          getLocation() +
+          getPointX(params.value[1]) +
+          getPointY(params.value[0])
         );
       },
     },
 
-    legend: {
-      data: ["천안"],
-    },
+    // legend: {
+    //data: ["천안"],
+    //   },
     visualMap: {
-      min: 500,
-      max: 1000,
+      min: 0,
+
+      max: maxupdate(),
       inRange: {
         color: [
           "#313695",
@@ -121,9 +149,7 @@ function Echarts1() {
     grid3D: {
       boxWidth: 200,
       boxDepth: 80,
-      viewControl: {
-        // projection: 'orthographic'
-      },
+      viewControl: {},
       light: {
         main: {
           intensity: 1.2,
@@ -136,28 +162,13 @@ function Echarts1() {
     },
     series: [
       {
-        name: "천안",
+        name: location,
         type: "bar3D",
-        data: data.map(function (item) {
-          console.log(item, "data map 돌리는거 ");
+        data: lineData.map(function (item) {
           return {
-            value: [item[1], item[0], item[2]],
+            value: setLineDataAxios(item),
           };
         }),
-        // tooltip: {
-        //   formatter: function (param) {
-        //     console.log(param.value[2], " param value"); //[1,1,700]
-        //     console.log(param.data[0], " param data"); //undifiend
-
-        //     param = param[1];
-        //     return [
-        //     //  "Date: " + param.name + '<hr size=1 style="margin: 3px 0">',
-        //       "Open: " + param.value[2] + "<br/>",
-
-        //     ].join("");
-        //   },
-        // },
-
         shading: "lambert",
         label: {
           fontSize: 16,
@@ -174,11 +185,39 @@ function Echarts1() {
         },
       },
     ],
-  });
+  };
 
   const opts = { renderer: "canvas", height: "600px" };
   return (
-    <div className="" id="echart">
+    <div className="text-center" id="echart">
+      <div className="font-bold text-2xl text-center mb-3">Warehouse Map</div>
+      <Radio.Group name="radiogroup" defaultValue={"광양"}>
+        <Radio
+          value={"광양"}
+          onClick={(value) => {
+            //console.log(value.target.value);
+            setLocation(value.target.value);
+          }}
+        >
+          광양
+        </Radio>
+        <Radio
+          value={"포항"}
+          onClick={(value) => {
+            setLocation(value.target.value);
+          }}
+        >
+          포항
+        </Radio>
+        <Radio
+          value={"천안"}
+          onClick={(value) => {
+            setLocation(value.target.value);
+          }}
+        >
+          천안
+        </Radio>
+      </Radio.Group>
       <EChartsReact option={options} opts={opts} />
     </div>
   );
