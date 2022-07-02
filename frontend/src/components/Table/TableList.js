@@ -231,49 +231,49 @@ function TableList(props) {
                     setClickBarcodePrint={props.setClickBarcodePrint}
                 />
             </div>
-          <InventoryMix
+          {/* <InventoryMix
             selectedRowKeys={selectedRowKeys}
             selectedRows={selectedRows}
           />
           <Invenupdate
             selectedRowKeys={selectedRowKeys}
             selectedRows={selectedRows}
-          />
+          /> */}
         </div>
-      ) : null}
-      <Table
-        rowSelection={rowSelection}
-        onRow={(record, rowIndex, data) => {
-          return {
-            onClick: (event) => {
-              setVisiblePopup(false);
-            }, // click row
-            onDoubleClick: (event) => {
-              setDetailData(record);
-              setOpenDetail(true);
-            }, // double click row
-            onContextMenu: (event) => {
-              event.preventDefault();
-              if (!["inventory", "warehouse"].includes(props.title)) {
-                setPopupXY({ ...popupXY, X: event.pageX, Y: event.pageY });
-                setVisiblePopup(true);
-                setPopupData(record);
-              }
-            }, // right button click row
-            onMouseEnter: (event) => {}, // mouse enter row
-            onMouseLeave: (event) => {}, // mouse leave row
-          };
-        }}
-        columns={columns}
-        dataSource={data}
-        bordered
-        pagination={{ pageSize: 30 }}
-        size="small"
-        scroll={{
-          x: 2500,
-          // y: 1500,
-        }}
-      />
+      ) : <Table
+      rowSelection={rowSelection}
+      onRow={(record, rowIndex, data) => {
+        return {
+          onClick: (event) => {
+            setVisiblePopup(false);
+          }, // click row
+          onDoubleClick: (event) => {
+            setDetailData(record);
+            setOpenDetail(true);
+          }, // double click row
+          onContextMenu: (event) => {
+            event.preventDefault();
+            if (!["inventory", "warehouse"].includes(props.title)) {
+              setPopupXY({ ...popupXY, X: event.pageX, Y: event.pageY });
+              setVisiblePopup(true);
+              setPopupData(record);
+            }
+          }, // right button click row
+          onMouseEnter: (event) => {}, // mouse enter row
+          onMouseLeave: (event) => {}, // mouse leave row
+        };
+      }}
+      columns={columns}
+      dataSource={data}
+      bordered
+      pagination={{ pageSize: 30 }}
+      size="small"
+      scroll={{
+        x: 2500,
+        // y: 1500,
+      }}
+    />}
+      
       <Popup
         visiblePopup={visiblePopup}
         popupXY={popupXY}
