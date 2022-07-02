@@ -191,14 +191,20 @@ function TableList(props) {
 
   return (
     <div>
-      <InventoryMix
-        selectedRowKeys={selectedRowKeys}
-        selectedRows={selectedRows}
-      />
-      <Invenupdate
-        selectedRowKeys={selectedRowKeys}
-        selectedRows={selectedRows}
-      />
+      {
+        props.title === "inventory"
+          ? <div>
+            <InventoryMix
+              selectedRowKeys={selectedRowKeys}
+              selectedRows={selectedRows}
+            />
+            <Invenupdate
+              selectedRowKeys={selectedRowKeys}
+              selectedRows={selectedRows}
+            /></div>
+          : null
+      }
+
       <Table
         rowSelection={rowSelection}
         onRow={(record, rowIndex, data) => {
