@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {  location, product_family, statusImport } from '../Common/Conditions/SelectOptions';
+import { location, product_family, statusImport } from '../Common/Conditions/SelectOptions';
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import InputText from '../Common/Conditions/InputText'
 import { useSelector } from 'react-redux';
@@ -104,13 +104,19 @@ function SearchLogisticsImport(props) {
                 <div className='text-right mt-5'>
                     <button
                         className="mt-2 mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                        onClick={() => { props.setClickRollback(true) }}
+                        onClick={() => {
+                            if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("rollback") }
+                            else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
+                        }}
                     >
                         되돌리기
                     </button>
                     <button
                         className="mt-2 mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                        onClick={() => { props.setAlertVerifyOpen(true) }}
+                        onClick={() => {
+                            if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
+                            else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
+                        }}
                     >
                         요청취소
                     </button>

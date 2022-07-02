@@ -1,19 +1,21 @@
 import axios from 'axios';
-import Aos from 'aos';
 import React, { useEffect, useState } from 'react'
 import SearchLogisticsExport from '../Search/SearchLogisticsExport';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import TableList from '../Table/TableList';
-import { handleExportReload } from '../../store'
 
 function LogisticsExport(props) {
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
   let exportReload = useSelector((state) => state.exportReload)
-  let dispatch = useDispatch();
 
   // usestate
   const [logisticsExportList, setLogisticsExportList] = useState([])
   const [clickDelete, setClickDelete] = useState(false)
+  const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
+  const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
+  const [clickButton, setClickButton] = useState("")
+  const [selectedList, setSelectedList] = useState([])
+  const [clickSearch, setClickSearch] = useState(false)
   const [datas, setDatas] = useState({
     instruction_no: "전체보기",
     status: "전체보기",
@@ -43,27 +45,6 @@ function LogisticsExport(props) {
     inst_deadline: "전체보기",
     done_date: "전체보기",
   })
-  // 전체조회
-  useEffect(() => {
-    axios.defaults.baseURL = logisticsExportURL
-    axios.get("/export", {})
-      .then((res) => { setLogisticsExportList(res.data) })
-  }, [])
-
-  // 출고조건검색
-  const [clickSearch, setClickSearch] = useState(false)
-  useEffect(() => {
-    // if (clickSearch || exportReload) {
-    axios.defaults.baseURL = logisticsExportURL
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
-      .catch((err) => { console.log(datas); setClickSearch(false) })
-    // }
-  }, [clickSearch, exportReload, datas])
-
-
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
@@ -89,51 +70,22 @@ function LogisticsExport(props) {
     { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
 
-  // 출고 되돌리기
-  const [clickRollback, setClickRollback] = useState(false)
-  const [rollBackList, setRollBackList] = useState([])
-  const [rollBackCheckList, setRollBackCheckList] = useState([])
-
-  function rollBackAxios(params) {
-    axios.defaults.baseURL = logisticsExportURL
-    axios.put('/export/rollback', {
-      logiExportList: rollBackList
-    }
-    )
-      .then((res) => {
-        setClickRollback(false);
-        alert("선택한 요청을 되돌렸습니다.(말이쁘게수정해야함)");
-        dispatch(handleExportReload(true));
-        dispatch(handleExportReload(false))
-      })
-      .catch((err) => { setClickRollback(false); })
-  }
-  async function rollBack() {
-    setClickRollback(false)
-    let rollBackPos = true;
-    await rollBackCheckList.forEach((element) => {
-      console.log(element)
-      if (element.status !== "출고취소") {
-        rollBackPos = false
-        alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
-      }
-    })
-    if (rollBackPos) {
-      rollBackAxios()
-    }
-  }
-
+  // 전체조회
   useEffect(() => {
-    if (clickRollback || exportReload) {
-      rollBack();
-    }
-  }, [clickRollback])
+    axios.defaults.baseURL = logisticsExportURL
+    axios.get("/export", {})
+      .then((res) => { setLogisticsExportList(res.data) })
+  }, [])
 
-  // 바코드 여러개출력
-  const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
-
-  // 취소, 되돌리기 전 한번 더 묻기
-  const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
+  // 출고조건검색
+  useEffect(() => {
+    axios.defaults.baseURL = logisticsExportURL
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
+      .catch((err) => { console.log(datas); setClickSearch(false) })
+  }, [clickSearch, exportReload, datas])
 
   return (
     <div data-aos="fade-up" className="">
@@ -148,9 +100,12 @@ function LogisticsExport(props) {
             clickSearch={clickSearch}
             setClickDelete={setClickDelete}
             clickDelete={clickDelete}
-            setClickRollback={setClickRollback}
+            selectedList={selectedList}
             setClickBarcodePrint={setClickBarcodePrint}
             setAlertVerifyOpen={setAlertVerifyOpen}
+            setAlertFailedOpen={props.setAlertFailedOpen}
+            setAlertMessage={props.setAlertMessage}
+            setClickButton={setClickButton}
           />
         </div>
         {/* table */}
@@ -165,9 +120,7 @@ function LogisticsExport(props) {
             clickDelete={clickDelete}
             deleteBodyName="logiExportList"
             setClickDelete={setClickDelete}
-            setRollBackCheckList={setRollBackCheckList}
-            rollBackCheckList={rollBackCheckList}
-            setRollBackList={setRollBackList}
+            setSelectedList={setSelectedList}
             clickBarcodePrint={clickBarcodePrint}
             setClickBarcodePrint={setClickBarcodePrint}
             alertVerifyOpen={alertVerifyOpen}
@@ -177,6 +130,7 @@ function LogisticsExport(props) {
             setAlertSucOpen={props.setAlertSucOpen}
             setAlertSFailedOpen={props.setAlertSFailedOpen}
             setAlertMessage={props.setAlertMessage}
+            clickButton={clickButton}
           />
         </div>
       </div>

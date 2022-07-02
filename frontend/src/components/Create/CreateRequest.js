@@ -101,7 +101,7 @@ function CreateRequest(props) {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="bg-white dark:bg-gray-700 relative rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-lg">
+                <Dialog.Panel className="bg-white dark:bg-neutral-800 relative rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-lg">
                   <div className="mx-auto">
                     <div className="font-bold text-2xl text-center my-5">
                       {props.title}

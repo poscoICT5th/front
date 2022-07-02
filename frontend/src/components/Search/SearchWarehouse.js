@@ -85,7 +85,10 @@ function SearchWarehouse(props) {
         <div className="text-right">
           <button
             className="mt-2 w-20 mr-2 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-            onClick={() => { props.setClickDelete(true) }}
+            onClick={() => {
+              if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
+              else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
+            }}
           >
             삭제
           </button>

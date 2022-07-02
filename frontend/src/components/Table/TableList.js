@@ -21,28 +21,29 @@ function TableList(props) {
   let store_language = useSelector((state) => state.language);
   const columns = [];
   const data = [];
-
-  // select
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setselectedRows] = useState([]); //선택한 행을 통째로 받아오기.
   const [openDetail, setOpenDetail] = useState(false);
+  const [detailData, setDetailData] = useState({});
+  const [visiblePopup, setVisiblePopup] = useState(false);
+  const [popupXY, setPopupXY] = useState({
+    X: 0,
+    Y: 0,
+  });
+  const [popupData, setPopupData] = useState({});
 
-  const onSelectChange = (newSelectedRowKeys) => {
+  function onSelectChange(newSelectedRowKeys) {
     setSelectedRowKeys(newSelectedRowKeys);
-    props.setRollBackList(newSelectedRowKeys);
-    console.log("selectedRowKeys changed: ", selectedRowKeys); //이 키를 받아서 모달창에 띄워라 ..
-  };
+    props.setSelectedList(newSelectedRowKeys)
+  }
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
     onSelect: (record, selected, selectedRows) => {
       setselectedRows(selectedRows);
-      // rollback
-      props.setRollBackCheckList(selectedRows);
     },
     onSelectAll: (selected, selectedRows, changeRows) => {
       setselectedRows(selectedRows);
-      props.setRollBackCheckList(selectedRows);
     },
   };
 
@@ -61,32 +62,19 @@ function TableList(props) {
     });
   });
 
-  function handleStores() {
-    if (props.title === "logistics") {
-      dispatch(handleImportReload(true));
-      dispatch(handleExportReload(true));
-      dispatch(handleMoveReload(true));
-      dispatch(handleImportReload(false));
-      dispatch(handleExportReload(false));
-      dispatch(handleMoveReload(false));
-    } else if (props.title === "warehouse") {
-      dispatch(handleWarehouseReload(true));
-      dispatch(handleWarehouseReload(false));
-    } else if (props.title === "inventory") {
-      dispatch(handleInventoryReload(true));
-      dispatch(handleInventoryReload(false));
-    }
-  }
-
   useEffect(() => {
     props.th.forEach((element) => {
       columns.push({
         title: element[sessionStorage.getItem("language")],
         dataIndex: element.en,
         key: element,
-        // width: element.size,
         align: "center",
-        sorter: (a, b) => a[element.en] - b[element.en],
+        sorter: (a, b) => {
+          if (a[element.en] < b[element.en]) return -1;
+          if (a[element.en] > b[element.en]) return 1;
+          if (a[element.en] === b[element.en]) return 0;
+          else return -1;
+        },
       });
     });
   }, [store_language]);
@@ -106,10 +94,26 @@ function TableList(props) {
     }
   });
 
+  function handleStores() {
+    if (props.title === "logistics") {
+      dispatch(handleImportReload(true));
+      dispatch(handleExportReload(true));
+      dispatch(handleMoveReload(true));
+      dispatch(handleImportReload(false));
+      dispatch(handleExportReload(false));
+      dispatch(handleMoveReload(false));
+    } else if (props.title === "warehouse") {
+      dispatch(handleWarehouseReload(true));
+      dispatch(handleWarehouseReload(false));
+    } else if (props.title === "inventory") {
+      dispatch(handleInventoryReload(true));
+      dispatch(handleInventoryReload(false));
+    }
+  }
   // 삭제할수 있는지 체크하는 함수
   function checkDeletePos() {
     let check = true;
-    props.rollBackCheckList.map((element) => {
+    selectedRows.map((element) => {
       console.log(element);
       if (element.done_date !== null || element.status.includes("중")) {
         console.log("includes가 적용되고있는건가");
@@ -137,7 +141,7 @@ function TableList(props) {
         })
         .catch((err) => {
           props.setAlertFailedOpen(true)
-          props.setAlertMessage("선택한 요청이 삭제되었습니다.")
+          props.setAlertMessage("서버와의 통신에 실패하였습니다, 다시 시도해주세요.")
         });
     } else if (
       selectedRowKeys.length > 0 &&
@@ -147,16 +151,43 @@ function TableList(props) {
       handleStores();
     }
   }
-
-  const [detailData, setDetailData] = useState({});
-  //강화 !!
-  const [visiblePopup, setVisiblePopup] = useState(false);
-  const [popupXY, setPopupXY] = useState({
-    X: 0,
-    Y: 0,
-  });
-  const [popupData, setPopupData] = useState({});
-  // 삭제할때 한번 더 묻기
+  // 롤백
+  function checkRollBackPos() {
+    let check = true;
+    selectedRows.map((element) => {
+      console.log(element);
+      if (!element.status.includes("취소")) {
+        check = false;
+        return check;
+      }
+    });
+    return check;
+  }
+  function rollBackMulti() {
+    axios.defaults.baseURL = props.axiosURL;
+    if (selectedRowKeys.length > 0 && checkRollBackPos()) {
+      axios
+        .put(`/${props.part}/rollback`, {
+          [props.deleteBodyName]: selectedRowKeys,
+        })
+        .then((res) => {
+          props.setAlertSucOpen(true)
+          props.setAlertMessage("선택한 요청을 되돌렸습니다")
+          props.setAlertVerifyOpen(false)
+          handleStores();
+        })
+        .catch((err) => {
+          props.setAlertFailedOpen(true)
+          props.setAlertMessage("서버와의 통신에 실패하였습니다, 다시 시도해주세요.")
+        });
+    } else if (
+      selectedRowKeys.length > 0 &&
+      checkRollBackPos() === false
+    ) {
+      alert("삭제되지 않은 요청이 포함되어있어 다중선택으로 되돌리기가 불가능합니다.");
+      handleStores();
+    }
+  }
 
   return (
     <div>
@@ -295,7 +326,10 @@ function TableList(props) {
       <AlertVerify
         open={props.alertVerifyOpen}
         setOpen={props.setAlertVerifyOpen}
-        func={deleteMulti}
+        func={
+          props.clickButton === "delete"
+            ? deleteMulti
+            : rollBackMulti}
       />
     </div>
   );

@@ -35,7 +35,7 @@ function SearchWarehouse(props) {
           ]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   // 지역에따라서 고객처변경
   useEffect(() => {
@@ -49,7 +49,7 @@ function SearchWarehouse(props) {
           setCustomers((customers) => [...customers, res.data[index].customer]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   // 지역에따라서 아이템명변경
   useEffect(() => {
@@ -66,7 +66,7 @@ function SearchWarehouse(props) {
           ]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   const selectDatas = [
     {
@@ -160,16 +160,6 @@ function SearchWarehouse(props) {
       jp: "lot番号",
       vn: "số lot",
     },
-    // { name: "min_width", type: "number", "purpose": "search", "ko": "최소넓이", "cn": "最小宽度", "jp": "最小広さ", "vn": "bề rộng tối thiểu" },
-    // { name: "max_width", type: "number", "purpose": "search", "ko": "최대넓이", "cn": "最大宽度", "jp": "最大広さ", "vn": "bề rộng tối đa" },
-    // { name: "min_thickness", type: "number", "purpose": "search", "ko": "최소두께", "cn": "最小厚度", "jp": "最小厚さ", "vn": "độ dày tối thiểu" },
-    // { name: "max_thickness", type: "number", "purpose": "search", "ko": "최대두께", "cn": "最大厚度", "jp": "最大厚さ", "vn": "độ dày tối đa" },
-    // { name: "min_height", type: "number", "purpose": "search", "ko": "최소높이", "cn": "最小高度", "jp": "最小高さ", "vn": "độ cao tối thiểu" },
-    // { name: "max_height", type: "number", "purpose": "search", "ko": "최대높이", "cn": "最大高度", "jp": "最大高さ", "vn": "chiều cao tối đa" },
-    // { name: "min_weight", type: "number", "purpose": "search", "ko": "최소무게", "cn": "最小重量", "jp": "最小重量", "vn": "Trọng lượng tối thiểu" },
-    // { name: "max_weight", type: "number", "purpose": "search", "ko": "최대무게", "cn": "最大重量", "jp": "最大重量", "vn": "trọng lượng tối đa" },
-    // { name: "min_amount", type: "number", "purpose": "search", "ko": "최소수량", "cn": "催收货量", "jp": "最収量", "vn": "lượng lớn nhất" },
-    // { name: "max_amount", type: "number", "purpose": "search", "ko": "최대수량", "cn": "最大数量", "jp": "最大数量", "vn": "số lượng tối đa" },
     {
       name: "customer",
       type: "text",
@@ -240,7 +230,8 @@ function SearchWarehouse(props) {
           <button
             className="w-20 mr-2 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             onClick={() => {
-              props.setClickDelete(true);
+              if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
+              else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
             }}
           >
             삭제
@@ -254,38 +245,6 @@ function SearchWarehouse(props) {
             조회
           </button>
         </div>
-        {/* <Collapse
-          bordered={false}
-          defaultActiveKey={[]}
-          expandIcon={({ isActive }) => (
-            <CaretRightOutlined rotate={isActive ? 90 : 0} />
-          )}
-          className="site-collapse-custom-collapse"
-        >
-          <Panel
-            header="상세검색"
-            key="1"
-            className="site-collapse-custom-panel"
-          >
-            <div className="grid grid-cols-6 gap-4 text-center">
-              {inputDatas.map((inputData) => {
-                return (
-                  <InputText
-                    setDatas={props.setDatas}
-                    datas={props.datas}
-                    name={inputData.name}
-                    type={inputData.type}
-                    purpose={inputData.purpose}
-                    ko={inputData.ko}
-                    cn={inputData.cn}
-                    jp={inputData.jp}
-                    vn={inputData.vn}
-                  />
-                );
-              })}
-            </div>
-          </Panel>
-        </Collapse> */}
       </div>
     </div>
   );

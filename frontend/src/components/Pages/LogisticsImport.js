@@ -1,21 +1,20 @@
-import Aos from 'aos';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SearchLogisticsImport from '../Search/SearchLogisticsImport';
 import TableList from '../Table/TableList';
-import { handleImportReload } from '../../store'
-
 
 function LogisticsImport(props) {
   let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
   let importReload = useSelector((state) => state.importReload)
-  axios.defaults.baseURL = logisticsImportURL
-  let dispatch = useDispatch();
-
   // useState
   const [logisticsImportList, setLogisticsImportList] = useState([])
   const [clickDelete, setClickDelete] = useState(false)
+  const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
+  const [clickButton, setClickButton] = useState("")
+  const [clickSearch, setClickSearch] = useState(false)
+  const [selectedList, setSelectedList] = useState([])
+  const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
   const [datas, setDatas] = useState({
     instruction_no: "전체보기",
     status: "전체보기",
@@ -45,70 +44,6 @@ function LogisticsImport(props) {
     inst_deadline: "전체보기",
     done_date: "전체보기",
   })
-
-  // 전체조회
-  useEffect(() => {
-    axios.defaults.baseURL = logisticsImportURL
-    axios.get('/import')
-      .then((res) => { setLogisticsImportList(res.data); })
-  }, [])
-
-  // 입고 조건검색
-  const [clickSearch, setClickSearch] = useState(false)
-  useEffect(() => {
-    // if (clickSearch || importReload) {
-    axios.defaults.baseURL = logisticsImportURL
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => { setLogisticsImportList(res.data); setClickSearch(false); console.log(res.data) })
-      .catch((err) => { console.log(err) })
-    // }
-  }, [clickSearch, importReload, datas])
-
-  // 입고 되돌리기
-  const [clickRollback, setClickRollback] = useState(false)
-  const [rollBackList, setRollBackList] = useState([])
-  const [rollBackCheckList, setRollBackCheckList] = useState([])
-
-  function rollBackAxios(params) {
-    axios.defaults.baseURL = logisticsImportURL
-    axios.put('/import/rollback', {
-      logiImportList: rollBackList
-    }
-    )
-      .then((res) => {
-        setClickRollback(false);
-        alert("선택한 요청을 되돌렸습니다.(말이쁘게수정해야함)");
-        dispatch(handleImportReload(true));
-        dispatch(handleImportReload(false))
-      })
-      .catch((err) => { setClickRollback(false); })
-  }
-  async function rollBack() {
-    setClickRollback(false)
-    let rollBackPos = true;
-    // 롤백할수 있는 목록들인지 체크중
-    await rollBackCheckList.forEach((element) => {
-      if (element.status !== "입고취소") {
-        rollBackPos = false
-        alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
-      }
-    })
-    // 롤백할수있는 목록들이라면 axios 통신
-    if (rollBackPos) {
-      rollBackAxios()
-    }
-  }
-
-  useEffect(() => {
-    if (clickRollback) {
-      rollBack();
-    }
-  }, [clickRollback])
-
-  // 바코드 여러개출력
-  const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
@@ -133,7 +68,24 @@ function LogisticsImport(props) {
     { "ko": "완료일", "en": "done_date", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành", "size": 300 },
     { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
-  const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
+
+  // 전체조회
+  useEffect(() => {
+    axios.defaults.baseURL = logisticsImportURL
+    axios.get('/import')
+      .then((res) => { setLogisticsImportList(res.data); })
+  }, [])
+
+  // 입고 조건검색
+  useEffect(() => {
+    axios.defaults.baseURL = logisticsImportURL
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => { setLogisticsImportList(res.data); setClickSearch(false); console.log(res.data) })
+      .catch((err) => { console.log(err) })
+  }, [clickSearch, importReload, datas])
+
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto mb-10">
@@ -147,12 +99,14 @@ function LogisticsImport(props) {
             clickSearch={clickSearch}
             setClickDelete={setClickDelete}
             clickDelete={clickDelete}
-            setClickRollback={setClickRollback}
             setClickBarcodePrint={setClickBarcodePrint}
             setAlertVerifyOpen={setAlertVerifyOpen}
+            selectedList={selectedList}
+            setAlertFailedOpen={props.setAlertFailedOpen}
+            setAlertMessage={props.setAlertMessage}
+            setClickButton={setClickButton}
           />
         </div>
-
         {/* table */}
         <div className="mx-1 mt-2 text-center w-full">
           <TableList
@@ -165,9 +119,7 @@ function LogisticsImport(props) {
             clickDelete={clickDelete}
             deleteBodyName="logiImportList"
             setClickDelete={setClickDelete}
-            setRollBackCheckList={setRollBackCheckList}
-            rollBackCheckList={rollBackCheckList}
-            setRollBackList={setRollBackList}
+            setSelectedList={setSelectedList}
             clickBarcodePrint={clickBarcodePrint}
             setClickBarcodePrint={setClickBarcodePrint}
             alertVerifyOpen={alertVerifyOpen}
@@ -175,8 +127,9 @@ function LogisticsImport(props) {
             alertSucOpen={props.alertSucOpen}
             alertFailedOpen={props.alertFailedOpen}
             setAlertSucOpen={props.setAlertSucOpen}
-            setAlertSFailedOpen={props.setAlertSFailedOpen}
+            setAlertFailedOpen={props.setAlertFailedOpen}
             setAlertMessage={props.setAlertMessage}
+            clickButton={clickButton}
           />
         </div>
       </div>
