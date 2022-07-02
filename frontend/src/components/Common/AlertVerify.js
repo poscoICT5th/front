@@ -1,6 +1,6 @@
 import React, { useRef, useState, Fragment, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-function AlertSuc(props) {
+function AlertVerify(props) {
     const cancelButtonRef = useRef(null)
 
     return (
@@ -34,19 +34,22 @@ function AlertSuc(props) {
                                     <div className="flex flex-col p-5 rounded-lg shadow bg-white">
                                         <div className="flex flex-col items-center text-center">
                                             <div className="inline-block p-4 bg-yellow-50 rounded-full">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                                                </svg>
+                                                <svg className="w-12 h-12 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z" /></svg>
                                             </div>
                                             <h2 className="mt-2 font-semibold text-gray-800">알람창</h2>
-                                            <p className="mt-2 text-sm text-gray-600 leading-relaxed">{props.message}</p>
+                                            <p className="mt-2 text-sm text-gray-600 leading-relaxed">계속 진행하시겠습니까?</p>
                                         </div>
 
-                                        <div className="mt-3">
+                                        <div className="mt-3 flex gap-5">
                                             <button
                                                 className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
                                                 onClick={() => { props.setOpen(false) }}>
-                                                Cancel
+                                                아니오
+                                            </button>
+                                            <button
+                                                className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
+                                                onClick={() => { props.func() }}>
+                                                네
                                             </button>
                                         </div>
                                     </div>
@@ -60,4 +63,4 @@ function AlertSuc(props) {
     )
 }
 
-export default AlertSuc
+export default AlertVerify

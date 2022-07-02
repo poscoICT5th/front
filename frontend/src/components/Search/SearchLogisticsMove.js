@@ -4,7 +4,6 @@ import InputText from '../Common/Conditions/InputText'
 import { statusMove, location } from '../Common/Conditions/SelectOptions';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { Collapse } from 'antd';
 
 function SearchLogisticsMove(props) {
     // useEffect
@@ -41,8 +40,8 @@ function SearchLogisticsMove(props) {
     const selectDatas = [
         { name: "location", selectOption: location, grid: 1, purpose: "search", "ko": "지역", "cn": "地域", "jp": "地域", "vn": "khu vực" },
         { name: "status", selectOption: statusMove, grid: 1, purpose: "search", "ko": "상태", "cn": "状态", "jp": "状態", "vn": "trạng thái" },
-        { name: "from_warehouse", selectOption: warehouse_codes, purpose: "search",grid: 1, "ko": "출발창고", "cn": "出发仓库", "jp": "出発倉庫", "vn": "kho xuất phát" },
-        { name: "to_warehouse", selectOption: warehouse_codes, purpose: "search",grid: 1, "ko": "도착창고", "cn": "到货仓库", "jp": "到着倉庫", "vn": "kho đến nơi" },
+        { name: "from_warehouse", selectOption: warehouse_codes, purpose: "search", grid: 1, "ko": "출발창고", "cn": "出发仓库", "jp": "出発倉庫", "vn": "kho xuất phát" },
+        { name: "to_warehouse", selectOption: warehouse_codes, purpose: "search", grid: 1, "ko": "도착창고", "cn": "到货仓库", "jp": "到着倉庫", "vn": "kho đến nơi" },
         { name: "item_name", selectOption: item_names, grid: 1, purpose: "search", "ko": "제품명", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là" },
     ]
     const inputDatas = [
@@ -52,7 +51,6 @@ function SearchLogisticsMove(props) {
         { name: "inst_deadline", type: "date", purpose: "search", "ko": "지시마감일", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị" },
         { name: "done_date", type: "date", purpose: "search", "ko": "완료일", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành" },
     ]
-    const { Panel } = Collapse;
     return (
         <div className="overflow-hidden sm:rounded-md">
             <div className="py-5 rounded-lg">
@@ -89,13 +87,19 @@ function SearchLogisticsMove(props) {
                 <div className='text-right mt-5'>
                     <button
                         className="mt-2 mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                        onClick={() => { props.setClickRollback(true) }}
+                        onClick={() => {
+                            if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("rollback") }
+                            else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
+                        }}
                     >
                         되돌리기
                     </button>
                     <button
                         className="mt-2 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md w-20 text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                        onClick={() => { props.setClickDelete(true) }}>
+                        onClick={() => {
+                            if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
+                            else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
+                        }}>
                         요청취소
                     </button>
                     <button

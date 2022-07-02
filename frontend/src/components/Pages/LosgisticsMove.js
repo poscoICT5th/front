@@ -1,20 +1,21 @@
 import axios from "axios";
-import Aos from "aos";
 import React, { useEffect, useState } from "react";
 import SearchLogisticsMove from "../Search/SearchLogisticsMove";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import TableList from "../Table/TableList";
-import { handleMoveReload } from "../../store"
 
-function LosgisticsMove() {
-  // axios url
+function LosgisticsMove(props) {
   let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
   let moveReload = useSelector((state) => state.moveReload)
-  let dispatch = useDispatch();
 
   // usestate
   const [logisticsMoveList, setLogisticsMoveList] = useState([])
   const [clickDelete, setClickDelete] = useState(false)
+  const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
+  const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
+  const [clickButton, setClickButton] = useState("")
+  const [selectedList, setSelectedList] = useState([])
+  const [clickSearch, setClickSearch] = useState(false)
   const [datas, setDatas] = useState({
     instruction_no: "전체보기",
     status: "전체보기",
@@ -39,29 +40,6 @@ function LosgisticsMove() {
     inst_deadline: "전체보기",
     done_date: "전체보기",
   })
-  // 창고이동 전체조회
-  const [click, setClick] = useState(false)
-  useEffect(() => {
-    axios.defaults.baseURL = logisticsMoveURL
-    axios.get('/move')
-      .then((res) => { setLogisticsMoveList(res.data); console.log(res.data) })
-      .catch((err) => { })
-  }, [])
-
-  // 창고이동조건조회
-  const [clickSearch, setClickSearch] = useState(false)
-  useEffect(() => {
-    axios.defaults.baseURL = logisticsMoveURL
-    // if (clickSearch || moveReload) {
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => { setLogisticsMoveList(res.data); setClickSearch(false); console.log(datas) })
-      .catch((err) => { console.log(datas) })
-    // }
-  }, [clickSearch, moveReload, datas])
-
-
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
@@ -83,49 +61,23 @@ function LosgisticsMove() {
     { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
 
-  // 출고 되돌리기
-  const [clickRollback, setClickRollback] = useState(false)
-  const [rollBackList, setRollBackList] = useState([])
-  const [rollBackCheckList, setRollBackCheckList] = useState([])
-
-  function rollBackAxios(params) {
-    console.log(rollBackList)
-    axios.defaults.baseURL = logisticsMoveURL
-    axios.put('/move/rollback', {
-      logiMoveList: rollBackList
-    }
-    )
-      .then((res) => {
-        setClickRollback(false);
-        alert("선택한 요청을 되돌렸습니다.(말이쁘게수정해야함)");
-        dispatch(handleMoveReload(true));
-        dispatch(handleMoveReload(false))
-      })
-      .catch((err) => { setClickRollback(false); })
-  }
-  async function rollBack() {
-    setClickRollback(false)
-    let rollBackPos = true;
-    await rollBackCheckList.forEach((element) => {
-      console.log(element)
-      if (element.status !== "이동취소") {
-        rollBackPos = false
-        alert(element.instruction_no + "는 삭제되지 않은 지시입니다.")
-      }
-    })
-    if (rollBackPos) {
-      rollBackAxios()
-    }
-  }
-
+  // 창고이동 전체조회
   useEffect(() => {
-    if (clickRollback) {
-      rollBack();
-    }
-  }, [clickRollback])
+    axios.defaults.baseURL = logisticsMoveURL
+    axios.get('/move')
+      .then((res) => { setLogisticsMoveList(res.data); console.log(res.data) })
+      .catch((err) => { })
+  }, [])
 
-  // 바코드 여러개출력
-  const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
+  // 창고이동조건조회
+  useEffect(() => {
+    axios.defaults.baseURL = logisticsMoveURL
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => { setLogisticsMoveList(res.data); setClickSearch(false); console.log(datas) })
+      .catch((err) => { console.log(err) })
+  }, [clickSearch, moveReload, datas])
 
   return (
     <div data-aos="fade-up" className="">
@@ -139,8 +91,12 @@ function LosgisticsMove() {
             clickSearch={clickSearch}
             setClickDelete={setClickDelete}
             clickDelete={clickDelete}
-            setClickRollback={setClickRollback}
             setClickBarcodePrint={setClickBarcodePrint}
+            setAlertVerifyOpen={setAlertVerifyOpen}
+            selectedList={selectedList}
+            setAlertFailedOpen={props.setAlertFailedOpen}
+            setAlertMessage={props.setAlertMessage}
+            setClickButton={setClickButton}
           />
         </div >
         {/* table */}
@@ -155,11 +111,17 @@ function LosgisticsMove() {
             clickDelete={clickDelete}
             setClickDelete={setClickDelete}
             deleteBodyName="logiMoveList"
-            setRollBackCheckList={setRollBackCheckList}
-            rollBackCheckList={rollBackCheckList}
-            setRollBackList={setRollBackList}
+            setSelectedList={setSelectedList}
             clickBarcodePrint={clickBarcodePrint}
             setClickBarcodePrint={setClickBarcodePrint}
+            alertVerifyOpen={alertVerifyOpen}
+            setAlertVerifyOpen={setAlertVerifyOpen}
+            alertSucOpen={props.alertSucOpen}
+            alertFailedOpen={props.alertFailedOpen}
+            setAlertSucOpen={props.setAlertSucOpen}
+            setAlertSFailedOpen={props.setAlertSFailedOpen}
+            setAlertMessage={props.setAlertMessage}
+            clickButton={clickButton}
           />
         </div>
       </div>

@@ -1,22 +1,20 @@
-import Aos from "aos";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SearchInventory from "../Search/SearchInventory";
 import TableList from "../Table/TableList";
-import InventoryMix from "../Common/InventoryMix";
 
-function Inventory() {
+function Inventory(props) {
   let inventoryURL = useSelector((state) => state.inventoryURL);
   let createInventorySuc = useSelector((state) => state.warehouseReload);
-  //useEffect
-  // useEffect(() => {
-  //   Aos.init({ duration: 1000 });
-  // }, []);
 
   //usestate
   const [clickDelete, setClickDelete] = useState(false);
   const [inventoryList, setInventoryList] = useState([]);
+  const [clickSearch, setClickSearch] = useState(false);
+  const [selectedList, setSelectedList] = useState([])
+  const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
+  const [clickButton, setClickButton] = useState("")
   const [datas, setDatas] = useState({
     industry_family: "전체보기",
     customer: "전체보기",
@@ -43,33 +41,6 @@ function Inventory() {
     min_width: 0,
     max_width: 10000000,
   });
-
-  //재고전체조회(처음에)
-  useEffect(() => {
-    axios.defaults.baseURL = inventoryURL;
-    axios
-      .get("/")
-      .then((res) => {
-        setInventoryList(res.data);
-      })
-      .catch((err) => { });
-  }, []);
-
-  //재고 조건검색
-  const [clickSearch, setClickSearch] = useState(false);
-  useEffect(() => {
-    axios.defaults.baseURL = inventoryURL;
-    // if (clickSearch) {
-    axios.get("/search", { params: datas }).then((res) => {
-      setInventoryList(res.data);
-      setClickSearch(false);
-      //console.log(res.data);
-    });
-    // }
-  }, [clickSearch, createInventorySuc, datas]);
-
-
-
   const th = [
     { "ko": "lot번호", "en": "lot_no", "cn": "lot编号", "jp": "lot番号", "vn": "sốlot" },
     { "ko": "산업군", "en": "industry_family", "cn": "产业群", "jp": "産業群", "vn": "lựclượngcôngnghiệp" },
@@ -92,9 +63,25 @@ function Inventory() {
     { "ko": "재고등록일", "en": "inventory_date", "cn": "库存登记日", "jp": "在庫登録日", "vn": "ngàyđăngkýtồnkho" },
     { "ko": "창고입고일", "en": "warehouse_date", "cn": "仓库入库日", "jp": "倉庫入庫日", "vn": "côngviệcnhậnkho" },
   ];
+  //재고전체조회(처음에)
+  useEffect(() => {
+    axios.defaults.baseURL = inventoryURL;
+    axios
+      .get("/")
+      .then((res) => {
+        setInventoryList(res.data);
+      })
+      .catch((err) => { });
+  }, []);
 
-  const [rollBackList, setRollBackList] = useState([])
-  const [rollBackCheckList, setRollBackCheckList] = useState([])
+  //재고 조건검색
+  useEffect(() => {
+    axios.defaults.baseURL = inventoryURL;
+    axios.get("/search", { params: datas }).then((res) => {
+      setInventoryList(res.data);
+      setClickSearch(false);
+    });
+  }, [clickSearch, createInventorySuc, datas]);
 
   return (
     <div data-aos="fade-up" className="">
@@ -106,10 +93,11 @@ function Inventory() {
             setDatas={setDatas}
             datas={datas}
             setClickSearch={setClickSearch}
-            
             clickSearch={clickSearch}
+            selectedList={selectedList}
             setClickDelete={setClickDelete}
             clickDelete={clickDelete}
+            setClickButton={setClickButton}
           />
         </div>
         {/* table */}
@@ -124,8 +112,15 @@ function Inventory() {
             clickDelete={clickDelete}
             deleteBodyName="inventoryDeleteList"
             setClickDelete={setClickDelete}
-            setRollBackCheckList={setRollBackCheckList}
-            setRollBackList={setRollBackList}
+            setSelectedList={setSelectedList}
+            alertVerifyOpen={alertVerifyOpen}
+            setAlertVerifyOpen={setAlertVerifyOpen}
+            alertSucOpen={props.alertSucOpen}
+            alertFailedOpen={props.alertFailedOpen}
+            setAlertSucOpen={props.setAlertSucOpen}
+            setAlertFailedOpen={props.setAlertFailedOpen}
+            setAlertMessage={props.setAlertMessage}
+            clickButton={clickButton}
           />
         </div>
       </div>

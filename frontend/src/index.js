@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
-
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
 
 const themes = {
@@ -16,7 +15,6 @@ const themes = {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
       <ThemeSwitcherProvider themeMap={themes} defaultTheme={sessionStorage.getItem("theme")}>
@@ -24,7 +22,6 @@ root.render(
       </ThemeSwitcherProvider>
     </BrowserRouter>
   </Provider>
-  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

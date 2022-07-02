@@ -182,65 +182,6 @@ let theme = createSlice({
 });
 export let { handleTheme } = theme.actions;
 
-// sidebar view
-let sidebar = createSlice({
-  name: "sidebar",
-  initialState: false,
-  reducers: {
-    handleSidebar(state, newState) {
-      return newState;
-    },
-  },
-});
-export let { handleSidebar } = sidebar.actions;
-
-// alertSuc
-let alertSuc = createSlice({
-  name: "alertSuc",
-  initialState: false,
-  reducers: {
-    handleAlertSuc(state, newState) {
-      return newState;
-    },
-  },
-});
-export let { handleAlertSuc } = alertSuc.actions;
-
-// alertSucMessage
-let alertSucMessage = createSlice({
-  name: "alertSucMessage",
-  initialState: "",
-  reducers: {
-    handleAlertSucMessage(state, newState) {
-      return newState;
-    },
-  },
-});
-export let { handleAlertSucMessage } = alertSucMessage.actions;
-
-// alertFailed
-let alertFailed = createSlice({
-  name: "alertFailed",
-  initialState: false,
-  reducers: {
-    handleAlertFailed(state, newState) {
-      return newState;
-    },
-  },
-});
-export let { handleAlertFailed } = alertFailed.actions;
-
-// alertFailed 메시지
-let alertFailedMessage = createSlice({
-  name: "alertFailedMessage",
-  initialState: "",
-  reducers: {
-    handleAlertFailedMessage(state, newState) {
-      return newState;
-    },
-  },
-});
-export let { handleAlertFailedMessage } = alertFailedMessage.actions;
 
 // state등록해주는부분
 export default configureStore({
@@ -260,12 +201,7 @@ export default configureStore({
     inventoryReload: inventoryReload.reducer,
     language: language.reducer,
     theme: theme.reducer,
-    sidebar: sidebar.reducer,
     traceBack: traceBack.reducer,
-    alertSuc: alertSuc.reducer,
-    alertSucMessage: alertSucMessage.reducer,
-    alertFailed: alertFailed.reducer,
-    alertFailedMessage: alertFailedMessage.reducer,
   },
 });
 //

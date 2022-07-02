@@ -1,5 +1,4 @@
 import axios from "axios";
-import Aos from "aos";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SearchWarehouse from "../Search/SearchWarehouse";
@@ -7,12 +6,13 @@ import TableList from "../Table/TableList";
 
 function Warehouse(props) {
   let warehouseURL = useSelector((state) => state.warehouseURL);
-  axios.defaults.baseURL = warehouseURL;
   let warehouseReload = useSelector((state) => state.warehouseReload);
-
   //usestate
   const [clickDelete, setClickDelete] = useState(false);
   const [warehouseList, setWarehouseList] = useState([]);
+  const [selectedList, setSelectedList] = useState([])
+  const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
+  const [clickSearch, setClickSearch] = useState(false);
   const [datas, setDatas] = useState({
     warehouse_code: "전체보기",
     location: "전체보기",
@@ -28,6 +28,17 @@ function Warehouse(props) {
     inventory_using: "전체보기",
     remarks: "전체보기",
   });
+  const th = [
+    { "ko": "창고코드", "en": "warehouse_code", "cn": "仓库代码", "jp": "倉庫コード", "vn": "mã kho" },
+    { "ko": "지역", "en": "location", "cn": "地域", "jp": "地域", "vn": "khu vực" },
+    { "ko": "목적", "en": "purpose", "cn": "目的", "jp": "目的", "vn": "mục đích" },
+    { "ko": "세부설명", "en": "warehouse_desc", "cn": "详细说明", "jp": "細部説明", "vn": "giải thích chi tiết" },
+    { "ko": "사용여부", "en": "use", "cn": "使用与否", "jp": "使用の有無", "vn": "sự sử dụng hay không" },
+    { "ko": "최대적재무게", "en": "maximum_weight", "cn": "最大装载重量", "jp": "最大積載重量", "vn": "trọng lượng tải tối đa" },
+    { "ko": "최대적재수량", "en": "maximum_count", "cn": "最大装载数量", "jp": "最大積載数量", "vn": "lượng tải tối đa" },
+    { "ko": "실사용여부", "en": "inventory_using", "cn": "实际使用与否", "jp": "実使用の有無", "vn": "có sử dụng thực tế hay không" },
+    { "ko": "비고", "en": "remarks", "cn": "备注", "jp": "備考", "vn": "lời bình luận" },
+  ];
 
   // 창고전체조회(처음에)
   useEffect(() => {
@@ -43,36 +54,13 @@ function Warehouse(props) {
   }, []);
 
   // 창고 조건검색
-  const [clickSearch, setClickSearch] = useState(false);
   useEffect(() => {
     axios.defaults.baseURL = warehouseURL;
-    // if (clickSearch) {
     axios.get("/search", { params: datas }).then((res) => {
       setWarehouseList(res.data);
       setClickSearch(false);
-      console.log(datas, "우리가 보내는 data"); //우리가 보내는 data
-      console.log(res.data, " res.data 찍어보기");
     });
-    // }
   }, [clickSearch, warehouseReload, datas]);
-
-
-
-  const th = [
-    { "ko": "창고코드", "en": "warehouse_code", "cn": "仓库代码", "jp": "倉庫コード", "vn": "mã kho" },
-    { "ko": "지역", "en": "location", "cn": "地域", "jp": "地域", "vn": "khu vực" },
-    { "ko": "목적", "en": "purpose", "cn": "目的", "jp": "目的", "vn": "mục đích" },
-    { "ko": "세부설명", "en": "warehouse_desc", "cn": "详细说明", "jp": "細部説明", "vn": "giải thích chi tiết" },
-    { "ko": "사용여부", "en": "use", "cn": "使用与否", "jp": "使用の有無", "vn": "sự sử dụng hay không" },
-    { "ko": "최대적재무게", "en": "maximum_weight", "cn": "最大装载重量", "jp": "最大積載重量", "vn": "trọng lượng tải tối đa" },
-    { "ko": "최대적재수량", "en": "maximum_count", "cn": "最大装载数量", "jp": "最大積載数量", "vn": "lượng tải tối đa" },
-    { "ko": "실사용여부", "en": "inventory_using", "cn": "实际使用与否", "jp": "実使用の有無", "vn": "có sử dụng thực tế hay không" },
-    { "ko": "비고", "en": "remarks", "cn": "备注", "jp": "備考", "vn": "lời bình luận" },
-
-  ];
-
-  const [rollBackList, setRollBackList] = useState([])
-  const [rollBackCheckList, setRollBackCheckList] = useState([])
 
   return (
     <div data-aos="fade-up" className="">
@@ -87,6 +75,7 @@ function Warehouse(props) {
             clickSearch={clickSearch}
             setClickDelete={setClickDelete}
             clickDelete={clickDelete}
+            selectedList={selectedList}
           />
         </div>
         {/* table */}
@@ -101,8 +90,14 @@ function Warehouse(props) {
             clickDelete={clickDelete}
             deleteBodyName="warehouseList"
             setClickDelete={setClickDelete}
-            setRollBackCheckList={setRollBackCheckList}
-            setRollBackList={setRollBackList}
+            setSelectedList={setSelectedList}
+            alertVerifyOpen={alertVerifyOpen}
+            setAlertVerifyOpen={setAlertVerifyOpen}
+            alertSucOpen={props.alertSucOpen}
+            alertFailedOpen={props.alertFailedOpen}
+            setAlertSucOpen={props.setAlertSucOpen}
+            setAlertFailedOpen={props.setAlertFailedOpen}
+            setAlertMessage={props.setAlertMessage}
           />
         </div>
       </div>

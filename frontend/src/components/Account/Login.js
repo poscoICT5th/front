@@ -4,7 +4,6 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
-import { handleSidebar, handleAlertFailed, handleAlertFailedMessage } from '../../store'
 
 function Login(props) {
   let navigate = useNavigate();
@@ -35,7 +34,6 @@ function Login(props) {
         sessionStorage.setItem("sessionID", res.data.sessionID)
         sessionStorage.setItem("theme", "light")
         sessionStorage.setItem("language", "ko")
-        dispatch(handleSidebar(true))
         navigate("/Dashboard");
       })
       .catch(() => {

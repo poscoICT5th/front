@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLanguage } from "../../store";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
-import { handleSidebar } from "../../store";
 import { useNavigate } from "react-router-dom";
 import MypageModal from "../Pages/MypageModal";
 function Header(props) {
@@ -41,7 +40,6 @@ function Header(props) {
     axios.post("/logout").then((res) => {
       sessionStorage.clear();
       sessionStorage.clear();
-      dispatch(handleSidebar(false));
       alert("로그아웃되었습니다.");
       navigate("/");
       window.location.reload();

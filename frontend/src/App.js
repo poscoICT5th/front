@@ -1,41 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import "./App.css";
-import Login from "./components/Account/Login";
-import LogisticsExport from "./components/Pages/LogisticsExport";
-import LogisticsImport from "./components/Pages/LogisticsImport";
-import LosgisticsMove from "./components/Pages/LosgisticsMove";
-import Inventory from "./components/Pages/Inventory";
-import Warehouse from "./components/Pages/Warehouse";
-import Dashboard from "./components/Pages/Dashboard";
 import Sidebar from "./components/Common/Sidebar";
-import Mypage from "./components/Pages/Mypage";
 import Footer from "./components/Common/Footer";
 import Header from "./components/Common/Header";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import TrendInventory from "./components/Trend/TrendInventory";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import { handleTheme, handleLanguage } from './store'
-import Tracking from './components/Pages/Tracking';
-import ChartTreemap from './components/Map/ChartTreemap';
-import CreateAccount from './components/Pages/CreateAccount';
 import { BackTop } from "antd";
 import AlertSuc from "./components/Common/AlertSuc";
 import AlertFailed from "./components/Common/AlertFailed";
+import Router from './Router';
 
 function App() {
   let userURL = useSelector((state) => state.userURL);
-  let sidebar = useSelector((state) => state.sidebar);
   let dispatch = useDispatch();
   let navigate = useNavigate();
 
   let nowURL = useLocation().pathname;
   const isLogin = sessionStorage.getItem("token");
-  const { currentTheme, status, themes } = useThemeSwitcher();
+  const { themes } = useThemeSwitcher();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { switcher } = useThemeSwitcher({
     theme: sessionStorage.getItem("theme"),
@@ -43,11 +31,9 @@ function App() {
   // AOS
   useEffect(() => {
     Aos.init({ duration: 1000 });
-  }, []);
-
-  // 맨위로 끌어올려주기
-  useEffect(() => {
-    window.scrollTo(0, 0);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1);
   }, []);
 
   // 로그인되어있고 맨첫페이지로 가려고한다면 Dashboard 로 보내주기
@@ -145,23 +131,17 @@ function App() {
             />
           ) : null}
           <div className="mx-auto mx-5 min-h-screen">
-            <AlertSuc open={alertSucOpen} setOpen={alertSucOpen} message={alertMessage} />
+            <AlertSuc open={alertSucOpen} setOpen={setAlertSucOpen} message={alertMessage} />
             <AlertFailed open={alertFailedOpen} setOpen={setAlertFailedOpen} message={alertMessage} />
             {/* Routes */}
-            <Routes>
-              <Route index element={<Login alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/Dashboard" element={<Dashboard alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/LogisticsImport" element={<LogisticsImport alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/LogisticsExport" element={<LogisticsExport alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/LosgisticsMove" element={<LosgisticsMove alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/Inventory" element={<Inventory alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/Warehouse" element={<Warehouse alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/Mypage" element={<Mypage alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/TrendInventory" element={<TrendInventory alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/Tracking" element={<Tracking alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/ChartTreemap" element={<ChartTreemap alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-              <Route path="/CreateAccount" element={<CreateAccount alertSucOpen={alertSucOpen} setAlertSucOpen={setAlertSucOpen} alertFailedOpen={alertFailedOpen} setAlertFailedOpen={setAlertFailedOpen} setAlertMessage={setAlertMessage} />} />
-            </Routes></div>
+            <Router
+              alertSucOpen={alertSucOpen}
+              setAlertSucOpen={setAlertSucOpen}
+              alertFailedOpen={alertFailedOpen}
+              setAlertFailedOpen={setAlertFailedOpen}
+              setAlertMessage={setAlertMessage}
+            />
+          </div>
         </div>
         {nowURL !== "/" ? <Footer /> : null}
         <BackTop>
