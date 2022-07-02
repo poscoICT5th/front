@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import TableList from '../Table/TableList';
 import { handleExportReload } from '../../store'
 
-function LogisticsExport() {
+function LogisticsExport(props) {
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
   let exportReload = useSelector((state) => state.exportReload)
   let dispatch = useDispatch();
@@ -132,6 +132,9 @@ function LogisticsExport() {
   // 바코드 여러개출력
   const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
 
+  // 취소, 되돌리기 전 한번 더 묻기
+  const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
+
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -147,6 +150,7 @@ function LogisticsExport() {
             clickDelete={clickDelete}
             setClickRollback={setClickRollback}
             setClickBarcodePrint={setClickBarcodePrint}
+            setAlertVerifyOpen={setAlertVerifyOpen}
           />
         </div>
         {/* table */}
@@ -166,6 +170,13 @@ function LogisticsExport() {
             setRollBackList={setRollBackList}
             clickBarcodePrint={clickBarcodePrint}
             setClickBarcodePrint={setClickBarcodePrint}
+            alertVerifyOpen={alertVerifyOpen}
+            setAlertVerifyOpen={setAlertVerifyOpen}
+            alertSucOpen={props.alertSucOpen}
+            alertFailedOpen={props.alertFailedOpen}
+            setAlertSucOpen={props.setAlertSucOpen}
+            setAlertSFailedOpen={props.setAlertSFailedOpen}
+            setAlertMessage={props.setAlertMessage}
           />
         </div>
       </div>

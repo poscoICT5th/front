@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TableList from "../Table/TableList";
 import { handleMoveReload } from "../../store"
 
-function LosgisticsMove() {
+function LosgisticsMove(props) {
   // axios url
   let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
   let moveReload = useSelector((state) => state.moveReload)
@@ -127,6 +127,9 @@ function LosgisticsMove() {
   // 바코드 여러개출력
   const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
 
+  // 요청전 한번 더 묻기
+  const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
+
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto my-10">
@@ -141,6 +144,7 @@ function LosgisticsMove() {
             clickDelete={clickDelete}
             setClickRollback={setClickRollback}
             setClickBarcodePrint={setClickBarcodePrint}
+            setAlertVerifyOpen={setAlertVerifyOpen}
           />
         </div >
         {/* table */}
@@ -160,6 +164,13 @@ function LosgisticsMove() {
             setRollBackList={setRollBackList}
             clickBarcodePrint={clickBarcodePrint}
             setClickBarcodePrint={setClickBarcodePrint}
+            alertVerifyOpen={alertVerifyOpen}
+            setAlertVerifyOpen={setAlertVerifyOpen}
+            alertSucOpen={props.alertSucOpen}
+            alertFailedOpen={props.alertFailedOpen}
+            setAlertSucOpen={props.setAlertSucOpen}
+            setAlertSFailedOpen={props.setAlertSFailedOpen}
+            setAlertMessage={props.setAlertMessage}
           />
         </div>
       </div>

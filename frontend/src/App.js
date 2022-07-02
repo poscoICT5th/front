@@ -145,7 +145,7 @@ function App() {
             />
           ) : null}
           <div className="mx-auto mx-5 min-h-screen">
-            <AlertSuc open={alertSucOpen} setOpen={alertSucOpen} message={alertMessage} />
+            <AlertSuc open={alertSucOpen} setOpen={setAlertSucOpen} message={alertMessage} />
             <AlertFailed open={alertFailedOpen} setOpen={setAlertFailedOpen} message={alertMessage} />
             {/* Routes */}
             <Routes>

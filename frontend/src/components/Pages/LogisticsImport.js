@@ -7,7 +7,7 @@ import TableList from '../Table/TableList';
 import { handleImportReload } from '../../store'
 
 
-function LogisticsImport() {
+function LogisticsImport(props) {
   let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
   let importReload = useSelector((state) => state.importReload)
   axios.defaults.baseURL = logisticsImportURL
@@ -109,7 +109,6 @@ function LogisticsImport() {
 
   // 바코드 여러개출력
   const [clickBarcodePrint, setClickBarcodePrint] = useState(false)
-
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
@@ -134,6 +133,7 @@ function LogisticsImport() {
     { "ko": "완료일", "en": "done_date", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành", "size": 300 },
     { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
+  const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
   return (
     <div data-aos="fade-up" className="">
       <div className="w-full mx-auto mb-10">
@@ -149,6 +149,7 @@ function LogisticsImport() {
             clickDelete={clickDelete}
             setClickRollback={setClickRollback}
             setClickBarcodePrint={setClickBarcodePrint}
+            setAlertVerifyOpen={setAlertVerifyOpen}
           />
         </div>
 
@@ -169,6 +170,13 @@ function LogisticsImport() {
             setRollBackList={setRollBackList}
             clickBarcodePrint={clickBarcodePrint}
             setClickBarcodePrint={setClickBarcodePrint}
+            alertVerifyOpen={alertVerifyOpen}
+            setAlertVerifyOpen={setAlertVerifyOpen}
+            alertSucOpen={props.alertSucOpen}
+            alertFailedOpen={props.alertFailedOpen}
+            setAlertSucOpen={props.setAlertSucOpen}
+            setAlertSFailedOpen={props.setAlertSFailedOpen}
+            setAlertMessage={props.setAlertMessage}
           />
         </div>
       </div>

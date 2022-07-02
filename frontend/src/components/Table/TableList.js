@@ -14,6 +14,7 @@ import InventoryMix from "../Common/InventoryMix";
 import BarcodePrint from "../Functions/BarcodePrint";
 import Popup from "./Popup";
 import Invenupdate from "../Common/Invenupdate";
+import AlertVerify from "../Common/AlertVerify";
 
 function TableList(props) {
   let dispatch = useDispatch();
@@ -35,12 +36,12 @@ function TableList(props) {
     selectedRowKeys,
     onChange: onSelectChange,
     onSelect: (record, selected, selectedRows) => {
-      setselectedRows(selectedRows); //여기서 찍어보니까 된다.
+      setselectedRows(selectedRows);
       // rollback
       props.setRollBackCheckList(selectedRows);
     },
     onSelectAll: (selected, selectedRows, changeRows) => {
-      setselectedRows(selectedRows); //여기서 찍어보니까 된다.
+      setselectedRows(selectedRows);
       props.setRollBackCheckList(selectedRows);
     },
   };
@@ -50,9 +51,7 @@ function TableList(props) {
       title: element[sessionStorage.getItem("language")],
       dataIndex: element.en,
       key: element,
-      // width: element.size,
       align: "center",
-      // sorter: (a, b) => a[element.en] - b[element.en],
       sorter: (a, b) => {
         if (a[element.en] < b[element.en]) return -1;
         if (a[element.en] > b[element.en]) return 1;
@@ -121,10 +120,9 @@ function TableList(props) {
     return check;
   }
   // 삭제(멀티)
-  useEffect(() => {
+  function deleteMulti() {
     axios.defaults.baseURL = props.axiosURL;
-    if (selectedRowKeys.length > 0 && props.clickDelete && checkDeletePos()) {
-      console.log(checkDeletePos());
+    if (selectedRowKeys.length > 0 && checkDeletePos()) {
       axios
         .delete(`/${props.part}`, {
           data: {
@@ -132,25 +130,23 @@ function TableList(props) {
           },
         })
         .then((res) => {
-          alert("suc");
-          props.setClickDelete(false);
+          props.setAlertSucOpen(true)
+          props.setAlertMessage("선택한 요청이 삭제되었습니다.")
+          props.setAlertVerifyOpen(false)
           handleStores();
-          props.setOpenCreate(false);
         })
         .catch((err) => {
-          props.setClickDelete(false);
+          props.setAlertFailedOpen(true)
+          props.setAlertMessage("선택한 요청이 삭제되었습니다.")
         });
     } else if (
       selectedRowKeys.length > 0 &&
-      props.clickDelete &&
       checkDeletePos() === false
     ) {
       alert("처리중이거나 완료된 요청은 삭제가 불가능합니다.");
-      console.log(checkDeletePos());
-      props.setClickDelete(false);
       handleStores();
     }
-  }, [props.clickDelete]);
+  }
 
   const [detailData, setDetailData] = useState({});
   //강화 !!
@@ -160,77 +156,79 @@ function TableList(props) {
     Y: 0,
   });
   const [popupData, setPopupData] = useState({});
+  // 삭제할때 한번 더 묻기
+
   return (
     <div>
       {props.title === "inventory" ? (
         <div>
-            {
-                props.title === "inventory"
-                    ? <div>
-                        <InventoryMix
-                            selectedRowKeys={selectedRowKeys}
-                            selectedRows={selectedRows}
-                        />
-                        <Invenupdate
-                            selectedRowKeys={selectedRowKeys}
-                            selectedRows={selectedRows}
-                        />
-                    </div>
-                    : null
-            }
-            <Table
-                rowSelection={rowSelection}
-                onRow={(record, rowIndex, data) => {
-                    return {
-                        onClick: event => { setVisiblePopup(false) }, // click row
-                        onDoubleClick: event => { setDetailData(record); setOpenDetail(true) }, // double click row
-                        onContextMenu: event => {
-                            event.preventDefault();
-                            if (!["warehouse"].includes(props.title)) {
-                                setPopupXY({ ...popupXY, "X": event.pageX, "Y": event.pageY })
-                                setVisiblePopup(true)
-                                setPopupData(record)
-                            }
-                        }, // right button click row
-                        onMouseEnter: event => { }, // mouse enter row
-                        onMouseLeave: event => {
-                            // if (event.pageY > popupXY.Y - 20 || event.pageY < popupXY.Y + 20) {
-                            //     setVisiblePopup(true)
-                            //     console.log(popupXY.Y)
-                            // }
-                        }, // mouse leave row
-                    };
-                }}
-                columns={columns}
-                dataSource={data}
-                bordered
-                pagination={{ pageSize: 30 }}
-                size="small"
-                scroll={{
-                    x: 2500,
-                    // y: 1500,
-                }}
-            />
-            <Popup
-                visiblePopup={visiblePopup}
-                popupXY={popupXY}
-                popupData={[popupData]}
-                title={props.title}
-                clickBarcodePrint={props.clickBarcodePrint}
-                setClickBarcodePrint={props.setClickBarcodePrint}
-            />
-            <Detail openDetail={openDetail}
-                setOpenDetail={setOpenDetail}
-                detailData={detailData}
-                title={props.title}
-            />
-            <div className="hidden">
-                <BarcodePrint
-                    items={selectedRows}
-                    clickBarcodePrint={props.clickBarcodePrint}
-                    setClickBarcodePrint={props.setClickBarcodePrint}
+          {
+            props.title === "inventory"
+              ? <div>
+                <InventoryMix
+                  selectedRowKeys={selectedRowKeys}
+                  selectedRows={selectedRows}
                 />
-            </div>
+                <Invenupdate
+                  selectedRowKeys={selectedRowKeys}
+                  selectedRows={selectedRows}
+                />
+              </div>
+              : null
+          }
+          <Table
+            rowSelection={rowSelection}
+            onRow={(record, rowIndex, data) => {
+              return {
+                onClick: event => { setVisiblePopup(false) }, // click row
+                onDoubleClick: event => { setDetailData(record); setOpenDetail(true) }, // double click row
+                onContextMenu: event => {
+                  event.preventDefault();
+                  if (!["warehouse"].includes(props.title)) {
+                    setPopupXY({ ...popupXY, "X": event.pageX, "Y": event.pageY })
+                    setVisiblePopup(true)
+                    setPopupData(record)
+                  }
+                }, // right button click row
+                onMouseEnter: event => { }, // mouse enter row
+                onMouseLeave: event => {
+                  // if (event.pageY > popupXY.Y - 20 || event.pageY < popupXY.Y + 20) {
+                  //     setVisiblePopup(true)
+                  //     console.log(popupXY.Y)
+                  // }
+                }, // mouse leave row
+              };
+            }}
+            columns={columns}
+            dataSource={data}
+            bordered
+            pagination={{ pageSize: 30 }}
+            size="small"
+            scroll={{
+              x: 2500,
+              // y: 1500,
+            }}
+          />
+          <Popup
+            visiblePopup={visiblePopup}
+            popupXY={popupXY}
+            popupData={[popupData]}
+            title={props.title}
+            clickBarcodePrint={props.clickBarcodePrint}
+            setClickBarcodePrint={props.setClickBarcodePrint}
+          />
+          <Detail openDetail={openDetail}
+            setOpenDetail={setOpenDetail}
+            detailData={detailData}
+            title={props.title}
+          />
+          <div className="hidden">
+            <BarcodePrint
+              items={selectedRows}
+              clickBarcodePrint={props.clickBarcodePrint}
+              setClickBarcodePrint={props.setClickBarcodePrint}
+            />
+          </div>
           <InventoryMix
             selectedRowKeys={selectedRowKeys}
             selectedRows={selectedRows}
@@ -260,8 +258,8 @@ function TableList(props) {
                 setPopupData(record);
               }
             }, // right button click row
-            onMouseEnter: (event) => {}, // mouse enter row
-            onMouseLeave: (event) => {}, // mouse leave row
+            onMouseEnter: (event) => { }, // mouse enter row
+            onMouseLeave: (event) => { }, // mouse leave row
           };
         }}
         columns={columns}
@@ -294,6 +292,11 @@ function TableList(props) {
           setClickBarcodePrint={props.setClickBarcodePrint}
         />
       </div>
+      <AlertVerify
+        open={props.alertVerifyOpen}
+        setOpen={props.setAlertVerifyOpen}
+        func={deleteMulti}
+      />
     </div>
   );
 }
