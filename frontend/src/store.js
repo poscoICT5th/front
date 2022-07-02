@@ -89,7 +89,7 @@ export let { handleUserURL } = userURL.actions;
 // 추적 url
 let traceBack = createSlice({
   name: "traceBack",
-  initialState: "http://192.168.0.10:8087",
+  initialState: "http://35.74.0.183:8080/traceback",
   reducers: {
     handletraceBack(state, newState) {
       return newState;

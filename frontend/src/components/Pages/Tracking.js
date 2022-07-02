@@ -12,7 +12,6 @@ function Tracking() {
     let warehouseURL = useSelector((state) => state.warehouseURL)
     let inventoryURL = useSelector((state) => state.inventoryURL)
     let traceBack = useSelector((state) => state.traceBack)
-    // let exportReload = useSelector((state) => state.exportReload)
 
     const [warehouse_codes, setWarehouse_codes] = useState([])
     const [lot_nos, setLot_nos] = useState([])
@@ -41,8 +40,6 @@ function Tracking() {
         axios.defaults.baseURL = inventoryURL
         axios.get(`/location/${traceBack_datas.location}/warehouse/${traceBack_datas.warehouse_code}`)
             .then((res) => {
-                console.log(res)
-                console.log(1)
                 setLot_nos([])
                 for (let index = 0; index < res.data.length; index++) {
                     setLot_nos(lot_nos => ([...lot_nos, res.data[index].lot_no]))
@@ -68,24 +65,24 @@ function Tracking() {
 
     useEffect(() => {
         axios.defaults.baseURL = traceBack
-        axios.get(`/traceback/lotno/${traceBack_datas.lot_no}`)
+        axios.get(`/lotno/${traceBack_datas.lot_no}`)
             .then((res) => { console.log(res) })
             .catch((err) => { console.log(err) })
     }, [traceBack_datas.lot_no])
 
     var data = (
         {
-            name: 'Parent',
-            children: [{
-                name: 'Child One',
-                children: [{
-                    name: 'Child One'
-                }, {
-                    name: 'Child Two'
-                }]
-            }, {
-                name: 'Child Two'
-            }]
+            // name: 'Parent',
+            // children: [{
+            //     name: 'Child One',
+            //     children: [{
+            //         name: 'Child One'
+            //     }, {
+            //         name: 'Child Two'
+            //     }]
+            // }, {f
+            //     name: 'Child Two'
+            // }]
         }
     )
     return (
