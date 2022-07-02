@@ -98,6 +98,8 @@ function Inventory(props) {
             setClickDelete={setClickDelete}
             clickDelete={clickDelete}
             setClickButton={setClickButton}
+           // selectedRowKeys={props.selectedRowKeys} //추가한것
+         //   selecttedRows={props.selecttedRows}
           />
         </div>
         {/* table */}
@@ -121,6 +123,8 @@ function Inventory(props) {
             setAlertFailedOpen={props.setAlertFailedOpen}
             setAlertMessage={props.setAlertMessage}
             clickButton={clickButton}
+             // selectedRowKeys={props.selectedRowKeys} //추가한것
+         //   selecttedRows={props.selecttedRows}
           />
         </div>
       </div>
