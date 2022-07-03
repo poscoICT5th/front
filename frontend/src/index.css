@@ -19,17 +19,17 @@ code {
 
 /* scroll custom */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 8px;
+  width: 7px;
+  height: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #484d57;
+  background-color: #3a3a3a;
   border-radius: 10px;
   background-clip: padding-box;
   border: 2px solid transparent;
 }
 ::-webkit-scrollbar-track {
-  background-color: grey;
+  background-color: rgb(255, 255, 255);
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px white;
 }

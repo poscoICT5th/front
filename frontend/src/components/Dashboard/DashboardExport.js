@@ -4,10 +4,13 @@ import { useSelector } from 'react-redux';
 import moment from 'moment';
 import axios from 'axios';
 
-function DashboardExport() {
+function DashboardExport(props) {
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
   let store_language = useSelector((state) => state.language)
-  const [logisticsExportList, setLogisticsExportList] = useState([])
+  const [logisticsExportTodayAll, setLogisticsExportTodayAll] = useState([])
+  const [logisticsExportTodaySuc, setLogisticsExportTodaySuc] = useState([])
+  const [empty, setEmpty] = useState(false)
+  const columns = [];
   const [datas, setDatas] = useState({
     instruction_no: "전체보기",
     status: "전체보기",
@@ -37,22 +40,14 @@ function DashboardExport() {
     inst_deadline: moment().format("YY-MM-DD"),
     done_date: "전체보기",
   })
-  useEffect(() => {
-    axios.defaults.baseURL = logisticsExportURL
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => { setLogisticsExportList(res.data); console.log(datas, res.data) })
-      .catch((err) => { console.log(datas); })
-  }, [])
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
     { "ko": "lot번호", "en": "lot_no", "cn": "lot编号", "jp": "lot番号", "vn": "số lot", "size": 300 },
-    // { "ko": "제품코드", "en": "item_code", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm", "size": 300 },
-    // { "ko": "제품명", "en": "item_name", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là", "size": 300 },
+    { "ko": "제품코드", "en": "item_code", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm", "size": 300 },
+    { "ko": "제품명", "en": "item_name", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là", "size": 300 },
     // { "ko": "주문량", "en": "order_amount", "cn": "订货量", "jp": "注文量", "vn": "lượng đặt hàng", "size": 300 },
-    // { "ko": "출고량", "en": "ex_amount", "cn": "出库量", "jp": "出庫量", "vn": "lượng xuất kho", "size": 300 },
+    { "ko": "출고량", "en": "ex_amount", "cn": "出库量", "jp": "出庫量", "vn": "lượng xuất kho", "size": 300 },
     // { "ko": "출고잔량", "en": "ex_remain", "cn": "出库余量", "jp": "出庫残量", "vn": "số dư xuất kho", "size": 300 },
     // { "ko": "단위", "en": "unit", "cn": "单位", "jp": "単位", "vn": "đơn vị", "size": 300 },
     // { "ko": "무게", "en": "weight", "cn": "份量", "jp": "重さ", "vn": "trọng lượng", "size": 300 },
@@ -69,7 +64,7 @@ function DashboardExport() {
     // { "ko": "완료일", "en": "done_date", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành", "size": 300 },
     // { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
-  const columns = [];
+
   th.forEach(element => {
     columns.push(
       {
@@ -93,16 +88,38 @@ function DashboardExport() {
         },
       )
     })
-
   }, [store_language])
+
+  useEffect(() => {
+    axios.defaults.baseURL = logisticsExportURL
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => {
+        if (res.data.length === 0) {
+          setEmpty(true)
+        } else {
+          setEmpty(false)
+          setLogisticsExportTodayAll(res.data);
+          setLogisticsExportTodaySuc(res.data.filter((schedule) => schedule.status.includes("완료")))
+        }
+      })
+      .catch((err) => { console.log(datas); })
+  }, [])
+
   return (
-    <div>
-      <Table
-        columns={columns}
-        dataSource={logisticsExportList}
-        pagination={false}
-        size="small"
-      />
+    <div className='mt-5 text-center'>
+      {
+        empty
+          ? <div className='text-3xl font-bold mt-20'>금일 일정이 없습니다.</div>
+          : <Table
+            columns={columns}
+            dataSource={props.clickTable === "export" ? logisticsExportTodayAll : logisticsExportTodaySuc}
+            pagination={false}
+            size="small"
+            scroll={{ y: 200 }}
+          />
+      }
     </div>
   )
 }

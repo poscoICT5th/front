@@ -3,11 +3,13 @@ import { Table } from 'antd';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
-function DashboardImport() {
+function DashboardImport(props) {
   let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
-  const [logisticsImportList, setLogisticsImportList] = useState([])
   let store_language = useSelector((state) => state.language)
 
+  const [logisticsImportTodayAll, setLogisticsImportTodayAll] = useState([])
+  const [logisticsImportTodaySuc, setLogisticsImportTodaySuc] = useState([])
+  const [empty, setEmpty] = useState(false)
   const [datas, setDatas] = useState({
     instruction_no: "전체보기",
     status: "전체보기",
@@ -34,29 +36,19 @@ function DashboardImport() {
     customer: "전체보기",
     order_date: "전체보기",
     inst_reg_date: "전체보기",
-    inst_deadline: moment().format("YY-MM-DD"),
+    // inst_deadline: moment().format("YY-MM-DD"),
+    inst_deadline: "22-12-31",
     done_date: "전체보기",
   })
-  useEffect(() => {
-    console.log(datas)
-    axios.defaults.baseURL = logisticsImportURL
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => {
-        setLogisticsImportList(res.data);
-        console.log(res.data)
-      })
-      .catch((err) => { console.log(err) })
-  }, [])
+  const columns = []
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
     { "ko": "lot번호", "en": "lot_no", "cn": "lot编号", "jp": "lot番号", "vn": "số lot", "size": 300 },
-    // { "ko": "제품코드", "en": "item_code", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm", "size": 300 },
-    // { "ko": "제품명", "en": "item_name", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là", "size": 300 },
+    { "ko": "제품코드", "en": "item_code", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm", "size": 300 },
+    { "ko": "제품명", "en": "item_name", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là", "size": 300 },
     // { "ko": "주문량", "en": "order_amount", "cn": "订货量", "jp": "注文量", "vn": "lượng đặt hàng", "size": 300 },
-    // { "ko": "입고수량", "en": "im_amount", "cn": "入库数量", "jp": "入庫数量", "vn": "số lượng nhập kho", "size": 300 },
+    { "ko": "입고수량", "en": "im_amount", "cn": "入库数量", "jp": "入庫数量", "vn": "số lượng nhập kho", "size": 300 },
     // { "ko": "단위", "en": "unit", "cn": "单位", "jp": "単位", "vn": "đơn vị", "size": 300 },
     // { "ko": "무게", "en": "weight", "cn": "份量", "jp": "重さ", "vn": "trọng lượng", "size": 300 },
     // { "ko": "넓이", "en": "width", "cn": "广度", "jp": "広さ", "vn": "bề rộng", "size": 300 },
@@ -73,20 +65,16 @@ function DashboardImport() {
     // { "ko": "완료일", "en": "done_date", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành", "size": 300 },
     // { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
-  const columns = []
-
   th.forEach(element => {
     columns.push(
       {
         title: element[sessionStorage.getItem("language")],
         dataIndex: element.en,
         key: element.en,
-        // width: element.size,
         align: "center",
       },
     )
   })
-
   useEffect(() => {
     th.forEach(element => {
       columns.push(
@@ -94,7 +82,6 @@ function DashboardImport() {
           title: element[sessionStorage.getItem("language")],
           dataIndex: element.en,
           key: element,
-          // width: element.size,
           align: "center",
         },
       )
@@ -102,16 +89,39 @@ function DashboardImport() {
 
   }, [store_language])
 
-  const [data, setData] = useState([])
+  useEffect(() => {
+    console.log(datas)
+    axios.defaults.baseURL = logisticsImportURL
+    axios.get('/search', {
+      params: datas
+    })
+      .then((res) => {
+        console.log(res.data)
+        if (res.data.length === 0) {
+          setEmpty(true)
+        } else {
+          setEmpty(false)
+          setLogisticsImportTodayAll(res.data);
+          setLogisticsImportTodaySuc(res.data.filter((schedule) => schedule.status.includes("완료")))
+        }
+      })
+      .catch((err) => { console.log(err) })
+  }, [])
 
   return (
-    <div>
-      <Table
-        columns={columns}
-        dataSource={logisticsImportList}
-        pagination={false}
-        size="small"
-      />
+    <div className='mt-5 text-center'>
+      {
+        empty
+          ? <div className='text-3xl font-bold mt-20'>금일 일정이 없습니다.</div>
+          : <Table
+            columns={columns}
+            dataSource={props.clickTable === "import" ? logisticsImportTodayAll : logisticsImportTodaySuc}
+            pagination={false}
+            size="small"
+            scroll={{ y: 200 }}
+          />
+      }
+
     </div>
   )
 }
