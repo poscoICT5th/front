@@ -41,7 +41,6 @@ function Invenupdate(props) {
       })
       .then((res) => {
         console.log(datas);
-        //console.log(res, "받아온데이터 여기여기");
         props.setAlertMessage("수정이 완료되었습니다.");
         props.setAlertSucOpen(true);
         setIsModalVisible(false);
@@ -57,7 +56,6 @@ function Invenupdate(props) {
       .put("/statuschange", datas)
       .then((res) => {
         console.log(datas);
-        //console.log(res, "받아온데이터 여기여기");
         props.setAlertMessage("수정이 완료되었습니다.");
         props.setAlertSucOpen(true);
         setIsModalVisible(false);
@@ -149,9 +147,8 @@ function Invenupdate(props) {
                       <div className="shadow overflow-hidden sm:rounded-lg">
                         <div className="text-center">
                           <div className="grid grid-rows-12 m-4">
-                            
+
                             {selectData.map((selectData) => {
-                              //      console.log(selectData.selectOption, " 이거 뭔지");
                               return (
                                 <SearchSelect
                                   name={selectData.name}
@@ -211,7 +208,6 @@ function Invenupdate(props) {
           </div>
         </Dialog>
       </Transition.Root>
-      
     </div>
   );
 }

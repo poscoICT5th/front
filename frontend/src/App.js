@@ -146,7 +146,7 @@ function App() {
         {nowURL !== "/" ? <Footer /> : null}
         <BackTop>
           <div >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4} onClick={() => { window.scrollTo(0, 0); }}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4} onClick={() => { window.scrollTo(0, 0); }}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
             </svg>
           </div>

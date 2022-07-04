@@ -43,7 +43,6 @@ function SearchLogisticsImport(props) {
         axios.get(`inventory/customer/${props.datas.location}`)
             .then((res) => {
                 setCustomers(["전체보기"])
-
                 for (let index = 0; index < res.data.length; index++) {
                     setCustomers(customers => [...customers, res.data[index].customer])
                 }

@@ -1,18 +1,15 @@
 import React, { Fragment, useRef, useEffect, useState } from "react";
-import { Form, notification } from "antd";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import CreateInventory from "../Create/CreateInventory";
+
 function InventoryMix(props) {
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [successVisible, setSuccessVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [form] = Form.useForm();
   const cancelButtonRef = useRef(null);
 
-  const [openUpdate, setOpenUpdate] = useState(false);
 
   const showModal = () => {
     if (props.selectedRowKeys.length > 5 || props.selectedRowKeys.length < 1) {
@@ -21,41 +18,7 @@ function InventoryMix(props) {
     } else {
       setIsModalVisible(true);
     }
-    //클릭하면 모달창 띄우기
   };
-
-  //input
-  const layout = {
-    labelCol: {
-      span: 8,
-    },
-    wrapperCol: {
-      span: 16,
-    },
-  };
-  const tailLayout = {
-    wrapperCol: {
-      offset: 8,
-      span: 16,
-    },
-  };
-
-  const onFinish = (values) => {
-    //console.log(values);
-  };
-
-  const onReset = () => {
-    form.resetFields();
-  };
-
-  //예외처리
-  // const openNotification = (placement) => {
-  //   notification.info({
-  //     message: `제품 가공 실패!`,
-  //     description: "제품 가공 원료를 1~5개 사이로 다시 선택해주세요!",
-  //     placement,
-  //   });
-  // };
 
   //usestate
   const [consumedProductsList, setConsumedProductsList] = useState([]);
@@ -78,7 +41,7 @@ function InventoryMix(props) {
     customer: "",
     stock_quality_status: "",
     status_cause: "",
-  
+
   });
   useEffect(() => {
     if (props.selectedRows.length > 0) {
@@ -109,17 +72,11 @@ function InventoryMix(props) {
     consumedProducts: consumedProductsList,
     newProduct: newProductList,
   };
-  //selectedRows 는 여러행이 담겨져있는것.
-  //axios
   async function mixregist() {
     let mixPos = true;
-    // if (props.selectedRows.length > 0) {
-    // }
-    //stateㄱ ㅏ 이동중일때
-
     await props.selectedRows.forEach((element) => {
       if (1 > element.amount) {
-        console.log(element.amount , " 갯수가 도대체 몇개야 ");
+        console.log(element.amount, " 갯수가 도대체 몇개야 ");
         mixPos = false;
         props.setAlertMessage(
           element.lot_no + " 제품의 재고가 존재하지 않습니다."
@@ -129,7 +86,7 @@ function InventoryMix(props) {
         setIsModalVisible(false);
       } else if (element.state === "이동중" || element.state === "출고대기") {
         mixPos = false;
-        props.setAlertMessage(element.lot_no + " 제품은 "+element.state+"이므로 사용할 수 없습니다.");
+        props.setAlertMessage(element.lot_no + " 제품은 " + element.state + "이므로 사용할 수 없습니다.");
         props.setAlertFailedOpen(true);
       }
     });
@@ -142,11 +99,8 @@ function InventoryMix(props) {
     axios
       .post("/produce", data)
       .then((res) => {
-        // console.log(res, "받아온데이터");
-
         props.setAlertMessage("제품이 가공되었습니다. 제품을 입력해주세요.");
         props.setAlertSucOpen(true);
-        setSuccessVisible(true);
         setIsModalVisible(false);
       })
       .catch((err) => {
@@ -181,7 +135,7 @@ function InventoryMix(props) {
     }
   }
 
-  useEffect(() => {}, [props.selectedRows]);
+  useEffect(() => { }, [props.selectedRows]);
 
   return (
     <div>
@@ -233,34 +187,31 @@ function InventoryMix(props) {
                       <div className="shadow overflow-hidden sm:rounded-lg">
                         <div className="text-center">
                           <div className="grid grid-rows-12 m-4">
-                            {/* input 창 만들기 */}
                             {props.selectedRows.length < 6
                               ? props.selectedRows.map((value) => {
-                                  return (
-                                    <div className="span-row-1 mt-3 grid grid-cols-2 gap-3">
-                                      <div className="text-md font-medium text-gray-700 grid-cols-8 py-2.5">
-                                        {value.lot_no}
-                                      </div>
-                                      <input
-                                        type="text"
-                                        name="first-name"
-                                        id="first-name"
-                                        autoComplete="given-name"
-                                        className="grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
-                                        placeholder="갯수를 입력하세요."
-                                        onChange={(e) => {
-                                          setValue(
-                                            value.lot_no,
-                                            e.target.value
-                                          );
-                                        }}
-                                      />
+                                return (
+                                  <div className="span-row-1 mt-3 grid grid-cols-2 gap-3">
+                                    <div className="text-md font-medium text-gray-700 grid-cols-8 py-2.5">
+                                      {value.lot_no}
                                     </div>
-                                  );
-                                })
+                                    <input
+                                      type="text"
+                                      name="first-name"
+                                      id="first-name"
+                                      autoComplete="given-name"
+                                      className="grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
+                                      placeholder="갯수를 입력하세요."
+                                      onChange={(e) => {
+                                        setValue(
+                                          value.lot_no,
+                                          e.target.value
+                                        );
+                                      }}
+                                    />
+                                  </div>
+                                );
+                              })
                               : null}
-
-                            {/*이전코드 복붙*/}
                           </div>
                         </div>
                       </div>
@@ -279,12 +230,12 @@ function InventoryMix(props) {
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300
           shadow-sm px-4 py-2 bg-green-500 text-base font-medium dark:text-white hover:bg-gray-50 
           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    // onClick={mixregist}
+                      // onClick={mixregist}
                       onClick={() => {
                         mixregist();
                         setModalOpen(true);
 
-                      } 
+                      }
                       }
                     >
                       제품 가공
@@ -296,10 +247,10 @@ function InventoryMix(props) {
           </div>
         </Dialog>
       </Transition.Root>
-     
-      
-       {/* CreateInventory */}
-       <CreateInventory
+
+
+      {/* CreateInventory */}
+      <CreateInventory
         setModalOpen={setModalOpen}
         modalOpen={modalOpen}
       />

@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Select } from "antd";
 import { useSelector } from "react-redux";
-import Invenupdate from "../Invenupdate";
 function SearchSelect(props) {
   const { Option } = Select;
   const options = [];
-  //console.log(props.selectData)
   for (let i = 0; i < props.selectData.length; i++) {
     options.push(
       <Option key={props.selectData[i]}>{props.selectData[i]}</Option>
     );
   }
-  const handleChange = (value) => {
-    props.setDatas({ ...props.datas, [props.name]: value });
-  };
-  // label 언어설정
+
   let store_language = useSelector((state) => state.language);
   const [label, setLabel] = useState(props.ko);
   useEffect(() => {
@@ -46,7 +41,6 @@ function SearchSelect(props) {
   }, []);
 
   function onChangeInput(value) {
-    //console.log(value);
     if (props.purpose === "search" && value === undefined) {
       props.setDatas({ ...props.datas, [props.name]: "전체보기" });
     } else {
@@ -76,7 +70,7 @@ function SearchSelect(props) {
             placeholder={label}
             defaultValue={[]}
             onChange={(e) => {
-              onChangeInput2(e); //선택한 '합격'
+              onChangeInput2(e);
             }}
             disabled={
               props.datas.stock_quality_status === "합격" &&

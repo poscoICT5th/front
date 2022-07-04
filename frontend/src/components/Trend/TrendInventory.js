@@ -45,13 +45,9 @@ function TrendInventory() {
   useEffect(() => {
     axios.defaults.baseURL = inventoryURL;
     axios.get("/trend").then((res) => {
-      //  console.log(res.data, "날짜를 찍어보자");
-
       res.data.reduce(function (total, currentValue) {
         //연간 재고회전율 구하기
         if (currentValue.date >= 1640962800000) {
-          //22년도 설정하고
-
           setExport_motor_sum_2022(
             //22년도 출고량 구한다.
             (export_motor_sum_2022) =>
@@ -131,8 +127,6 @@ function TrendInventory() {
         }
         return null;
       }, 0);
-      //setCnt(res.data.length);
-      //console.log(currentValue.export_motor.length, " 길이 ");
     });
   }, []);
   const data = [];
@@ -292,8 +286,6 @@ function TrendInventory() {
       <div className="px-6 py-3 text-xs font-medium uppercase tracking-wider text-right">
         ※ 재고회전율 = 출고량 / 평균재고량 * 100 %
       </div>
-      {/* 여기부터 그래프 */}
-
       <div className="grid grid-cols-1 grid-rows-3 gap-3 rounded-lg">
         <div>
           <ChartLine />

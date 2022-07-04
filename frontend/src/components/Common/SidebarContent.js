@@ -1,16 +1,11 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateExport from "../Create/CreateExport";
 import CreateImport from "../Create/CreateImport";
 import CreateMove from "../Create/CreateMove";
 import CreateWarehouse from "../Create/CreateWarehouse";
-import { useDispatch, useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
-import Mypage from "../Pages/Mypage";
 function SidebarContent(props) {
-  let dispatch = useDispatch();
-  let userURL = useSelector((state) => state.userURL);
 
   const [createUser, setCreateUser] = useState(false);
   useEffect(() => {
@@ -117,7 +112,7 @@ function SidebarContent(props) {
       ],
     },
 
-    
+
     {
       menu: "창고관리",
       no: 50,
@@ -129,7 +124,7 @@ function SidebarContent(props) {
           navigate: "Warehouse",
           d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
         },
-         {
+        {
           submenu: "창고MAP",
           no: 62,
           navigate: "ChartTreemap",
@@ -165,12 +160,6 @@ function SidebarContent(props) {
           navigate: "Inventory",
           d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
         },
-        // {
-        //   submenu: "재고MAP",
-        //   no: 62,
-        //   navigate: "ChartTreemap",
-        //   d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
-        // },
         {
           submenu: "재고Trend",
           no: 63,
@@ -221,7 +210,6 @@ function SidebarContent(props) {
                   />
                 </svg>
                 <span className="ml-3 text-sm font-medium"> Dashboard </span>
-                {/* <Link to="/Dashboard" className="ml-3 text-sm font-medium">Dashboard</Link> */}
               </div>
               <div
                 className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
@@ -251,7 +239,6 @@ function SidebarContent(props) {
                   />
                 </svg>
                 <span className="ml-3 text-sm font-medium"> 마이페이지 </span>
-                {/* <Link to="/Dashboard" className="ml-3 text-sm font-medium">Dashboard</Link> */}
               </div>
               {createUser ? (
                 <div

@@ -62,7 +62,7 @@ function DashboardMove(props) {
       params: datas
     })
       .then((res) => {
-        if (res.data.length===0) {
+        if (res.data.length === 0) {
           setEmpty(true)
         } else {
           setEmpty(false)

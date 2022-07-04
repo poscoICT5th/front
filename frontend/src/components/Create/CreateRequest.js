@@ -1,10 +1,8 @@
 import React, { useEffect, Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationIcon } from "@heroicons/react/outline";
 import SearchSelect from "../Common/Conditions/SearchSelect";
 import InputText from "../Common/Conditions/InputText";
 import FixedInput from "../Common/Conditions/FixedInput";
-import CreateInventory from "./CreateInventory";
 
 function CreateRequest(props) {
   const cancelButtonRef = useRef(null);
@@ -210,7 +208,7 @@ function CreateRequest(props) {
           </div>
         </Dialog>
       </Transition.Root>
-     
+
     </div>
   );
 }

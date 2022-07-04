@@ -4,19 +4,10 @@ import axios from "axios";
 function Detail(props) {
   const [openUpdate, setOpenUpdate] = useState(false);
   const cancelButtonRef = useRef(null);
-  const [updateList, setUpdateList] = useState([]);
-  //axios put 어떻게 보내는지
-  //datas  onchange 어떻게 하는지
 
-  //값 새로 넣을때 onchange
-  const handleChange = (e) => {
-    setDatas({
-      text: e.target.value,
-    });
-  };
   function save(params) {
     axios
-      .put(`/${props.detailData.warehouse_code}`, datas) //보내기만 하면됨 수정이기 때문에
+      .put(`/${props.detailData.warehouse_code}`, datas)
       .then((res) => {
         if (res.data) {
           alert("수정 성공");
@@ -31,7 +22,6 @@ function Detail(props) {
       });
   }
   const [datas, setDatas] = useState({
-    //순서 상관없음
     location: "",
     warehouse_code: "",
     purpose: "",
@@ -103,7 +93,6 @@ function Detail(props) {
                                           className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm"
                                           placeholder={value}
                                           disabled={
-                                            //조건 넣어주기  && ||
                                             [
                                               "inventory_using",
                                               "purpose",
@@ -114,7 +103,6 @@ function Detail(props) {
                                           }
                                           onChange={(e) => {
                                             setDatas(
-                                              // 여기서 setdatas 에 바꾼 값 넣어주기 .
                                               {
                                                 ...datas,
                                                 [key]: e.target.value,

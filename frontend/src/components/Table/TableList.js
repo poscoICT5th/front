@@ -10,10 +10,8 @@ import {
   handleWarehouseReload,
   handleInventoryReload,
 } from "../../store";
-import InventoryMix from "../Common/InventoryMix";
 import BarcodePrint from "../Functions/BarcodePrint";
 import Popup from "./Popup";
-import Invenupdate from "../Common/Invenupdate";
 import AlertVerify from "../Common/AlertVerify";
 
 function TableList(props) {
@@ -221,8 +219,8 @@ function TableList(props) {
                 setPopupData(record);
               }
             }, // right button click row
-            onMouseEnter: (event) => {}, // mouse enter row
-            onMouseLeave: (event) => {}, // mouse leave row
+            onMouseEnter: (event) => { }, // mouse enter row
+            onMouseLeave: (event) => { }, // mouse leave row
           };
         }}
         columns={columns}

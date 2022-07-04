@@ -11,8 +11,6 @@ import SearchSelect from "../Common/Conditions/SearchSelect";
 import InputText from "../Common/Conditions/InputText";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Collapse } from "antd";
-import { CaretRightOutlined } from "@ant-design/icons";
 import InventoryMix from "../Common/InventoryMix";
 import Invenupdate from "../Common/Invenupdate";
 
@@ -37,7 +35,7 @@ function SearchWarehouse(props) {
           ]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   // 지역에따라서 고객처변경
   useEffect(() => {
@@ -51,7 +49,7 @@ function SearchWarehouse(props) {
           setCustomers((customers) => [...customers, res.data[index].customer]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   // 지역에따라서 아이템명변경
   useEffect(() => {
@@ -68,7 +66,7 @@ function SearchWarehouse(props) {
           ]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   const selectDatas = [
     {
@@ -190,7 +188,6 @@ function SearchWarehouse(props) {
       vn: "công việc nhận kho",
     },
   ];
-  const { Panel } = Collapse;
   return (
     <div className="overflow-hidden sm:rounded-md">
       <div className="py-5 rounded-lg">

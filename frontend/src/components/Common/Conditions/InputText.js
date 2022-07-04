@@ -33,8 +33,6 @@ function InputText(props) {
         }
     }, [])
 
-
-
     function onChangeDate(dateString) {
         if (props.purpose === "search" && dateString === "") {
             console.log("값비었음")
@@ -61,7 +59,7 @@ function InputText(props) {
         <div className="col-span-1">
             <label className="block text-sm font-medium">
                 {label}
-                
+
             </label>
             {
                 props.type !== "date"
@@ -73,7 +71,6 @@ function InputText(props) {
                         disabled={
                             props.purpose === "create"
                                 && props.type !== "date"
-                                // && props.name === "width"
                                 && [].includes(props.name)
                                 ? true
                                 : false}
@@ -81,9 +78,6 @@ function InputText(props) {
                         className="block w-full rounded-md text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                         onChange={(e) => { onChangeInput(e) }}
                         placeholder={label}
-                        // validationErrors={{
-                        //     isDefaultRequiredValue: 'Field is required'
-                        // }}
                         required={true}
                         allowClear
                     />

@@ -13,7 +13,6 @@ function CreateMove(props) {
     let inventoryURL = useSelector((state) => state.inventoryURL)
     axios.defaults.baseURL = logisticsMoveURL
     const [warehouse_codes, setWarehouse_codes] = useState([])
-    const [item_names, setItem_names] = useState([])
     const [lot_nos, setLot_nos] = useState([])
     const [lot_no_data, setLot_no_data] = useState({})
     const [moveDatas, setMoveDatas] = useState({
@@ -47,18 +46,18 @@ function CreateMove(props) {
     }, [moveDatas.location])
 
     // 지역에따라서 아이템명변경
-    useEffect(() => {
-        axios.defaults.baseURL = inventoryURL
-        axios.get(`inventory/${moveDatas.location}`)
-            .then((res) => {
-                setItem_names([])
-                for (let index = 0; index < res.data.length; index++) {
-                    setItem_names(warehouse_codes => [...warehouse_codes, res.data[index].item_name])
-                }
-                // console.log(warehouse_codes)
-            })
-            .catch((err) => { })
-    }, [moveDatas.location])
+    // useEffect(() => {
+    //     axios.defaults.baseURL = inventoryURL
+    //     axios.get(`inventory/${moveDatas.location}`)
+    //         .then((res) => {
+    //             setItem_names([])
+    //             for (let index = 0; index < res.data.length; index++) {
+    //                 setItem_names(warehouse_codes => [...warehouse_codes, res.data[index].item_name])
+    //             }
+    //             // console.log(warehouse_codes)
+    //         })
+    //         .catch((err) => { })
+    // }, [moveDatas.location])
 
     // 지역, 창고값을 보내면 lot번호 불러오기
     useEffect(() => {

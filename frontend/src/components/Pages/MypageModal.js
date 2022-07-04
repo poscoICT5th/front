@@ -6,7 +6,6 @@ import jwtDecode from "jwt-decode";
 function MypageModal(props) {
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
-  //여기부터 기존 마이페이지 불러오기
   const [userName, setUserName] = useState("");
   const [phone, setPhone] = useState(null);
   const [email, setEmail] = useState("");
@@ -21,7 +20,6 @@ function MypageModal(props) {
   ];
   //명언 랜덤
   const getRandom = function (length) {
-    //console.log(parseInt(Math.random() * length));
     return proverbs[parseInt(Math.random() * length)];
   };
 
@@ -95,14 +93,6 @@ function MypageModal(props) {
                             <div className="grid grid-cols-1 gap-1 text-center">
                               <div className="col-span-3 mx-auto">
                                 <div className="shadow overflow-hidden sm:rounded-lg">
-                                  {/* 
-                                    <div className="px-4 py-5 sm:px-6">
-                                   <h3 className="text-lg leading-6 font-medium">
-          회원 정보
-        </h3>
-                                    <p className="mt-1 max-w-2xl text-sm text-gray-500">오늘도 화이팅~</p>
-                                     </div>
-                                  */}
                                   <div className="border-t border-gray-200">
                                     <dl>
                                       <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

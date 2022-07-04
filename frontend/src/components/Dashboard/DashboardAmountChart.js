@@ -5,7 +5,6 @@ import Highcharts from "highcharts";
 import highcharts3d from "highcharts/highcharts-3d";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import moment from "moment";
 
 highcharts3d(Highcharts);
 //3D 막대그래프
@@ -65,11 +64,9 @@ function DashboardAmountChart(props) {
         },
     }
 
-    // 
     useEffect(() => {
         axios.defaults.baseURL = inventoryURL;
         axios.get("/amount").then((res) => {
-            console.log(res.data);
             setAmountItemName(res.data.map(item => item.item_name))
             setAmount(res.data.map(item => item.amount))
         });

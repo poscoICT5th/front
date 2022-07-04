@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import Highcharts from "highcharts";
-import "./styles.css";
 
 export default function ChartColumn() {
   const refContainer = useRef(null);

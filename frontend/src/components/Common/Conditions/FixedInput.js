@@ -4,10 +4,8 @@ import { useSelector } from 'react-redux';
 
 function FixedInput(props) {
     let store_language = useSelector((state) => state.language)
-    const [language, setLanguage] = useState("")
     const [label, setLabel] = useState(props.ko)
     useEffect(() => {
-        setLanguage(store_language)
         if (store_language === "ko") {
             setLabel(props.data.ko)
         } else if (store_language === "en") {
@@ -22,7 +20,6 @@ function FixedInput(props) {
     }, [store_language])
 
     useEffect(() => {
-        setLanguage(sessionStorage.getItem("language"))
         if (sessionStorage.getItem("language") === "ko") {
             setLabel(props.data.ko)
         } else if (sessionStorage.getItem("language") === "en") {

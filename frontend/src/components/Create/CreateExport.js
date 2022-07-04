@@ -10,10 +10,8 @@ function CreateExport(props) {
   let warehouseURL = useSelector((state) => state.warehouseURL)
   let inventoryURL = useSelector((state) => state.inventoryURL)
   let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
-  // let exportReload = useSelector((state) => state.exportReload)
 
   const [warehouse_codes, setWarehouse_codes] = useState([])
-  const [item_names, setItem_names] = useState([])
   const [customers, setCustomers] = useState([])
   const [lot_nos, setLot_nos] = useState([])
   const [lot_no_data, setLot_no_data] = useState({})
@@ -46,19 +44,6 @@ function CreateExport(props) {
         setWarehouse_codes([])
         for (let index = 0; index < res.data.length; index++) {
           setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
-        }
-      })
-      .catch((err) => { })
-  }, [exportDatas.location])
-
-  // 지역에따라서 아이템명변경
-  useEffect(() => {
-    axios.defaults.baseURL = inventoryURL
-    axios.get(`inventory/${exportDatas.location}`)
-      .then((res) => {
-        setItem_names([])
-        for (let index = 0; index < res.data.length; index++) {
-          setItem_names(item_names => [...item_names, res.data[index].item_name])
         }
       })
       .catch((err) => { })

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import "./styles.css";
 //이게 최종, 가로 bar 차트 
 export default function ChartBar2() {
   const dataSource = [

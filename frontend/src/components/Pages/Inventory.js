@@ -144,7 +144,7 @@ function Inventory(props) {
       .then((res) => {
         setInventoryList(res.data);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, []);
 
   //재고 조건검색

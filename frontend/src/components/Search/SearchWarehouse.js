@@ -9,8 +9,6 @@ import SearchSelect from "../Common/Conditions/SearchSelect";
 import InputText from "../Common/Conditions/InputText";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Collapse } from 'antd';
-import { CaretRightOutlined } from '@ant-design/icons';
 
 function SearchWarehouse(props) {
   // 지역에 따라서 창고목록변경
@@ -45,7 +43,6 @@ function SearchWarehouse(props) {
     { name: "min_maximum_count", type: "number", "purpose": "search", "ko": "최소적재수량", "cn": "最小装载数量", "jp": "最小積載数量", "vn": "lượng tải tối thiểu" },
     { name: "max_maximum_count", type: "number", "purpose": "search", "ko": "최대적재수량", "cn": "最大装载数量", "jp": "最大積載数量", "vn": "lượng tải tối đa" },
   ];
-  const { Panel } = Collapse;
   return (
     <div className="overflow-hidden sm:rounded-md">
       <div className="py-5 rounded-lg">
@@ -101,30 +98,6 @@ function SearchWarehouse(props) {
             조회
           </button>
         </div>
-        {/* <Collapse
-          bordered={false}
-          defaultActiveKey={[]}
-          expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-          className="site-collapse-custom-collapse"
-        >
-          <Panel header="상세검색" key="1" className="site-collapse-custom-panel">
-            <div className="grid grid-cols-5 gap-4 text-center">
-              {inputDatas.map((inputData) => {
-                return <InputText
-                  setDatas={props.setDatas}
-                  datas={props.datas}
-                  name={inputData.name}
-                  type={inputData.type}
-                  purpose={inputData.purpose}
-                  ko={inputData.ko}
-                  cn={inputData.cn}
-                  jp={inputData.jp}
-                  vn={inputData.vn}
-                />
-              })}
-            </div>
-          </Panel>
-        </Collapse> */}
       </div>
     </div>
   );

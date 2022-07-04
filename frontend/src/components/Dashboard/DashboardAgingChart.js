@@ -63,17 +63,12 @@ function DashboardAgingChart(props) {
         },
     }
 
-    // 
     let nowDate = (moment().format("YYYY-MM-DD"))
     useEffect(() => {
         axios.defaults.baseURL = inventoryURL;
         axios.get("/aging").then((res) => {
-            console.log(res.data);
             setAgingItemName(res.data.map(item => item.item_name))
             setDiffDays(res.data.map(item => (moment(nowDate).diff(moment(item.inventory_date.substr(0, 10)), 'days'))))
-        });
-        axios.get("/amount").then((res) => {
-            console.log(res.data);
         });
     }, []);
 

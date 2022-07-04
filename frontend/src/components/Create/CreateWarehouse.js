@@ -131,8 +131,6 @@ function CreateWarehouse(props) {
       !warehouseDatas.use ||
       !warehouseDatas.warehouse_desc
     ) {
-      console.log(isEmptyObject(warehouseDatas));
-      console.log(" 유효성 검사 들어옴.");
       alert("값을 다 입력해주세요.");
     } else {
       createAxios();
@@ -149,8 +147,6 @@ function CreateWarehouse(props) {
         dispatch(handleWarehouseReload(true));
         props.setOpenCreate(false);
         dispatch(handleWarehouseReload(false));
-        console.log(warehouseDatas, "우리가보내는data");
-        console.log(res, "받는 data");
       })
       .catch((err) => {
         alert(err);

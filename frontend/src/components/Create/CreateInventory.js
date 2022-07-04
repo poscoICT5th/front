@@ -19,10 +19,7 @@ function CreateInventory(props) {
   // let exportReload = useSelector((state) => state.exportReload)
 
   const [warehouse_codes, setWarehouse_codes] = useState([]);
-  const [item_names, setItem_names] = useState([]);
-  const [customers, setCustomers] = useState([]);
-  const [lot_nos, setLot_nos] = useState([]);
-  const [lot_no_data, setLot_no_data] = useState({});
+
   // 출고
   const [inventoryDatas, setinventoryDatas] = useState({
     industry_family: "",
@@ -54,7 +51,7 @@ function CreateInventory(props) {
           ]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [inventoryDatas.location]);
 
   const inventory_selectDatas = [
@@ -107,6 +104,16 @@ function CreateInventory(props) {
       cn: "单位",
       jp: "単位",
       vn: "đơn vị",
+    },
+    {
+      name: "warehouse_code",
+      selectOption: warehouse_codes,
+      grid: 1,
+      purpose: "search",
+      ko: "창고코드",
+      cn: "仓库代码",
+      jp: "倉庫コード",
+      vn: "mãkho",
     },
   ];
   const inventory_inputDatas = [
@@ -166,16 +173,6 @@ function CreateInventory(props) {
       vn: "trọng lượng",
     },
     {
-      name: "warehouse_code",
-      selectOption: warehouse_codes,
-      grid: 1,
-      purpose: "search",
-      ko: "창고코드",
-      cn: "仓库代码",
-      jp: "倉庫コード",
-      vn: "mãkho",
-    },
-    {
       name: "item_code",
       type: "number",
       purpose: "fixed",
@@ -188,7 +185,6 @@ function CreateInventory(props) {
 
   // function
   function request() {
-    console.log(inventoryDatas); //입력한 데이터 잘 들어옴.
     axios.defaults.baseURL = inventoryURL;
     axios
       .post("/", inventoryDatas)
