@@ -99,6 +99,7 @@ function App() {
       switcher({ theme: themes.dark });
       element.classList.add("dark");
       sessionStorage.setItem("theme", "dark");
+
     }
   }
   // alert button
@@ -106,7 +107,7 @@ function App() {
   const [alertFailedOpen, setAlertFailedOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState("")
   return (
-    <div data-aos="fade-up" className="fade-in">
+    <div data-aos="fade-up" className="fade-in overflow-y-auto" style={{ "overflow-y": "scroll" }}>
       {/* Header */}
       {isLogin ? (
         <Header
@@ -130,9 +131,9 @@ function App() {
               themes={themes}
             />
           ) : null}
+          <AlertSuc open={alertSucOpen} setOpen={setAlertSucOpen} message={alertMessage} />
+          <AlertFailed open={alertFailedOpen} setOpen={setAlertFailedOpen} message={alertMessage} />
           <div className="mx-auto mx-5 min-h-screen">
-            <AlertSuc open={alertSucOpen} setOpen={setAlertSucOpen} message={alertMessage} />
-            <AlertFailed open={alertFailedOpen} setOpen={setAlertFailedOpen} message={alertMessage} />
             {/* Routes */}
             <Router
               alertSucOpen={alertSucOpen}
