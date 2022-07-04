@@ -7,13 +7,10 @@ import {
 } from "./Conditions/SelectOptions";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { notification } from "antd";
 
 function Invenupdate(props) {
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [isModalVisible, setIsModalVisible] = useState(false); //처음모달
-  //const [consumedProductsList, setConsumedProductsList] = useState([]);
-  //const [change, setChange] = useState("");
   const cancelButtonRef = useRef(null);
   const [datas, setDatas] = useState({
     statusChangeList: null,
@@ -27,25 +24,50 @@ function Invenupdate(props) {
   }, [props.selectedRowKeys]);
 
   //수정 버튼 클릭하면
-  //axios
   function update() {
-    console.log(datas);
+    if (datas.status_cause === "직접입력") {
+      updateAxiosDM();
+    } else {
+      updateAxiosDefault();
+    }
+  }
+  function updateAxiosDM(params) {
     axios.defaults.baseURL = inventoryURL;
     axios
-      .put("/statuschange", datas)
+      .put("/statuschange", {
+        statusChangeList: datas.statusChangeList,
+        stock_quality_status: datas.stock_quality_status,
+        status_cause: dm,
+      })
       .then((res) => {
+        console.log(datas);
         //console.log(res, "받아온데이터 여기여기");
         props.setAlertMessage("수정이 완료되었습니다.");
         props.setAlertSucOpen(true);
-
         setIsModalVisible(false);
       })
       .catch((err) => {
-     
         props.setAlertMessage("수정을 실패했습니다.");
         props.setAlertFailedOpen(true);
       });
   }
+  function updateAxiosDefault(params) {
+    axios.defaults.baseURL = inventoryURL;
+    axios
+      .put("/statuschange", datas)
+      .then((res) => {
+        console.log(datas);
+        //console.log(res, "받아온데이터 여기여기");
+        props.setAlertMessage("수정이 완료되었습니다.");
+        props.setAlertSucOpen(true);
+        setIsModalVisible(false);
+      })
+      .catch((err) => {
+        props.setAlertMessage("수정을 실패했습니다.");
+        props.setAlertFailedOpen(true);
+      });
+  }
+
   //클릭하면 모달창 띄우기
   const showModal = () => {
     if (props.selectedRowKeys.length > 0) {
@@ -53,21 +75,9 @@ function Invenupdate(props) {
     } else {
       props.setAlertMessage("제품을 선택해주세요!");
       props.setAlertFailedOpen(true);
-
     }
   };
 
-
-  //예외처리
-  // const openNotification = (placement) => {
-  //   notification.info({
-  //     message: `수정 실패!`,
-  //     description: "제품을 선택해주세요!",
-  //     placement,
-  //   });
-  // };
-
-  //셀렉트 데이터 가져오기
   const selectData = [
     {
       name: "stock_quality_status",
@@ -90,14 +100,12 @@ function Invenupdate(props) {
       vn: "lýdotrạngthái",
     },
   ];
-  // const [selectData, setselectData] = useState({
-  //   });
 
   return (
     <div>
       <button
         onClick={showModal}
-        className="mb-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-400 hover:bg-emerald-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+        className="w-30 inline-flex justify-center py-1 border border-orange-500 shadow-sm text-sm font-medium rounded-md text-grayy bg-white-500 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
       >
         품질 상태 수정
       </button>
@@ -141,16 +149,7 @@ function Invenupdate(props) {
                       <div className="shadow overflow-hidden sm:rounded-lg">
                         <div className="text-center">
                           <div className="grid grid-rows-12 m-4">
-                            {/* input 창 만들기 */}
-                            {props.selectedRows.map((value) => {
-                              return (
-                                <div className="span-row-1 mt-3 grid grid-cols-2 gap-3">
-                                  <div className="text-md font-medium text-gray-700 grid-cols-8 py-2.5">
-                                    {value.lot_no}
-                                  </div>
-                                </div>
-                              );
-                            })}
+                            
                             {selectData.map((selectData) => {
                               //      console.log(selectData.selectOption, " 이거 뭔지");
                               return (
@@ -165,7 +164,6 @@ function Invenupdate(props) {
                                   vn={selectData.vn}
                                   setDatas={setDatas}
                                   datas={datas}
-                                  dm={dm}
                                 />
                               );
                             })}
@@ -178,10 +176,7 @@ function Invenupdate(props) {
                                 className="grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                 placeholder="사유를 입력하세요."
                                 onChange={(e) => {
-                                  setDatas({
-                                    ...datas,
-                                    status_cause: e.target.value,
-                                  });
+                                  setDm(e.target.value);
                                 }}
                               />
                             ) : null}
@@ -216,6 +211,7 @@ function Invenupdate(props) {
           </div>
         </Dialog>
       </Transition.Root>
+      
     </div>
   );
 }

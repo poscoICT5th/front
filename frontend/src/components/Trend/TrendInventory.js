@@ -266,7 +266,7 @@ function TrendInventory() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm">
                           {(
-                            (export_motor_sum_2020 / inven_motor_2020 / 365) *
+                            (export_rotor_sum_2020 / inven_rotor_2020 / 365) *
                             100
                           ).toFixed(2)}
                           %
@@ -275,7 +275,7 @@ function TrendInventory() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm">
                           {(
-                            (export_motor_sum_2020 / inven_motor_2020 / 365) *
+                            (export_strip_sum_2020 / inven_strip_2020 / 365) *
                             100
                           ).toFixed(2)}
                           %
