@@ -13,7 +13,7 @@ export const statusMove = [
 // 사업장
 export const location = ["전체보기", "포항", "광양", "천안"];
 // 제품군
-export const product_family = ["전체보기", "MT", "ROTOR ASSY"];
+export const product_family = ["전체보기", "MOTOR", "ROTOR", "STRIP"];
 // 용도명
 export const purpose = ["전체보기", "반제품", "임가공", "제품"];
 // 사용여부

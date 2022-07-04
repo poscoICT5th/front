@@ -87,6 +87,7 @@ function Echarts1() {
   var days = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
   var options = {
+    
     toolbox: {
       show: true,
       feature: {
@@ -116,8 +117,8 @@ function Echarts1() {
     //data: ["천안"],
     //   },
     visualMap: {
+      text: ['High Inventory', 'Low Inventory'],
       min: 0,
-
       max: maxupdate(),
       inRange: {
         color: [
@@ -134,16 +135,21 @@ function Echarts1() {
           "#a50026",
         ],
       },
+      left: '10%',
+      bottom: '0%'
     },
     xAxis3D: {
+      name : ' X좌표',
       type: "category",
       data: hours,
     },
     yAxis3D: {
+      name : ' Y좌표',
       type: "category",
       data: days,
     },
     zAxis3D: {
+      name : ' 재고량',
       type: "value",
     },
     grid3D: {
@@ -175,12 +181,14 @@ function Echarts1() {
           borderWidth: 1,
         },
         emphasis: {
+
           label: {
             fontSize: 20,
             color: "#900",
           },
           itemStyle: {
             color: "#900",
+          //  shadowBlur: 100,
           },
         },
       },
