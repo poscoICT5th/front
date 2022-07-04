@@ -257,4 +257,3 @@ export default configureStore({
     alertVerify: alertVerify.reducer,
   },
 });
-//
