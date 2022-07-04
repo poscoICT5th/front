@@ -38,8 +38,8 @@ function Dashboard() {
         </div>
       </div>
       <div className=' mt-5 grid grid-cols-3 gap-5 mx-8'>
-        <div className='text-center'>오래된재고 순위<DashboardAgingChart /></div>
-        <div className='text-center'>재고량 순위<DashboardAmountChart /></div>
+        <div className='text-center'><DashboardAgingChart /></div>
+        <div className='text-center'><DashboardAmountChart /></div>
         <div><ChartBar2 /></div>
       </div>
     </div>

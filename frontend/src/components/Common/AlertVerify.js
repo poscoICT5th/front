@@ -48,7 +48,7 @@ function AlertVerify(props) {
                                             </button>
                                             <button
                                                 className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
-                                                onClick={() => { props.func() }}>
+                                                onClick={() => { props.setOpen(false); props.func() }}>
                                                 네
                                             </button>
                                         </div>

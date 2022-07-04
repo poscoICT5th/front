@@ -74,7 +74,7 @@ function LogisticsExport(props) {
   useEffect(() => {
     axios.defaults.baseURL = logisticsExportURL
     axios.get("/export", {})
-      .then((res) => { setLogisticsExportList(res.data) })
+      .then((res) => { setLogisticsExportList(res.data); console.log(res.data) })
   }, [])
 
   // 출고조건검색
@@ -83,8 +83,8 @@ function LogisticsExport(props) {
     axios.get('/search', {
       params: datas
     })
-      .then((res) => { setLogisticsExportList(res.data); setClickSearch(false) })
-      .catch((err) => { console.log(datas); setClickSearch(false) })
+      .then((res) => { setLogisticsExportList(res.data); setClickSearch(false); console.log(res.data) })
+      .catch((err) => { console.log(err); setClickSearch(false) })
   }, [clickSearch, exportReload, datas])
 
   return (

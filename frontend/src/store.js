@@ -30,6 +30,7 @@ export let { handleLogisticsImportURL } = logisticsImportURL.actions;
 let logisticsExportURL = createSlice({
   name: "logisticsExportURL",
   initialState: "http://13.230.30.203:8080/export",
+  // initialState: "http://192.168.0.10:8082",
   reducers: {
     handleLogisticsURL(state, newState) {
       return newState;
@@ -257,4 +258,3 @@ export default configureStore({
     alertVerify: alertVerify.reducer,
   },
 });
-//

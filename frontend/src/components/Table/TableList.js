@@ -121,10 +121,10 @@ function TableList(props) {
       console.log(element);
       if (
         element.done_date !== null ||
-        element.status.includes("중") ||
-        element.state.includes("완료") ||
-        element.state.includes("중") ||
-        element.state === null
+        element.status.includes("중")
+        // element.state.includes("완료") ||
+        // element.state.includes("중") ||
+        // element.state === null
       ) {
         check = false;
         return check;
@@ -153,6 +153,7 @@ function TableList(props) {
           props.setAlertMessage(
             "서버와의 통신에 실패하였습니다, 다시 시도해주세요."
           );
+          props.setAlertVerifyOpen(false);
         });
     } else if (selectedRowKeys.length > 0 && checkDeletePos() === false) {
       alert("처리중이거나 완료된 요청은 삭제가 불가능합니다.");
@@ -181,7 +182,7 @@ function TableList(props) {
         .then((res) => {
           props.setAlertSucOpen(true);
           props.setAlertMessage("선택한 요청을 되돌렸습니다");
-          props.setAlertVerifyOpen(false);
+          // props.setAlertVerifyOpen(false);
           handleStores();
         })
         .catch((err) => {
@@ -189,6 +190,7 @@ function TableList(props) {
           props.setAlertMessage(
             "서버와의 통신에 실패하였습니다, 다시 시도해주세요."
           );
+          props.setAlertVerifyOpen(false);
         });
     } else if (selectedRowKeys.length > 0 && checkRollBackPos() === false) {
       alert(
