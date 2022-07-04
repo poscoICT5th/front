@@ -182,6 +182,54 @@ let theme = createSlice({
 });
 export let { handleTheme } = theme.actions;
 
+// 성공alert
+let alertSuc = createSlice({
+  name: "alertSuc",
+  initialState: false,
+  reducers: {
+    handleAlertSuc(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleAlertSuc } = alertSuc.actions;
+
+// 실패 alert
+let alertFail = createSlice({
+  name: "alertFail",
+  initialState: false,
+  reducers: {
+    handleAlertFail(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleAlertFail } = alertFail.actions;
+
+// 확인 alert
+let alertVerify = createSlice({
+  name: "alertVerify",
+  initialState: false,
+  reducers: {
+    handleAlertVerify(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleAlertVerify } = alertVerify.actions;
+
+// alert 메시지
+let alertMessage = createSlice({
+  name: "alertMessage",
+  initialState: "",
+  reducers: {
+    handleAlertMessage(state, newState) {
+      return newState;
+    },
+  },
+});
+export let { handleAlertMessage } = alertMessage.actions;
+
 
 // state등록해주는부분
 export default configureStore({
@@ -202,6 +250,10 @@ export default configureStore({
     language: language.reducer,
     theme: theme.reducer,
     traceBack: traceBack.reducer,
+    alertSuc: alertSuc.reducer,
+    alertFail: alertFail.reducer,
+    alertMessage: alertMessage.reducer,
+    alertVerify: alertVerify.reducer,
   },
 });
 //

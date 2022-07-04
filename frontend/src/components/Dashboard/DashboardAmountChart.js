@@ -26,7 +26,7 @@ function DashboardAmountChart(props) {
             },
         },
         title: {
-            text: "",
+            text: "재고량 순위",
         },
         credits: {
             enabled: true

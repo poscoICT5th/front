@@ -24,7 +24,7 @@ function DashboardAgingChart(props) {
             },
         },
         title: {
-            text: "",
+            text: "입고기간순(오래된)",
         },
         credits: {
             enabled: true

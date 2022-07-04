@@ -5,6 +5,7 @@ import DashboardMove from '../Dashboard/DashboardMove'
 import DashboardTodoList from '../Dashboard/DashboardTodoList'
 import DashboardAgingChart from '../Dashboard/DashboardAgingChart'
 import DashboardAmountChart from '../Dashboard/DashboardAmountChart'
+import ChartBar2 from '../Map/ChartBar2'
 import moment from 'moment'
 function Dashboard() {
   const [clickTable, setClickTable] = useState("import")
@@ -37,9 +38,9 @@ function Dashboard() {
         </div>
       </div>
       <div className=' mt-5 grid grid-cols-3 gap-5 mx-8'>
-        <div><DashboardAgingChart /></div>
-        <div><DashboardAmountChart /></div>
-        <div>1</div>
+        <div className='text-center'>오래된재고 순위<DashboardAgingChart /></div>
+        <div className='text-center'>재고량 순위<DashboardAmountChart /></div>
+        <div><ChartBar2 /></div>
       </div>
     </div>
   )

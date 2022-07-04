@@ -18,62 +18,7 @@ function Tracking() {
     const [lot_no_data, setLot_no_data] = useState({})
     const [data, setData] = useState(
         {
-            "id": "62bff2ba4a38fd1d61bdc54a",
-            "lot_no": "testlot123123",
-            "name": "testitem",
-            "item_code": "testitemcode",
-            "amount": 321,
-            "stock_quality_status": "불합격",
-            "stock_cause": "스크래치",
-            "children": [
-                {
-                    "id": "62bd0ad39c099c6840fc3731",
-                    "lot_no": "RT2206221609319319",
-                    "name": "test중임",
-                    "item_code": "asdfokok",
-                    "amount": 4,
-                    "stock_quality_status": "",
-                    "stock_cause": "",
-                    "children": [
-                        {
-                            "id": "62bcfd01c8f1da081697ce16",
-                            "lot_no": "RT2206300100180180",
-                            "name": "코일123",
-                            "item_code": "ASDFDFS1231",
-                            "amount": 500,
-                            "stock_quality_status": null,
-                            "stock_cause": null,
-                            "children": [
 
-                            ]
-                        },
-                        {
-                            "id": "62bcfc3bc8f1da081697ce15",
-                            "lot_no": "RT2206300100180184",
-                            "name": "코오232",
-                            "item_code": "ASDFDFS1235",
-                            "amount": 500,
-                            "stock_quality_status": null,
-                            "stock_cause": null,
-                            "children": [
-
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "id": "62bd552f9c099c6840fc3733",
-                    "lot_no": "RT22063007165316531",
-                    "name": "더미천4892",
-                    "item_code": "RTASC4892",
-                    "amount": 5,
-                    "stock_quality_status": null,
-                    "stock_cause": null,
-                    "children": [
-
-                    ]
-                }
-            ]
         }
     )
     const [traceBack_datas, setTraceBack_datas] = useState({
@@ -123,11 +68,17 @@ function Tracking() {
     ]
 
     function getLotData(item) {
-        console.log(item);
-        if (!Array.isArray(item.consumed)) return { name: item.lot_no, children: [] }
-        else {
-            item.consumed.map(x => { return { name: item.lot_no, children: [getLotData(x.consumed)] } }
-            )
+        if (!Array.isArray(item.consumed) || item.consumed.length === 0) {
+            return { name: item.lot_no, children: [] }
+        }
+        else if (Array.isArray(item.consumed) && item.consumed.length !== 0) {
+            return {
+                name: item.lot_no, children: item.consumed.map(x => {
+                    return getLotData(x)
+                })
+            }
+        } else {
+            return { name: item.lot_no, children: [] }
         }
     }
 
@@ -135,7 +86,7 @@ function Tracking() {
         axios.defaults.baseURL = traceBack
         // axios.get(`/lotno/${traceBack_datas.lot_no}`)
         axios.get(`/lotno/testlot123123`)
-            .then((res) => { console.log(getLotData(res.data)) })
+            .then((res) => { setData(getLotData(res.data)) })
             .catch((err) => { console.log(err) })
     }, [traceBack_datas.lot_no])
 
