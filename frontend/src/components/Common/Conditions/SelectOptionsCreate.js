@@ -16,7 +16,7 @@ export const location = [
 ];
 // 제품군
 export const product_family = [
-    "MT", "ROTOR ASSY",
+   "MOTOR", "ROTOR", "STRIP"
 ];
 // 용도명
 export const purpose = ["반제품", "임가공", "제품"]

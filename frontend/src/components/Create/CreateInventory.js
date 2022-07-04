@@ -24,27 +24,27 @@ function CreateInventory(props) {
   const [lot_nos, setLot_nos] = useState([]);
   const [lot_no_data, setLot_no_data] = useState({});
   // 출고
-  const [inventoryDatas, setinventoryDatas] = useState({
-    industry_family: "",
-    stock_type: "",
-    product_family: "",
-    location: "",
-    unit: "",
-    item_name: "",
-    width: 0,
-    height: 0,
-    thickness: 0,
-    weight: 0,
-    customer: "",
-    warehouse_code: "",
-    item_code: "",
-    amount: "",
-  });
+  // const [inventoryDatas, setinventoryDatas] = useState({
+  //   industry_family: "",
+  //   stock_type: "",
+  //   product_family: "",
+  //   location: "",
+  //   unit: "",
+  //   item_name: "",
+  //   width: 0,
+  //   height: 0,
+  //   thickness: 0,
+  //   weight: 0,
+  //   customer: "",
+  //   warehouse_code: "",
+  //   item_code: "",
+  //   amount: "",
+  // });
   // 지역정보 보내면 창고목록 가져오기
   useEffect(() => {
     axios.defaults.baseURL = warehouseURL;
     axios
-      .get(`warehouse/${inventoryDatas.location}`)
+      .get(`warehouse/${props.inventoryDatas.location}`)
       .then((res) => {
         setWarehouse_codes([]);
         for (let index = 0; index < res.data.length; index++) {
@@ -55,7 +55,7 @@ function CreateInventory(props) {
         }
       })
       .catch((err) => {});
-  }, [inventoryDatas.location]);
+  }, [props.inventoryDatas.location]);
 
   const inventory_selectDatas = [
     {
@@ -108,6 +108,16 @@ function CreateInventory(props) {
       jp: "単位",
       vn: "đơn vị",
     },
+    {
+      name: "warehouse_code",
+      selectOption: warehouse_codes,
+      grid: 1,
+      purpose: "search",
+      ko: "창고코드",
+      cn: "仓库代码",
+      jp: "倉庫コード",
+      vn: "mãkho",
+    }
   ];
   const inventory_inputDatas = [
     { name: "amount", type: "number", purpose: "create", "ko": "주문량", "cn": "订货量", "jp": "注文量", "vn": "lượng đặt hàng", },
@@ -166,18 +176,8 @@ function CreateInventory(props) {
       vn: "trọng lượng",
     },
     {
-      name: "warehouse_code",
-      selectOption: warehouse_codes,
-      grid: 1,
-      purpose: "search",
-      ko: "창고코드",
-      cn: "仓库代码",
-      jp: "倉庫コード",
-      vn: "mãkho",
-    },
-    {
       name: "item_code",
-      type: "number",
+      type: "text",
       purpose: "fixed",
       ko: "제품코드",
       cn: "产品代码",
@@ -188,10 +188,10 @@ function CreateInventory(props) {
 
   // function
   function request() {
-    console.log(inventoryDatas); //입력한 데이터 잘 들어옴.
+    console.log(props.inventoryDatas); //입력한 데이터 잘 들어옴.
     axios.defaults.baseURL = inventoryURL;
     axios
-      .post("/", inventoryDatas)
+      .post("/", props.inventoryDatas)
       .then((res) => {
         alert("출고요청이 등록되었습니다");
         dispatch(handleInventoryReload(true));
@@ -211,9 +211,9 @@ function CreateInventory(props) {
         title="제품등록"
         selectDatas={inventory_selectDatas}
         inputDatas={inventory_inputDatas}
-        datas={inventoryDatas}
-        setDatas={setinventoryDatas}
-        request={request}
+        datas={props.inventoryDatas}
+        setDatas={props.setinventoryDatas}
+        request={props.createAxios}
       />
     </div>
   );
