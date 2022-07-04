@@ -41,9 +41,15 @@ function TableList(props) {
     onChange: onSelectChange,
     onSelect: (record, selected, selectedRows) => {
       setselectedRows(selectedRows);
+      if (props.title === "inventory") {
+        props.setSelectedRowsList(selectedRows);
+      }
     },
     onSelectAll: (selected, selectedRows, changeRows) => {
       setselectedRows(selectedRows);
+      if (props.title === "inventory") {
+        props.setSelectedRowsList(selectedRows);
+      }
     },
   };
 
@@ -115,8 +121,13 @@ function TableList(props) {
     let check = true;
     selectedRows.map((element) => {
       console.log(element);
-      if (element.done_date !== null || element.status.includes("중")) {
-        console.log("includes가 적용되고있는건가");
+      if (
+        element.done_date !== null ||
+        element.status.includes("중") ||
+        element.state.includes("완료") ||
+        element.state.includes("중") ||
+        element.state === null
+      ) {
         check = false;
         return check;
       }
@@ -191,25 +202,6 @@ function TableList(props) {
 
   return (
     <div>
-      {props.title === "inventory" ? (
-        <div>
-          <InventoryMix
-            selectedRowKeys={selectedRowKeys}
-            selectedRows={selectedRows}
-            // alertFailedOpen={props.alertFailedOpen}
-            setAlertFailedOpen={props.setAlertFailedOpen}
-            setAlertMessage={props.setAlertMessage}
-            setAlertSucOpen={props.setAlertSucOpen}
-          />
-          <Invenupdate
-            selectedRowKeys={selectedRowKeys}
-            selectedRows={selectedRows}
-            setAlertFailedOpen={props.setAlertFailedOpen}
-            setAlertMessage={props.setAlertMessage}
-            setAlertSucOpen={props.setAlertSucOpen}
-          />
-        </div>
-      ) : null}
       <Table
         rowSelection={rowSelection}
         onRow={(record, rowIndex, data) => {

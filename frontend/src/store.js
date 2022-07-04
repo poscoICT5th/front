@@ -65,7 +65,8 @@ export let { handleWarehouseURL } = warehouseURL.actions;
 // 인벤토리 url
 let inventoryURL = createSlice({
   name: "inventoryURL",
-  initialState: "http://13.230.73.69:8080/inventory",
+  //initialState: "http://13.230.73.69:8080/inventory",
+  initialState: "http://192.168.0.10:8085",
   reducers: {
     handleInventoryURL(state, newState) {
       return newState;

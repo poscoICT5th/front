@@ -38,7 +38,7 @@ function AlertSuc(props) {
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                                 </svg>
                                             </div>
-                                            <h2 className="mt-2 font-semibold text-gray-800">알람창</h2>
+                                            <h2 className="mt-2 font-semibold text-gray-800">Success!</h2>
                                             <p className="mt-2 text-sm text-gray-600 leading-relaxed">{props.message}</p>
                                         </div>
 

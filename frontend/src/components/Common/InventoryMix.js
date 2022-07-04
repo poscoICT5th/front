@@ -3,26 +3,21 @@ import { Form, notification } from "antd";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
+import CreateInventory from "../Create/CreateInventory";
 function InventoryMix(props) {
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [form] = Form.useForm();
   const cancelButtonRef = useRef(null);
-  //InventoryMix.js
-  //모달 새롭게 만들기
 
-  //제품 가공
-  //재료 배합
-  //
   const [openUpdate, setOpenUpdate] = useState(false);
 
   const showModal = () => {
     if (props.selectedRowKeys.length > 5 || props.selectedRowKeys.length < 1) {
-    
-     props.setAlertMessage("제품 가공 원료를 1~5개 사이로 다시 선택해주세요!");
+      props.setAlertMessage("제품 가공 원료를 1~5개 사이로 다시 선택해주세요!");
       props.setAlertFailedOpen(true);
-      
     } else {
       setIsModalVisible(true);
     }
@@ -61,7 +56,6 @@ function InventoryMix(props) {
   //     placement,
   //   });
   // };
- 
 
   //usestate
   const [consumedProductsList, setConsumedProductsList] = useState([]);
@@ -84,6 +78,7 @@ function InventoryMix(props) {
     customer: "",
     stock_quality_status: "",
     status_cause: "",
+  
   });
   useEffect(() => {
     if (props.selectedRows.length > 0) {
@@ -123,18 +118,19 @@ function InventoryMix(props) {
     //stateㄱ ㅏ 이동중일때
 
     await props.selectedRows.forEach((element) => {
-      if (0 > element.amount) {
+      if (1 > element.amount) {
+        console.log(element.amount , " 갯수가 도대체 몇개야 ");
         mixPos = false;
-        props.setAlertMessage(element.lot_no +"제품의 재고가 존재하지 않습니다.");
+        props.setAlertMessage(
+          element.lot_no + " 제품의 재고가 존재하지 않습니다."
+        );
         props.setAlertFailedOpen(true);
-        //alert(element.lot_no + "제품의 재고가 존재하지 않습니다.");
 
         setIsModalVisible(false);
-      } else if (element.state !== "") {
+      } else if (element.state === "이동중" || element.state === "출고대기") {
         mixPos = false;
-        props.setAlertMessage(element.lot_no +"제품은 사용할 수 없습니다.");
+        props.setAlertMessage(element.lot_no + " 제품은 "+element.state+"이므로 사용할 수 없습니다.");
         props.setAlertFailedOpen(true);
-       // alert(element.lot_no + "제품은 사용할 수 없습니다.");
       }
     });
     if (mixPos) {
@@ -147,15 +143,16 @@ function InventoryMix(props) {
       .post("/produce", data)
       .then((res) => {
         // console.log(res, "받아온데이터");
-      
-       props.setAlertMessage("가공이 완료되었습니다.");
-       props.setAlertSucOpen(true);
+
+        props.setAlertMessage("제품이 가공되었습니다. 제품을 입력해주세요.");
+        props.setAlertSucOpen(true);
         setSuccessVisible(true);
+        setIsModalVisible(false);
       })
       .catch((err) => {
         props.setAlertMessage("가공을 실패했습니다.");
         props.setAlertFailedOpen(true);
-        
+        setIsModalVisible(false);
       });
   }
   function createValue(lot_no, amount) {
@@ -191,7 +188,7 @@ function InventoryMix(props) {
       <div className="text-right">
         <button
           onClick={showModal}
-          className="mb-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+          className="mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
         >
           제품 가공
         </button>
@@ -282,7 +279,13 @@ function InventoryMix(props) {
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300
           shadow-sm px-4 py-2 bg-green-500 text-base font-medium dark:text-white hover:bg-gray-50 
           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={mixregist}
+                    // onClick={mixregist}
+                      onClick={() => {
+                        mixregist();
+                        setModalOpen(true);
+
+                      } 
+                      }
                     >
                       제품 가공
                     </button>
@@ -293,75 +296,13 @@ function InventoryMix(props) {
           </div>
         </Dialog>
       </Transition.Root>
-      {/*두번째 모달 */}
-
-      <Transition.Root show={successVisible} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-10"
-          initialFocus={cancelButtonRef}
-          onClose={() => {
-            setIsModalVisible(false);
-            // props.setOpenDetail(false);
-            setSuccessVisible(false);
-          }}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-          </Transition.Child>
-
-          <div className="fixed z-10 inset-0 overflow-y-auto">
-            <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                enterTo="opacity-100 translate-y-0 sm:scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              >
-                <Dialog.Panel className="relative bg-white dark:bg-neutral-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-auto max-w-3/5">
-                  <div className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div className="sm:flex sm:items-start">
-                      <div className="shadow overflow-hidden sm:rounded-lg">
-                        <div className="text-center">
-                          <div className="grid grid-cols-5">
-                            {/* input 창 만들기 */}
-
-                            <p>제품 가공을 완료하였습니다.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <button
-                      type="button"
-                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-neutral-800 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => {
-                        setIsModalVisible(false);
-                        setSuccessVisible(false);
-                      }}
-                      ref={cancelButtonRef}
-                    >
-                      닫기
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition.Root>
+     
+      
+       {/* CreateInventory */}
+       <CreateInventory
+        setModalOpen={setModalOpen}
+        modalOpen={modalOpen}
+      />
     </div>
   );
 }

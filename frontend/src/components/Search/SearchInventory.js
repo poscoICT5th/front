@@ -37,7 +37,7 @@ function SearchWarehouse(props) {
           ]);
         }
       })
-      .catch((err) => { });
+      .catch((err) => {});
   }, [props.datas.location]);
   // 지역에따라서 고객처변경
   useEffect(() => {
@@ -51,7 +51,7 @@ function SearchWarehouse(props) {
           setCustomers((customers) => [...customers, res.data[index].customer]);
         }
       })
-      .catch((err) => { });
+      .catch((err) => {});
   }, [props.datas.location]);
   // 지역에따라서 아이템명변경
   useEffect(() => {
@@ -68,7 +68,7 @@ function SearchWarehouse(props) {
           ]);
         }
       })
-      .catch((err) => { });
+      .catch((err) => {});
   }, [props.datas.location]);
   const selectDatas = [
     {
@@ -228,44 +228,47 @@ function SearchWarehouse(props) {
             );
           })}
         </div>
-        <div className="text-right mt-3">
+        <div className="mt-3 flex">
           <button
-            className="w-20 mr-2 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            className="w-20 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             onClick={() => {
-              if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
-              else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
+              if (props.selectedList.length > 0) {
+                props.setAlertVerifyOpen(true);
+                props.setClickButton("delete");
+              } else {
+                props.setAlertMessage("항목을 선택해주세요");
+                props.setAlertFailedOpen(true);
+              }
             }}
           >
             삭제
           </button>
           <button
-            className="w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
             onClick={() => {
               props.setClickSearch(true);
             }}
           >
             조회
           </button>
-          <button
-            className="w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-            onClick={() => {
-              props.setClickSearch(true);
-            }}
-          >
-            제품 가공 연습
-          </button>
-          {/* <Invenupdate
-                            selectedRowKeys={props.selectedRowKeys}
-                            selectedRows={props.selectedRows}
-                        />  */}
-          <div>
-          
-                     
-          </div>
-         
-          
-         
-
+          <InventoryMix
+            selectedRowKeys={props.selectedList}
+            selectedRows={props.selectedRows}
+            // alertFailedOpen={props.alertFailedOpen}
+            setClickMix={props.setClickMix}
+            clickMix={props.clickMix}
+            setAlertFailedOpen={props.setAlertFailedOpen}
+            setAlertMessage={props.setAlertMessage}
+            setAlertSucOpen={props.setAlertSucOpen}
+          />
+          <Invenupdate
+            selectedRowKeys={props.selectedList}
+            selectedRows={props.selectedRows}
+            setAlertFailedOpen={props.setAlertFailedOpen}
+            setAlertMessage={props.setAlertMessage}
+            setAlertSucOpen={props.setAlertSucOpen}
+          />
+          <div></div>
         </div>
       </div>
     </div>
