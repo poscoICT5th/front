@@ -37,12 +37,15 @@ function CreateInventory(props) {
   //   item_code: "",
   //   amount: "",
   // });
+
+  
   // 지역정보 보내면 창고목록 가져오기
   useEffect(() => {
     axios.defaults.baseURL = warehouseURL;
     axios
       .get(`warehouse/${props.inventoryDatas.location}`)
       .then((res) => {
+        console.log(res);
         setWarehouse_codes([]);
         for (let index = 0; index < res.data.length; index++) {
           setWarehouse_codes((warehouse_codes) => [

@@ -14,7 +14,7 @@ function Echarts1() {
   const [lineData, setLineData] = useState([]);
   const pointX = {
     A: 0,
-    B: 1,
+    B: 1, // 어 ? 2가 없네
     C: 3,
     D: 4,
     E: 5,
@@ -32,6 +32,28 @@ function Echarts1() {
     "07": 7,
     "08": 8,
   };
+//decode x
+const pointdeX = {
+  0: "A",
+  1: "B",
+  2: "C",
+  3: "D",
+  4: "E",
+  5: "F",
+  6: "G",
+  7: "H",
+};
+const pointdeY = {
+  "0": "00",
+  "1": "01",
+  "2": "02",
+  "3": "03",
+  "4": "04",
+  "5": "05",
+  "6": "06",
+  "7": "07",
+};
+
   //라디오 버튼
 
   function getPointX(params) {
@@ -68,6 +90,25 @@ function Echarts1() {
       pointY[item.warehouse_code_int],
       item.amount,
     ];
+  }
+
+  const triggerOnClick = (param1) => {
+    const [x, y, ...elInfo] = param1.value
+    console.log(param1.value)
+    const locationCode = param1.seriesName == "광양" ? "G" : param1.seriesName == "포항" ? "P" : "C" 
+    const [deX, deY] = [pointdeX[x], pointdeY[y]]
+    const selectedWarehouse = locationCode+deX+deY
+    console.log("클릭하신 창고코드는 ", selectedWarehouse)
+    // 여기부터 코드 작성하면됨 ㅇㅇ
+  }
+
+
+  // 창고 코드를 보내면 재고 목록가져오기
+  //'inventory'/warehouse/창고코드
+
+
+  const onClickBar =  {
+    "click" : triggerOnClick.bind(this)
   }
 
   //axios
@@ -226,7 +267,7 @@ function Echarts1() {
           천안
         </Radio>
       </Radio.Group>
-      <EChartsReact option={options} opts={opts} />
+      <EChartsReact option={options} opts={opts} onEvents={onClickBar} />
     </div>
   );
 }
