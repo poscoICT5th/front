@@ -14,9 +14,6 @@ function MypageModal(props) {
       >
         마이페이지
       </div>
-        {/* */}
-
-
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
