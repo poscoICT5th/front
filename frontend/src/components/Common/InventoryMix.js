@@ -19,7 +19,10 @@ function InventoryMix(props) {
 
   const showModal = () => {
     if (props.selectedRowKeys.length > 5 || props.selectedRowKeys.length < 1) {
-      openNotification("top");
+    
+     props.setAlertMessage("제품 가공 원료를 1~5개 사이로 다시 선택해주세요!");
+      props.setAlertFailedOpen(true);
+      
     } else {
       setIsModalVisible(true);
     }
@@ -49,14 +52,17 @@ function InventoryMix(props) {
   const onReset = () => {
     form.resetFields();
   };
+
   //예외처리
-  const openNotification = (placement) => {
-    notification.info({
-      message: `제품 가공 실패!`,
-      description: "제품 가공 원료를 1~5개 사이로 다시 선택해주세요!",
-      placement,
-    });
-  };
+  // const openNotification = (placement) => {
+  //   notification.info({
+  //     message: `제품 가공 실패!`,
+  //     description: "제품 가공 원료를 1~5개 사이로 다시 선택해주세요!",
+  //     placement,
+  //   });
+  // };
+ 
+
   //usestate
   const [consumedProductsList, setConsumedProductsList] = useState([]);
   const [consumedList, setConsumedList] = useState([]);
@@ -119,11 +125,16 @@ function InventoryMix(props) {
     await props.selectedRows.forEach((element) => {
       if (0 > element.amount) {
         mixPos = false;
-        alert(element.lot_no + "제품의 재고가 존재하지 않습니다.");
+        props.setAlertMessage(element.lot_no +"제품의 재고가 존재하지 않습니다.");
+        props.setAlertFailedOpen(true);
+        //alert(element.lot_no + "제품의 재고가 존재하지 않습니다.");
+
         setIsModalVisible(false);
       } else if (element.state !== "") {
         mixPos = false;
-        alert(element.lot_no + "제품은 사용할 수 없습니다.");
+        props.setAlertMessage(element.lot_no +"제품은 사용할 수 없습니다.");
+        props.setAlertFailedOpen(true);
+       // alert(element.lot_no + "제품은 사용할 수 없습니다.");
       }
     });
     if (mixPos) {
@@ -136,11 +147,15 @@ function InventoryMix(props) {
       .post("/produce", data)
       .then((res) => {
         // console.log(res, "받아온데이터");
-        alert("성공");
+      
+       props.setAlertMessage("가공이 완료되었습니다.");
+       props.setAlertSucOpen(true);
         setSuccessVisible(true);
       })
       .catch((err) => {
-        alert("실패");
+        props.setAlertMessage("가공을 실패했습니다.");
+        props.setAlertFailedOpen(true);
+        
       });
   }
   function createValue(lot_no, amount) {
@@ -176,7 +191,7 @@ function InventoryMix(props) {
       <div className="text-right">
         <button
           onClick={showModal}
-          className="mb-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-700 hover:bg-emerald-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+          className="mb-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
         >
           제품 가공
         </button>

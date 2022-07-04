@@ -34,7 +34,7 @@ function TableList(props) {
 
   function onSelectChange(newSelectedRowKeys) {
     setSelectedRowKeys(newSelectedRowKeys);
-    props.setSelectedList(newSelectedRowKeys)
+    props.setSelectedList(newSelectedRowKeys);
   }
   const rowSelection = {
     selectedRowKeys,
@@ -134,19 +134,18 @@ function TableList(props) {
           },
         })
         .then((res) => {
-          props.setAlertSucOpen(true)
-          props.setAlertMessage("선택한 요청이 삭제되었습니다.")
-          props.setAlertVerifyOpen(false)
+          props.setAlertSucOpen(true);
+          props.setAlertMessage("선택한 요청이 삭제되었습니다.");
+          props.setAlertVerifyOpen(false);
           handleStores();
         })
         .catch((err) => {
-          props.setAlertFailedOpen(true)
-          props.setAlertMessage("서버와의 통신에 실패하였습니다, 다시 시도해주세요.")
+          props.setAlertFailedOpen(true);
+          props.setAlertMessage(
+            "서버와의 통신에 실패하였습니다, 다시 시도해주세요."
+          );
         });
-    } else if (
-      selectedRowKeys.length > 0 &&
-      checkDeletePos() === false
-    ) {
+    } else if (selectedRowKeys.length > 0 && checkDeletePos() === false) {
       alert("처리중이거나 완료된 요청은 삭제가 불가능합니다.");
       handleStores();
     }
@@ -171,40 +170,46 @@ function TableList(props) {
           [props.deleteBodyName]: selectedRowKeys,
         })
         .then((res) => {
-          props.setAlertSucOpen(true)
-          props.setAlertMessage("선택한 요청을 되돌렸습니다")
-          props.setAlertVerifyOpen(false)
+          props.setAlertSucOpen(true);
+          props.setAlertMessage("선택한 요청을 되돌렸습니다");
+          props.setAlertVerifyOpen(false);
           handleStores();
         })
         .catch((err) => {
-          props.setAlertFailedOpen(true)
-          props.setAlertMessage("서버와의 통신에 실패하였습니다, 다시 시도해주세요.")
+          props.setAlertFailedOpen(true);
+          props.setAlertMessage(
+            "서버와의 통신에 실패하였습니다, 다시 시도해주세요."
+          );
         });
-    } else if (
-      selectedRowKeys.length > 0 &&
-      checkRollBackPos() === false
-    ) {
-      alert("삭제되지 않은 요청이 포함되어있어 다중선택으로 되돌리기가 불가능합니다.");
+    } else if (selectedRowKeys.length > 0 && checkRollBackPos() === false) {
+      alert(
+        "삭제되지 않은 요청이 포함되어있어 다중선택으로 되돌리기가 불가능합니다."
+      );
       handleStores();
     }
   }
 
   return (
     <div>
-      {
-        props.title === "inventory"
-          ? <div>
-            <InventoryMix
-              selectedRowKeys={selectedRowKeys}
-              selectedRows={selectedRows}
-            />
-            <Invenupdate
-              selectedRowKeys={selectedRowKeys}
-              selectedRows={selectedRows}
-            /></div>
-          : null
-      }
-
+      {props.title === "inventory" ? (
+        <div>
+          <InventoryMix
+            selectedRowKeys={selectedRowKeys}
+            selectedRows={selectedRows}
+            // alertFailedOpen={props.alertFailedOpen}
+            setAlertFailedOpen={props.setAlertFailedOpen}
+            setAlertMessage={props.setAlertMessage}
+            setAlertSucOpen={props.setAlertSucOpen}
+          />
+          <Invenupdate
+            selectedRowKeys={selectedRowKeys}
+            selectedRows={selectedRows}
+            setAlertFailedOpen={props.setAlertFailedOpen}
+            setAlertMessage={props.setAlertMessage}
+            setAlertSucOpen={props.setAlertSucOpen}
+          />
+        </div>
+      ) : null}
       <Table
         rowSelection={rowSelection}
         onRow={(record, rowIndex, data) => {
@@ -224,8 +229,8 @@ function TableList(props) {
                 setPopupData(record);
               }
             }, // right button click row
-            onMouseEnter: (event) => { }, // mouse enter row
-            onMouseLeave: (event) => { }, // mouse leave row
+            onMouseEnter: (event) => {}, // mouse enter row
+            onMouseLeave: (event) => {}, // mouse leave row
           };
         }}
         columns={columns}
@@ -262,10 +267,7 @@ function TableList(props) {
       <AlertVerify
         open={props.alertVerifyOpen}
         setOpen={props.setAlertVerifyOpen}
-        func={
-          props.clickButton === "delete"
-            ? deleteMulti
-            : rollBackMulti}
+        func={props.clickButton === "delete" ? deleteMulti : rollBackMulti}
       />
     </div>
   );

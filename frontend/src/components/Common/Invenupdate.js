@@ -34,12 +34,16 @@ function Invenupdate(props) {
     axios
       .put("/statuschange", datas)
       .then((res) => {
-        console.log(res, "받아온데이터 여기여기");
-        alert("수정이 완료되었습니다.");
+        //console.log(res, "받아온데이터 여기여기");
+        props.setAlertMessage("수정이 완료되었습니다.");
+        props.setAlertSucOpen(true);
+
         setIsModalVisible(false);
       })
       .catch((err) => {
-        alert("수정을 실패했습니다.");
+     
+        props.setAlertMessage("수정을 실패했습니다.");
+        props.setAlertFailedOpen(true);
       });
   }
   //클릭하면 모달창 띄우기
@@ -47,17 +51,22 @@ function Invenupdate(props) {
     if (props.selectedRowKeys.length > 0) {
       setIsModalVisible(true);
     } else {
-      openNotification("top"); //alert 창 띄우기
+      props.setAlertMessage("제품을 선택해주세요!");
+      props.setAlertFailedOpen(true);
+
     }
   };
+
+
   //예외처리
-  const openNotification = (placement) => {
-    notification.info({
-      message: `수정 실패!`,
-      description: "제품을 선택해주세요!",
-      placement,
-    });
-  };
+  // const openNotification = (placement) => {
+  //   notification.info({
+  //     message: `수정 실패!`,
+  //     description: "제품을 선택해주세요!",
+  //     placement,
+  //   });
+  // };
+
   //셀렉트 데이터 가져오기
   const selectData = [
     {
@@ -88,7 +97,7 @@ function Invenupdate(props) {
     <div>
       <button
         onClick={showModal}
-        className="mb-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-700 hover:bg-emerald-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+        className="mb-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-400 hover:bg-emerald-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
       >
         품질 상태 수정
       </button>

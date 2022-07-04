@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Collapse } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
+import InventoryMix from "../Common/InventoryMix";
+import Invenupdate from "../Common/Invenupdate";
 
 function SearchWarehouse(props) {
   // useEffect
@@ -244,6 +246,26 @@ function SearchWarehouse(props) {
           >
             조회
           </button>
+          <button
+            className="w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            onClick={() => {
+              props.setClickSearch(true);
+            }}
+          >
+            제품 가공 연습
+          </button>
+          {/* <Invenupdate
+                            selectedRowKeys={props.selectedRowKeys}
+                            selectedRows={props.selectedRows}
+                        />  */}
+          <div>
+          
+                     
+          </div>
+         
+          
+         
+
         </div>
       </div>
     </div>

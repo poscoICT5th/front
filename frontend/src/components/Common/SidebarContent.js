@@ -116,6 +116,8 @@ function SidebarContent(props) {
         },
       ],
     },
+
+    
     {
       menu: "창고관리",
       no: 50,
@@ -144,6 +146,8 @@ function SidebarContent(props) {
         },
       ],
     },
+
+
     {
       menu: "재고관리",
       no: 60,
