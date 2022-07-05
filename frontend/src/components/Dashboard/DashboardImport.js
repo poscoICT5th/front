@@ -109,7 +109,7 @@ function DashboardImport(props) {
   }, [])
 
   return (
-    <div className='mt-5 text-center'>
+    <div className='mt-5 text-center' data-aos="fade-up">
       {
         empty
           ? <div className='text-3xl font-bold mt-20'>금일 일정이 없습니다.</div>

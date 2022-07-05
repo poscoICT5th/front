@@ -38,7 +38,7 @@ function CreateInventory(props) {
   //   amount: "",
   // });
 
-  
+
   // 지역정보 보내면 창고목록 가져오기
   useEffect(() => {
     axios.defaults.baseURL = warehouseURL;
@@ -54,7 +54,7 @@ function CreateInventory(props) {
           ]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.inventoryDatas.location]);
 
   const inventory_selectDatas = [
@@ -214,6 +214,11 @@ function CreateInventory(props) {
         datas={props.inventoryDatas}
         setDatas={props.setinventoryDatas}
         request={props.createAxios}
+        alertSucOpen={props.alertSucOpen}
+        setAlertSucOpen={props.setAlertSucOpen}
+        alertFailedOpen={props.alertFailedOpen}
+        setAlertFailedOpen={props.setAlertFailedOpen}
+        setAlertMessage={props.setAlertMessage}
       />
     </div>
   );

@@ -107,7 +107,7 @@ function App() {
   const [alertFailedOpen, setAlertFailedOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState("")
   return (
-    <div data-aos="fade-up" className="fade-in overflow-y-auto" style={{ "overflow-y": "scroll" }}>
+    <div data-aos="fade-up" className="fade-in overflow-y-auto">
       {/* Header */}
       {isLogin ? (
         <Header
@@ -125,10 +125,13 @@ function App() {
             <Sidebar
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
-              // setTheme={setTheme}
-              // theme={theme}
               switcher={switcher}
               themes={themes}
+              alertSucOpen={alertSucOpen}
+              setAlertSucOpen={setAlertSucOpen}
+              alertFailedOpen={alertFailedOpen}
+              setAlertFailedOpen={setAlertFailedOpen}
+              setAlertMessage={setAlertMessage}
             />
           ) : null}
           <AlertSuc open={alertSucOpen} setOpen={setAlertSucOpen} message={alertMessage} />

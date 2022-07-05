@@ -5,7 +5,11 @@ function AlertFailed(props) {
     return (
         <div>
             <Transition.Root show={props.open} as={Fragment}>
-                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => { props.setOpen(false) }}>
+                <Dialog
+                    as="div"
+                    className="relative z-10"
+                    initialFocus={cancelButtonRef}
+                    onClose={() => { props.setOpen(false) }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -44,7 +48,7 @@ function AlertFailed(props) {
                                             <button
                                                 className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
                                                 onClick={() => { props.setOpen(false) }}>
-                                                Cancel
+                                                창닫기
                                             </button>
                                         </div>
                                     </div>

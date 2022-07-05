@@ -1,10 +1,6 @@
 import React, { useEffect, Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationIcon } from '@heroicons/react/outline'
-import SearchSelect from '../Common/Conditions/SearchSelect'
-import InputText from '../Common/Conditions/InputText'
-import FixedInput from '../Common/Conditions/FixedInput'
-import ReactFileReader from 'react-file-reader';
+
 import Papa from "papaparse";
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
@@ -65,14 +61,17 @@ function CreateImportUpload(props) {
             axios
                 .post("/import", data)
                 .then((res) => {
-                    alert("입고요청이 등록되었습니다.")
+                    props.setAlertSucOpen(true);
+                    props.setAlertMessage("입고요청이 등록되었습니다.");
                     dispatch(handleImportReload(true))
                     props.setOpen(false)
                     dispatch(handleImportReload(false))
                 })
                 .catch((err) => {
-                    console.log(data)
-                    alert(err);
+                    props.setAlertFailedOpen(true);
+                    props.setAlertMessage(
+                        "등록에 실패하였습니다, 다시 시도해주세요."
+                    );
                 });
             setData(data);
         };

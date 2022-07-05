@@ -58,6 +58,11 @@ function Sidebar(props) {
                     <div className="relative flex-1 px-4 sm:px-6">
                       <SidebarContent
                         setSidebarOpen={props.setSidebarOpen}
+                        alertSucOpen={props.alertSucOpen}
+                        setAlertSucOpen={props.setAlertSucOpen}
+                        alertFailedOpen={props.alertFailedOpen}
+                        setAlertFailedOpen={props.setAlertFailedOpen}
+                        setAlertMessage={props.setAlertMessage}
                       />
                     </div>
                   </div>

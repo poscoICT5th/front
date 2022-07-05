@@ -8,6 +8,11 @@ function CreateImport(props) {
             <CreateImportUpload
                 open={props.openCreate}
                 setOpen={props.setOpenCreate}
+                alertSucOpen={props.alertSucOpen}
+                setAlertSucOpen={props.setAlertSucOpen}
+                alertFailedOpen={props.alertFailedOpen}
+                setAlertFailedOpen={props.setAlertFailedOpen}
+                setAlertMessage={props.setAlertMessage}
             />
         </div>
     )

@@ -6,7 +6,11 @@ function AlertSuc(props) {
     return (
         <div>
             <Transition.Root show={props.open} as={Fragment}>
-                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => { props.setOpen(false) }}>
+                <Dialog
+                    as="div"
+                    className="relative z-10"
+                    initialFocus={cancelButtonRef}
+                    onClose={() => { props.setOpen(false) }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -41,12 +45,11 @@ function AlertSuc(props) {
                                             <h2 className="mt-2 font-semibold text-gray-800">Success!</h2>
                                             <p className="mt-2 text-sm text-gray-600 leading-relaxed">{props.message}</p>
                                         </div>
-
                                         <div className="mt-3">
                                             <button
                                                 className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
                                                 onClick={() => { props.setOpen(false) }}>
-                                                Cancel
+                                                창닫기
                                             </button>
                                         </div>
                                     </div>

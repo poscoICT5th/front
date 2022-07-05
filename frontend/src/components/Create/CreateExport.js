@@ -104,7 +104,7 @@ function CreateExport(props) {
   const export_inputDatas = [
     { name: "order_amount", type: "number", purpose: "create", "ko": "주문량", "cn": "订货量", "jp": "注文量", "vn": "lượng đặt hàng", },
     { name: "ex_amount", type: "number", purpose: "create", "ko": "출고량", "cn": "出库量", "jp": "出庫量", "vn": "lượng xuất kho", },
-    { name: "ex_remain", type: "number", purpose: "create", "ko": "출고잔량", "cn": "出库余量", "jp": "出庫残量", "vn": "số dư xuất kho", },
+    // { name: "ex_remain", type: "number", purpose: "create", "ko": "출고잔량", "cn": "出库余量", "jp": "出庫残量", "vn": "số dư xuất kho", },
     { name: "order_date", type: "date", purpose: "create", "ko": "주문일", "cn": "订货日", "jp": "注文日", "vn": "ngày đặt hàng", },
     { name: "inst_deadline", type: "date", purpose: "create", "ko": "지시마감일", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị", },
   ]
@@ -114,12 +114,18 @@ function CreateExport(props) {
     axios.defaults.baseURL = logisticsExportURL;
     axios.post('/export', exportDatas)
       .then((res) => {
-        alert("출고요청이 등록되었습니다")
+        props.setAlertSucOpen(true);
+        props.setAlertMessage("출고요청이 등록되었습니다");
         dispatch(handleExportReload(true));
         props.setOpenCreate(false)
         dispatch(handleExportReload(false));
       })
-      .catch((err) => { alert(err) })
+      .catch((err) => {
+        props.setAlertFailedOpen(true);
+        props.setAlertMessage(
+          "등록에 실패하였습니다, 다시 시도해주세요."
+        );
+      })
   }
 
   return (
@@ -133,6 +139,11 @@ function CreateExport(props) {
         datas={exportDatas}
         setDatas={setExportDatas}
         request={request}
+        alertSucOpen={props.alertSucOpen}
+        setAlertSucOpen={props.setAlertSucOpen}
+        alertFailedOpen={props.alertFailedOpen}
+        setAlertFailedOpen={props.setAlertFailedOpen}
+        setAlertMessage={props.setAlertMessage}
       />
     </div>
   )

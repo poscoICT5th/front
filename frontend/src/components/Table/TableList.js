@@ -135,6 +135,12 @@ function TableList(props) {
   // 삭제(멀티)
   function deleteMulti() {
     axios.defaults.baseURL = props.axiosURL;
+    if (selectedRowKeys.length === 0) {
+      props.setAlertFailedOpen(true);
+      props.setAlertMessage(
+        "항목을 선택해주세요"
+      );
+    }
     if (selectedRowKeys.length > 0 && checkDeletePos()) {
       axios
         .delete(`/${props.part}`, {
@@ -154,9 +160,14 @@ function TableList(props) {
             "서버와의 통신에 실패하였습니다, 다시 시도해주세요."
           );
           props.setAlertVerifyOpen(false);
+          handleStores();
         });
-    } else if (selectedRowKeys.length > 0 && checkDeletePos() === false) {
-      alert("처리중이거나 완료된 요청은 삭제가 불가능합니다.");
+    } else {
+      props.setAlertFailedOpen(true);
+      props.setAlertMessage(
+        "처리중이거나 완료된 요청은 삭제가 불가능합니다."
+      );
+      props.setAlertVerifyOpen(false);
       handleStores();
     }
   }
@@ -174,6 +185,12 @@ function TableList(props) {
   }
   function rollBackMulti() {
     axios.defaults.baseURL = props.axiosURL;
+    if (selectedRowKeys.length === 0) {
+      props.setAlertFailedOpen(true);
+      props.setAlertMessage(
+        "항목을 선택해주세요"
+      );
+    }
     if (selectedRowKeys.length > 0 && checkRollBackPos()) {
       axios
         .put(`/${props.part}/rollback`, {
@@ -182,7 +199,7 @@ function TableList(props) {
         .then((res) => {
           props.setAlertSucOpen(true);
           props.setAlertMessage("선택한 요청을 되돌렸습니다");
-          // props.setAlertVerifyOpen(false);
+          props.setAlertVerifyOpen(false);
           handleStores();
         })
         .catch((err) => {
@@ -191,12 +208,16 @@ function TableList(props) {
             "서버와의 통신에 실패하였습니다, 다시 시도해주세요."
           );
           props.setAlertVerifyOpen(false);
+          handleStores();
         });
-    } else if (selectedRowKeys.length > 0 && checkRollBackPos() === false) {
-      alert(
+    } else {
+      props.setAlertFailedOpen(true);
+      props.setAlertMessage(
         "삭제되지 않은 요청이 포함되어있어 다중선택으로 되돌리기가 불가능합니다."
       );
+      props.setAlertVerifyOpen(false);
       handleStores();
+
     }
   }
 

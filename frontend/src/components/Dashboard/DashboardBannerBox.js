@@ -2,13 +2,10 @@ import React from 'react'
 import { Carousel } from 'antd';
 import '../Pages/Dashboard.css'
 import DashboardBannerBoxButtons from './DashboardBannerBoxButtons';
+import DashboardBannerBoxPosco from './DashboardBannerBoxPosco';
 function DashboardBannerBox() {
     const onChange = (currentSlide) => {
         console.log(currentSlide);
-    };
-    const contentStyle = {
-        lineHeight: '170px',
-        textAlign: 'center',
     };
 
     return (
@@ -17,8 +14,8 @@ function DashboardBannerBox() {
                 <div className='mb-8'>
                     <DashboardBannerBoxButtons />
                 </div>
-                <div>
-                    <h3 style={contentStyle}>2</h3>
+                <div className='mb-8'>
+                    <DashboardBannerBoxPosco />
                 </div>
             </Carousel>
         </div>

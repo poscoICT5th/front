@@ -143,13 +143,18 @@ function CreateWarehouse(props) {
     axios
       .post("/", warehouseDatas)
       .then((res) => {
-        alert("창고가 등록되었습니다.");
+        props.setAlertSucOpen(true);
+        props.setAlertMessage("창고가 등록되었습니다.");
         dispatch(handleWarehouseReload(true));
         props.setOpenCreate(false);
         dispatch(handleWarehouseReload(false));
       })
       .catch((err) => {
         alert(err);
+        props.setAlertFailedOpen(true);
+        props.setAlertMessage(
+          "등록에 실패하였습니다, 다시 시도해주세요."
+        );
       });
   }
 
@@ -164,6 +169,11 @@ function CreateWarehouse(props) {
         datas={warehouseDatas}
         setDatas={setWarehouseDatas}
         request={regist}
+        alertSucOpen={props.alertSucOpen}
+        setAlertSucOpen={props.setAlertSucOpen}
+        alertFailedOpen={props.alertFailedOpen}
+        setAlertFailedOpen={props.setAlertFailedOpen}
+        setAlertMessage={props.setAlertMessage}
       />
     </div>
   );

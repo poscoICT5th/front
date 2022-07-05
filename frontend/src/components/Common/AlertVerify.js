@@ -6,7 +6,11 @@ function AlertVerify(props) {
     return (
         <div>
             <Transition.Root show={props.open} as={Fragment}>
-                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => { props.setOpen(false) }}>
+                <Dialog 
+                as="div" 
+                className="relative z-10" 
+                initialFocus={cancelButtonRef} 
+                onClose={() => { props.setOpen(false) }}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"

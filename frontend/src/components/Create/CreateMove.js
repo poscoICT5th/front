@@ -109,12 +109,18 @@ function CreateMove(props) {
         axios.post('/move',
             moveDatas)
             .then((res) => {
-                alert("창고이동요청이 등록되었습니다")
+                props.setAlertSucOpen(true);
+                props.setAlertMessage("창고이동요청이 등록되었습니다");
                 dispatch(handleMoveReload(true));
                 props.setOpenCreate(false)
                 dispatch(handleMoveReload(false));
             })
-            .catch((err) => { alert(err) })
+            .catch((err) => {
+                props.setAlertFailedOpen(true);
+                props.setAlertMessage(
+                    "등록에 실패하였습니다, 다시 시도해주세요."
+                );
+            })
     }
     return (
         <div>
@@ -127,6 +133,11 @@ function CreateMove(props) {
                 datas={moveDatas}
                 setDatas={setMoveDatas}
                 request={request}
+                alertSucOpen={props.alertSucOpen}
+                setAlertSucOpen={props.setAlertSucOpen}
+                alertFailedOpen={props.alertFailedOpen}
+                setAlertFailedOpen={props.setAlertFailedOpen}
+                setAlertMessage={props.setAlertMessage}
             />
         </div>
     )

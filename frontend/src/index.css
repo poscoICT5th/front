@@ -47,3 +47,7 @@ code {
     opacity: 1;
   }
 }
+
+html {
+  overflow-y: scroll !important;
+}

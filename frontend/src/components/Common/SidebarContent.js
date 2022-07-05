@@ -45,6 +45,11 @@ function SidebarContent(props) {
             <CreateImport
               openCreate={openCreate1}
               setOpenCreate={setOpenCreate1}
+              alertSucOpen={props.alertSucOpen}
+              setAlertSucOpen={props.setAlertSucOpen}
+              alertFailedOpen={props.alertFailedOpen}
+              setAlertFailedOpen={props.setAlertFailedOpen}
+              setAlertMessage={props.setAlertMessage}
             />
           ),
           openFunc: setOpenCreate1,
@@ -73,6 +78,11 @@ function SidebarContent(props) {
             <CreateExport
               openCreate={openCreate2}
               setOpenCreate={setOpenCreate2}
+              alertSucOpen={props.alertSucOpen}
+              setAlertSucOpen={props.setAlertSucOpen}
+              alertFailedOpen={props.alertFailedOpen}
+              setAlertFailedOpen={props.setAlertFailedOpen}
+              setAlertMessage={props.setAlertMessage}
             />
           ),
           openFunc: setOpenCreate2,
@@ -101,6 +111,11 @@ function SidebarContent(props) {
             <CreateMove
               openCreate={openCreate3}
               setOpenCreate={setOpenCreate3}
+              alertSucOpen={props.alertSucOpen}
+              setAlertSucOpen={props.setAlertSucOpen}
+              alertFailedOpen={props.alertFailedOpen}
+              setAlertFailedOpen={props.setAlertFailedOpen}
+              setAlertMessage={props.setAlertMessage}
             />
           ),
           openFunc: setOpenCreate3,
@@ -137,6 +152,11 @@ function SidebarContent(props) {
             <CreateWarehouse
               openCreate={openCreate4}
               setOpenCreate={setOpenCreate4}
+              alertSucOpen={props.alertSucOpen}
+              setAlertSucOpen={props.setAlertSucOpen}
+              alertFailedOpen={props.alertFailedOpen}
+              setAlertFailedOpen={props.setAlertFailedOpen}
+              setAlertMessage={props.setAlertMessage}
             />
           ),
           openFunc: setOpenCreate4,
