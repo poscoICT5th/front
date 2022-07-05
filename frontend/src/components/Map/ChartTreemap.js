@@ -6,53 +6,54 @@ import "./styles.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { data } from "jquery";
-import { Radio } from "antd";
+import { Radio, Table } from "antd";
 
-function Echarts1() {
+function Echarts1(props) {
   //axios
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [lineData, setLineData] = useState([]);
+  const [selectedInven, setSelectedInven] = useState([]);
   const pointX = {
     A: 0,
     B: 1, // 어 ? 2가 없네
-    C: 3,
-    D: 4,
-    E: 5,
-    F: 6,
-    G: 7,
-    H: 8,
+    C: 2,
+    D: 3,
+    E: 4,
+    F: 5,
+    G: 6,
+    H: 7,
   };
   const pointY = {
     "01": 0,
     "02": 1,
-    "03": 3,
-    "04": 4,
-    "05": 5,
-    "06": 6,
-    "07": 7,
-    "08": 8,
+    "03": 2,
+    "04": 3,
+    "05": 4,
+    "06": 5,
+    "07": 6,
+    "08": 7,
   };
-//decode x
-const pointdeX = {
-  0: "A",
-  1: "B",
-  2: "C",
-  3: "D",
-  4: "E",
-  5: "F",
-  6: "G",
-  7: "H",
-};
-const pointdeY = {
-  "0": "00",
-  "1": "01",
-  "2": "02",
-  "3": "03",
-  "4": "04",
-  "5": "05",
-  "6": "06",
-  "7": "07",
-};
+  //decode x
+  const pointdeX = {
+    0: "A",
+    1: "B",
+    2: "C",
+    3: "D",
+    4: "E",
+    5: "F",
+    6: "G",
+    7: "H",
+  };
+  const pointdeY = {
+    0: "01",
+    1: "02",
+    2: "03",
+    3: "04",
+    4: "05",
+    5: "06",
+    6: "07",
+    7: "08",
+  };
 
   //라디오 버튼
 
@@ -93,23 +94,27 @@ const pointdeY = {
   }
 
   const triggerOnClick = (param1) => {
-    const [x, y, ...elInfo] = param1.value
-    console.log(param1.value)
-    const locationCode = param1.seriesName == "광양" ? "G" : param1.seriesName == "포항" ? "P" : "C" 
-    const [deX, deY] = [pointdeX[x], pointdeY[y]]
-    const selectedWarehouse = locationCode+deX+deY
-    console.log("클릭하신 창고코드는 ", selectedWarehouse)
+    const [x, y, ...elInfo] = param1.value;
+    console.log(param1.value, "값 값가빗 "); // [5, 3, 5651]
+    const locationCode =
+      param1.seriesName == "광양"
+        ? "G"
+        : param1.seriesName == "포항"
+        ? "P"
+        : "C";
+    const [deX, deY] = [pointdeX[x], pointdeY[y]];
+    const selectedWarehouse = locationCode + deX + deY;
+    console.log("클릭하신 창고코드는 ", selectedWarehouse);
     // 여기부터 코드 작성하면됨 ㅇㅇ
-  }
-
+    props.getInvenByWare(selectedWarehouse);
+  };
 
   // 창고 코드를 보내면 재고 목록가져오기
   //'inventory'/warehouse/창고코드
 
-
-  const onClickBar =  {
-    "click" : triggerOnClick.bind(this)
-  }
+  const onClickBar = {
+    click: triggerOnClick,
+  };
 
   //axios
   useEffect(() => {
@@ -128,7 +133,6 @@ const pointdeY = {
   var days = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
   var options = {
-    
     toolbox: {
       show: true,
       feature: {
@@ -148,8 +152,8 @@ const pointdeY = {
           " 개" +
           " <br/>창고 코드: " +
           getLocation() +
-          getPointX(params.value[1]) +
-          getPointY(params.value[0])
+          getPointX(params.value[0]) +
+          getPointY(params.value[1])
         );
       },
     },
@@ -158,9 +162,10 @@ const pointdeY = {
     //data: ["천안"],
     //   },
     visualMap: {
-      text: ['High Inventory', 'Low Inventory'],
+      text: ["High", "Low"],
       min: 0,
       max: maxupdate(),
+      orient: 'horizontal',
       inRange: {
         color: [
           "#313695",
@@ -176,21 +181,21 @@ const pointdeY = {
           "#a50026",
         ],
       },
-      left: '10%',
-      bottom: '0%'
+      left: "0%",
+      bottom: "0%",
     },
     xAxis3D: {
-      name : ' X좌표',
+      name: " X좌표",
       type: "category",
       data: hours,
     },
     yAxis3D: {
-      name : ' Y좌표',
+      name: " Y좌표",
       type: "category",
       data: days,
     },
     zAxis3D: {
-      name : ' 재고량',
+      name: " 재고량",
       type: "value",
     },
     grid3D: {
@@ -222,14 +227,13 @@ const pointdeY = {
           borderWidth: 1,
         },
         emphasis: {
-
           label: {
             fontSize: 20,
             color: "#900",
           },
           itemStyle: {
             color: "#900",
-          //  shadowBlur: 100,
+            //  shadowBlur: 100,
           },
         },
       },
@@ -237,6 +241,8 @@ const pointdeY = {
   };
 
   const opts = { renderer: "canvas", height: "600px" };
+  //여기부터 테이블
+
   return (
     <div className="text-center" id="echart">
       <div className="font-bold text-2xl text-center mb-3">Warehouse Map</div>

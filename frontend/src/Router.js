@@ -13,6 +13,7 @@ import TrendInventory from "./components/Trend/TrendInventory";
 import Tracking from './components/Pages/Tracking';
 import ChartTreemap from './components/Map/ChartTreemap';
 import CreateAccount from './components/Pages/CreateAccount';
+import WarehouseMap from './components/Pages/WarehouseMap';
 function Router(props) {
     return (
         <Routes>
@@ -109,8 +110,8 @@ function Router(props) {
                 />}
             />
             <Route
-                path="/ChartTreemap"
-                element={<ChartTreemap alertSucOpen={props.alertSucOpen}
+                path="/CreateAccount"
+                element={<CreateAccount alertSucOpen={props.alertSucOpen}
                     setAlertSucOpen={props.setAlertSucOpen}
                     alertFailedOpen={props.alertFailedOpen}
                     setAlertFailedOpen={props.setAlertFailedOpen}
@@ -118,8 +119,8 @@ function Router(props) {
                 />}
             />
             <Route
-                path="/CreateAccount"
-                element={<CreateAccount alertSucOpen={props.alertSucOpen}
+                path="/WarehouseMap"
+                element={<WarehouseMap alertSucOpen={props.alertSucOpen}
                     setAlertSucOpen={props.setAlertSucOpen}
                     alertFailedOpen={props.alertFailedOpen}
                     setAlertFailedOpen={props.setAlertFailedOpen}
