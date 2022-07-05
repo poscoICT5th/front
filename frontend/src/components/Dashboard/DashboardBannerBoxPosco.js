@@ -53,7 +53,7 @@ function DashboardBannerBoxPosco() {
         <div className='grid grid-cols-3 text-center'>
             {
                 categorys.map((category) => {
-                    return <div className='cursor-pointer' onClick={() => { window.open(category.page, '_blank') }}>
+                    return <div className='cursor-pointer' onClick={() => { window.open(category.page, '_blank') }} key={category.title}>
                         <div>
                             <img src={category.image}
                                 alt=""

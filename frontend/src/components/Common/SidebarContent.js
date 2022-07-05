@@ -295,7 +295,7 @@ function SidebarContent(props) {
               {/*  */}
               {sidebarDatas.map((sidebarData) => {
                 return (
-                  <details className="group">
+                  <details className="group" key={sidebarData.menu}>
                     <summary className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700 cursor-pointer">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -334,6 +334,7 @@ function SidebarContent(props) {
                       {sidebarData.subMenu.map((submenuData) => {
                         return (
                           <div
+                            key={submenuData.no}
                             className="flex items-center px-4 py-2 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                             style={
                               menu === submenuData.no
@@ -369,7 +370,7 @@ function SidebarContent(props) {
                       })}
                       {sidebarData.componentMenu.map((componentData) => {
                         return (
-                          <div>
+                          <div key={componentData.title}>
                             <button
                               className="flex items-center w-full px-4 py-2 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                               onClick={() => {

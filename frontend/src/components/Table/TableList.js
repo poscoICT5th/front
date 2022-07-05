@@ -17,6 +17,8 @@ import AlertVerify from "../Common/AlertVerify";
 function TableList(props) {
   let dispatch = useDispatch();
   let store_language = useSelector((state) => state.language);
+  let logisticsExportURL = useSelector((state) => state.logisticsExportURL);
+  let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL);
   const columns = [];
   const data = [];
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -221,6 +223,96 @@ function TableList(props) {
     }
   }
 
+  // 출고체크
+  function checkExportMovePos() {
+    let check = true;
+    selectedRows.map((element) => {
+      console.log(element);
+      if (element.amount === 0 || element.state !== "") {
+        check = false;
+        return check;
+      }
+    });
+    return check;
+  }
+  // 출고
+  function exportMulti() {
+    axios.defaults.baseURL = logisticsExportURL;
+    if (selectedRowKeys.length === 0) {
+      props.setAlertFailedOpen(true);
+      props.setAlertMessage(
+        "항목을 선택해주세요"
+      );
+    }
+    if (selectedRowKeys.length > 0 && checkExportMovePos()) {
+      axios
+        .post('/export', {
+          logisticsExportList: selectedRowKeys,
+        })
+        .then((res) => {
+          props.setAlertSucOpen(true);
+          props.setAlertMessage("출고요청이 등록되었습니다");
+          props.setAlertVerifyOpen(false);
+          handleStores();
+        })
+        .catch((err) => {
+          props.setAlertFailedOpen(true);
+          props.setAlertMessage(
+            "등록에 실패하였습니다, 다시 시도해주세요."
+          );
+          props.setAlertVerifyOpen(false);
+          handleStores();
+        });
+    } else {
+      props.setAlertFailedOpen(true);
+      props.setAlertMessage(
+        "선택된 항목들은 출고등록이 불가합니다"
+      );
+      props.setAlertVerifyOpen(false);
+      handleStores();
+
+    }
+  }
+
+  // 창고이동등록
+  // 함수
+  function moveMulti() {
+    axios.defaults.baseURL = logisticsMoveURL;
+    if (selectedRowKeys.length === 0) {
+      props.setAlertFailedOpen(true);
+      props.setAlertMessage(
+        "항목을 선택해주세요"
+      );
+    }
+    if (selectedRowKeys.length > 0 && checkExportMovePos()) {
+      axios
+        .post('/export', {
+          logisticsMoveList: selectedRowKeys,
+        })
+        .then((res) => {
+          props.setAlertSucOpen(true);
+          props.setAlertMessage("창고이동요청이 등록되었습니다");
+          props.setAlertVerifyOpen(false);
+          handleStores();
+        })
+        .catch((err) => {
+          props.setAlertFailedOpen(true);
+          props.setAlertMessage(
+            "등록에 실패하였습니다, 다시 시도해주세요."
+          );
+          props.setAlertVerifyOpen(false);
+          handleStores();
+        });
+    } else {
+      props.setAlertFailedOpen(true);
+      props.setAlertMessage(
+        "선택된 항목들은 창고이동등록이 불가합니다"
+      );
+      props.setAlertVerifyOpen(false);
+      handleStores();
+
+    }
+  }
   return (
     <div>
       <Table
@@ -280,7 +372,7 @@ function TableList(props) {
       <AlertVerify
         open={props.alertVerifyOpen}
         setOpen={props.setAlertVerifyOpen}
-        func={props.clickButton === "delete" ? deleteMulti : rollBackMulti}
+        func={props.clickButton === "delete" ? deleteMulti : (props.clickButton === "rollback") ? rollBackMulti : (props.clickButton === "export") ? exportMulti : props.clickButton === "move" ? moveMulti : null}
       />
     </div>
   );

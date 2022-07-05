@@ -3,6 +3,7 @@ import Barcode from 'react-jsbarcode'
 function BarcodePrint(props) {
     const printRef = useRef();
     function onClickPrint(params) {
+        props.setClickBarcodePrint(false)
         let printContent = printRef.current;
         let windowObj = window.open(
             '',
@@ -12,9 +13,8 @@ function BarcodePrint(props) {
         windowObj.document.writeln(printContent.innerHTML);
         windowObj.document.close();
         windowObj.focus();
-        // windowObj.print();
-        // windowObj.close();
-        props.setClickBarcodePrint(false)
+        windowObj.print();
+        windowObj.close();
     }
 
     useEffect(() => {
@@ -29,7 +29,7 @@ function BarcodePrint(props) {
             <div ref={printRef} className="hidden">
                 {
                     props.items.map((item) => {
-                        return <div className="grid grid-rows-4 border-stone-700 bg-black">
+                        return <div className="grid grid-rows-4 border-stone-700 bg-black" key={item.lot_no}>
                             <div className="row-span-2">
                                 <Barcode value={item.lot_no} />
                             </div>

@@ -22,10 +22,7 @@ function CreateAccount() {
         axios.get(`warehouse/${location}`)
             .then((res) => {
                 console.log(res.data)
-                setWarehouse_codes([])
-                for (let index = 0; index < res.data.length; index++) {
-                    setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
-                }
+                setWarehouse_codes(res.data)
             })
             .catch((err) => { })
     }, [location])

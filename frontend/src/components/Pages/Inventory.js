@@ -10,11 +10,11 @@ function Inventory(props) {
 
   //usestate
   const [clickDelete, setClickDelete] = useState(false);
-  const [inventoryList, setInventoryList] = useState([]);
   const [clickSearch, setClickSearch] = useState(false);
+  const [clickButton, setClickButton] = useState("");
+  const [inventoryList, setInventoryList] = useState([]);
   const [selectedList, setSelectedList] = useState([]);
   const [alertVerifyOpen, setAlertVerifyOpen] = useState(false);
-  const [clickButton, setClickButton] = useState("");
   const [selectedRowsList, setSelectedRowsList] = useState([]);
   const [datas, setDatas] = useState({
     industry_family: "전체보기",
