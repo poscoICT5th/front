@@ -9,9 +9,8 @@ import Inventory from "./components/Pages/Inventory";
 import Warehouse from "./components/Pages/Warehouse";
 import Dashboard from "./components/Pages/Dashboard";
 import Mypage from "./components/Pages/Mypage";
-import TrendInventory from "./components/Trend/TrendInventory";
+import TrendInventory from "./components/Pages/TrendInventory";
 import Tracking from './components/Pages/Tracking';
-import ChartTreemap from './components/Map/ChartTreemap';
 import CreateAccount from './components/Pages/CreateAccount';
 import WarehouseMap from './components/Pages/WarehouseMap';
 function Router(props) {

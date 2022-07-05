@@ -20,7 +20,7 @@ function WarehouseMap() {
       });
   };
   return (
-    <div className="grid grid-cols-2">
+    <div data-aos="fade-up" className="grid grid-cols-2">
       <div className="h-3/4 w-3/4 mx-auto">
         <ChartTreemap getInvenByWare={getInvenByWare} />
       </div>

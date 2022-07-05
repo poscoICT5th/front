@@ -14,7 +14,7 @@ function DashboardBannerBox() {
     return (
         <div className='mt-14'>
             <Carousel afterChange={onChange}>
-                <div>
+                <div className='mb-8'>
                     <DashboardBannerBoxButtons />
                 </div>
                 <div>

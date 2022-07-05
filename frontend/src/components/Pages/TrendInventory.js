@@ -141,10 +141,9 @@ function TrendInventory() {
     });
   }
   return (
-    <div>
-      <div className="mx-auto ">
+    <div data-aos="fade-up" className="w-2/3 mx-auto">
+      <div className="">
         <div className="font-bold text-2xl text-center ">Inventory Trend</div>
-
         {/* table */}
         <div className="flex flex-col mx-1 mt-5 text-center max-h-72">
           <div className="-my-2 overflow-x-auto">
