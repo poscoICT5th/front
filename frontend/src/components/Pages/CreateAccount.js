@@ -117,7 +117,7 @@ function CreateAccount() {
                                         >
                                             {
                                                 warehouse_codes.map(warehouse => {
-                                                    return <option value={warehouse.warehouse_code}>{warehouse.warehouse_code}</option>
+                                                    return <option key={warehouse.warehouse_code} value={warehouse.warehouse_code}>{warehouse.warehouse_code}</option>
                                                 })
                                             }
                                         </select>

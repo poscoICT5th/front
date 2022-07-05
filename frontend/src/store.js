@@ -232,7 +232,6 @@ let alertMessage = createSlice({
 });
 export let { handleAlertMessage } = alertMessage.actions;
 
-
 // state등록해주는부분
 export default configureStore({
   // {작명:createSlice만든거.reducer} 사용
