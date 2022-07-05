@@ -7,6 +7,7 @@ import DashboardAgingChart from '../Dashboard/DashboardAgingChart'
 import DashboardAmountChart from '../Dashboard/DashboardAmountChart'
 import ChartBar2 from '../Map/ChartBar2'
 import moment from 'moment'
+import DashboardBannerBox from '../Dashboard/DashboardBannerBox'
 function Dashboard() {
   const [clickTable, setClickTable] = useState("import")
   const [now, setNow] = useState(moment().format("YY.MM.DD HH:mm:ss"))
@@ -39,8 +40,8 @@ function Dashboard() {
       </div>
       <div className=' mt-5 grid grid-cols-3 gap-5 mx-8'>
         <div className='text-center'><DashboardAgingChart /></div>
+        <div><DashboardBannerBox /></div>
         <div className='text-center'><DashboardAmountChart /></div>
-        <div><ChartBar2 /></div>
       </div>
     </div>
   )
