@@ -73,21 +73,34 @@ function MypageModal(props) {
               >
                 <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
                   <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div className="sm:flex sm:items-start">
-                      <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                        <ExclamationIcon
-                          className="h-6 w-6 text-red-600"
-                          aria-hidden="true"
-                        />
-                      </div>
+                    <div className="">
                       <div className="mt-3 text-center sm:mt-0 sm:ml-1 sm:text-left">
                         <Dialog.Title
                           as="h3"
                           className="text-lg leading-10 font-medium text-gray-900"
                         >
-                          회원 정보
+                          <div className="flex">
+                            <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-sky-100 sm:mx-0 sm:h-10 sm:w-10">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="2"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+                                />
+                              </svg>
+                            </div>
+                            <div className="ml-3">
+                            회원 정보
+                            </div>
+                          </div>
                         </Dialog.Title>
-
                         <div className="mt-5">
                           <div className="w-3/3 mx-auto" data-aos="fade-up">
                             <div className="grid grid-cols-1 gap-1 text-center">
@@ -127,7 +140,6 @@ function MypageModal(props) {
                                           {email}
                                         </dd>
                                       </div>
-
                                       <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-1 sm:px-3">
                                         <dt className="text-sm font-medium text-gray-500">
                                           Thought Of The Day
