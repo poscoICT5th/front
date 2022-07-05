@@ -166,7 +166,7 @@ function CreateAccount() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="px-4 py-3 bg-gray-50 dark:bg-neutral-800 text-right sm:px-6">
+                            <div className="px-4 py-3 bg-gray-50 dark:bg-neutral-800 text- sm:px-6">
                                 <button
                                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                                     onClick={createUser}

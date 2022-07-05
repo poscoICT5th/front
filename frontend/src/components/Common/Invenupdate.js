@@ -7,6 +7,7 @@ import {
 } from "./Conditions/SelectOptions";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { data } from "jquery";
 
 function Invenupdate(props) {
   let inventoryURL = useSelector((state) => state.inventoryURL);
@@ -41,9 +42,16 @@ function Invenupdate(props) {
       })
       .then((res) => {
         console.log(datas);
-        props.setAlertMessage("수정이 완료되었습니다.");
-        props.setAlertSucOpen(true);
-        setIsModalVisible(false);
+        // if (datas.status_cause === "직접입력") //선택 안했을 경우 예외처리들
+        // {
+        //   props.setAlertMessage("사유를 입력해주세요.");
+        //   props.setAlertFailedOpen(true);
+        // }
+        // else {
+        //   props.setAlertMessage("수정이 완료되었습니다.");
+        //   props.setAlertSucOpen(true);
+        //   setIsModalVisible(false);
+        //   }
       })
       .catch((err) => {
         props.setAlertMessage("수정을 실패했습니다.");
@@ -98,15 +106,15 @@ function Invenupdate(props) {
       vn: "lýdotrạngthái",
     },
   ];
+  useEffect(() => {
+    if (props.clickUpdate) {
+      showModal();
+      props.setClickUpdate(false);
+    }
+  }, [props.clickUpdate]);
 
   return (
     <div>
-      <button
-        onClick={showModal}
-        className="w-30 inline-flex justify-center py-1 border border-orange-500 shadow-sm text-sm font-medium rounded-md text-grayy bg-white-500 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-      >
-        품질 상태 수정
-      </button>
       {/* 첫번째 모달 */}
       <Transition.Root show={isModalVisible} as={Fragment}>
         <Dialog
@@ -141,13 +149,12 @@ function Invenupdate(props) {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative bg-white dark:bg-neutral-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-auto max-w-3/5">
+                <Dialog.Panel className="w-1/3 relative bg-white dark:bg-neutral-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-auto max-w-3/5">
                   <div className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div className="sm:flex sm:items-start">
+                    <div className=" sm:items-start">
                       <div className="shadow overflow-hidden sm:rounded-lg">
                         <div className="text-center">
                           <div className="grid grid-rows-12 m-4">
-
                             {selectData.map((selectData) => {
                               return (
                                 <SearchSelect
@@ -170,7 +177,7 @@ function Invenupdate(props) {
                                 name="first-name"
                                 id="first-name"
                                 autoComplete="given-name"
-                                className="grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
+                                className="mt-3 grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
                                 placeholder="사유를 입력하세요."
                                 onChange={(e) => {
                                   setDm(e.target.value);
@@ -194,11 +201,12 @@ function Invenupdate(props) {
                     {
                       <button
                         className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300
-          shadow-sm px-4 py-2 bg-green-500 text-base font-medium dark:text-white hover:bg-gray-50 
-          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                        shadow-sm px-4 py-2 bg-sky-300 font-medium dark:text-white hover:bg-gray-50
+                        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                         onClick={update}
+                        disabled={datas.status_cause === "" ? true : false}
                       >
-                        제품상태변경
+                        품질 상태 수정
                       </button>
                     }
                   </div>
