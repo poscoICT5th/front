@@ -198,6 +198,7 @@ function CreateRequest(props) {
                       onClick={() => {
                         props.request();
                       }}
+                      disabled={props.title==="창고등록"&& props.createPos===false ?true : false}
                     >
                       Request
                     </button>

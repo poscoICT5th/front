@@ -6,6 +6,8 @@ import {
   location,
   purpose,
   use,
+  warehouse_x,
+  warehouse_y,
 } from "../Common/Conditions/SelectOptionsCreate";
 import CreateRequest from "./CreateRequest";
 import { handleWarehouseReload } from "../../store";
@@ -14,10 +16,8 @@ import moment from "moment";
 
 function CreateWarehouse(props) {
   const dispatch = useDispatch();
-
-  let url = useSelector((state) => state.warehouseURL);
-  axios.defaults.baseURL = url;
-
+  let warehouseURL = useSelector((state) => state.warehouseURL);
+  const [warehouse_codes, setWarehouse_codes] = useState([]);
   const [now_warehouseCode, setNow_warehouseCode] = useState(
     moment().format("hh:mm:ss").replace(/\:/g, "")
   );
@@ -38,7 +38,10 @@ function CreateWarehouse(props) {
     maximum_count: "",
     warehouse_code: now_warehouseCode,
     remarks: "",
+    warehouse_x: "",
+    warehouse_y: "",
   });
+
   const warehouse_selectDatas = [
     {
       name: "location",
@@ -79,6 +82,26 @@ function CreateWarehouse(props) {
       cn: "实际使用与否",
       jp: "実使用の有無",
       vn: "có sử dụng thực tế hay không",
+    },
+    {
+      name: "warehouse_x",
+      selectOption: warehouse_x,
+      grid: 1,
+      purpose: "search",
+      ko: "창고코드_X",
+      cn: "仓库代码_X",
+      jp: "倉庫コード_X",
+      vn: "mãkho_X",
+    },
+    {
+      name: "warehouse_y",
+      selectOption: warehouse_y,
+      grid: 1,
+      purpose: "search",
+      ko: "창고코드_Y",
+      cn: "仓库代码_Y",
+      jp: "倉庫コード_Y",
+      vn: "mãkho_Y",
     },
   ];
   const warehouse_inputDatas = [
@@ -131,7 +154,8 @@ function CreateWarehouse(props) {
       !warehouseDatas.use ||
       !warehouseDatas.warehouse_desc
     ) {
-      alert("값을 다 입력해주세요.");
+      props.setAlertMessage("값을 다 입력해주세요!");
+      props.setAlertFailedOpen(true);
     } else {
       createAxios();
     }
@@ -140,6 +164,7 @@ function CreateWarehouse(props) {
   // function
   function createAxios(params) {
     console.log(warehouseDatas);
+    axios.defaults.baseURL = warehouseURL;
     axios
       .post("/", warehouseDatas)
       .then((res) => {
@@ -152,12 +177,60 @@ function CreateWarehouse(props) {
       .catch((err) => {
         alert(err);
         props.setAlertFailedOpen(true);
-        props.setAlertMessage(
-          "등록에 실패하였습니다, 다시 시도해주세요."
-        );
+        props.setAlertMessage("등록에 실패하였습니다, 다시 시도해주세요.");
       });
   }
+  //
+  const [createPos, setCreatePos] = useState(false);
+  //유효성
+  function checkCreateWarehousePos() {
+    let check = true;
+    warehouse_codes.map((element) => {
+      console.log(element);
+      if (
+        element.warehouse_code.includes(
+          warehouseDatas.warehouse_x + warehouseDatas.warehouse_y
+        )
+      ) {
+        check = false;
+        return check;
+      }
+    });
+    return check;
+  }
+  useEffect(() => {
+    console.log(1, warehouseDatas);
+    if (
+      warehouseDatas.warehouse_x !== "" &&
+      warehouseDatas.warehouse_y !== ""
+    ) {
+      if (!checkCreateWarehousePos()) {
+        alert("생성불가");
+        setCreatePos(false);
+        //불가면 비워버리기 
+        // setWarehouseDatas({
+        //   ...warehouseDatas,
+        //   warehouse_x: "",
+        //   warehouse_y: "",
+        // })
+      } else if(checkCreateWarehousePos && warehouseDatas.warehouse_x && warehouseDatas.warehouse_y) {
+        alert("생성가능");
+        setCreatePos(true);
+      }
+    }
+  }, [warehouseDatas.warehouse_x, warehouseDatas.warehouse_y]);
 
+  useEffect(() => {
+    axios.defaults.baseURL = warehouseURL;
+    console.log(warehouseDatas.location);
+    axios
+      .get(`warehouse/${warehouseDatas.location}`)
+      .then((res) => {
+        console.log(res.data);
+        setWarehouse_codes(res.data);
+      })
+      .catch((err) => {});
+  }, [warehouseDatas.location]);
   return (
     <div>
       <CreateRequest
@@ -174,6 +247,7 @@ function CreateWarehouse(props) {
         alertFailedOpen={props.alertFailedOpen}
         setAlertFailedOpen={props.setAlertFailedOpen}
         setAlertMessage={props.setAlertMessage}
+        createPos={createPos}
       />
     </div>
   );

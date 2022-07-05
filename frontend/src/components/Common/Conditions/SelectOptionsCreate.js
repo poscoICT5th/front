@@ -52,3 +52,10 @@ export const unit = [
 export const frozen_months = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"
 ]
+// 창고 x좌표 
+export const warehouse_x = [
+    "A", "B", "C", "D", "E", "F", "G", ]
+// 창고 y좌표 
+export const warehouse_y = [
+    "01", "02", "03", "04", "05", "06", "07"
+]

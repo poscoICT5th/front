@@ -95,7 +95,7 @@ function Echarts1(props) {
 
   const triggerOnClick = (param1) => {
     const [x, y, ...elInfo] = param1.value;
-    console.log(param1.value, "값 값가빗 "); // [5, 3, 5651]
+    //console.log(param1.value, "값 값가빗 "); // [5, 3, 5651]
     const locationCode =
       param1.seriesName == "광양"
         ? "G"
@@ -104,7 +104,7 @@ function Echarts1(props) {
         : "C";
     const [deX, deY] = [pointdeX[x], pointdeY[y]];
     const selectedWarehouse = locationCode + deX + deY;
-    console.log("클릭하신 창고코드는 ", selectedWarehouse);
+  //  console.log("클릭하신 창고코드는 ", selectedWarehouse);
     // 여기부터 코드 작성하면됨 ㅇㅇ
     props.getInvenByWare(selectedWarehouse);
   };
