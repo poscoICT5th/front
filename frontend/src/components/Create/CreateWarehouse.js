@@ -18,17 +18,19 @@ function CreateWarehouse(props) {
   const dispatch = useDispatch();
   let warehouseURL = useSelector((state) => state.warehouseURL);
   const [warehouse_codes, setWarehouse_codes] = useState([]);
-  const [now_warehouseCode, setNow_warehouseCode] = useState(
-    moment().format("hh:mm:ss").replace(/\:/g, "")
-  );
+  // const [now_warehouseCode, setNow_warehouseCode] = useState(
+  //   moment().format("hh:mm:ss").replace(/\:/g, "")
+  // );
 
-  useEffect(() => {
-    setNow_warehouseCode(moment().format("hh:mm:ss").replace(/\:/g, ""));
-    console.log(moment().format("hh:mm:ss").replace(/\:/g, ""));
-  }, [now_warehouseCode]);
+  // useEffect(() => {
+  //   setNow_warehouseCode(moment().format("hh:mm:ss").replace(/\:/g, ""));
+  //   console.log(moment().format("hh:mm:ss").replace(/\:/g, ""));
+  // }, [now_warehouseCode]);
 
   // usestate
+
   const [warehouseDatas, setWarehouseDatas] = useState({
+    location_init:"",
     location: "",
     purpose: "",
     use: "",
@@ -36,12 +38,28 @@ function CreateWarehouse(props) {
     warehouse_desc: "",
     maximum_weight: "",
     maximum_count: "",
-    warehouse_code: now_warehouseCode,
+    warehouse_code: "",
     remarks: "",
     warehouse_x: "",
     warehouse_y: "",
   });
 
+  useEffect(() => {
+    if (warehouseDatas.location==="포항") {
+      setWarehouseDatas({
+        ...warehouseDatas, location_init:"P"
+      })
+    } else if (warehouseDatas.location==="광양") {
+      setWarehouseDatas({
+        ...warehouseDatas, location_init:"G"
+      })
+    } else {
+      setWarehouseDatas({
+        ...warehouseDatas, location_init:"C"
+      })
+    }
+  }, [warehouseDatas.location])
+  
   const warehouse_selectDatas = [
     {
       name: "location",
@@ -213,7 +231,8 @@ function CreateWarehouse(props) {
         //   warehouse_x: "",
         //   warehouse_y: "",
         // })
-      } else if(checkCreateWarehousePos && warehouseDatas.warehouse_x && warehouseDatas.warehouse_y) {
+      } else if (checkCreateWarehousePos && warehouseDatas.warehouse_x && warehouseDatas.warehouse_y) {
+        setWarehouseDatas({...warehouseDatas, warehouse_code: warehouseDatas.location_init+warehouseDatas.warehouse_x+warehouseDatas.warehouse_y})
         alert("생성가능");
         setCreatePos(true);
       }

@@ -10,11 +10,11 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useThemeSwitcher } from "react-css-theme-switcher";
-import { handleTheme, handleLanguage } from './store'
+import { handleTheme, handleLanguage } from "./store";
 import { BackTop } from "antd";
 import AlertSuc from "./components/Common/AlertSuc";
 import AlertFailed from "./components/Common/AlertFailed";
-import Router from './Router';
+import Router from "./Router";
 
 function App() {
   let userURL = useSelector((state) => state.userURL);
@@ -99,13 +99,12 @@ function App() {
       switcher({ theme: themes.dark });
       element.classList.add("dark");
       sessionStorage.setItem("theme", "dark");
-
     }
   }
   // alert button
-  const [alertSucOpen, setAlertSucOpen] = useState(false)
-  const [alertFailedOpen, setAlertFailedOpen] = useState(false)
-  const [alertMessage, setAlertMessage] = useState("")
+  const [alertSucOpen, setAlertSucOpen] = useState(false);
+  const [alertFailedOpen, setAlertFailedOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   return (
     <div data-aos="fade-up" className="fade-in overflow-y-auto">
       {/* Header */}
@@ -134,8 +133,16 @@ function App() {
               setAlertMessage={setAlertMessage}
             />
           ) : null}
-          <AlertSuc open={alertSucOpen} setOpen={setAlertSucOpen} message={alertMessage} />
-          <AlertFailed open={alertFailedOpen} setOpen={setAlertFailedOpen} message={alertMessage} />
+          <AlertSuc
+            open={alertSucOpen}
+            setOpen={setAlertSucOpen}
+            message={alertMessage}
+          />
+          <AlertFailed
+            open={alertFailedOpen}
+            setOpen={setAlertFailedOpen}
+            message={alertMessage}
+          />
           <div className="mx-auto mx-5 min-h-screen">
             {/* Routes */}
             <Router
@@ -149,9 +156,23 @@ function App() {
         </div>
         {nowURL !== "/" ? <Footer /> : null}
         <BackTop>
-          <div >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4} onClick={() => { window.scrollTo(0, 0); }}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8 cursor-pointer"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={4}
+              onClick={() => {
+                window.scrollTo(0, 0);
+              }}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 11l7-7 7 7M5 19l7-7 7 7"
+              />
             </svg>
           </div>
         </BackTop>

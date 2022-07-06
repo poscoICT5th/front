@@ -51,3 +51,43 @@ code {
 html {
   overflow-y: scroll !important;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1f2227;
+    --text-color: #c0c0c0;
+    --hilight-color: #8db4d6;
+  }
+
+  
+  /* Some data colors. Light mode uses defaults */
+  .highcharts-color-0 {
+    fill: #000000;
+    stroke: #000000;
+  }
+  .highcharts-color-1 {
+    fill: #9696ab;
+    stroke: #9696ab;
+  }
+}
+.highcharts-background {
+  fill: var(--background-color);
+}
+.highcharts-container text {
+  fill: var(--text-color);
+}
+.highcharts-subtitle,
+.highcharts-credits,
+.highcharts-axis-title {
+  fill-opacity: 0.7;
+}
+.highcharts-grid-line {
+  stroke: var(--text-color);
+  stroke-opacity: 0.2;
+}
+.highcharts-tooltip-box {
+  fill: var(--background-color);
+}
+.highcharts-column-series rect.highcharts-point {
+  stroke: var(--background-color);
+}

@@ -252,6 +252,7 @@ function Echarts1(props) {
           onClick={(value) => {
             //console.log(value.target.value);
             setLocation(value.target.value);
+            props.setClickLocation(value.target.value);//여기서누를때마다감지
           }}
         >
           광양
@@ -260,6 +261,7 @@ function Echarts1(props) {
           value={"포항"}
           onClick={(value) => {
             setLocation(value.target.value);
+            props.setClickLocation(value.target.value);
           }}
         >
           포항
@@ -268,6 +270,7 @@ function Echarts1(props) {
           value={"천안"}
           onClick={(value) => {
             setLocation(value.target.value);
+            props.setClickLocation(value.target.value);
           }}
         >
           천안

@@ -21,11 +21,9 @@ function ChartLine() {
           setLineData((lineData) => [
             ...lineData, //[,] 형태로 만들어주기위해 넣는다.
             setLineDataAxios(element.date, element.inven_strip),
-
           ]);
         });
-       // console.log(lineData, "라인데이터 ");
-
+        // console.log(lineData, "라인데이터 ");
       })
       .catch((err) => {
         console.log(err);
@@ -60,9 +58,7 @@ function ChartLine() {
       shared: true,
       formatter: function () {
         return (
-          this.y +
-          "개</b><br/>" +
-          moment(this.x).format("MMMM Do YYYY, h:mm")
+          this.y + "개</b><br/>" + moment(this.x).format("MMMM Do YYYY, h:mm")
         );
       },
     },
