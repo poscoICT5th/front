@@ -41,6 +41,7 @@ function SearchSelect(props) {
   }, []);
 
   function onChangeInput(value) {
+    console.log(value)
     if (props.purpose === "search" && value === undefined) {
       props.setDatas({ ...props.datas, [props.name]: "전체보기" });
     } else {

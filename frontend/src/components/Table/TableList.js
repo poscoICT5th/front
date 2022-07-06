@@ -13,6 +13,7 @@ import {
 import BarcodePrint from "../Functions/BarcodePrint";
 import Popup from "./Popup";
 import AlertVerify from "../Common/AlertVerify";
+import CreateMoveToWarehouse from "../Create/CreateMoveToWarehouse";
 
 function TableList(props) {
   let dispatch = useDispatch();
@@ -246,9 +247,7 @@ function TableList(props) {
     }
     if (selectedRowKeys.length > 0 && checkExportMovePos()) {
       axios
-        .post('/export', {
-          logisticsExportList: selectedRowKeys,
-        })
+        .post('/export/multi', selectedRows)
         .then((res) => {
           props.setAlertSucOpen(true);
           props.setAlertMessage("출고요청이 등록되었습니다");
@@ -276,7 +275,10 @@ function TableList(props) {
 
   // 창고이동등록
   // 함수
-  function moveMulti() {
+  const [toWarehouse_code, setToWarehouse_code] = useState("")
+  const [toWarehouseModal, setToWarehouseModal] = useState(false)
+  function moveMultiAxios(param) {
+    console.log(param)
     axios.defaults.baseURL = logisticsMoveURL;
     if (selectedRowKeys.length === 0) {
       props.setAlertFailedOpen(true);
@@ -286,13 +288,15 @@ function TableList(props) {
     }
     if (selectedRowKeys.length > 0 && checkExportMovePos()) {
       axios
-        .post('/export', {
-          logisticsMoveList: selectedRowKeys,
+        .post('/move/multi', {
+          logiMoveList: selectedRows,
+          to_warehouse: param,
         })
         .then((res) => {
           props.setAlertSucOpen(true);
           props.setAlertMessage("창고이동요청이 등록되었습니다");
           props.setAlertVerifyOpen(false);
+          setToWarehouseModal(false)
           handleStores();
         })
         .catch((err) => {
@@ -301,6 +305,7 @@ function TableList(props) {
             "등록에 실패하였습니다, 다시 시도해주세요."
           );
           props.setAlertVerifyOpen(false);
+          setToWarehouseModal(false)
           handleStores();
         });
     } else {
@@ -309,9 +314,13 @@ function TableList(props) {
         "선택된 항목들은 창고이동등록이 불가합니다"
       );
       props.setAlertVerifyOpen(false);
+      setToWarehouseModal(false)
       handleStores();
 
     }
+  }
+  function moveMulti() {
+    setToWarehouseModal(true)
   }
   return (
     <div>
@@ -373,6 +382,12 @@ function TableList(props) {
         open={props.alertVerifyOpen}
         setOpen={props.setAlertVerifyOpen}
         func={props.clickButton === "delete" ? deleteMulti : (props.clickButton === "rollback") ? rollBackMulti : (props.clickButton === "export") ? exportMulti : props.clickButton === "move" ? moveMulti : null}
+      />
+      <CreateMoveToWarehouse
+        setToWarehouse_code={setToWarehouse_code}
+        toWarehouseModal={toWarehouseModal}
+        setToWarehouseModal={setToWarehouseModal}
+        moveMultiAxios={moveMultiAxios}
       />
     </div>
   );
