@@ -1,8 +1,8 @@
 import React from 'react'
 import { Carousel } from 'antd';
 import '../Pages/Dashboard.css'
-import DashboardBannerBoxButtons from './DashboardBannerBoxButtons';
-import DashboardBannerBoxPosco from './DashboardBannerBoxPosco';
+import DashboardBannerBoxButtons1 from './DashboardBannerBoxButtons1';
+import DashboardBannerBoxButtons2 from './DashboardBannerBoxButtons2';
 function DashboardBannerBox() {
     const onChange = (currentSlide) => {
         console.log(currentSlide);
@@ -12,10 +12,10 @@ function DashboardBannerBox() {
         <div className='mt-14'>
             <Carousel afterChange={onChange}>
                 <div className='mb-8'>
-                    <DashboardBannerBoxButtons />
+                    <DashboardBannerBoxButtons1 />
                 </div>
                 <div className='mb-8'>
-                    <DashboardBannerBoxPosco />
+                    <DashboardBannerBoxButtons2 />
                 </div>
             </Carousel>
         </div>

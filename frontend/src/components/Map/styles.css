@@ -8,3 +8,9 @@
 tspan {
   fill: rgb(135, 135, 135) !important;
 }
+.highcharts-title {
+  fill: rgb(135, 135, 135) !important;
+}
+.highcharts-legend {
+  fill: rgb(135, 135, 135) !important;
+}

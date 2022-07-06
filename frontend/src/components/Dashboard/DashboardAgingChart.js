@@ -22,6 +22,8 @@ function DashboardAgingChart(props) {
                 depth: 70,
                 viewDistance: 25,
             },
+            backgroundColor: {},
+            color: {},
         },
         title: {
             text: "입고기간순(오래된)",

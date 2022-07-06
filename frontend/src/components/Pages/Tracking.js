@@ -143,7 +143,7 @@ function Tracking() {
                                 onContextMenu: function noRefCheck(e) { console.log(1) }
                             }}
                         />
-                        : <div className='font-bold text-4xl mt-48'>LOT번호를 선택해주세요</div>
+                        : <div className='font-bold text-4xl mt-48 text-gray-500'>LOT번호를 선택해주세요</div>
                 }
             </div>
             <Detail

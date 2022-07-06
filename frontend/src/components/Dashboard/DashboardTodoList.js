@@ -150,7 +150,7 @@ function DashboardTodoList(props) {
             <div className="mt-5 grid gap-x-6 gap-y-5 grid-cols-3 text-center">
                 {todoList.map((category) => (
                     <div key={category.title} className="border-t border-gray-200 pt-2 cursor-pointer" onClick={() => { props.setClickTable(category.table); }}>
-                        <dt className="font-bold">{category.title}</dt>
+                        <dt className="font-bold text-xs">{category.title}</dt>
                         <dd className="mt-2 text-5xl text-gray-500">{category.count}</dd>
                     </div>
                 ))}
