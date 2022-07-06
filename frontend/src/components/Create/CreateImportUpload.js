@@ -58,6 +58,7 @@ function CreateImportUpload(props) {
             const parsedData = csv?.data;
             const data = Object.values(parsedData)
             axios.defaults.baseURL = logisticsImportURL
+            console.log(data)
             axios
                 .post("/import", data)
                 .then((res) => {

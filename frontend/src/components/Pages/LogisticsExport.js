@@ -53,7 +53,7 @@ function LogisticsExport(props) {
     { "ko": "제품명", "en": "item_name", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là", "size": 300 },
     { "ko": "주문량", "en": "order_amount", "cn": "订货量", "jp": "注文量", "vn": "lượng đặt hàng", "size": 300 },
     { "ko": "출고량", "en": "ex_amount", "cn": "出库量", "jp": "出庫量", "vn": "lượng xuất kho", "size": 300 },
-    { "ko": "출고잔량", "en": "ex_remain", "cn": "出库余量", "jp": "出庫残量", "vn": "số dư xuất kho", "size": 300 },
+    // { "ko": "출고잔량", "en": "ex_remain", "cn": "出库余量", "jp": "出庫残量", "vn": "số dư xuất kho", "size": 300 },
     { "ko": "단위", "en": "unit", "cn": "单位", "jp": "単位", "vn": "đơn vị", "size": 300 },
     { "ko": "무게", "en": "weight", "cn": "份量", "jp": "重さ", "vn": "trọng lượng", "size": 300 },
     { "ko": "넓이", "en": "width", "cn": "广度", "jp": "広さ", "vn": "bề rộng", "size": 300 },
