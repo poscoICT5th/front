@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import ChartLine from "../Map/ChartLine";
-import ChartLine1 from "../Map/ChartLine1";
-import ChartLine2 from "../Map/ChartLine2";
+import ChartMotorLine from "../Map/ChartMotorLine";
+import ChartRotorLine from "../Map/ChartRotorLine";
+import ChartStripLine from "../Map/ChartStripLine";
 
 function TrendInventory() {
   // 월간 평균 재고량  = (월초 재고량 + 월말 재고량)/2
@@ -287,13 +287,13 @@ function TrendInventory() {
       </div>
       <div className="grid grid-cols-1 grid-rows-3 gap-3 rounded-lg">
         <div>
-          <ChartLine />
+          <ChartMotorLine />
         </div>
         <div>
-          <ChartLine1 />
+          <ChartRotorLine />
         </div>
         <div>
-          <ChartLine2 />
+          <ChartStripLine />
         </div>
       </div>
     </div>

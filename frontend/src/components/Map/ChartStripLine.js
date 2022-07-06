@@ -4,9 +4,9 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-//파악 완료
-
-function ChartLine() {
+//Strip 재고 추이
+function ChartMotorLine() {
+  var previousPoint = null;
   const [lineData, setLineData] = useState([]);
   //axios
   let inventoryURL = useSelector((state) => state.inventoryURL);
@@ -21,12 +21,10 @@ function ChartLine() {
         res.data.forEach((element) => {
           setLineData((lineData) => [
             ...lineData, //[,] 형태로 만들어주기위해 넣는다.
-            setLineDataAxios(element.date, element.inven_rotor),
-
+            setLineDataAxios(element.date, element.inven_strip),
           ]);
         });
-       // console.log(lineData, "라인데이터 ");
-
+        // console.log(lineData, "라인데이터 ");
       })
       .catch((err) => {
         console.log(err);
@@ -42,14 +40,10 @@ function ChartLine() {
         offset: 20,
         labels: {
           formatter: function () {
-            // const a = [1000,2000,3000,40000];
-            //return numberFormat.format(123456)
             return this.value; //jason 두번째 값을 엑시오스에서 받아서 여기서 뿌려주면된다.
-            // y 축 완성
           },
           x: -15,
           style: {
-            color: "#000",
             position: "absolute",
           },
           align: "left",
@@ -61,26 +55,39 @@ function ChartLine() {
       shared: true,
       formatter: function () {
         return (
-          this.y +
-          "개</b><br/>" +
-          moment(this.x).format("MMMM Do YYYY, h:mm")
+          this.y + "개</b><br/>" + moment(this.x).format("MMMM Do YYYY, h:mm")
         );
-        // return 1000;
       },
     },
     plotOptions: {
       series: {
         showInNavigator: true,
         gapSize: 6,
+        point: {
+          events: {
+            click: function (event) {
+              if (previousPoint) {
+                previousPoint.update({ color: "#fe5800" });
+              }
+              previousPoint = this;
+              this.update({ color: "#fe5800" });
+            },
+          },
+        },
       },
     },
     rangeSelector: {
       selected: 1,
     },
     title: {
-      text: `Rotor 재고 추이`,
+      text: `Strip 재고 추이`,
+      style: {
+        fontWeight: "bold",
+      },
     },
     chart: {
+      backgroundColor: {},
+      color: {},
       height: 600,
     },
 
@@ -93,12 +100,39 @@ function ChartLine() {
     },
     xAxis: {
       type: "date",
-      // categories: [
-      //   "1/7/2019"
-      // ]
     },
     //위에 버튼
     rangeSelector: {
+      buttonTheme: {
+        // styles for the buttons
+        fill: "none",
+        stroke: "none",
+        "stroke-width": 0,
+        r: 8,
+        style: {
+          color: "#8db4d6",
+          fontWeight: "bold",
+        },
+        states: {
+          hover: {},
+          select: {
+            fill: "#039",
+            style: {
+              color: "white",
+            },
+          },
+        },
+      },
+      inputBoxBorderColor: "gray",
+      inputBoxWidth: 120,
+      inputBoxHeight: 18,
+      inputStyle: {
+        fontWeight: "bold",
+      },
+      labelStyle: {
+        color: "silver",
+        fontWeight: "bold",
+      },
       buttons: [
         {
           type: "day",
@@ -128,7 +162,6 @@ function ChartLine() {
       {
         name: "재고량",
         type: "spline",
-
         data: lineData,
         tooltip: {
           valueDecimals: 2,
@@ -144,4 +177,4 @@ function ChartLine() {
   );
 }
 
-export default ChartLine;
+export default ChartMotorLine;

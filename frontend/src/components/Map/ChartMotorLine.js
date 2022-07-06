@@ -3,9 +3,9 @@ import ReactHighcharts from "react-highcharts/ReactHighstock.src";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import axios from "axios";
-//import "../Map/dark.css";
+import "./styles.css";
 
-function ChartLine() {
+function ChartMotorLine() {
   var previousPoint = null;
   const [lineData, setLineData] = useState([]);
   //axios
@@ -33,23 +33,6 @@ function ChartLine() {
 
   const options = { style: "currency", currency: "USD" };
   const numberFormat = new Intl.NumberFormat("en-US", options);
-  //다크 모드 만들기
-
-  // function(chart) {
-  //   var label = chart.renderer.label('Label', 50, 325)
-  //     .attr({
-  //       'stroke-width': 0.2,
-  //       stroke: 'black',
-  //       fill: 'lightgray'
-  //     })
-  //     .on('click', function() {
-  //       label.attr({
-  //         stroke: 'blue',
-  //         fill: 'lightblue'
-  //       })
-  //     })
-  //     .add();
-  // });
 
   const configPrice = {
     yAxis: [
@@ -57,14 +40,11 @@ function ChartLine() {
         offset: 20,
         labels: {
           formatter: function () {
-            // const a = [1000,2000,3000,40000];
-            //return numberFormat.format(123456)
             return this.value; //jason 두번째 값을 엑시오스에서 받아서 여기서 뿌려주면된다. [날짜, 재고량]
             // y 축 완성
           },
           x: -15,
           style: {
-            //color: "#fe5800",
             position: "absolute",
           },
           align: "left",
@@ -76,10 +56,8 @@ function ChartLine() {
       shared: true,
       formatter: function () {
         return (
-          //numberFormat.format(this.y, 0) +
           this.y + "개</b><br/>" + moment(this.x).format("MMMM Do YYYY, h:mm")
         );
-        // return 1000;
       },
     },
     plotOptions: {
@@ -90,7 +68,6 @@ function ChartLine() {
         point: {
           events: {
             click: function (event) {
-              console.log(this);
               if (previousPoint) {
                 previousPoint.update({ color: "#fe5800" });
               }
@@ -104,14 +81,13 @@ function ChartLine() {
     rangeSelector: {
       selected: 1,
     },
-
     title: {
       text: `Motor 재고 추이`,
-    //  style: {
-         //color: '#fe5800',
-         // fontWeight: 'bold'
-     // }
-  },
+      style: {
+        
+        fontWeight: "bold",
+      }
+    },
     chart: {
       backgroundColor: {},
       color: {},
@@ -120,9 +96,6 @@ function ChartLine() {
 
     credits: {
       enabled: false,
-      //          style: {
-      //         color: '#fe5800',
-      // },
     },
 
     legend: {
@@ -140,28 +113,25 @@ function ChartLine() {
         "stroke-width": 0,
         r: 8,
         style: {
-         color: '#8db4d6',
-         fontWeight: 'bold'
+          color: "#8db4d6",
+          fontWeight: "bold",
         },
-
         states: {
           hover: {},
           select: {
-             fill: '#039',
+            fill: "#039",
             style: {
               color: "white",
             },
           },
-          // disabled: { ... }
         },
       },
       inputBoxBorderColor: "gray",
       inputBoxWidth: 120,
       inputBoxHeight: 18,
-       inputStyle: {
-           color: '#8db4d6',
-           fontWeight: 'bold'
-       },
+      inputStyle: {
+        fontWeight: "bold",
+      },
       labelStyle: {
         color: "silver",
         fontWeight: "bold",
@@ -196,16 +166,10 @@ function ChartLine() {
       {
         name: "재고량",
         type: "spline",
-
         data: lineData,
         tooltip: {
           valueDecimals: 2,
         },
-       // style: {
-         // color: '#8db4d6',
-        //   fontWeight: 'bold'
-      //  },
-        
       },
     ],
   };
@@ -217,4 +181,4 @@ function ChartLine() {
   );
 }
 
-export default ChartLine;
+export default ChartMotorLine;
