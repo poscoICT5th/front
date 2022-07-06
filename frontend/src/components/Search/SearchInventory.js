@@ -22,6 +22,9 @@ function SearchWarehouse(props) {
   const [warehouse_codes, setWarehouse_codes] = useState(["전체보기"]);
   const [item_names, setItem_names] = useState(["전체보기"]);
   const [customers, setCustomers] = useState(["전체보기"]);
+  const [clickMix, setClickMix] = useState(false)
+  const [clickUpdate, setClickUpdate] = useState(false)
+
   useEffect(() => {
     axios.defaults.baseURL = WarehouseUrl;
     axios
@@ -35,7 +38,7 @@ function SearchWarehouse(props) {
           ]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   // 지역에따라서 고객처변경
   useEffect(() => {
@@ -49,7 +52,7 @@ function SearchWarehouse(props) {
           setCustomers((customers) => [...customers, res.data[index].customer]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   // 지역에따라서 아이템명변경
   useEffect(() => {
@@ -66,7 +69,7 @@ function SearchWarehouse(props) {
           ]);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, [props.datas.location]);
   const selectDatas = [
     {
@@ -188,9 +191,6 @@ function SearchWarehouse(props) {
       vn: "công việc nhận kho",
     },
   ];
-  //move button
-  const [clickMix, setClickMix] = useState(false)
-  const [clickUpdate, setClickUpdate] = useState(false)
   return (
     <div className="overflow-hidden sm:rounded-md">
       <div className="py-5 rounded-lg">
@@ -251,6 +251,34 @@ function SearchWarehouse(props) {
             }}
           >
             조회
+          </button>
+          <button
+            className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-500 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+            onClick={() => {
+              if (props.selectedList.length > 0) {
+                props.setAlertVerifyOpen(true);
+                props.setClickButton("export");
+              } else {
+                props.setAlertMessage("항목을 선택해주세요");
+                props.setAlertFailedOpen(true);
+              }
+            }}
+          >
+            출고등록
+          </button>
+          <button
+            className="mr-2 w-32 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-stone-500 hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500"
+            onClick={() => {
+              if (props.selectedList.length > 0) {
+                props.setAlertVerifyOpen(true);
+                props.setClickButton("move");
+              } else {
+                props.setAlertMessage("항목을 선택해주세요");
+                props.setAlertFailedOpen(true);
+              }
+            }}
+          >
+            창고이동등록
           </button>
           <button
             className="text-gray-50 mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-300 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"

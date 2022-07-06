@@ -17,7 +17,7 @@ function DashboardBannerBoxButtons() {
         <div className='grid grid-cols-3 text-center'>
             {
                 categorys.map((category) => {
-                    return <Link to={"/" + category.page}>
+                    return <Link to={"/" + category.page} key={category.page}>
                         <div className='grid grid-rows-2'>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg"

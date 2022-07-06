@@ -79,7 +79,7 @@ function Detail(props) {
                             ? Object.entries(props.detailData).map(
                               ([key, value], index) => {
                                 return (
-                                  <div className="col-span-1">
+                                  <div className="col-span-1" key={index}>
                                     <div className="mt-1 text-sm p-3 text-white-900">
                                       <label className="block text-sm font-medium text-gray-300">
                                         {key}
@@ -120,7 +120,7 @@ function Detail(props) {
                               ([key, value], index) => {
                                 if (key !== "key")
                                   return (
-                                    <div className="col-span-1">
+                                    <div className="col-span-1" key={index}>
                                       <div className="mt-1 text-sm p-3 text-white-900">
                                         <label className="block text-sm font-medium text-gray-300">
                                           {key}
