@@ -69,10 +69,6 @@ function Mypage(props) {
           </div>
         </div>
       </div>
-
-      ㅋㅋㅋㅋㅋ
-      <WordCloud></WordCloud>
-
     </div>
   );
 }
