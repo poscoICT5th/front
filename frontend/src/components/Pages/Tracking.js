@@ -5,7 +5,7 @@ import './Tracking.css';
 import { useSelector } from 'react-redux'
 import { location } from '../Common/Conditions/SelectOptionsCreate'
 import SearchSelect from '../Common/Conditions/SearchSelect';
-import Detail from '../Detail/Detail';
+import DetailTracking from '../Detail/DetailTracking';
 import { Input } from 'antd';
 
 
@@ -16,10 +16,10 @@ function Tracking() {
     const { Search } = Input;
     const [warehouse_codes, setWarehouse_codes] = useState([])
     const [lot_nos, setLot_nos] = useState([])
-    const [lot_no_data, setLot_no_data] = useState({})
     const [openDetail, setOpenDetail] = useState(false);
     const [data, setData] = useState({})
-    const [clicklotData, setClicklotData] = useState({})
+    const [nodeDatas, setNodeDatas] = useState({})
+    const [nodeData, setNodeData] = useState({})
     const [clickNodeLot, setClickNodeLot] = useState("")
     const [traceBack_datas, setTraceBack_datas] = useState({
         lot_no: "",
@@ -60,13 +60,13 @@ function Tracking() {
                 setLot_nos([])
                 for (let index = 0; index < res.data.length; index++) {
                     setLot_nos(lot_nos => ([...lot_nos, res.data[index].lot_no]))
-                    setLot_no_data(lot_no_data => ({ ...lot_no_data, [res.data[index].lot_no]: res.data[index] }))
                 }
             })
             .catch((err) => { console.log(err) })
     }, [traceBack_datas.warehouse_code])
 
     function getLotData(item) {
+        setNodeDatas({ ...nodeDatas, [item.lot_no]: item })
         if (!Array.isArray(item.consumed) || item.consumed.length === 0) {
             return { name: item.lot_no, children: [] }
         }
@@ -82,17 +82,18 @@ function Tracking() {
     }
 
     useEffect(() => {
-        setClicklotData({})
+        setNodeData({})
         axios.defaults.baseURL = traceBack
         axios.get(`/lotno/${traceBack_datas.lot_no}`)
             // axios.get(`/lotno/testlot123123`)
-            .then((res) => { setData(getLotData(res.data)) })
+            .then((res) => {
+                setData(getLotData(res.data));
+            })
             .catch((err) => { console.log(err) })
     }, [traceBack_datas.lot_no])
 
     function clickLot(params) {
-        console.log(params)
-        setClicklotData(lot_no_data.RT220630071653165323)
+        setNodeData(nodeDatas[params])
         setOpenDetail(true)
     }
 
@@ -143,13 +144,13 @@ function Tracking() {
                                 onContextMenu: function noRefCheck(e) { console.log(1) }
                             }}
                         />
-                        : <div className='font-bold text-4xl mt-48'>LOT번호를 선택해주세요</div>
+                        : <div className='font-bold text-4xl mt-48 text-gray-500'>LOT번호를 선택해주세요</div>
                 }
             </div>
-            <Detail
+            <DetailTracking
                 openDetail={openDetail}
                 setOpenDetail={setOpenDetail}
-                detailData={clicklotData}
+                detailData={nodeData}
                 title={clickNodeLot}
             />
         </div>

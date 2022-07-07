@@ -26,7 +26,7 @@ function ChartMotorLine() {
 
           ]);
         });
-       // console.log(lineData, "라인데이터 ");
+        // console.log(lineData, "라인데이터 ");
 
       })
       .catch((err) => {
@@ -50,7 +50,7 @@ function ChartMotorLine() {
           },
           x: -15,
           style: {
-           
+
             position: "absolute",
           },
           align: "left",
@@ -83,7 +83,6 @@ function ChartMotorLine() {
             },
           },
         },
-
       },
     },
     rangeSelector: {
@@ -92,7 +91,6 @@ function ChartMotorLine() {
     title: {
       text: `Rotor 재고 추이`,
       style: {
-        
         fontWeight: "bold",
       }
     },

@@ -36,8 +36,8 @@ function DashboardImport(props) {
     customer: "전체보기",
     order_date: "전체보기",
     inst_reg_date: "전체보기",
-    // inst_deadline: moment().format("YY-MM-DD"),
-    inst_deadline: "22-12-31",
+    inst_deadline: moment().format("YY-MM-DD"),
+    // inst_deadline: "22-12-31",
     done_date: "전체보기",
   })
   const columns = []

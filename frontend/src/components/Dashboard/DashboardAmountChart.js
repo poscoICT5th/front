@@ -23,6 +23,8 @@ function DashboardAmountChart(props) {
                 depth: 70,
                 viewDistance: 25,
             },
+            backgroundColor: {},
+            color: {},
         },
         title: {
             text: "재고량 순위",

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import jwtDecode from 'jwt-decode';
-import WordCloud from "../Map/WordCloud";
 
 function Mypage(props) {
   const [userName, setUserName] = useState("");

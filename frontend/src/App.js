@@ -33,7 +33,7 @@ function App() {
     Aos.init({ duration: 1000 });
     setTimeout(() => {
       window.scrollTo(0, 0);
-    }, 1001);
+    }, 1100);
   }, []);
 
   // 로그인되어있고 맨첫페이지로 가려고한다면 Dashboard 로 보내주기
