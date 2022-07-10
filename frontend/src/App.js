@@ -143,7 +143,7 @@ function App() {
             setOpen={setAlertFailedOpen}
             message={alertMessage}
           />
-          <div className="mx-auto mx-5 min-h-screen">
+          <div className="mx-auto mx-24 min-h-screen">
             {/* Routes */}
             <Router
               alertSucOpen={alertSucOpen}

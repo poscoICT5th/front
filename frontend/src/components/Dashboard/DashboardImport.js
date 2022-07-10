@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 function DashboardImport(props) {
   let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
   let store_language = useSelector((state) => state.language)
@@ -10,36 +9,6 @@ function DashboardImport(props) {
   const [logisticsImportTodayAll, setLogisticsImportTodayAll] = useState([])
   const [logisticsImportTodaySuc, setLogisticsImportTodaySuc] = useState([])
   const [empty, setEmpty] = useState(false)
-  const [datas, setDatas] = useState({
-    instruction_no: "전체보기",
-    status: "전체보기",
-    lot_no: "전체보기",
-    item_code: "전체보기",
-    item_name: "전체보기",
-    min_order_amount: -1,
-    max_order_amount: 10000000,
-    min_im_amount: -1,
-    max_im_amount: 10000000,
-    unit: "전체보기",
-    min_weight: -1,
-    max_weight: 10000000,
-    min_thickness: -1,
-    max_thickness: 10000000,
-    min_height: -1,
-    max_height: 10000000,
-    min_width: -1,
-    max_width: 10000000,
-    industry_family: "전체보기",
-    product_family: "전체보기",
-    location: "전체보기",
-    to_warehouse: "전체보기",
-    customer: "전체보기",
-    order_date: "전체보기",
-    inst_reg_date: "전체보기",
-    inst_deadline: moment().format("YY-MM-DD"),
-    // inst_deadline: "22-12-31",
-    done_date: "전체보기",
-  })
   const columns = []
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
@@ -65,6 +34,51 @@ function DashboardImport(props) {
     // { "ko": "완료일", "en": "done_date", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành", "size": 300 },
     // { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
+
+  useEffect(() => {
+    axios.defaults.baseURL = logisticsImportURL
+    axios.get('/search', {
+      params: {
+        instruction_no: "전체보기",
+        status: "전체보기",
+        lot_no: "전체보기",
+        item_code: "전체보기",
+        item_name: "전체보기",
+        min_order_amount: -1,
+        max_order_amount: 10000000,
+        min_im_amount: -1,
+        max_im_amount: 10000000,
+        unit: "전체보기",
+        min_weight: -1,
+        max_weight: 10000000,
+        min_thickness: -1,
+        max_thickness: 10000000,
+        min_height: -1,
+        max_height: 10000000,
+        min_width: -1,
+        max_width: 10000000,
+        industry_family: "전체보기",
+        product_family: "전체보기",
+        location: "전체보기",
+        to_warehouse: "전체보기",
+        customer: "전체보기",
+        order_date: "전체보기",
+        inst_reg_date: "전체보기",
+        inst_deadline: props.todayDate,
+        done_date: "전체보기",
+      }
+    })
+      .then((res) => {
+        if (res.data.length === 0) {
+          setEmpty(true)
+        } else {
+          setEmpty(false)
+          setLogisticsImportTodayAll(res.data);
+          setLogisticsImportTodaySuc(res.data.filter((schedule) => schedule.status.includes("완료")))
+        }
+      })
+      .catch((err) => { console.log(err) })
+  }, [props.todayDate])
   th.forEach(element => {
     columns.push(
       {
@@ -89,24 +103,7 @@ function DashboardImport(props) {
 
   }, [store_language])
 
-  useEffect(() => {
-    console.log(datas)
-    axios.defaults.baseURL = logisticsImportURL
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => {
-        console.log(res.data)
-        if (res.data.length === 0) {
-          setEmpty(true)
-        } else {
-          setEmpty(false)
-          setLogisticsImportTodayAll(res.data);
-          setLogisticsImportTodaySuc(res.data.filter((schedule) => schedule.status.includes("완료")))
-        }
-      })
-      .catch((err) => { console.log(err) })
-  }, [])
+
 
   return (
     <div className='mt-5 text-center' data-aos="fade-up">
@@ -118,7 +115,7 @@ function DashboardImport(props) {
             dataSource={props.clickTable === "import" ? logisticsImportTodayAll : logisticsImportTodaySuc}
             pagination={false}
             size="small"
-            scroll={{ y: 200 }}
+            scroll={{ y: 220, x:1200 }}
           />
       }
 

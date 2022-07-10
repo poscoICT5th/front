@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 import axios from 'axios';
 
 function DashboardExport(props) {
@@ -11,35 +10,7 @@ function DashboardExport(props) {
   const [logisticsExportTodaySuc, setLogisticsExportTodaySuc] = useState([])
   const [empty, setEmpty] = useState(false)
   const columns = [];
-  const [datas, setDatas] = useState({
-    instruction_no: "전체보기",
-    status: "전체보기",
-    lot_no: "전체보기",
-    item_code: "전체보기",
-    item_name: "전체보기",
-    min_order_amount: 0,
-    max_order_amount: 10000000,
-    min_ex_amount: 0,
-    max_ex_amount: 10000000,
-    ex_remain: "전체보기",
-    unit: "전체보기",
-    min_width: 0,
-    max_width: 10000000,
-    min_weight: 0,
-    max_weight: 10000000,
-    min_thickness: 0,
-    max_thickness: 10000000,
-    min_height: 0,
-    max_height: 10000000,
-    product_family: "전체보기",
-    location: "전체보기",
-    from_warehouse: "전체보기",
-    customer: "전체보기",
-    order_date: "전체보기",
-    inst_reg_date: "전체보기",
-    inst_deadline: moment().format("YY-MM-DD"),
-    done_date: "전체보기",
-  })
+
   const th = [
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", "size": 300 },
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", "size": 300 },
@@ -64,6 +35,51 @@ function DashboardExport(props) {
     // { "ko": "완료일", "en": "done_date", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành", "size": 300 },
     // { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
+
+  useEffect(() => {
+    axios.defaults.baseURL = logisticsExportURL
+    axios.get('/search', {
+      params: {
+        instruction_no: "전체보기",
+        status: "전체보기",
+        lot_no: "전체보기",
+        item_code: "전체보기",
+        item_name: "전체보기",
+        min_order_amount: 0,
+        max_order_amount: 10000000,
+        min_ex_amount: 0,
+        max_ex_amount: 10000000,
+        ex_remain: "전체보기",
+        unit: "전체보기",
+        min_width: 0,
+        max_width: 10000000,
+        min_weight: 0,
+        max_weight: 10000000,
+        min_thickness: 0,
+        max_thickness: 10000000,
+        min_height: 0,
+        max_height: 10000000,
+        product_family: "전체보기",
+        location: "전체보기",
+        from_warehouse: "전체보기",
+        customer: "전체보기",
+        order_date: "전체보기",
+        inst_reg_date: "전체보기",
+        inst_deadline: props.todayDate,
+        done_date: "전체보기",
+      }
+    })
+      .then((res) => {
+        if (res.data.length === 0) {
+          setEmpty(true)
+        } else {
+          setEmpty(false)
+          setLogisticsExportTodayAll(res.data);
+          setLogisticsExportTodaySuc(res.data.filter((schedule) => schedule.status.includes("완료")))
+        }
+      })
+      .catch((err) => { })
+  }, [props.todayDate])
 
   th.forEach(element => {
     columns.push(
@@ -90,22 +106,7 @@ function DashboardExport(props) {
     })
   }, [store_language])
 
-  useEffect(() => {
-    axios.defaults.baseURL = logisticsExportURL
-    axios.get('/search', {
-      params: datas
-    })
-      .then((res) => {
-        if (res.data.length === 0) {
-          setEmpty(true)
-        } else {
-          setEmpty(false)
-          setLogisticsExportTodayAll(res.data);
-          setLogisticsExportTodaySuc(res.data.filter((schedule) => schedule.status.includes("완료")))
-        }
-      })
-      .catch((err) => { console.log(datas); })
-  }, [])
+
 
   return (
     <div className='mt-5 text-center' data-aos="fade-up">
@@ -117,7 +118,7 @@ function DashboardExport(props) {
             dataSource={props.clickTable === "export" ? logisticsExportTodayAll : logisticsExportTodaySuc}
             pagination={false}
             size="small"
-            scroll={{ y: 200 }}
+            scroll={{ y: 220, x:1200 }}
           />
       }
     </div>

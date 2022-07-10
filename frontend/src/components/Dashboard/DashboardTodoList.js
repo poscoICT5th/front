@@ -7,7 +7,6 @@ function DashboardTodoList(props) {
     let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
     let logisticsExportURL = useSelector((state) => state.logisticsExportURL)
     let logisticsMoveURL = useSelector((state) => state.logisticsMoveURL)
-
     const [todoList, setTodoList] = useState([
         { title: '입고전체', table: "import", count: 0 },
         { title: '출고전체', table: "export", count: 0 },
@@ -47,19 +46,7 @@ function DashboardTodoList(props) {
         // inst_deadline: "22-12-31",
         done_date: "전체보기",
     })
-    useEffect(() => {
-        axios.defaults.baseURL = logisticsImportURL
-        axios.get('/search', {
-            params: importDatas
-        })
-            .then((res) => {
-                let newTodoList = [...todoList]
-                newTodoList[0].count = res.data.length
-                newTodoList[3].count = res.data.filter((value, index) => value.status.includes("완료")).length
-                setTodoList(newTodoList);
-            })
-            .catch((err) => { console.log(err) })
-    }, [])
+
 
     // 출고정보
     const [exportDatas, setExportDatas] = useState({
@@ -91,21 +78,6 @@ function DashboardTodoList(props) {
         inst_deadline: moment().format("YY-MM-DD"),
         done_date: "전체보기",
     })
-    useEffect(() => {
-        axios.defaults.baseURL = logisticsExportURL
-        axios.get('/search', {
-            params: exportDatas
-        })
-            .then((res) => {
-                let newTodoList = [...todoList]
-                newTodoList[1].count = res.data.length
-                newTodoList[4].count = res.data.filter((value, index) => value.status.includes("완료")).length
-                setTodoList(newTodoList);
-            })
-            .catch((err) => { })
-    }, [])
-
-    //창고이동정보
 
     const [moveDatas, setMoveDatas] = useState({
         instruction_no: "전체보기",
@@ -133,6 +105,34 @@ function DashboardTodoList(props) {
     })
 
     useEffect(() => {
+        axios.defaults.baseURL = logisticsImportURL
+        axios.get('/search', {
+            params: importDatas
+        })
+            .then((res) => {
+                let newTodoList = [...todoList]
+                newTodoList[0].count = res.data.length
+                newTodoList[3].count = res.data.filter((value, index) => value.status.includes("완료")).length
+                setTodoList(newTodoList);
+            })
+            .catch((err) => { console.log(err) })
+    }, [importDatas])
+
+    useEffect(() => {
+        axios.defaults.baseURL = logisticsExportURL
+        axios.get('/search', {
+            params: exportDatas
+        })
+            .then((res) => {
+                let newTodoList = [...todoList]
+                newTodoList[1].count = res.data.length
+                newTodoList[4].count = res.data.filter((value, index) => value.status.includes("완료")).length
+                setTodoList(newTodoList);
+            })
+            .catch((err) => { })
+    }, [exportDatas])
+
+    useEffect(() => {
         axios.defaults.baseURL = logisticsMoveURL
         axios.get('/search', {
             params: moveDatas
@@ -144,7 +144,14 @@ function DashboardTodoList(props) {
                 setTodoList(newTodoList);
             })
             .catch((err) => { })
-    }, [])
+    }, [moveDatas])
+
+    useEffect(() => {
+        setImportDatas({ ...importDatas, inst_deadline: props.todayDate })
+        setExportDatas({ ...exportDatas, inst_deadline: props.todayDate })
+        setMoveDatas({ ...moveDatas, inst_deadline: props.todayDate })
+    }, [props.todayDate])
+
     return (
         <div className=''>
             <div className="mt-5 grid gap-x-6 gap-y-5 grid-cols-3 text-center">

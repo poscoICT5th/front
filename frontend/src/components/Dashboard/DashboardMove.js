@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 import axios from "axios";
 
 function DashboardMove(props) {
@@ -31,35 +30,34 @@ function DashboardMove(props) {
     // { "ko": "완료일", "en": "done_date", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành", "size": 300 },
     // { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", "size": 300 },
   ]
-  const [datas, setDatas] = useState({
-    instruction_no: "전체보기",
-    status: "전체보기",
-    lot_no: "전체보기",
-    item_code: "전체보기",
-    item_name: "전체보기",
-    min_move_amount: 0,
-    max_move_amount: 10000000,
-    unit: "전체보기",
-    min_weight: 0,
-    max_weight: 10000000,
-    min_width: 0,
-    max_width: 10000000,
-    min_thickness: 0,
-    max_thickness: 10000000,
-    min_height: 0,
-    max_height: 10000000,
-    location: "전체보기",
-    from_warehouse: "전체보기",
-    to_warehouse: "전체보기",
-    inst_reg_date: "전체보기",
-    inst_deadline: moment().format("YY-MM-DD"),
-    done_date: "전체보기",
-  })
 
   useEffect(() => {
     axios.defaults.baseURL = logisticsMoveURL
     axios.get('/search', {
-      params: datas
+      params: {
+        instruction_no: "전체보기",
+        status: "전체보기",
+        lot_no: "전체보기",
+        item_code: "전체보기",
+        item_name: "전체보기",
+        min_move_amount: 0,
+        max_move_amount: 10000000,
+        unit: "전체보기",
+        min_weight: 0,
+        max_weight: 10000000,
+        min_width: 0,
+        max_width: 10000000,
+        min_thickness: 0,
+        max_thickness: 10000000,
+        min_height: 0,
+        max_height: 10000000,
+        location: "전체보기",
+        from_warehouse: "전체보기",
+        to_warehouse: "전체보기",
+        inst_reg_date: "전체보기",
+        inst_deadline: props.todayDate,
+        done_date: "전체보기",
+      }
     })
       .then((res) => {
         if (res.data.length === 0) {
@@ -70,8 +68,8 @@ function DashboardMove(props) {
           setLogisticsMoveTodaySuc(res.data.filter((schedule) => schedule.status.includes("완료")))
         }
       })
-      .catch((err) => { console.log(datas) })
-  }, [])
+      .catch((err) => { })
+  }, [props.todayDate])
 
 
   th.forEach(element => {
@@ -111,6 +109,7 @@ function DashboardMove(props) {
             dataSource={props.clickTable === "export" ? logisticsMoveTodayAll : logisticsMoveTodaySuc}
             pagination={false}
             size="small"
+            scroll={{ y: 220, x: 1200 }}
           />
       }
     </div>
