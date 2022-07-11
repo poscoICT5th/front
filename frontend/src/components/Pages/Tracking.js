@@ -1,26 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { AnimatedTree } from 'react-tree-graph';
-import './Tracking.css';
 import { useSelector } from 'react-redux'
 import { location } from '../Common/Conditions/SelectOptionsCreate'
 import SearchSelect from '../Common/Conditions/SearchSelect';
-import DetailTracking from '../Detail/DetailTracking';
 import { Input } from 'antd';
+import TreeGraph from '../Functions/TreeGraph';
 
 
 function Tracking() {
     let warehouseURL = useSelector((state) => state.warehouseURL)
     let inventoryURL = useSelector((state) => state.inventoryURL)
-    let traceBack = useSelector((state) => state.traceBack)
     const { Search } = Input;
     const [warehouse_codes, setWarehouse_codes] = useState([])
     const [lot_nos, setLot_nos] = useState([])
-    const [openDetail, setOpenDetail] = useState(false);
-    const [data, setData] = useState({})
-    const [nodeDatas, setNodeDatas] = useState({})
-    const [nodeData, setNodeData] = useState({})
-    const [clickNodeLot, setClickNodeLot] = useState("")
     const [traceBack_datas, setTraceBack_datas] = useState({
         lot_no: "",
         location: "",
@@ -65,42 +57,9 @@ function Tracking() {
             .catch((err) => { console.log(err) })
     }, [traceBack_datas.warehouse_code])
 
-    function getLotData(item) {
-        setNodeDatas({ ...nodeDatas, [item.lot_no]: item })
-        if (!Array.isArray(item.consumed) || item.consumed.length === 0) {
-            return { name: item.lot_no, children: [] }
-        }
-        else if (Array.isArray(item.consumed) && item.consumed.length !== 0) {
-            return {
-                name: item.lot_no, children: item.consumed.map(x => {
-                    return getLotData(x)
-                })
-            }
-        } else {
-            return { name: item.lot_no, children: [] }
-        }
-    }
-
-    useEffect(() => {
-        setNodeData({})
-        axios.defaults.baseURL = traceBack
-        axios.get(`/lotno/${traceBack_datas.lot_no}`)
-            // axios.get(`/lotno/testlot123123`)
-            .then((res) => {
-                setData(getLotData(res.data));
-            })
-            .catch((err) => { console.log(err) })
-    }, [traceBack_datas.lot_no])
-
-    function clickLot(params) {
-        setNodeData(nodeDatas[params])
-        setOpenDetail(true)
-    }
-
     function onSearch(value) {
         setTraceBack_datas({ ...traceBack_datas, lot_no: value })
     }
-
     return (
         <div className='' id='tracking' data-aos="fade-up">
             <div className={' h-full text-center'} >
@@ -130,29 +89,11 @@ function Tracking() {
                 </div>
                 {
                     traceBack_datas.lot_no
-                        ? <AnimatedTree
-                            data={data}
-                            height={700}
-                            width={700}
-                            duration={800}
-                            nodeShape="circle"
-                            svgProps={{
-                                className: 'custom'
-                            }}
-                            gProps={{
-                                onClick: function noRefCheck(e) { clickLot(e.target.textContent); setClickNodeLot(e.target.textContent) },
-                                onContextMenu: function noRefCheck(e) { console.log(1) }
-                            }}
-                        />
+                        ? <TreeGraph lot_no={traceBack_datas.lot_no} />
                         : <div className='font-bold text-4xl mt-48 text-gray-500'>LOT번호를 선택해주세요</div>
                 }
             </div>
-            <DetailTracking
-                openDetail={openDetail}
-                setOpenDetail={setOpenDetail}
-                detailData={nodeData}
-                title={clickNodeLot}
-            />
+
         </div>
     )
 }
