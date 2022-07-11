@@ -22,10 +22,10 @@ function DashboardNews() {
 
     return (
         <div className=''>
-            <div>DashboardNews</div>
+            <div className='text-2xl font-bold mb-4'>Today's News</div>
             <List
                 style={{
-                    height: 380,
+                    height: 350,
                     overflow: 'auto',
                 }}
                 itemLayout="horizontal"
@@ -33,7 +33,7 @@ function DashboardNews() {
                 renderItem={(item) => (
                     <List.Item>
                         <List.Item.Meta
-                            title={<a href={item.link}>{item.title}</a>}
+                            title={<div onClick={() => { window.open(item.link, '_blank') }} className="font-bold">{item.title}</div>}
                             description={item.description}
                         />
                     </List.Item>

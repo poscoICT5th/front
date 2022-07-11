@@ -27,7 +27,7 @@ function DashboardAmountChart(props) {
             color: {},
         },
         title: {
-            text: "재고량 순위",
+            text: "",
         },
         credits: {
             enabled: true
@@ -76,6 +76,7 @@ function DashboardAmountChart(props) {
 
     return (
         <div className="App">
+            <div className="text-md font-bold mb-1">재고량 순위</div>
             <HighchartsReact
                 style={{ height: "100%" }}
                 highcharts={Highcharts}

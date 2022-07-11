@@ -47,52 +47,52 @@ function CreateAccount() {
                             <div className="px-4 py-5 bg-white dark:bg-neutral-800 sm:p-6">
                                 <div className="grid grid-cols-6 gap-6">
                                     <div className="col-span-6">
-                                        <label htmlFor="email-address" className="block text-sm font-medium">
+                                        <label className="block text-sm font-medium">
                                             아이디
                                         </label>
                                         <input
                                             type="text"
-                                            name="email-address"
-                                            id="email-address"
+                                            name="id"
+                                            id="id"
                                             autoComplete="email"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label htmlFor="last-name" className="block text-sm font-medium">
+                                        <label className="block text-sm font-medium">
                                             비밀번호
                                         </label>
                                         <input
                                             type="password"
-                                            name="last-name"
-                                            id="last-name"
+                                            name="password"
+                                            id="password"
                                             autoComplete="family-name"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label htmlFor="first-name" className="block text-sm font-medium">
+                                        <label className="block text-sm font-medium">
                                             이름
                                         </label>
                                         <input
                                             type="text"
-                                            name="first-name"
-                                            id="first-name"
+                                            name="name"
+                                            id="name"
                                             autoComplete="given-name"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label htmlFor="country" className="block text-sm font-medium">
+                                        <label className="block text-sm font-medium">
                                             지역
                                         </label>
                                         <select
-                                            id="country"
-                                            name="country"
-                                            autoComplete="country-name"
+                                            id="region"
+                                            name="region"
+                                            autoComplete="region"
                                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white dark:bg-neutral-800 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                                             onChange={(e) => { setLocation(e.target.value) }}
                                         >
@@ -103,13 +103,13 @@ function CreateAccount() {
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label htmlFor="country" className="block text-sm font-medium">
+                                        <label className="block text-sm font-medium">
                                             담당창고
                                         </label>
                                         <select
-                                            id="country"
-                                            name="country"
-                                            autoComplete="country-name"
+                                            id="team"
+                                            name="team"
+                                            autoComplete="team"
                                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white dark:bg-neutral-800 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                                         >
                                             {
@@ -121,13 +121,13 @@ function CreateAccount() {
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label htmlFor="country" className="block text-sm font-medium">
+                                        <label className="block text-sm font-medium">
                                             직급
                                         </label>
                                         <select
-                                            id="country"
-                                            name="country"
-                                            autoComplete="country-name"
+                                            id="auth"
+                                            name="auth"
+                                            autoComplete="auth"
                                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white dark:bg-neutral-800 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                                         >
                                             <option>관리</option>
@@ -137,26 +137,26 @@ function CreateAccount() {
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label htmlFor="first-name" className="block text-sm font-medium">
+                                        <label className="block text-sm font-medium">
                                             이메일
                                         </label>
                                         <input
                                             type="text"
-                                            name="first-name"
-                                            id="first-name"
+                                            name="email"
+                                            id="email"
                                             autoComplete="given-name"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label htmlFor="first-name" className="block text-sm font-medium">
+                                        <label className="block text-sm font-medium">
                                             연락처
                                         </label>
                                         <input
                                             type="text"
-                                            name="first-name"
-                                            id="first-name"
+                                            name="phone"
+                                            id="phone"
                                             autoComplete="given-name"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                         />

@@ -16,6 +16,15 @@ function Dashboard() {
   const [todayDate, setTodayDate] = useState(moment().format("YYYY-MM-DD"))
   const [now, setNow] = useState(moment().format("YY.MM.DD HH:mm:ss"))
   const [second, setSecond] = useState(false)
+  let EngtoKo = {
+    "import": "입고요청 전체현황",
+    "importSuc": "입고처리 완료현황",
+    "export": "출고요청 전체현황",
+    "exportSuc": "출고처리 완료현황",
+    "move": "창고이동요청 전체현황",
+    "moveSuc": "창고이동처리 완료현황",
+
+  }
   let table = {
     "import": <DashboardImport clickTable="import" todayDate={todayDate} />,
     "importSuc": <DashboardImport clickTable="importSuc" todayDate={todayDate} />,
@@ -41,7 +50,7 @@ function Dashboard() {
           <DashboardTodoList setClickTable={setClickTable} todayDate={todayDate} />
         </div>
         <div className="col-span-6">
-          <div className='text-2xl font-bold'>{clickTable}</div>
+          <div className='text-lg font-bold'>{EngtoKo[clickTable]}</div>
           <div className='rounded-lg my-auto'>{table[clickTable]}</div>
         </div>
         <div className="col-span-3 site-calendar-demo-card"><Calendar fullscreen={false} onChange={onChange} /></div>

@@ -296,7 +296,6 @@ function SearchWarehouse(props) {
           >
             품질 상태 수정
           </button>
-
           <InventoryMix
             selectedRowKeys={props.selectedList}
             selectedRows={props.selectedRows}

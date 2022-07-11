@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "./Login.css";
+import "../Account/Login.css";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function Login(props) {
   let navigate = useNavigate();
-  let dispatch = useDispatch();
   let userUrl = useSelector((state) => state.userURL)
   // useState
   const [id, setId] = useState("")
@@ -19,8 +18,6 @@ function Login(props) {
     }
   }
   function login() {
-    console.log(id)
-    console.log(pw)
     axios.defaults.baseURL = userUrl
     axios.post('/login',
       {
@@ -42,7 +39,7 @@ function Login(props) {
       })
   }
   return (
-    <div className="h-screen">
+    <div className="h-screen" data-aos="fade-up">
       <div className="login min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 m-auto">
         <div className="max-w-md w-full space-y-2">
           <div className="font-bold text-2xl text-center">POSCO ICT - 5</div>

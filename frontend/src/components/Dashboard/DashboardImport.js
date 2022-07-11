@@ -109,13 +109,13 @@ function DashboardImport(props) {
     <div className='mt-5 text-center' data-aos="fade-up">
       {
         empty
-          ? <div className='text-3xl font-bold mt-20'>금일 일정이 없습니다.</div>
+          ? <div className='text-3xl font-bold mt-28 text-gray-600'>금일 일정이 없습니다.</div>
           : <Table
             columns={columns}
             dataSource={props.clickTable === "import" ? logisticsImportTodayAll : logisticsImportTodaySuc}
             pagination={false}
             size="small"
-            scroll={{ y: 220, x:1200 }}
+            scroll={{ y: 220, x: 1200 }}
           />
       }
 

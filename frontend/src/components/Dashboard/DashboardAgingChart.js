@@ -26,7 +26,7 @@ function DashboardAgingChart(props) {
             color: {},
         },
         title: {
-            text: "입고기간순(오래된)",
+            text: "",
         },
         credits: {
             enabled: true
@@ -76,6 +76,7 @@ function DashboardAgingChart(props) {
 
     return (
         <div className="App">
+            <div className="text-md font-bold mb-1">입고기간순(오래된)</div>
             <HighchartsReact
                 style={{ height: "100%" }}
                 highcharts={Highcharts}

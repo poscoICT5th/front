@@ -57,9 +57,9 @@ function InventoryMix(props) {
         mixPos = false;
         props.setAlertMessage(
           element.lot_no +
-            " 제품은 " +
-            element.state +
-            "이므로 사용할 수 없습니다."
+          " 제품은 " +
+          element.state +
+          "이므로 사용할 수 없습니다."
         );
         props.setAlertFailedOpen(true);
       }
@@ -160,32 +160,32 @@ function InventoryMix(props) {
                           <div className="grid grid-rows-12 m-4">
                             {props.selectedRows.length < 6
                               ? props.selectedRows.map((value) => {
-                                  return (
-                                    <div className="span-row-1 mt-3 grid grid-cols-2 gap-3">
-                                      <div className="font-bold text-md text-lg text-gray-700 grid-cols-8 py-2.5">
-                                        {value.lot_no}
-                                      </div>
-                                      <input
-                                        type="number"
-                                        name="first-name"
-                                        id="first-name"
-                                        max={value.amount}
-                                        min={1}
-                                        autoComplete="given-name"
-                                        className=" text-lg grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
-                                        placeholder={
-                                          "현재보유량 : " + value.amount
-                                        }
-                                        onChange={(e) => {
-                                          setValue(
-                                            value.lot_no,
-                                            e.target.value
-                                          );
-                                        }}
-                                      />
+                                return (
+                                  <div className="span-row-1 mt-3 grid grid-cols-2 gap-3">
+                                    <div className="font-bold text-md text-lg text-gray-700 grid-cols-8 py-2.5">
+                                      {value.lot_no}
                                     </div>
-                                  );
-                                })
+                                    <input
+                                      type="number"
+                                      name="first-name"
+                                      id="first-name"
+                                      max={value.amount}
+                                      min={1}
+                                      autoComplete="given-name"
+                                      className=" text-lg grid-cols-4 block w-full rounded-md py-2.5 px-3.5 text-gray-900 placeholder-black placeholder-opacity-75 bg-gray-100 transition focus:bg-gray-200 focus:outline-none"
+                                      placeholder={
+                                        "현재보유량 : " + value.amount
+                                      }
+                                      onChange={(e) => {
+                                        setValue(
+                                          value.lot_no,
+                                          e.target.value
+                                        );
+                                      }}
+                                    />
+                                  </div>
+                                );
+                              })
                               : null}
                           </div>
                         </div>
@@ -219,7 +219,6 @@ function InventoryMix(props) {
           </div>
         </Dialog>
       </Transition.Root>
-
       {/* CreateInventory */}
       <CreateInventory
         setModalOpen={setModalOpen}

@@ -26,36 +26,36 @@ function Invenupdate(props) {
 
   //수정 버튼 클릭하면
   function update() {
- 
+
     if (datas.stock_quality_status === "불합격" && datas.status_cause === "") {
       props.setAlertMessage("사유를 선택해주세요.");
       props.setAlertFailedOpen(true);
-    
-    // } else if(datas.stock_quality_status === "불합격" && setDm === "직접입력") {
-    //   console.log(dm, "그리고", datas.stock_quality_status);
-    //   props.setAlertMessage("사유를 입력해주세요.");
-    //   props.setAlertFailedOpen(true);
+
+      // } else if(datas.stock_quality_status === "불합격" && setDm === "직접입력") {
+      //   console.log(dm, "그리고", datas.stock_quality_status);
+      //   props.setAlertMessage("사유를 입력해주세요.");
+      //   props.setAlertFailedOpen(true);
     } else if (datas.stock_quality_status === "불합격" && datas.status_cause === "직접입력") {
       updateAxiosDM();
       console.log(dm, "그리고", datas.stock_quality_status);
     }
-      else {
+    else {
       updateAxiosDefault();
     }
   }
   function updateAxiosDM(params) {
     axios.defaults.baseURL = inventoryURL;
     axios
-    .put("/statuschange", {
-      statusChangeList: datas.statusChangeList,
-      stock_quality_status: datas.stock_quality_status,
-      status_cause: dm,
-    })
-    .then((res) => {
-      console.log(datas);
-      props.setAlertMessage("수정이 완료되었습니다.");
-      props.setAlertSucOpen(true);
-      setIsModalVisible(false);
+      .put("/statuschange", {
+        statusChangeList: datas.statusChangeList,
+        stock_quality_status: datas.stock_quality_status,
+        status_cause: dm,
+      })
+      .then((res) => {
+        console.log(datas);
+        props.setAlertMessage("수정이 완료되었습니다.");
+        props.setAlertSucOpen(true);
+        setIsModalVisible(false);
       })
       .catch((err) => {
         props.setAlertMessage("수정을 실패했습니다.");
@@ -208,7 +208,7 @@ function Invenupdate(props) {
                         shadow-sm px-4 py-2 bg-sky-300 font-medium dark:text-white hover:bg-gray-50
                         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                         onClick={update}
-                        // disabled={datas.status_cause === "" && datas.stock_quality_status === "불합격" ? true : false}
+                      // disabled={datas.status_cause === "" && datas.stock_quality_status === "불합격" ? true : false}
                       >
                         품질 상태 수정
                       </button>
