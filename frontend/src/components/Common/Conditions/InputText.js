@@ -59,7 +59,6 @@ function InputText(props) {
         <div className="col-span-1">
             <label className="block text-sm font-medium">
                 {label}
-
             </label>
             {
                 props.type !== "date"

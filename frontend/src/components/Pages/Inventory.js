@@ -79,7 +79,7 @@ function Inventory(props) {
   useEffect(() => {
     axios.defaults.baseURL = inventoryURL;
     axios.get("/search", { params: datas }).then((res) => {
-      setInventoryList(res.data.sort);
+      setInventoryList(res.data);
       setClickSearch(false);
     });
   }, [clickSearch, createInventorySuc, datas]);

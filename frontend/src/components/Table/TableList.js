@@ -61,6 +61,7 @@ function TableList(props) {
         dataIndex: element.en,
         key: element,
         align: "right",
+        width: 100,
         sorter: (a, b) => {
           if (a[element.en] < b[element.en]) return -1;
           if (a[element.en] > b[element.en]) return 1;
@@ -74,6 +75,7 @@ function TableList(props) {
         dataIndex: element.en,
         key: element,
         align: "left",
+        width: 100,
         sorter: (a, b) => {
           if (a[element.en] < b[element.en]) return -1;
           if (a[element.en] > b[element.en]) return 1;
@@ -87,6 +89,7 @@ function TableList(props) {
         dataIndex: element.en,
         key: element,
         align: "right",
+        width: 100,
         sorter: (a, b) => {
           if (a[element.en] < b[element.en]) return -1;
           if (a[element.en] > b[element.en]) return 1;
@@ -105,6 +108,7 @@ function TableList(props) {
           dataIndex: element.en,
           key: element,
           align: "right",
+          width: 100,
           sorter: (a, b) => {
             if (a[element.en] < b[element.en]) return -1;
             if (a[element.en] > b[element.en]) return 1;
@@ -118,6 +122,7 @@ function TableList(props) {
           dataIndex: element.en,
           key: element,
           align: "left",
+          width: 100,
           sorter: (a, b) => {
             if (a[element.en] < b[element.en]) return -1;
             if (a[element.en] > b[element.en]) return 1;
@@ -131,6 +136,7 @@ function TableList(props) {
           dataIndex: element.en,
           key: element,
           align: "right",
+          width: 100,
           sorter: (a, b) => {
             if (a[element.en] < b[element.en]) return -1;
             if (a[element.en] > b[element.en]) return 1;
@@ -143,6 +149,7 @@ function TableList(props) {
   }, [store_language]);
 
   // rows 넣기
+  console.log(props.dataList)
   props.dataList.forEach((element) => {
     console.log(element)
     if (props.part === "import") {
@@ -153,8 +160,7 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           order_date: element.order_date.slice(0, 10),
-          done_date: element.done_date.slice(0, 10),
-          Barcode: <BarcodePrint items={[element]} />,
+          done_date: element.done_date.slice(0, 10)
         });
       } else {
         data.push({
@@ -162,8 +168,7 @@ function TableList(props) {
           ...element,
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
-          order_date: element.order_date.slice(0, 10),
-          Barcode: <BarcodePrint items={[element]} />,
+          order_date: element.order_date.slice(0, 10)
         });
 
       }
@@ -175,8 +180,7 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           order_date: element.order_date.slice(0, 10),
-          done_date: element.done_date.slice(0, 10),
-          Barcode: <BarcodePrint items={[element]} />,
+          done_date: element.done_date.slice(0, 10)
         });
       } else {
         data.push({
@@ -185,7 +189,6 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           order_date: element.order_date.slice(0, 10),
-          Barcode: <BarcodePrint items={[element]} />,
         });
 
       }
@@ -197,7 +200,6 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           done_date: element.done_date.slice(0, 10),
-          Barcode: <BarcodePrint items={[element]} />,
         });
       } else {
         data.push({
@@ -205,11 +207,16 @@ function TableList(props) {
           ...element,
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
-          Barcode: <BarcodePrint items={[element]} />,
         });
       }
     } else if (props.part === "inventory") {
-      data.push({ key: element.lot_no, ...element });
+      console.log(element)
+      data.push({
+        key: element.lot_no,
+        ...element,
+        inventory_date: element.inventory_date.slice(0, 10),
+        warehouse_date: element.warehouse_date.slice(0, 10),
+      });
     } else if (props.part === "warehouse") {
       data.push({ key: element.warehouse_code, ...element });
     }
@@ -391,8 +398,8 @@ function TableList(props) {
   // 함수
   const [toWarehouse_code, setToWarehouse_code] = useState("")
   const [toWarehouseModal, setToWarehouseModal] = useState(false)
-  function moveMultiAxios(param) {
-    console.log(param)
+  function moveMultiAxios(warehouse_code, inst_deadline) {
+    console.log(warehouse_code, inst_deadline)
     axios.defaults.baseURL = logisticsMoveURL;
     if (selectedRowKeys.length === 0) {
       props.setAlertFailedOpen(true);
@@ -404,7 +411,8 @@ function TableList(props) {
       axios
         .post('/move/multi', {
           logiMoveList: selectedRows,
-          to_warehouse: param,
+          to_warehouse: warehouse_code,
+          inst_deadline: inst_deadline,
         })
         .then((res) => {
           props.setAlertSucOpen(true);
@@ -451,7 +459,7 @@ function TableList(props) {
             }, // double click row
             onContextMenu: (event) => {
               event.preventDefault();
-              if (!["warehouse"].includes(props.title)) {
+              if (props.title !== "warehouse") {
                 setPopupXY({ ...popupXY, X: event.pageX, Y: event.pageY });
                 setVisiblePopup(true);
                 setPopupData(record);

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import TrackingModal from '../Detail/TrackingModal'
+import { useNavigate } from 'react-router-dom'
 import BarcodePrint from '../Functions/BarcodePrint'
 import './Popup.css'
 function Popup(props) {
     const [openTracking, setOpenTracking] = useState(false)
-
+    let navigate = useNavigate();
     return props.visiblePopup && (
         <ul
             className="popup"
@@ -16,11 +16,7 @@ function Popup(props) {
                 props.title === "inventory"
                     ?
                     <li>
-                        <TrackingModal
-                            openTracking={openTracking}
-                            setOpenTracking={setOpenTracking}
-                            item={props.popupData[0]}
-                        />
+                        <div onClick={() => { navigate('/Tracking', { state: props.popupData[0] }) }}>역추적</div>
                     </li>
                     : <li>
                         <BarcodePrint

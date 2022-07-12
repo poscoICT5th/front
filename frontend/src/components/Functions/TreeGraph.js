@@ -78,6 +78,7 @@ function TreeGraph(props) {
 
     return (
         <div style={containerStyles} ref={containerRef}>
+            <div className='mt-2 font-bold text-xl'>{props.lot_no}</div>
             <Tree
                 data={data}
                 // onNodeClick={(e) => { clickLot(e.data.name) }}

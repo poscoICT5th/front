@@ -6,10 +6,12 @@ import {
   inventory_stock_quality_status,
 } from "./Conditions/SelectOptions";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { data } from "jquery";
+import { handleInventoryReload } from '../../store'
 
 function Invenupdate(props) {
+  let dispatch = useDispatch();
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [isModalVisible, setIsModalVisible] = useState(false); //처음모달
   const cancelButtonRef = useRef(null);
@@ -54,11 +56,15 @@ function Invenupdate(props) {
       .then((res) => {
         console.log(datas);
         props.setAlertMessage("수정이 완료되었습니다.");
+        dispatch(handleInventoryReload(true));
+        dispatch(handleInventoryReload(false));
         props.setAlertSucOpen(true);
         setIsModalVisible(false);
       })
       .catch((err) => {
         props.setAlertMessage("수정을 실패했습니다.");
+        dispatch(handleInventoryReload(true));
+        dispatch(handleInventoryReload(false));
         props.setAlertFailedOpen(true);
       });
   }
@@ -69,11 +75,15 @@ function Invenupdate(props) {
       .then((res) => {
         console.log(datas);
         props.setAlertMessage("수정이 완료되었습니다.");
+        dispatch(handleInventoryReload(true));
+        dispatch(handleInventoryReload(false));
         props.setAlertSucOpen(true);
         setIsModalVisible(false);
       })
       .catch((err) => {
         props.setAlertMessage("수정을 실패했습니다.");
+        dispatch(handleInventoryReload(true));
+        dispatch(handleInventoryReload(false));
         props.setAlertFailedOpen(true);
       });
   }

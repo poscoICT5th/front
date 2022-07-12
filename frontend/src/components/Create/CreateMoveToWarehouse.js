@@ -5,6 +5,7 @@ import SearchSelect from '../Common/Conditions/SearchSelect'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { location } from '../Common/Conditions/SelectOptionsCreate'
+import InputText from '../Common/Conditions/InputText'
 
 function CreateMoveToWarehouse(props) {
     let warehouseURL = useSelector((state) => state.warehouseURL)
@@ -14,6 +15,7 @@ function CreateMoveToWarehouse(props) {
     const [moveDatas, setMoveDatas] = useState({
         location: "",
         warehouse_code: "",
+        inst_deadline: ""
     })
     useEffect(() => {
         axios.defaults.baseURL = warehouseURL
@@ -26,11 +28,14 @@ function CreateMoveToWarehouse(props) {
             })
             .catch((err) => { })
     }, [moveDatas.location])
-    const moveDatasSelect = [
-        { name: "location", selectOption: location, grid: 1, "purpose": "create", "ko": "지역", "cn": "地域", "jp": "地域", "vn": "khu vực" },
-        { name: "warehouse_code", selectOption: warehouse_codes, grid: 1, purpose: "create", "ko": "출발창고", "cn": "出发仓库", "jp": "出発倉庫", "vn": "kho xuất phát" },
-    ]
 
+    const moveDatasSelect = [
+        { name: "location", selectOption: location, grid: 1, "purpose": "create", "ko": "지역", "en": "location", "cn": "地域", "jp": "地域", "vn": "khu vực" },
+        { name: "warehouse_code", selectOption: warehouse_codes, grid: 1, purpose: "create", "ko": "출발창고", "en": "warehouse_code", "cn": "出发仓库", "jp": "出発倉庫", "vn": "kho xuất phát" },
+    ]
+    const moveDatasInput = [
+        { name: "inst_deadline", type: "date", purpose: "search", "ko": "지시마감일", "en": "inst_deadline", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị", },
+    ]
     const cancelButtonRef = useRef(null)
     return (
         <Transition.Root show={props.toWarehouseModal} as={Fragment}>
@@ -80,7 +85,25 @@ function CreateMoveToWarehouse(props) {
                                                             jp={selectData.jp}
                                                             vn={selectData.vn}
                                                         />
-                                                        </div>
+                                                    </div>
+                                                    );
+                                                })}
+                                            </div>
+                                            <div className="">
+                                                {moveDatasInput.map((inputData) => {
+                                                    return (<div className='my-2'>
+                                                        <InputText
+                                                            setDatas={setMoveDatas}
+                                                            datas={moveDatas}
+                                                            name={inputData.name}
+                                                            type={inputData.type}
+                                                            purpose={inputData.purpose}
+                                                            ko={inputData.ko}
+                                                            cn={inputData.cn}
+                                                            jp={inputData.jp}
+                                                            vn={inputData.vn}
+                                                        />
+                                                    </div>
                                                     );
                                                 })}
                                             </div>
@@ -91,7 +114,7 @@ function CreateMoveToWarehouse(props) {
                                     <button
                                         type="button"
                                         className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-sky-600 text-base font-medium text-white hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                        onClick={() => { props.moveMultiAxios(moveDatas.warehouse_code) }}
+                                        onClick={() => { props.moveMultiAxios(moveDatas.warehouse_code, moveDatas.inst_deadline) }}
                                     >
                                         이동
                                     </button>
