@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import BarcodePrint from '../Functions/BarcodePrint'
 import './Popup.css'
 function Popup(props) {
-    const [openTracking, setOpenTracking] = useState(false)
     let navigate = useNavigate();
     return props.visiblePopup && (
         <ul

@@ -160,7 +160,10 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           order_date: element.order_date.slice(0, 10),
-          done_date: element.done_date.slice(0, 10)
+          done_date: element.done_date.slice(0, 10),
+          width:element.width.toFixed(2),
+          height:element.height.toFixed(2),
+          thickness:element.thickness.toFixed(2),
         });
       } else {
         data.push({
@@ -168,7 +171,10 @@ function TableList(props) {
           ...element,
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
-          order_date: element.order_date.slice(0, 10)
+          order_date: element.order_date.slice(0, 10),
+          width:element.width.toFixed(2),
+          height:element.height.toFixed(2),
+          thickness:element.thickness.toFixed(2),
         });
 
       }
@@ -180,7 +186,10 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           order_date: element.order_date.slice(0, 10),
-          done_date: element.done_date.slice(0, 10)
+          done_date: element.done_date.slice(0, 10),
+          width:element.width.toFixed(2),
+          height:element.height.toFixed(2),
+          thickness:element.thickness.toFixed(2),
         });
       } else {
         data.push({
@@ -189,6 +198,9 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           order_date: element.order_date.slice(0, 10),
+          width:element.width.toFixed(2),
+          height:element.height.toFixed(2),
+          thickness:element.thickness.toFixed(2),
         });
 
       }
@@ -200,6 +212,9 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           done_date: element.done_date.slice(0, 10),
+          width:element.width.toFixed(2),
+          height:element.height.toFixed(2),
+          thickness:element.thickness.toFixed(2),
         });
       } else {
         data.push({
@@ -207,6 +222,9 @@ function TableList(props) {
           ...element,
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
+          width:element.width.toFixed(2),
+          height:element.height.toFixed(2),
+          thickness:element.thickness.toFixed(2),
         });
       }
     } else if (props.part === "inventory") {
