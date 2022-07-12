@@ -62,6 +62,7 @@ function TreeGraph(props) {
     }
     function clickLot(params) {
         setNodeData(nodeDatas[params])
+        setClickNodeLot(params)
         setOpenDetail(true)
     }
 
