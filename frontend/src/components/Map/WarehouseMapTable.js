@@ -4,32 +4,14 @@ import React from "react";
 function WarehouseMapTable(props) {
   const columns = [
     {
-      title: "amount",
-      dataIndex: "amount",
-      align: "center",
-      defaultSortOrder: 'descend',
-      sorter: {
-        compare: (a, b) => a.amount - b.amount,
-      },
-    },
-    {
-      title: "customer",
-      dataIndex: "customer",
-       defaultSortOrder: 'descend',
+      title: "lot_no",
+      dataIndex: "lot_no",
       align: "center",
       sorter: (a, b) => {
-        if (a.customer < b.customer) return -1;
-        if (a.customer >b.customer) return 1;
-        if (a.customer === b.customer) return 0;
+        if (a.lot_no < b.lot_no) return -1;
+        if (a.lot_no >b.lot_no) return 1;
+        if (a.lot_no === b.lot_no) return 0;
         else return -1;
-      },
-    },
-    {
-      title: "height",
-      dataIndex: "height",
-      align: "center",
-      sorter: {
-        compare: (a, b) => a.height - b.height,
       },
     },
     {
@@ -45,14 +27,48 @@ function WarehouseMapTable(props) {
       },
     },
     {
-      title: "inventory_date",
-      dataIndex: "inventory_date",
+      title: "stock_type",
+      dataIndex: "stock_type",
+      align: "center",
+      sorter: (a, b) => {
+        if (a.stock_type < b.stock_type) return -1;
+        if (a.stock_type >b.stock_type) return 1;
+        if (a.stock_type === b.stock_type) return 0;
+        else return -1;
+      },
+    },
+    {
+      title: "product_family",
+      dataIndex: "product_family",
       align: "center",
       width: 130,
       sorter: (a, b) => {
-        if (a.inventory_date < b.inventory_date) return -1;
-        if (a.inventory_date >b.inventory_date) return 1;
-        if (a.inventory_date === b.inventory_date) return 0;
+        if (a.product_family < b.product_family) return -1;
+        if (a.product_family >b.product_family) return 1;
+        if (a.product_family === b.product_family) return 0;
+        else return -1;
+      },
+    },
+    {
+      title: "location",
+      dataIndex: "location",
+      align: "center",
+      sorter: (a, b) => {
+        if (a.location < b.location) return -1;
+        if (a.location >b.location) return 1;
+        if (a.location === b.location) return 0;
+        else return -1;
+      },
+    },
+    {
+      title: "warehouse_code",
+      dataIndex: "warehouse_code",
+      align: "center",
+      width: 140,
+      sorter: (a, b) => {
+        if (a.warehouse_code < b.warehouse_code) return -1;
+        if (a.warehouse_code >b.warehouse_code) return 1;
+        if (a.warehouse_code === b.warehouse_code) return 0;
         else return -1;
       },
     },
@@ -80,37 +96,67 @@ function WarehouseMapTable(props) {
       },
     },
     {
-      title: "location",
-      dataIndex: "location",
+      title: "amount",
+      dataIndex: "amount",
+      align: "center",
+      defaultSortOrder: 'descend',
+      sorter: {
+        compare: (a, b) => a.amount - b.amount,
+      },
+    },
+    {
+      title: "unit",
+      dataIndex: "unit",
       align: "center",
       sorter: (a, b) => {
-        if (a.location < b.location) return -1;
-        if (a.location >b.location) return 1;
-        if (a.location === b.location) return 0;
+        if (a.unit < b.unit) return -1;
+        if (a.unit >b.unit) return 1;
+        if (a.unit === b.unit) return 0;
         else return -1;
       },
     },
     {
-      title: "lot_no",
-      dataIndex: "lot_no",
+      title: "weight",
+      dataIndex: "weight",
+      align: "center",
+      sorter: {
+        compare: (a, b) => a.weight - b.weight,
+      },
+    },
+    {
+      title: "width",
+      dataIndex: "width",
+      align: "center",
+      sorter: {
+        compare: (a, b) => a.width - b.width,
+      },
+    },
+    {
+      title: "thickness",
+      dataIndex: "thickness",
+      align: "center",
+      sorter: {
+        compare: (a, b) => a.thickness - b.thickness,
+      },
+    },
+    {
+      title: "customer",
+      dataIndex: "customer",
+       defaultSortOrder: 'descend',
       align: "center",
       sorter: (a, b) => {
-        if (a.lot_no < b.lot_no) return -1;
-        if (a.lot_no >b.lot_no) return 1;
-        if (a.lot_no === b.lot_no) return 0;
+        if (a.customer < b.customer) return -1;
+        if (a.customer >b.customer) return 1;
+        if (a.customer === b.customer) return 0;
         else return -1;
       },
     },
     {
-      title: "product_family",
-      dataIndex: "product_family",
+      title: "height",
+      dataIndex: "height",
       align: "center",
-      width: 130,
-      sorter: (a, b) => {
-        if (a.product_family < b.product_family) return -1;
-        if (a.product_family >b.product_family) return 1;
-        if (a.product_family === b.product_family) return 0;
-        else return -1;
+      sorter: {
+        compare: (a, b) => a.height - b.height,
       },
     },
     {
@@ -149,44 +195,14 @@ function WarehouseMapTable(props) {
       },
     },
     {
-      title: "stock_type",
-      dataIndex: "stock_type",
+      title: "inventory_date",
+      dataIndex: "inventory_date",
       align: "center",
+      width: 130,
       sorter: (a, b) => {
-        if (a.stock_type < b.stock_type) return -1;
-        if (a.stock_type >b.stock_type) return 1;
-        if (a.stock_type === b.stock_type) return 0;
-        else return -1;
-      },
-    },
-    {
-      title: "thickness",
-      dataIndex: "thickness",
-      align: "center",
-      sorter: {
-        compare: (a, b) => a.thickness - b.thickness,
-      },
-    },
-    {
-      title: "unit",
-      dataIndex: "unit",
-      align: "center",
-      sorter: (a, b) => {
-        if (a.unit < b.unit) return -1;
-        if (a.unit >b.unit) return 1;
-        if (a.unit === b.unit) return 0;
-        else return -1;
-      },
-    },
-    {
-      title: "warehouse_code",
-      dataIndex: "warehouse_code",
-      align: "center",
-      width: 140,
-      sorter: (a, b) => {
-        if (a.warehouse_code < b.warehouse_code) return -1;
-        if (a.warehouse_code >b.warehouse_code) return 1;
-        if (a.warehouse_code === b.warehouse_code) return 0;
+        if (a.inventory_date < b.inventory_date) return -1;
+        if (a.inventory_date >b.inventory_date) return 1;
+        if (a.inventory_date === b.inventory_date) return 0;
         else return -1;
       },
     },
@@ -202,22 +218,7 @@ function WarehouseMapTable(props) {
         else return -1;
       },
     },
-    {
-      title: "weight",
-      dataIndex: "weight",
-      align: "center",
-      sorter: {
-        compare: (a, b) => a.weight - b.weight,
-      },
-    },
-    {
-      title: "width",
-      dataIndex: "width",
-      align: "center",
-      sorter: {
-        compare: (a, b) => a.width - b.width,
-      },
-    },
+    
   ];
   return (
     <div>

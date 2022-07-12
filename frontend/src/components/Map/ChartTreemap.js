@@ -79,9 +79,9 @@ function Echarts1(props) {
     if (location === "광양") {
       return 6000;
     } else if (location === "천안") {
-      return 28000;
+      return 10000;
     } else {
-      return 46000;
+      return 5000;
     }
   }
 
@@ -122,6 +122,7 @@ function Echarts1(props) {
     axios
       .get(`/map/${location}`)
       .then((res) => {
+        console.log(res.data)
         setLineData(res.data);
       })
       .catch((err) => {
