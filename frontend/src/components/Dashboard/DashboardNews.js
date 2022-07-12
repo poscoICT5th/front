@@ -33,7 +33,7 @@ function DashboardNews() {
                 renderItem={(item) => (
                     <List.Item>
                         <List.Item.Meta
-                            title={<div onClick={() => { window.open(item.link, '_blank') }} className="font-bold">{item.title}</div>}
+                            title={<div onClick={() => { window.open(item.link, '_blank') }} className="font-bold cursor-pointer">{item.title}</div>}
                             description={item.description}
                         />
                     </List.Item>
