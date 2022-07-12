@@ -54,7 +54,7 @@ export let { handleLogisticsMoveURL } = logisticsMoveURL.actions;
 // 창고 url
 let warehouseURL = createSlice({
   name: "warehouseURL",
- initialState: "http://35.74.235.120:8080/warehouse",
+  initialState: "http://35.74.235.120:8080/warehouse",
   //  initialState: "http://192.168.0.10:8084",
   reducers: {
     handleWarehouseURL(state, newState) {
@@ -93,6 +93,7 @@ export let { handleUserURL } = userURL.actions;
 let traceBack = createSlice({
   name: "traceBack",
   initialState: "http://18.181.232.168:8080/traceback",
+  // initialState: "http://192.168.0.10:8087/",
   reducers: {
     handletraceBack(state, newState) {
       return newState;

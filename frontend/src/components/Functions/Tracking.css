@@ -1,3 +1,16 @@
 .rd3t-tree-container {
-  height: 500px !important;
+  height: 100vh !important;
+}
+.node__root > circle {
+  fill: rgb(105, 164, 219);
+}
+
+.node__branch > circle {
+  fill: rgb(253, 253, 131);
+}
+
+.node__leaf > circle {
+  fill: green;
+  /* Let's also make the radius of leaf nodes larger */
+  r: 40;
 }

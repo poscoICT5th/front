@@ -55,27 +55,12 @@ function TableList(props) {
   };
 
   props.th.forEach((element) => {
-    columns.push({
-      title: element[sessionStorage.getItem("language")],
-      dataIndex: element.en,
-      key: element,
-      align: "center",
-      sorter: (a, b) => {
-        if (a[element.en] < b[element.en]) return -1;
-        if (a[element.en] > b[element.en]) return 1;
-        if (a[element.en] === b[element.en]) return 0;
-        else return -1;
-      },
-    });
-  });
-
-  useEffect(() => {
-    props.th.forEach((element) => {
+    if (element.type === "number") {
       columns.push({
         title: element[sessionStorage.getItem("language")],
         dataIndex: element.en,
         key: element,
-        align: "center",
+        align: "right",
         sorter: (a, b) => {
           if (a[element.en] < b[element.en]) return -1;
           if (a[element.en] > b[element.en]) return 1;
@@ -83,20 +68,149 @@ function TableList(props) {
           else return -1;
         },
       });
+    } else if (element.type === "string") {
+      columns.push({
+        title: element[sessionStorage.getItem("language")],
+        dataIndex: element.en,
+        key: element,
+        align: "left",
+        sorter: (a, b) => {
+          if (a[element.en] < b[element.en]) return -1;
+          if (a[element.en] > b[element.en]) return 1;
+          if (a[element.en] === b[element.en]) return 0;
+          else return -1;
+        },
+      });
+    } else if (element.type === "date") {
+      columns.push({
+        title: element[sessionStorage.getItem("language")],
+        dataIndex: element.en,
+        key: element,
+        align: "right",
+        sorter: (a, b) => {
+          if (a[element.en] < b[element.en]) return -1;
+          if (a[element.en] > b[element.en]) return 1;
+          if (a[element.en] === b[element.en]) return 0;
+          else return -1;
+        },
+      });
+    }
+  });
+
+  useEffect(() => {
+    props.th.forEach((element) => {
+      if (element.type === "number") {
+        columns.push({
+          title: element[sessionStorage.getItem("language")],
+          dataIndex: element.en,
+          key: element,
+          align: "right",
+          sorter: (a, b) => {
+            if (a[element.en] < b[element.en]) return -1;
+            if (a[element.en] > b[element.en]) return 1;
+            if (a[element.en] === b[element.en]) return 0;
+            else return -1;
+          },
+        });
+      } else if (element.type === "string") {
+        columns.push({
+          title: element[sessionStorage.getItem("language")],
+          dataIndex: element.en,
+          key: element,
+          align: "left",
+          sorter: (a, b) => {
+            if (a[element.en] < b[element.en]) return -1;
+            if (a[element.en] > b[element.en]) return 1;
+            if (a[element.en] === b[element.en]) return 0;
+            else return -1;
+          },
+        });
+      } else if (element.type === "date") {
+        columns.push({
+          title: element[sessionStorage.getItem("language")],
+          dataIndex: element.en,
+          key: element,
+          align: "right",
+          sorter: (a, b) => {
+            if (a[element.en] < b[element.en]) return -1;
+            if (a[element.en] > b[element.en]) return 1;
+            if (a[element.en] === b[element.en]) return 0;
+            else return -1;
+          },
+        });
+      }
     });
   }, [store_language]);
 
   // rows 넣기
   props.dataList.forEach((element) => {
-    if (props.title === "logistics") {
-      data.push({
-        key: element.instruction_no,
-        ...element,
-        Barcode: <BarcodePrint items={[element]} />,
-      });
-    } else if (props.title === "inventory") {
+    console.log(element)
+    if (props.part === "import") {
+      if (element.done_date) {
+        data.push({
+          key: element.instruction_no,
+          ...element,
+          inst_deadline: element.inst_deadline.slice(0, 10),
+          inst_reg_date: element.inst_reg_date.slice(0, 10),
+          order_date: element.order_date.slice(0, 10),
+          done_date: element.done_date.slice(0, 10),
+          Barcode: <BarcodePrint items={[element]} />,
+        });
+      } else {
+        data.push({
+          key: element.instruction_no,
+          ...element,
+          inst_deadline: element.inst_deadline.slice(0, 10),
+          inst_reg_date: element.inst_reg_date.slice(0, 10),
+          order_date: element.order_date.slice(0, 10),
+          Barcode: <BarcodePrint items={[element]} />,
+        });
+
+      }
+    } else if (props.part === "export") {
+      if (element.done_date) {
+        data.push({
+          key: element.instruction_no,
+          ...element,
+          inst_deadline: element.inst_deadline.slice(0, 10),
+          inst_reg_date: element.inst_reg_date.slice(0, 10),
+          order_date: element.order_date.slice(0, 10),
+          done_date: element.done_date.slice(0, 10),
+          Barcode: <BarcodePrint items={[element]} />,
+        });
+      } else {
+        data.push({
+          key: element.instruction_no,
+          ...element,
+          inst_deadline: element.inst_deadline.slice(0, 10),
+          inst_reg_date: element.inst_reg_date.slice(0, 10),
+          order_date: element.order_date.slice(0, 10),
+          Barcode: <BarcodePrint items={[element]} />,
+        });
+
+      }
+    } else if (props.part === "move") {
+      if (element.done_date) {
+        data.push({
+          key: element.instruction_no,
+          ...element,
+          inst_deadline: element.inst_deadline.slice(0, 10),
+          inst_reg_date: element.inst_reg_date.slice(0, 10),
+          done_date: element.done_date.slice(0, 10),
+          Barcode: <BarcodePrint items={[element]} />,
+        });
+      } else {
+        data.push({
+          key: element.instruction_no,
+          ...element,
+          inst_deadline: element.inst_deadline.slice(0, 10),
+          inst_reg_date: element.inst_reg_date.slice(0, 10),
+          Barcode: <BarcodePrint items={[element]} />,
+        });
+      }
+    } else if (props.part === "inventory") {
       data.push({ key: element.lot_no, ...element });
-    } else if (props.title === "warehouse") {
+    } else if (props.part === "warehouse") {
       data.push({ key: element.warehouse_code, ...element });
     }
   });
@@ -381,7 +495,15 @@ function TableList(props) {
       <AlertVerify
         open={props.alertVerifyOpen}
         setOpen={props.setAlertVerifyOpen}
-        func={props.clickButton === "delete" ? deleteMulti : (props.clickButton === "rollback") ? rollBackMulti : (props.clickButton === "export") ? exportMulti : props.clickButton === "move" ? moveMulti : null}
+        func={props.clickButton === "delete"
+          ? deleteMulti
+          : (props.clickButton === "rollback")
+            ? rollBackMulti
+            : (props.clickButton === "export")
+              ? exportMulti
+              : props.clickButton === "move"
+                ? moveMulti
+                : null}
       />
       <CreateMoveToWarehouse
         setToWarehouse_code={setToWarehouse_code}

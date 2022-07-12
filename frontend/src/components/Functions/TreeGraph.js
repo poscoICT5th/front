@@ -40,22 +40,32 @@ function TreeGraph(props) {
                 attributes: {
                     "물품코드": item.item_code,
                     "재고생성일자": item.item_code,
+                    "상태": item.stock_quality_status ? item.stock_quality_status : "없음",
+                    "상태사유": item.stock_quality_status === "불합격" ? item.status_cause : "없음",
                 },
             }
         }
         else if (Array.isArray(item.consumed) && item.consumed.length !== 0) {
             return {
-                name: item.lot_no, children: item.consumed.map(x => {
+                name: item.lot_no, attributes: {
+                    "물품코드": item.item_code,
+                    "재고생성일자": item.item_code,
+                    "상태": item.stock_quality_status ? item.stock_quality_status : "없음",
+                    "상태사유": item.stock_quality_status === "불합격" ? item.status_cause : "없음",
+                }, children: item.consumed.map(x => {
                     return getLotData(x)
                 })
             }
         } else {
+
             return {
                 name: item.lot_no,
                 children: [],
                 attributes: {
                     "물품코드": item.item_code,
                     "재고생성일자": item.item_code,
+                    "상태": item.stock_quality_status ? item.stock_quality_status : "없음",
+                    "상태사유": item.stock_quality_status === "불합격" ? item.status_cause : "없음",
                 },
             }
         }
@@ -70,14 +80,17 @@ function TreeGraph(props) {
         <div style={containerStyles} ref={containerRef}>
             <Tree
                 data={data}
-                onNodeClick={(e) => { clickLot(e.data.name) }}
+                // onNodeClick={(e) => { clickLot(e.data.name) }}
                 enableLegacyTransitions
                 translate={translate}
                 // onNodeMouseOver={(e) => { console.log(e) }}
-                pathFunc='elbow'
+                // pathFunc='elbow'
                 nodeSize={{ x: 200, y: 200 }}
                 collapsible
                 centeringTransitionDuration={800}
+                rootNodeClassName="node__root"
+                branchNodeClassName="node__branch"
+                leafNodeClassName="node__leaf"
             />
             <DetailTracking
                 openDetail={openDetail}

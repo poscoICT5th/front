@@ -1,10 +1,12 @@
 import React, { Fragment, useRef, useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import CreateInventory from "../Create/CreateInventory";
+import { handleInventoryReload } from '../../store'
 
 function InventoryMix(props) {
+  let dispatch = useDispatch();
   let inventoryURL = useSelector((state) => state.inventoryURL);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -76,11 +78,15 @@ function InventoryMix(props) {
       .post("/produce", data)
       .then((res) => {
         props.setAlertMessage("제품이 가공을 성공했습니다.");
+        dispatch(handleInventoryReload(true));
+        dispatch(handleInventoryReload(false));
         props.setAlertSucOpen(true);
         setModalOpen(false);
       })
       .catch((err) => {
         props.setAlertMessage("가공을 실패했습니다.");
+        dispatch(handleInventoryReload(true));
+        dispatch(handleInventoryReload(false));
         props.setAlertFailedOpen(true);
       });
   }
