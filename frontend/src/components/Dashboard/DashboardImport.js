@@ -113,9 +113,9 @@ function DashboardImport(props) {
           : <Table
             columns={columns}
             dataSource={props.clickTable === "import" ? logisticsImportTodayAll : logisticsImportTodaySuc}
-            pagination={false}
+            pagination={{ pageSize: 5 }}
             size="small"
-            scroll={{ y: 220, x: 1200 }}
+            scroll={{ x: 1200 }}
           />
       }
 

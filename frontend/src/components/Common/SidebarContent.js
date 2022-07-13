@@ -19,7 +19,7 @@ function SidebarContent(props) {
   // navigate
   let navigate = useNavigate();
   function navigatePage(component) {
-    navigate(`/${component}`);
+    navigate(`/${component}`, { state: {} });
   }
   const [openCreate1, setOpenCreate1] = useState(false);
   const [openCreate2, setOpenCreate2] = useState(false);
@@ -196,6 +196,31 @@ function SidebarContent(props) {
       componentMenu: [],
     },
   ];
+
+  const menuLanguage = {
+    "대시보드": { ko: "대시보드", en: "Dashboard", cn: "主板", jp: "ダッシュボード", vn: "Bảng điều khiển" },
+    "입고관리": { ko: "입고관리", en: "Receiving management", cn: "入库管理", jp: "入庫管理", vn: "quản lý nhập kho" },
+    "입고조회": { ko: "입고조회", en: "Receiving check", cn: "入库查询", jp: "入庫照会", vn: "kiểm tra hàng hóa nhập khẩu" },
+    "입고등록": { ko: "입고등록", en: "Receiving registration", cn: "入库登记", jp: "入庫登録", vn: "đăng ký nhận hàng" },
+    "출고관리": { ko: "출고관리", en: "Forwarding management", cn: "出库管理", jp: "出庫管理", vn: "quản lý xuất kho" },
+    "출고조회": { ko: "출고조회", en: "Forwarding check", cn: "出库查询", jp: "出庫照会", vn: "kiểm tra xuất kho" },
+    "출고등록": { ko: "출고등록", en: "Forwarding registration", cn: "出库登记", jp: "出庫登録", vn: "đăng ký xuất kho" },
+    "창고이동관리": { ko: "창고이동관리", en: "Warehouse movement management", cn: "仓储转移管理", jp: "倉庫移動管理", vn: "Quản lý di chuyển nhà kho" },
+    "창고이동조회": { ko: "창고이동조회", en: "Warehouse movement check", cn: "仓库移动查询", jp: "倉庫移動照会", vn: "kiểm tra việc di chuyển kho hàng" },
+    "창고이동등록": { ko: "창고이동등록", en: "Warehouse movement registration", cn: "仓库转移登记", jp: "倉庫移動登録", vn: "đăng ký di chuyển nhà kho" },
+    "창고관리": { ko: "창고관리", en: "Warehouse management", cn: "仓库管理", jp: "倉庫管理", vn: "quản lý kho" },
+    "창고조회": { ko: "창고조회", en: "Warehouse check", cn: "仓库查询", jp: "倉庫照会", vn: "kiểm tra kho" },
+    "창고MAP": { ko: "창고MAP", en: "Warehouse map", cn: "仓库地图", jp: "倉庫地図", vn: "bản đồ kho" },
+    "창고등록": { ko: "창고등록", en: "Warehouse registration", cn: "仓库登记", jp: "倉庫登録", vn: "đăng ký nhà kho" },
+    "재고관리": { ko: "재고관리", en: "Inventory management", cn: "库存管理", jp: "在庫管理", vn: "quản lý tồn kho" },
+    "재고조회": { ko: "재고조회", en: "Inventory check", cn: "盘存", jp: "在庫照会", vn: "kiểm tra hàng tồn kho" },
+    "재고Trend": { ko: "재고Trend", en: "Inventory trend", cn: "库存趋势", jp: "在庫の趨勢", vn: "xu hướng tồn kho" },
+    "재고역추적": { ko: "재고역추적", en: "Backtracking inventory", cn: "库存逆追踪", jp: "在庫逆追跡", vn: "theo dõi ngược hàng tồn kho" },
+    "마이페이지": { ko: "마이페이지", en: "My Page", cn: "我的页面", jp: "マイページ", vn: "Mai Trang" },
+    "계정생성": { ko: "계정생성", en: "Create an account creation", cn: "创建账户", jp: "アカウント作成", vn: "tạo tài khoản" },
+    "게시판": { ko: "게시판", en: "Bulletin Board", cn: "公告栏", jp: "掲示板", vn: "bảng thông báo" },
+
+  }
   return (
     <div>
       <div className="">
@@ -229,7 +254,7 @@ function SidebarContent(props) {
                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                   />
                 </svg>
-                <span className="ml-3 text-sm font-medium"> Dashboard </span>
+                <span className="ml-3 text-sm font-medium"> {menuLanguage["대시보드"][sessionStorage.getItem("language")]} </span>
               </div>
               <div
                 className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
@@ -258,7 +283,7 @@ function SidebarContent(props) {
                     d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
                   />
                 </svg>
-                <span className="ml-3 text-sm font-medium"> 마이페이지 </span>
+                <span className="ml-3 text-sm font-medium"> {menuLanguage["마이페이지"][sessionStorage.getItem("language")]} </span>
               </div>
               {createUser ? (
                 <div
@@ -288,10 +313,38 @@ function SidebarContent(props) {
                       d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <span className="ml-3 text-sm font-medium"> 계정생성 </span>
+                  <span className="ml-3 text-sm font-medium"> {menuLanguage["계정생성"][sessionStorage.getItem("language")]} </span>
                 </div>
               ) : null}
-
+              <div
+                className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
+                style={
+                  menu === 111
+                    ? { backgroundColor: "gray", color: "white" }
+                    : null
+                }
+                onClick={() => {
+                  navigatePage("Board");
+                  setMenu(111);
+                  props.setSidebarOpen(false);
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                  />
+                </svg>
+                <span className="ml-3 text-sm font-medium"> {menuLanguage["게시판"][sessionStorage.getItem("language")]} </span>
+              </div>
               {/*  */}
               {sidebarDatas.map((sidebarData) => {
                 return (
@@ -313,7 +366,7 @@ function SidebarContent(props) {
                       </svg>
                       <span className="ml-3 text-sm font-medium">
                         {" "}
-                        {sidebarData.menu}{" "}
+                        {menuLanguage[sidebarData.menu][sessionStorage.getItem("language")]}
                       </span>
                       <span className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180">
                         <svg
@@ -363,7 +416,7 @@ function SidebarContent(props) {
                             </svg>
                             <span className="ml-3 text-sm font-medium">
                               {" "}
-                              {submenuData.submenu}{" "}
+                              {menuLanguage[submenuData.submenu][sessionStorage.getItem("language")]}
                             </span>
                           </div>
                         );
@@ -393,7 +446,7 @@ function SidebarContent(props) {
                               </svg>
                               <span className="ml-3 text-sm font-medium">
                                 {" "}
-                                {componentData.title}{" "}
+                                {menuLanguage[componentData.title][sessionStorage.getItem("language")]}
                               </span>
                               {componentData.component}
                             </button>

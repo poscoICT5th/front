@@ -26,6 +26,7 @@ function TreeGraph(props) {
         axios.get(`/lotno/${props.lot_no}`)
             // axios.get(`/lotno/testlot123123`)
             .then((res) => {
+                console.log(props.lot_no)
                 setData(getLotData(res.data));
             })
             .catch((err) => { console.log(err) })

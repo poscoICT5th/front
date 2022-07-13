@@ -149,9 +149,7 @@ function TableList(props) {
   }, [store_language]);
 
   // rows 넣기
-  console.log(props.dataList)
   props.dataList.forEach((element) => {
-    console.log(element)
     if (props.part === "import") {
       if (element.done_date) {
         data.push({
@@ -161,9 +159,10 @@ function TableList(props) {
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           order_date: element.order_date.slice(0, 10),
           done_date: element.done_date.slice(0, 10),
-          width:element.width.toFixed(2),
-          height:element.height.toFixed(2),
-          thickness:element.thickness.toFixed(2),
+          width: element.width.toFixed(2),
+          weight: element.weight.toFixed(2),
+          height: element.height.toFixed(2),
+          thickness: element.thickness.toFixed(2),
         });
       } else {
         data.push({
@@ -172,9 +171,10 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           order_date: element.order_date.slice(0, 10),
-          width:element.width.toFixed(2),
-          height:element.height.toFixed(2),
-          thickness:element.thickness.toFixed(2),
+          width: element.width.toFixed(2),
+          weight: element.weight.toFixed(2),
+          height: element.height.toFixed(2),
+          thickness: element.thickness.toFixed(2),
         });
 
       }
@@ -187,9 +187,10 @@ function TableList(props) {
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           order_date: element.order_date.slice(0, 10),
           done_date: element.done_date.slice(0, 10),
-          width:element.width.toFixed(2),
-          height:element.height.toFixed(2),
-          thickness:element.thickness.toFixed(2),
+          width: element.width.toFixed(2),
+          weight: element.weight.toFixed(2),
+          height: element.height.toFixed(2),
+          thickness: element.thickness.toFixed(2),
         });
       } else {
         data.push({
@@ -198,9 +199,10 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           order_date: element.order_date.slice(0, 10),
-          width:element.width.toFixed(2),
-          height:element.height.toFixed(2),
-          thickness:element.thickness.toFixed(2),
+          width: element.width.toFixed(2),
+          weight: element.weight.toFixed(2),
+          height: element.height.toFixed(2),
+          thickness: element.thickness.toFixed(2),
         });
 
       }
@@ -212,9 +214,10 @@ function TableList(props) {
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
           done_date: element.done_date.slice(0, 10),
-          width:element.width.toFixed(2),
-          height:element.height.toFixed(2),
-          thickness:element.thickness.toFixed(2),
+          width: element.width.toFixed(2),
+          weight: element.weight.toFixed(2),
+          height: element.height.toFixed(2),
+          thickness: element.thickness.toFixed(2),
         });
       } else {
         data.push({
@@ -222,9 +225,10 @@ function TableList(props) {
           ...element,
           inst_deadline: element.inst_deadline.slice(0, 10),
           inst_reg_date: element.inst_reg_date.slice(0, 10),
-          width:element.width.toFixed(2),
-          height:element.height.toFixed(2),
-          thickness:element.thickness.toFixed(2),
+          width: element.width.toFixed(2),
+          weight: element.weight.toFixed(2),
+          height: element.height.toFixed(2),
+          thickness: element.thickness.toFixed(2),
         });
       }
     } else if (props.part === "inventory") {
@@ -234,6 +238,10 @@ function TableList(props) {
         ...element,
         inventory_date: element.inventory_date.slice(0, 10),
         warehouse_date: element.warehouse_date.slice(0, 10),
+        width: element.width.toFixed(2),
+        weight: element.weight.toFixed(2),
+        height: element.height.toFixed(2),
+        thickness: element.thickness.toFixed(2),
       });
     } else if (props.part === "warehouse") {
       data.push({ key: element.warehouse_code, ...element });
@@ -260,16 +268,28 @@ function TableList(props) {
   function checkDeletePos() {
     let check = true;
     selectedRows.map((element) => {
-      console.log(element);
-      if (
-        element.done_date !== null ||
-        element.status.includes("중")
-        // element.state.includes("완료") ||
-        // element.state.includes("중") ||
-        // element.state === null
-      ) {
-        check = false;
-        return check;
+      if (props.title === 'logistics') {
+        if (
+          element.done_date !== null ||
+          element.status.includes("중") ||
+          element.status.includes("취소")
+        ) {
+          check = false;
+          return check;
+        }
+      } else if (props.title === "warehouse") {
+        // element
+      } else if (props.title === "inventory") {
+        if (
+          element.state.includes("중") ||
+          element.state === null
+        ) {
+          check = false;
+          return check
+        }
+
+
+
       }
     });
     return check;
@@ -493,7 +513,12 @@ function TableList(props) {
         pagination={{ pageSize: 30 }}
         size="small"
         scroll={{
-          x: 2500,
+          x: props.part === "import" ? 2500
+            : (props.part === "export" ? 2300
+              : props.part === "move" ? 2000
+                : props.part === "warehouse" ? null
+                  : props.part === "inventory" ? 2300
+                    : null),
           // y: 1500,
         }}
       />

@@ -3,7 +3,6 @@ import { Dialog, Transition } from "@headlessui/react";
 function DetailTracking(props) {
   const cancelButtonRef = useRef(null);
 
-  console.log(props.detailData)
   return (
     <Transition.Root show={props.openDetail} as={Fragment}>
       <Dialog

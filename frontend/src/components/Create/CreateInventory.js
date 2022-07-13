@@ -99,6 +99,16 @@ function CreateInventory(props) {
       vn: "khu vực",
     },
     {
+      name: "warehouse_code",
+      selectOption: warehouse_codes,
+      grid: 1,
+      purpose: "search",
+      ko: "창고코드",
+      cn: "仓库代码",
+      jp: "倉庫コード",
+      vn: "mãkho",
+    },
+    {
       name: "unit",
       selectOption: unit,
       grid: 1,
@@ -108,19 +118,18 @@ function CreateInventory(props) {
       jp: "単位",
       vn: "đơn vị",
     },
-    {
-      name: "warehouse_code",
-      selectOption: warehouse_codes,
-      grid: 1,
-      purpose: "search",
-      ko: "창고코드",
-      cn: "仓库代码",
-      jp: "倉庫コード",
-      vn: "mãkho",
-    }
   ];
   const inventory_inputDatas = [
-    { name: "amount", type: "number", purpose: "create", "ko": "주문량", "cn": "订货量", "jp": "注文量", "vn": "lượng đặt hàng", },
+    {
+      name: "customer",
+      type: "text",
+      purpose: "create",
+      ko: "고객사",
+      cn: "客户公司",
+      jp: "顧客会社",
+      vn: "công ty khách hàng",
+    },
+    { name: "amount", type: "number", purpose: "create", "ko": "생산량", "cn": "订货量", "jp": "注文量", "vn": "lượng đặt hàng", },
     {
       name: "item_name",
       type: "text",
@@ -129,6 +138,15 @@ function CreateInventory(props) {
       cn: "产品名称",
       jp: "製品名",
       vn: "Tênsảnphẩmlà",
+    },
+    {
+      name: "item_code",
+      type: "text",
+      purpose: "fixed",
+      ko: "제품코드",
+      cn: "产品代码",
+      jp: "製品コード",
+      vn: "mã sản phẩm",
     },
     {
       name: "width",
@@ -158,15 +176,6 @@ function CreateInventory(props) {
       vn: "chiều cao",
     },
     {
-      name: "customer",
-      type: "text",
-      purpose: "create",
-      ko: "고객사",
-      cn: "客户公司",
-      jp: "顧客会社",
-      vn: "công ty khách hàng",
-    },
-    {
       name: "weight",
       type: "number",
       purpose: "create",
@@ -175,15 +184,7 @@ function CreateInventory(props) {
       jp: "重さ",
       vn: "trọng lượng",
     },
-    {
-      name: "item_code",
-      type: "text",
-      purpose: "fixed",
-      ko: "제품코드",
-      cn: "产品代码",
-      jp: "製品コード",
-      vn: "mã sản phẩm",
-    },
+
   ];
 
   // function

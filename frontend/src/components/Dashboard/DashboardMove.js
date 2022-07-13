@@ -106,10 +106,10 @@ function DashboardMove(props) {
           ? <div className='text-3xl font-bold mt-28 text-gray-600'>금일 일정이 없습니다.</div>
           : <Table
             columns={columns}
-            dataSource={props.clickTable === "export" ? logisticsMoveTodayAll : logisticsMoveTodaySuc}
-            pagination={false}
+            dataSource={props.clickTable === "move" ? logisticsMoveTodayAll : logisticsMoveTodaySuc}
+            pagination={{ pageSize: 5 }}
             size="small"
-            scroll={{ y: 220, x: 1200 }}
+            scroll={{ x: 1200 }}
           />
       }
     </div>

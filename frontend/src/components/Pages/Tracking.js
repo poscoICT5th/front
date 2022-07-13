@@ -12,7 +12,6 @@ function Tracking() {
     let inventoryURL = useSelector((state) => state.inventoryURL)
     const { Search } = Input;
     const { state } = useLocation();
-    console.log(state.lot_no)
     const [warehouse_codes, setWarehouse_codes] = useState([])
     const [lot_nos, setLot_nos] = useState([])
     const [traceBack_datas, setTraceBack_datas] = useState({
@@ -60,8 +59,10 @@ function Tracking() {
     }, [traceBack_datas.warehouse_code])
 
     useEffect(() => {
-        setTraceBack_datas({ ...traceBack_datas, lot_no: state.lot_no })
-    }, [state.lot_no])
+        if (state.lot_no) {
+            setTraceBack_datas({ ...traceBack_datas, lot_no: state.lot_no })
+        }
+    }, [state])
 
 
     function onSearch(value) {

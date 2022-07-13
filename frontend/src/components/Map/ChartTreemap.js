@@ -100,11 +100,11 @@ function Echarts1(props) {
       param1.seriesName == "광양"
         ? "G"
         : param1.seriesName == "포항"
-        ? "P"
-        : "C";
+          ? "P"
+          : "C";
     const [deX, deY] = [pointdeX[x], pointdeY[y]];
     const selectedWarehouse = locationCode + deX + deY;
-  //  console.log("클릭하신 창고코드는 ", selectedWarehouse);
+    //  console.log("클릭하신 창고코드는 ", selectedWarehouse);
     // 여기부터 코드 작성하면됨 ㅇㅇ
     props.getInvenByWare(selectedWarehouse);
   };
@@ -184,20 +184,32 @@ function Echarts1(props) {
       },
       left: "0%",
       bottom: "0%",
+      visualLabel: {
+        color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
+      },
     },
     xAxis3D: {
       name: " X좌표",
       type: "category",
       data: hours,
+      axisLabel: {
+        color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
+      },
     },
     yAxis3D: {
       name: " Y좌표",
       type: "category",
       data: days,
+      axisLabel: {
+        color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
+      },
     },
     zAxis3D: {
       name: " 재고량",
       type: "value",
+      axisLabel: {
+        color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
+      },
     },
     grid3D: {
       boxWidth: 200,
@@ -230,11 +242,10 @@ function Echarts1(props) {
         emphasis: {
           label: {
             fontSize: 20,
-            color: "#900",
+            color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#FFFFFF",
           },
           itemStyle: {
             color: "#900",
-            //  shadowBlur: 100,
           },
         },
       },

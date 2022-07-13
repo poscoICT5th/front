@@ -1,3 +1,4 @@
+import { Select } from 'antd'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -29,9 +30,11 @@ function CreateAccount() {
 
     function createUser() {
         axios.defaults.baseURL = userURL
-        axios.post('/create', userData)
+        console.log(userData)
+        axios.post('/signUp', userData)
             .then((res) => { console.log(res) })
     }
+    const { Option } = Select;
     return (
         <div data-aos="fade-up">
             <div className="mt-10 w-1/2 mx-auto">
@@ -56,6 +59,7 @@ function CreateAccount() {
                                             id="id"
                                             autoComplete="email"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            onChange={(e) => { setUserData({ ...userData, id: e.target.value }) }}
                                         />
                                     </div>
 
@@ -69,6 +73,7 @@ function CreateAccount() {
                                             id="password"
                                             autoComplete="family-name"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            onChange={(e) => { setUserData({ ...userData, pw: e.target.value }) }}
                                         />
                                     </div>
 
@@ -82,6 +87,8 @@ function CreateAccount() {
                                             id="name"
                                             autoComplete="given-name"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            onChange={(e) => { setUserData({ ...userData, name: e.target.value }) }}
+
                                         />
                                     </div>
 
@@ -106,18 +113,42 @@ function CreateAccount() {
                                         <label className="block text-sm font-medium">
                                             담당창고
                                         </label>
-                                        <select
+                                        {/* <select
                                             id="team"
                                             name="team"
                                             autoComplete="team"
                                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white dark:bg-neutral-800 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                                            onChange={(e) => { setUserData({ ...userData, team: e.target.value }) }}
+                                        >
+                                            <option value="">담당창고를 선택해주세요</option>
+                                            {
+                                                warehouse_codes.map(warehouse => {
+                                                    return <Option key={warehouse.warehouse_code}>{warehouse.warehouse_code}</Option>
+                                                    // return <option value={warehouse.warehouse_code}>{warehouse.warehouse_code}</option>
+                                                })
+                                            }
+                                        </select> */}
+                                        <Select
+                                            showSearch
+                                            allowClear
+                                            mode="multiple"
+                                            style={{
+                                                width: "100%",
+                                            }}
+                                            placeholder="창고를 선택해주세요"
+                                            defaultValue={[]}
+                                            onChange={(e) => {
+                                                console.log(e);
+                                                setUserData({ ...userData, team: e.join(',') })
+                                            }}
                                         >
                                             {
                                                 warehouse_codes.map(warehouse => {
-                                                    return <option value={warehouse.warehouse_code}>{warehouse.warehouse_code}</option>
+                                                    return <Option key={warehouse.warehouse_code}>{warehouse.warehouse_code}</Option>
+                                                    // return <option value={warehouse.warehouse_code}>{warehouse.warehouse_code}</option>
                                                 })
                                             }
-                                        </select>
+                                        </Select>
                                     </div>
 
                                     <div className="col-span-6">
@@ -129,10 +160,11 @@ function CreateAccount() {
                                             name="auth"
                                             autoComplete="auth"
                                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white dark:bg-neutral-800 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                                            onChange={(e) => { setUserData({ ...userData, auth: e.target.value }) }}
                                         >
-                                            <option>관리</option>
-                                            <option>사원</option>
-                                            <option>현장</option>
+                                            <option value={1}>관리</option>
+                                            <option value={2}>사원</option>
+                                            <option value={3}>현장</option>
                                         </select>
                                     </div>
 
@@ -146,6 +178,7 @@ function CreateAccount() {
                                             id="email"
                                             autoComplete="given-name"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            onChange={(e) => { setUserData({ ...userData, email: e.target.value }) }}
                                         />
                                     </div>
 
@@ -159,6 +192,7 @@ function CreateAccount() {
                                             id="phone"
                                             autoComplete="given-name"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                            onChange={(e) => { setUserData({ ...userData, phone: e.target.value }) }}
                                         />
                                     </div>
                                 </div>

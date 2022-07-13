@@ -128,7 +128,7 @@ function LogisticsExport(props) {
             alertSucOpen={props.alertSucOpen}
             alertFailedOpen={props.alertFailedOpen}
             setAlertSucOpen={props.setAlertSucOpen}
-            setAlertSFailedOpen={props.setAlertSFailedOpen}
+            setAlertFailedOpen={props.setAlertFailedOpen}
             setAlertMessage={props.setAlertMessage}
             clickButton={clickButton}
           />
