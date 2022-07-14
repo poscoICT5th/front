@@ -30,7 +30,7 @@ function DashboardAmountChart(props) {
             text: "",
         },
         credits: {
-            enabled: true
+            enabled: false
         },
         plotOptions: {
             series: {

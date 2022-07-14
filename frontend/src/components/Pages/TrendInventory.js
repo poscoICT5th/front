@@ -40,6 +40,10 @@ function TrendInventory() {
   const [inven_strip_2021, setInven_strip_2021] = useState(0);
   const [inven_strip_2020, setInven_strip_2020] = useState(0);
 
+  const [months, setMonths] = useState(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
+  const [exportDatas, setExportDatas] = useState({
+    
+  })
   //setCnt(currentValue.export_motor.length)
   //axios
   useEffect(() => {
@@ -129,21 +133,22 @@ function TrendInventory() {
       }, 0);
     });
   }, []);
-  const data = [];
-  for (let i = 0; i < 3; i++) {
-    data.push({
-      lotNumber: "346465653" + i * 100,
-      place: "포항 공장" + i,
-      name: "STRIP_KS-SCP1S_83mm_1t",
-      cnt: i + 10,
-      process: "ST50",
-      PIC: "홍길동" + i,
-    });
-  }
   return (
     <div data-aos="fade-up" className="w-2/3 mx-auto">
       <div className="">
-        <div className="font-bold text-2xl text-center ">Inventory Trend</div>
+        <div className="font-bold text-2xl text-center mb-5">Inventory Trend</div>
+        <div className="grid grid-cols-12 gap-2">
+          {
+            months.map((value) => {
+              return <button
+                className="py-2 font-bold text-sm rounded-lg text-gray-700 hover:text-white bg-sky-100 hover:bg-sky-700"
+                onClick={() => { }}
+              >
+                {value}
+              </button>
+            })
+          }
+        </div>
         {/* table */}
         <div className="flex flex-col mx-1 mt-5 text-center max-h-72">
           <div className="-my-2 overflow-x-auto">
@@ -282,6 +287,7 @@ function TrendInventory() {
           </div>
         </div>
       </div>
+
       <div className="px-6 py-3 text-xs font-medium uppercase tracking-wider text-right">
         ※ 재고회전율 = 출고량 / 평균재고량 * 100 %
       </div>

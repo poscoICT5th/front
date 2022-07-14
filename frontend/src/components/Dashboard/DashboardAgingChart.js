@@ -29,7 +29,7 @@ function DashboardAgingChart(props) {
             text: "",
         },
         credits: {
-            enabled: true
+            enabled: false
         },
         plotOptions: {
             series: {

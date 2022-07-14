@@ -3,15 +3,16 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import AlertVerify from '../Common/AlertVerify';
-import './Board.css'
+import './Hotline.css'
 import { useNavigate } from 'react-router-dom';
-import { handleBoardReload } from '../../store'
-function Board(props) {
-    let boardURL = useSelector((state) => state.boardURL);
+import { handleHotlineReload } from '../../store'
+function Hotline(props) {
+    let hotlineURL = useSelector((state) => state.hotlineURL);
+    let hotlineReload = useSelector((state) => state.hotlineReload);
     let store_language = useSelector((state) => state.language);
     let navigate = useNavigate();
     let dispatch = useDispatch();
-    const [boardList, setBoardList] = useState([])
+    const [hotlineList, setHotlineList] = useState([])
     const [data, setData] = useState([])
     const th = {
         status: { ko: "상태", en: "status", cn: "身份", jp: "地位", vn: "địa vị" },
@@ -204,15 +205,13 @@ function Board(props) {
         ];
     }, [store_language])
 
-
     useEffect(() => {
         setData([])
-        axios.defaults.baseURL = boardURL
+        axios.defaults.baseURL = hotlineURL
         axios.get('/')
             .then((res) => {
-                setBoardList(res.data)
+                setHotlineList(res.data)
                 res.data.forEach(element => {
-                    console.log(element)
                     if (element.confirm_date === null) {
                         setData(data => [...data, {
                             key: element.hotline_id,
@@ -224,21 +223,21 @@ function Board(props) {
                             key: element.hotline_id,
                             ...element,
                             reg_date: element.reg_date.slice(0, 10),
-                            confirm_date: element.confirm_date.slice(0, 10),
+                            confirm_date: element.confirm_date.slice(0, 16),
                         }])
 
                     }
                 });
             })
-    }, [])
+    }, [hotlineReload])
 
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([])
+    const [sendDatas, setSendDatas] = useState([])
     const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
 
     const onSelectChange = (newSelectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
     };
 
@@ -257,7 +256,7 @@ function Board(props) {
         let check = true;
         selectedRows.map((element) => {
             if (
-                element.status === null
+                element.status !== null
             ) {
                 check = false;
                 return check;
@@ -265,13 +264,13 @@ function Board(props) {
         });
         return check;
     }
-    function tableReload(params) {
-        dispatch(handleBoardReload(true))
-        dispatch(handleBoardReload(false))
+    function tableReload() {
+        dispatch(handleHotlineReload(true))
+        dispatch(handleHotlineReload(false))
     }
-    // 반려
-    function reject(params) {
-        axios.defaults.baseURL = boardURL
+
+    function rejectApprove() {
+        axios.defaults.baseURL = hotlineURL
         if (selectedRowKeys.length === 0) {
             props.setAlertFailedOpen(true);
             props.setAlertMessage(
@@ -281,12 +280,12 @@ function Board(props) {
         }
         if (selectedRowKeys.length > 0 && checkList()) {
             axios.put('/confirms', {
-                hotlineIDList: selectedRowKeys,
-                status: "반려"
+                hotlineInfoList: selectedRows,
+                status: whichFunc
             })
                 .then((e) => {
                     props.setAlertSucOpen(true);
-                    props.setAlertMessage("선택한 항목들이 반려처리 되었습니다.");
+                    props.setAlertMessage(`선택한 항목들이 ${whichFunc}처리 되었습니다.`);
                     setAlertVerifyOpen(false);
                     tableReload();
                 })
@@ -301,54 +300,16 @@ function Board(props) {
         } else {
             props.setAlertFailedOpen(true);
             props.setAlertMessage(
-                "등록에 실패하였습니다, 다시 시도해주세요."
+                "처리가 된 항목이 포함되어 있습니다. 다시 한번 확인해주세요."
             );
             setAlertVerifyOpen(false);
             tableReload();
         }
 
     }
-    // 승인
-    function approve(params) {
-        axios.defaults.baseURL = boardURL
-        if (selectedRowKeys.length === 0) {
-            props.setAlertFailedOpen(true);
-            props.setAlertMessage(
-                "항목을 선택해주세요"
-            );
-            return;
-        }
-        if (selectedRowKeys.length > 0 && checkList()) {
-            axios.put('/confirms', {
-                hotlineIDList: selectedRowKeys,
-                status: "승인"
-            })
-                .then((res) => {
-                    props.setAlertSucOpen(true);
-                    props.setAlertMessage("선택한 항목들이 승인처리 되었습니다.");
-                    setAlertVerifyOpen(false);
-                    tableReload();
-                })
-                .catch((err) => {
-                    props.setAlertFailedOpen(true);
-                    props.setAlertMessage(
-                        "등록에 실패하였습니다, 다시 시도해주세요."
-                    );
-                    setAlertVerifyOpen(false);
-                    tableReload();
-                })
-        } else {
-            props.setAlertFailedOpen(true);
-            props.setAlertMessage(
-                "요청처리에 실패하였습니다, 다시 시도해주세요."
-            );
-            setAlertVerifyOpen(false);
-            tableReload();
-        }
-    }
     // 삭제
-    function deleteContent(params) {
-        axios.defaults.baseURL = boardURL
+    function deleteContent() {
+        axios.defaults.baseURL = hotlineURL
         if (selectedRowKeys.length === 0) {
             props.setAlertFailedOpen(true);
             props.setAlertMessage(
@@ -360,7 +321,7 @@ function Board(props) {
             axios.delete('/',
                 {
                     data: {
-                        hotlineIDList: selectedRowKeys,
+                        hotlineInfoList: selectedRows,
                     }
                 })
                 .then((res) => {
@@ -372,7 +333,7 @@ function Board(props) {
                 .catch((err) => {
                     props.setAlertFailedOpen(true);
                     props.setAlertMessage(
-                        "등록에 실패하였습니다, 다시 시도해주세요."
+                        "삭제처리에 실패하였습니다, 다시 시도해주세요."
                     );
                     setAlertVerifyOpen(false);
                     tableReload();
@@ -380,17 +341,18 @@ function Board(props) {
         } else {
             props.setAlertFailedOpen(true);
             props.setAlertMessage(
-                "등록에 실패하였습니다, 다시 시도해주세요."
+                "삭제처리에 실패하였습니다, 다시 시도해주세요."
             );
             setAlertVerifyOpen(false);
             tableReload();
         }
     }
+
     return (
         <div>
             <header className="">
-                <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <h1 className="text-3xl font-bold">Board</h1>
+                <div className="mx-auto py-2 px-5">
+                    <h1 className="text-4xl font-bold">Hotline</h1>
                 </div>
             </header>
             <div className="my-5 text-right">
@@ -402,13 +364,13 @@ function Board(props) {
                 </button>
                 <button
                     className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
-                    onClick={() => { setAlertVerifyOpen(true); setWhichFunc("reject") }}
+                    onClick={() => { setAlertVerifyOpen(true); setWhichFunc("반려") }}
                 >
                     반려
                 </button>
                 <button
                     className="w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lime-500 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
-                    onClick={() => { setAlertVerifyOpen(true); setWhichFunc("approve") }}
+                    onClick={() => { setAlertVerifyOpen(true); setWhichFunc("승인") }}
                 >
                     승인
                 </button>
@@ -425,8 +387,7 @@ function Board(props) {
                         onRow={(record, rowIndex, data) => {
                             return {
                                 onClick: (event) => {
-                                    console.log(record)
-                                    navigate(`/BoardDetail/${record.hotline_id}`, { state: record })
+                                    navigate(`/HotlineDetail/${record.hotline_id}`, { state: record })
                                 }, // click row
                                 onDoubleClick: (event) => {
                                 }, // double click row
@@ -443,10 +404,10 @@ function Board(props) {
             <AlertVerify
                 open={alertVerifyOpen}
                 setOpen={setAlertVerifyOpen}
-                func={whichFunc === "reject" ? reject : (whichFunc === "approve" ? approve : deleteContent)}
+                func={whichFunc === "delete" ? deleteContent : rejectApprove}
             />
         </div>
     )
 }
 
-export default Board
+export default Hotline

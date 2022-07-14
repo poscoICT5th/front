@@ -218,7 +218,7 @@ function SidebarContent(props) {
     "재고역추적": { ko: "재고역추적", en: "Backtracking inventory", cn: "库存逆追踪", jp: "在庫逆追跡", vn: "theo dõi ngược hàng tồn kho" },
     "마이페이지": { ko: "마이페이지", en: "My Page", cn: "我的页面", jp: "マイページ", vn: "Mai Trang" },
     "계정생성": { ko: "계정생성", en: "Create an account creation", cn: "创建账户", jp: "アカウント作成", vn: "tạo tài khoản" },
-    "게시판": { ko: "게시판", en: "Bulletin Board", cn: "公告栏", jp: "掲示板", vn: "bảng thông báo" },
+    "핫라인": { ko: "핫라인", en: "HotLine", cn: "热线", jp: "ホットライン", vn: "đường dây nóng" },
 
   }
   return (
@@ -324,26 +324,15 @@ function SidebarContent(props) {
                     : null
                 }
                 onClick={() => {
-                  navigatePage("Board");
+                  navigatePage("Hotline");
                   setMenu(111);
                   props.setSidebarOpen(false);
                 }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
                 </svg>
-                <span className="ml-3 text-sm font-medium"> {menuLanguage["게시판"][sessionStorage.getItem("language")]} </span>
+                <span className="ml-3 text-sm font-medium"> {menuLanguage["핫라인"][sessionStorage.getItem("language")]} </span>
               </div>
               {/*  */}
               {sidebarDatas.map((sidebarData) => {

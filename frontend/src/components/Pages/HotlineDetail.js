@@ -1,81 +1,59 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom'
 import AlertVerify from '../Common/AlertVerify';
-import { handleBoardReload } from '../../store'
+import { handleHotlineReload } from '../../store'
 
-function BoardDetail(props) {
+function HotlineDetail(props) {
     const { state } = useLocation();
     let navigate = useNavigate();
-    let boardURL = useSelector((state) => state.boardURL);
+    let hotlineURL = useSelector((state) => state.hotlineURL);
     let store_language = useSelector((state) => state.language);
+    let hotlineReload = useSelector((state) => state.hotlineReload);
     let dispatch = useDispatch();
-
+    const [showButtons, setShowButtons] = useState(true)
     const [alertVerifyOpen, setAlertVerifyOpen] = useState(false)
     const [whichFunc, setWhichFunc] = useState("")
-    function tableReload(params) {
-        dispatch(handleBoardReload(true))
-        dispatch(handleBoardReload(false))
+
+
+    function reloadHotlineDetail() {
+        axios.defaults.baseURL = hotlineURL
+        axios.get(`/id/${state.hotline_id}`)
+            .then((res) => {
+                if (res.data.status !== null) {
+                    setShowButtons(false)
+                } else {
+                    setShowButtons(true)
+                }
+            })
+            .catch((err) => { console.log(err) })
     }
-    function checkStatus(params) {
-        if (state.status === "승인" || state.status === "반려") {
-            return false
-        } else {
-            return true
-        }
+    useEffect(() => {
+        reloadHotlineDetail()
+    }, [hotlineReload])
+
+    useEffect(() => {
+        reloadHotlineDetail()
+    }, [])
+    function tableReload() {
+        dispatch(handleHotlineReload(true))
+        dispatch(handleHotlineReload(false))
     }
-    function reject(params) {
-        axios.defaults.baseURL = boardURL
-        if (checkStatus) {
-            props.setAlertFailedOpen(true);
-            props.setAlertMessage(
-                "이미 처리가 완료되었습니다."
-            );
-            setAlertVerifyOpen(false);
-            return
-        }
+    function rejectApprove() {
+        axios.defaults.baseURL = hotlineURL
         axios.put('/confirms', {
-            hotlineIDList: [state.hotline_id],
-            status: "반려"
+            hotlineInfoList: [{ writer_id: state.writer_id, hotline_id: state.hotline_id }],
+            status: whichFunc
         })
             .then((e) => {
                 props.setAlertSucOpen(true);
-                props.setAlertMessage("선택한 항목들이 반려처리 되었습니다.");
+                props.setAlertMessage(`선택한 게시글이 ${whichFunc}처리 되었습니다.`);
                 setAlertVerifyOpen(false);
                 tableReload();
             })
             .catch(() => {
-                props.setAlertFailedOpen(true);
-                props.setAlertMessage(
-                    "등록에 실패하였습니다, 다시 시도해주세요."
-                );
-                setAlertVerifyOpen(false);
-                tableReload();
-            })
-    }
-    // 승인
-    function approve(params) {
-        axios.defaults.baseURL = boardURL
-        if (checkStatus) {
-            props.setAlertFailedOpen(true);
-            props.setAlertMessage(
-                "이미 처리가 완료되었습니다."
-            );
-            setAlertVerifyOpen(false);
-            return
-        }
-        axios.put('/confirms', {
-            hotlineIDList: [state.hotline_id],
-            status: "승인"
-        })
-            .then((res) => {
-                props.setAlertSucOpen(true);
-                props.setAlertMessage("선택한 항목들이 승인처리 되었습니다.");
-                setAlertVerifyOpen(false);
-                tableReload();
-            })
-            .catch((err) => {
+                console.log({ writer_id: state.writer_id, hotline_id: state.hotline_id })
                 props.setAlertFailedOpen(true);
                 props.setAlertMessage(
                     "등록에 실패하였습니다, 다시 시도해주세요."
@@ -86,15 +64,7 @@ function BoardDetail(props) {
     }
     // 삭제
     function deleteContent(params) {
-        axios.defaults.baseURL = boardURL
-        if (checkStatus) {
-            props.setAlertFailedOpen(true);
-            props.setAlertMessage(
-                "이미 처리가 완료되었습니다."
-            );
-            setAlertVerifyOpen(false);
-            return
-        }
+        axios.defaults.baseURL = hotlineURL
         axios.delete('/',
             {
                 data: {
@@ -103,7 +73,7 @@ function BoardDetail(props) {
             })
             .then((res) => {
                 props.setAlertSucOpen(true);
-                props.setAlertMessage("선택한 항목들이 삭제처리 되었습니다.");
+                props.setAlertMessage("선택한 항목이 삭제처리 되었습니다.");
                 setAlertVerifyOpen(false);
                 tableReload();
             })
@@ -144,24 +114,26 @@ function BoardDetail(props) {
                 Fill in observation ID titles. Once you know them, fill in the observation IDs. To do this, choose cell A1 in an Excel sheet and write “Product ID.” In cell A2, write “PN1.” In cell A3, write “PN2.” Then highlight those two cells and drag the arrow in the bottom right corner down 8 cells. Excel will automatically create a sequence of ten PNs. Look at this short clip to understand:
             </div>
             <div className="my-5 text-right">
-                <button
-                    className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
-                    onClick={() => { setAlertVerifyOpen(true); setWhichFunc("delete") }}
-                >
-                    삭제
-                </button>
-                <button
-                    className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
-                    onClick={() => { setAlertVerifyOpen(true); setWhichFunc("reject") }}
-                >
-                    반려
-                </button>
-                <button
-                    className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lime-500 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
-                    onClick={() => { setAlertVerifyOpen(true); setWhichFunc("approve") }}
-                >
-                    승인
-                </button>
+                {
+                    showButtons
+                        ? (<><button
+                            className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
+                            onClick={() => { setAlertVerifyOpen(true); setWhichFunc("delete"); }}
+                        >
+                            삭제
+                        </button><button
+                            className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
+                            onClick={() => { setAlertVerifyOpen(true); setWhichFunc("반려"); }}
+                        >
+                                반려
+                            </button><button
+                                className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lime-500 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
+                                onClick={() => { setAlertVerifyOpen(true); setWhichFunc("승인"); }}
+                            >
+                                승인
+                            </button></>)
+                        : null
+                }
                 <button
                     className="w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
                     onClick={() => { navigate(-1) }}
@@ -172,10 +144,10 @@ function BoardDetail(props) {
             <AlertVerify
                 open={alertVerifyOpen}
                 setOpen={setAlertVerifyOpen}
-                func={whichFunc === "reject" ? reject : (whichFunc === "approve" ? approve : deleteContent)}
+                func={whichFunc === "delete" ? deleteContent : rejectApprove}
             />
         </div>
     )
 }
 
-export default BoardDetail
+export default HotlineDetail

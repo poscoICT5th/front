@@ -1,9 +1,10 @@
-import { Select } from 'antd'
+/* eslint-disable array-callback-return */
+import { Input, Select } from 'antd'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-function CreateAccount() {
+function CreateAccount(props) {
     let warehouseURL = useSelector((state) => state.warehouseURL)
     let userURL = useSelector((state) => state.userURL)
     const [warehouse_codes, setWarehouse_codes] = useState([])
@@ -16,7 +17,7 @@ function CreateAccount() {
         email: "",
         team: "",
         auth: "",
-        menu_option: "",
+        menu_option: "1",
     })
     useEffect(() => {
         axios.defaults.baseURL = warehouseURL
@@ -28,11 +29,45 @@ function CreateAccount() {
             .catch((err) => { })
     }, [location])
 
+    function checkDatas() {
+        let check = true;
+        Object.values(userData).map((value) => {
+            if (value === "") {
+                check = false
+                return check
+            }
+        })
+        return check
+    }
     function createUser() {
-        axios.defaults.baseURL = userURL
         console.log(userData)
-        axios.post('/signUp', userData)
-            .then((res) => { console.log(res) })
+        axios.defaults.baseURL = userURL
+        if (checkDatas() === false) {
+            props.setAlertFailedOpen(true);
+            props.setAlertMessage(
+                "모든 항목을 입력해주세요"
+            );
+            return
+        } else {
+            axios.post('/signUp', userData)
+                .then((res) => {
+                    if (res.data) {
+                        props.setAlertSucOpen(true);
+                        props.setAlertMessage(`${userData.name}님의 계정이 생성되었습니다.`);
+                        setUserData({
+                            ...userData,
+                            id: "",
+                            pw: "",
+                            name: "",
+                            phone: "",
+                            email: "",
+                            team: "",
+                            auth: "",
+                            menu_option: "1",
+                        })
+                    }
+                })
+        }
     }
     const { Option } = Select;
     return (
@@ -50,10 +85,10 @@ function CreateAccount() {
                             <div className="px-4 py-5 bg-white dark:bg-neutral-800 sm:p-6">
                                 <div className="grid grid-cols-6 gap-6">
                                     <div className="col-span-6">
-                                        <label className="block text-sm font-medium">
+                                        <label className=" mb-1.5 block text-sm font-medium">
                                             아이디
                                         </label>
-                                        <input
+                                        <Input
                                             type="text"
                                             name="id"
                                             id="id"
@@ -64,10 +99,10 @@ function CreateAccount() {
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label className="block text-sm font-medium">
+                                        <label className=" mb-1.5 block text-sm font-medium">
                                             비밀번호
                                         </label>
-                                        <input
+                                        <Input
                                             type="password"
                                             name="password"
                                             id="password"
@@ -78,22 +113,21 @@ function CreateAccount() {
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label className="block text-sm font-medium">
+                                        <label className=" mb-1.5 block text-sm font-medium">
                                             이름
                                         </label>
-                                        <input
+                                        <Input
                                             type="text"
                                             name="name"
                                             id="name"
                                             autoComplete="given-name"
                                             className="mt-1 focus:ring-sky-500 focus:border-sky-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                             onChange={(e) => { setUserData({ ...userData, name: e.target.value }) }}
-
                                         />
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label className="block text-sm font-medium">
+                                        <label className=" mb-1.5 block text-sm font-medium">
                                             지역
                                         </label>
                                         <select
@@ -110,24 +144,9 @@ function CreateAccount() {
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label className="block text-sm font-medium">
+                                        <label className=" mb-1.5 block text-sm font-medium">
                                             담당창고
                                         </label>
-                                        {/* <select
-                                            id="team"
-                                            name="team"
-                                            autoComplete="team"
-                                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white dark:bg-neutral-800 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                                            onChange={(e) => { setUserData({ ...userData, team: e.target.value }) }}
-                                        >
-                                            <option value="">담당창고를 선택해주세요</option>
-                                            {
-                                                warehouse_codes.map(warehouse => {
-                                                    return <Option key={warehouse.warehouse_code}>{warehouse.warehouse_code}</Option>
-                                                    // return <option value={warehouse.warehouse_code}>{warehouse.warehouse_code}</option>
-                                                })
-                                            }
-                                        </select> */}
                                         <Select
                                             showSearch
                                             allowClear
@@ -145,14 +164,13 @@ function CreateAccount() {
                                             {
                                                 warehouse_codes.map(warehouse => {
                                                     return <Option key={warehouse.warehouse_code}>{warehouse.warehouse_code}</Option>
-                                                    // return <option value={warehouse.warehouse_code}>{warehouse.warehouse_code}</option>
                                                 })
                                             }
                                         </Select>
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label className="block text-sm font-medium">
+                                        <label className=" mb-1.5 block text-sm font-medium">
                                             직급
                                         </label>
                                         <select
@@ -164,15 +182,14 @@ function CreateAccount() {
                                         >
                                             <option value={1}>관리</option>
                                             <option value={2}>사원</option>
-                                            <option value={3}>현장</option>
                                         </select>
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label className="block text-sm font-medium">
+                                        <label className=" mb-1.5 block text-sm font-medium">
                                             이메일
                                         </label>
-                                        <input
+                                        <Input
                                             type="text"
                                             name="email"
                                             id="email"
@@ -183,10 +200,10 @@ function CreateAccount() {
                                     </div>
 
                                     <div className="col-span-6">
-                                        <label className="block text-sm font-medium">
+                                        <label className=" mb-1.5 block text-sm font-medium">
                                             연락처
                                         </label>
-                                        <input
+                                        <Input
                                             type="text"
                                             name="phone"
                                             id="phone"
@@ -197,7 +214,7 @@ function CreateAccount() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="px-4 py-3 bg-gray-50 dark:bg-neutral-800 text- sm:px-6">
+                            <div className="text-right px-4 py-3 bg-gray-50 dark:bg-neutral-800 text- sm:px-6">
                                 <button
                                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                                     onClick={createUser}

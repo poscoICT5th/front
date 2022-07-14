@@ -101,17 +101,17 @@ let traceBack = createSlice({
   },
 });
 // 보드 url
-let boardURL = createSlice({
-  name: "boardURL",
-  // initialState: "http://18.181.232.168:8080/boardURL",
-  initialState: "http://192.168.0.10:8088/",
+let hotlineURL = createSlice({
+  name: "hotlineURL",
+  initialState: "http://35.77.54.132:8080/hotline",
+  // initialState: "http://192.168.0.10:8088/",
   reducers: {
-    handleBoardURL(state, newState) {
+    handleHotlineURL(state, newState) {
       return newState;
     },
   },
 });
-export let { handleBoardURL } = boardURL.actions;
+export let { handleHotlineURL } = hotlineURL.actions;
 
 // import reload
 let importReload = createSlice({
@@ -173,16 +173,16 @@ let inventoryReload = createSlice({
 });
 export let { handleInventoryReload } = inventoryReload.actions;
 // inventory reload
-let boardReload = createSlice({
-  name: "boardReload",
+let hotlineReload = createSlice({
+  name: "hotlineReload",
   initialState: false,
   reducers: {
-    handleBoardReload(state, newState) {
+    handleHotlineReload(state, newState) {
       return newState;
     },
   },
 });
-export let { handleBoardReload } = boardReload.actions;
+export let { handleHotlineReload } = hotlineReload.actions;
 
 // language
 let language = createSlice({
@@ -280,7 +280,7 @@ export default configureStore({
     alertFail: alertFail.reducer,
     alertMessage: alertMessage.reducer,
     alertVerify: alertVerify.reducer,
-    boardURL: boardURL.reducer,
-    boardReload: boardReload.reducer,
+    hotlineURL: hotlineURL.reducer,
+    hotlineReload: hotlineReload.reducer,
   },
 });

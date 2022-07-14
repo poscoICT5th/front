@@ -13,8 +13,8 @@ import TrendInventory from "./components/Pages/TrendInventory";
 import Tracking from './components/Pages/Tracking';
 import CreateAccount from './components/Pages/CreateAccount';
 import WarehouseMap from './components/Pages/WarehouseMap';
-import Board from './components/Pages/Board';
-import BoardDetail from './components/Pages/BoardDetail';
+import Hotline from './components/Pages/Hotline';
+import HotlineDetail from './components/Pages/HotlineDetail';
 function Router(props) {
     return (
         <Routes>
@@ -129,8 +129,8 @@ function Router(props) {
                 />}
             />
             <Route
-                path="/Board"
-                element={<Board alertSucOpen={props.alertSucOpen}
+                path="/Hotline"
+                element={<Hotline alertSucOpen={props.alertSucOpen}
                     setAlertSucOpen={props.setAlertSucOpen}
                     alertFailedOpen={props.alertFailedOpen}
                     setAlertFailedOpen={props.setAlertFailedOpen}
@@ -138,8 +138,8 @@ function Router(props) {
                 />}
             />
             <Route
-                path="/BoardDetail/:hotline_id"
-                element={<BoardDetail alertSucOpen={props.alertSucOpen}
+                path="/HotlineDetail/:hotline_id"
+                element={<HotlineDetail alertSucOpen={props.alertSucOpen}
                     setAlertSucOpen={props.setAlertSucOpen}
                     alertFailedOpen={props.alertFailedOpen}
                     setAlertFailedOpen={props.setAlertFailedOpen}

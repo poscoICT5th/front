@@ -93,11 +93,9 @@ function ChartMotorLine() {
       color: {},
       height: 600,
     },
-
     credits: {
       enabled: false,
     },
-
     legend: {
       enabled: true,
     },

@@ -5,11 +5,11 @@ import DashboardMove from '../Dashboard/DashboardMove'
 import DashboardTodoList from '../Dashboard/DashboardTodoList'
 import DashboardAgingChart from '../Dashboard/DashboardAgingChart'
 import DashboardAmountChart from '../Dashboard/DashboardAmountChart'
-import WordCloud from '../Map/WordCloud'
 import moment from 'moment'
-import DashboardBannerBox from '../Dashboard/DashboardBannerBox'
 import { Calendar } from 'antd'
 import './Dashboard.css'
+import WordCloud from '../Map/WordCloud'
+import DashboardBannerBox from '../Dashboard/DashboardBannerBox'
 import DashboardNews from '../Dashboard/DashboardNews'
 function Dashboard() {
   const [clickTable, setClickTable] = useState("import")
@@ -55,10 +55,11 @@ function Dashboard() {
         </div>
         <div className="col-span-3 site-calendar-demo-card"><Calendar fullscreen={false} onChange={onChange} /></div>
       </div>
-      <div className=' mt-5 grid grid-cols-3 gap-5 mx-8'>
+      <div className=' mt-5 grid grid-cols-2 gap-5 mx-8'>
         <div className='text-center'><DashboardAgingChart /></div>
         {/* <div className='text-center'><WordCloud /></div> */}
-        <div className='text-center'><DashboardNews /></div>
+        {/* <div className='text-center'><DashboardNews /></div> */}
+        {/* <div className='text-center'><DashboardBannerBox /></div> */}
         <div className='text-center'><DashboardAmountChart /></div>
       </div>
     </div>
