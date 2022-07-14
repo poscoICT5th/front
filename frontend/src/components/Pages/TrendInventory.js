@@ -7,163 +7,80 @@ import ChartRotorLine from "../Map/ChartRotorLine";
 import ChartStripLine from "../Map/ChartStripLine";
 
 function TrendInventory() {
-  // 월간 평균 재고량  = (월초 재고량 + 월말 재고량)/2
-  //재고 회전율 산식
-  //출고량/평균재고량
-
   let inventoryURL = useSelector((state) => state.inventoryURL);
-  // 날짜 수
-  //const [cnt, setCnt] = useState(0);
-
-  //연간 출고량 motor
-  const [export_motor_sum_2022, setExport_motor_sum_2022] = useState(0);
-  const [export_motor_sum_2021, setExport_motor_sum_2021] = useState(0);
-  const [export_motor_sum_2020, setExport_motor_sum_2020] = useState(0);
-  //연간 출고량 rotor
-  const [export_rotor_sum_2022, setExport_rotor_sum_2022] = useState(0);
-  const [export_rotor_sum_2021, setExport_rotor_sum_2021] = useState(0);
-  const [export_rotor_sum_2020, setExport_rotor_sum_2020] = useState(0);
-  //연간 출고량 strip
-  const [export_strip_sum_2022, setExport_strip_sum_2022] = useState(0);
-  const [export_strip_sum_2021, setExport_strip_sum_2021] = useState(0);
-  const [export_strip_sum_2020, setExport_strip_sum_2020] = useState(0);
-
-  //평균재고량 motor
-  const [inven_motor_2022, setInven_motor_2022] = useState(0);
-  const [inven_motor_2021, setInven_motor_2021] = useState(0);
-  const [inven_motor_2020, setInven_motor_2020] = useState(0);
-  //평균재고량 rotor
-  const [inven_rotor_2022, setInven_rotor_2022] = useState(0);
-  const [inven_rotor_2021, setInven_rotor_2021] = useState(0);
-  const [inven_rotor_2020, setInven_rotor_2020] = useState(0);
-  //평균재고량 strip
-  const [inven_strip_2022, setInven_strip_2022] = useState(0);
-  const [inven_strip_2021, setInven_strip_2021] = useState(0);
-  const [inven_strip_2020, setInven_strip_2020] = useState(0);
-
-  const [months, setMonths] = useState(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
-  const [exportDatas, setExportDatas] = useState({
-    export_motor_sum_2022: 0,
-    export_motor_sum_2021: 0,
-    export_motor_sum_2020: 0,
-    export_rotor_sum_2022: 0,
-    export_rotor_sum_2021: 0,
-    export_rotor_sum_2020: 0,
-    export_strip_sum_2022: 0,
-    export_strip_sum_2021: 0,
-    export_strip_sum_2020: 0
+  const [clickData, setClickData] = useState({
+    month: 1,
   })
-  const [invenDatas, setInvenDatas] = useState({
-    inven_motor_sum_2022: 0,
-    inven_motor_sum_2021: 0,
-    inven_motor_sum_2020: 0,
-    inven_rotor_sum_2022: 0,
-    inven_rotor_sum_2021: 0,
-    inven_rotor_sum_2020: 0,
-    inven_strip_sum_2022: 0,
-    inven_strip_sum_2021: 0,
-    inven_strip_sum_2020: 0
+  const years = [2022, 2021, 2020]
+  const [months, setMonths] = useState(
+    {
+      "Jan": 1,
+      "Feb": 2,
+      "Mar": 3,
+      "Apr": 4,
+      "May": 5,
+      "Jun": 6,
+      "Jul": 7,
+      "Aug": 8,
+      "Sep": 9,
+      "Oct": 10,
+      "Nov": 11,
+      "Dec": 12
+    })
+  const [datas, setDatas] = useState({
+    sum_export_motor_2022: 0,
+    sum_export_motor_2021: 0,
+    sum_export_motor_2020: 110,
+    sum_export_rotor_2022: 0,
+    sum_export_rotor_2021: 0,
+    sum_export_rotor_2020: 10,
+    sum_export_strip_2022: 0,
+    sum_export_strip_2021: 0,
+    sum_export_strip_2020: 10,
+    sum_inven_motor_2022: 0,
+    sum_inven_motor_2021: 0,
+    sum_inven_motor_2020: 10,
+    sum_inven_rotor_2022: 0,
+    sum_inven_rotor_2021: 0,
+    sum_inven_rotor_2020: 10,
+    sum_inven_strip_2022: 0,
+    sum_inven_strip_2021: 0,
+    sum_inven_strip_2020: 10
   })
-  //setCnt(currentValue.export_motor.length)
-  //axios
-  useEffect(() => {
-    axios.defaults.baseURL = inventoryURL;
-    axios.get("/trend").then((res) => {
-      res.data.reduce(function (total, currentValue) {
-        //연간 재고회전율 구하기
-        if (currentValue.date >= 1640962800000) {
-          setExport_motor_sum_2022(
-            //22년도 출고량 구한다.
-            (export_motor_sum_2022) =>
-              export_motor_sum_2022 + currentValue.export_motor
-          );
-          setExport_rotor_sum_2022(
-            (export_rotor_sum_2022) =>
-              export_rotor_sum_2022 + currentValue.export_rotor
-          );
-          setExport_strip_sum_2022(
-            (export_strip_sum_2022) =>
-              export_strip_sum_2022 + currentValue.export_strip
-          );
-          setInven_motor_2022(
-            // 22년도 재고량 구한다.
-            (inven_motor_2022) => inven_motor_2022 + currentValue.inven_motor
-          );
-          setInven_rotor_2022(
-            (inven_rotor_2022) => inven_rotor_2022 + currentValue.inven_rotor
-          );
-          setInven_strip_2022(
-            (setInven_strip_2022) =>
-              setInven_strip_2022 + currentValue.inven_strip
-          );
-        } else if (
-          currentValue.date >= 1609426800000 &&
-          currentValue.date < 1640962800000
-        ) {
-          //2021년도
-          setExport_motor_sum_2021(
-            //22년도 출고량 구한다.
-            (export_motor_sum_2021) =>
-              export_motor_sum_2021 + currentValue.export_motor
-          );
-          setExport_rotor_sum_2021(
-            (export_rotor_sum_2021) =>
-              export_rotor_sum_2021 + currentValue.export_rotor
-          );
-          setExport_strip_sum_2021(
-            (export_strip_sum_2021) =>
-              export_strip_sum_2021 + currentValue.export_strip
-          );
 
-          setInven_motor_2021(
-            // 22년도 재고량 구한다.
-            (inven_motor_2021) => inven_motor_2021 + currentValue.inven_motor
-          );
-          setInven_rotor_2021(
-            (inven_rotor_2021) => inven_rotor_2021 + currentValue.inven_rotor
-          );
-          setInven_strip_2021(
-            (inven_strip_2021) => inven_strip_2021 + currentValue.inven_strip
-          );
-        } else {
-          //2020년도
-          setExport_motor_sum_2020(
-            (export_motor_sum_2020) =>
-              export_motor_sum_2020 + currentValue.export_motor
-          );
-          setExport_rotor_sum_2020(
-            (export_rotor_sum_2020) =>
-              export_rotor_sum_2020 + currentValue.export_rotor
-          );
-          setExport_strip_sum_2020(
-            (export_strip_sum_2020) =>
-              export_strip_sum_2020 + currentValue.export_strip
-          );
-          setInven_motor_2020(
-            (inven_motor_2020) => inven_motor_2020 + currentValue.inven_motor
-          );
-          setInven_rotor_2020(
-            (inven_rotor_2020) => inven_rotor_2020 + currentValue.inven_rotor
-          );
-          setInven_strip_2020(
-            (inven_strip_2020) => inven_strip_2020 + currentValue.inven_strip
-          );
-        }
-        return null;
-      }, 0);
-    });
-  }, []);
   const { TabPane } = Tabs;
+  function getTrendDatas(year) {
+    axios.defaults.baseURL = inventoryURL;
+    axios.get(`/trend/year/${year}/month/${clickData.month}`)
+      .then((res) => {
+        console.log(year, clickData.month)
+        setDatas({
+          ...datas,
+          [`sum_export_motor_${year}`]: res.data[`sum_export_motor_${year}`],
+          [`sum_export_rotor_${year}`]: res.data[`sum_export_rotor_${year}`],
+          [`sum_export_strip_${year}`]: res.data[`sum_export_strip_${year}`],
+          [`sum_inven_motor_${year}`]: res.data[`sum_inven_motor_${year}`],
+          [`sum_inven_rotor_${year}`]: res.data[`sum_inven_rotor_${year}`],
+          [`sum_inven_strip_${year}`]: res.data[`sum_inven_strip_${year}`],
+        })
+      })
+  }
+  useEffect(() => {
+    years.forEach(year => {
+      getTrendDatas(year)
+    });
+  }, [clickData])
+
   return (
     <div data-aos="fade-up" className="w-3/4 mx-auto">
       <div className="">
         <div className="font-bold text-2xl text-center mb-5">Inventory Trend</div>
         <div className="grid grid-cols-12 gap-2">
           {
-            months.map((value) => {
+            Object.keys(months).map((value) => {
               return <button
                 className="py-2 font-bold text-sm rounded-lg text-gray-700 hover:text-white bg-sky-100 hover:bg-sky-700"
-                onClick={() => { }}
+                onClick={() => { setClickData({ ...clickData, month: months[value] }) }}
               >
                 {value}
               </button>
@@ -205,102 +122,45 @@ function TrendInventory() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">2022</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">
-                          {(
-                            (export_motor_sum_2022 / inven_motor_2022 / 178) *
-                            100
-                          ).toFixed(2)}
-                          %
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">
-                          {(
-                            (export_rotor_sum_2022 / inven_rotor_2022 / 178) *
-                            100
-                          ).toFixed(2)}
-                          %
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">
-                          {(
-                            (export_strip_sum_2022 / inven_strip_2022 / 178) *
-                            100
-                          ).toFixed(2)}
-                          %
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">2021</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">
-                          {(
-                            (export_motor_sum_2021 / inven_motor_2021 / 365) *
-                            100
-                          ).toFixed(2)}
-                          %{" "}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">
-                          {(
-                            (export_rotor_sum_2021 / inven_rotor_2021 / 365) *
-                            100
-                          ).toFixed(2)}
-                          %
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">
-                          {(
-                            (export_strip_sum_2021 / inven_strip_2021 / 365) *
-                            100
-                          ).toFixed(2)}
-                          %
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">2020</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">
-                          {(
-                            (export_motor_sum_2020 / inven_motor_2020 / 365) *
-                            100
-                          ).toFixed(2)}
-                          %
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">
-                          {(
-                            (export_rotor_sum_2020 / inven_rotor_2020 / 365) *
-                            100
-                          ).toFixed(2)}
-                          %
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm">
-                          {(
-                            (export_strip_sum_2020 / inven_strip_2020 / 365) *
-                            100
-                          ).toFixed(2)}
-                          %
-                        </div>
-                      </td>
-                    </tr>
+                    {
+                      years.map((year) => {
+                        return <>
+                          <tr>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm">{year}</div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm">
+                                {datas.sum_inven_strip_2020}
+                                {(
+                                  (datas.sum_export_motor_ + year / datas.sum_inven_motor_ + year / 178) *
+                                  100
+                                ).toFixed(2)}
+                                %
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm">
+                                {(
+                                  (datas.sum_export_rotor_ + year / datas.sum_inven_rotor_ + year / 178) *
+                                  100
+                                ).toFixed(2)}
+                                %
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm">
+                                {(
+                                  (datas.sum_export_strip_ + year / datas.sum_inven_strip_ + year / 178) *
+                                  100
+                                ).toFixed(2)}
+                                %
+                              </div>
+                            </td>
+                          </tr>
+                        </>
+                      })
+                    }
                   </tbody>
                 </table>
               </div>
@@ -308,7 +168,6 @@ function TrendInventory() {
           </div>
         </div>
       </div>
-
       <div className="px-6 py-3 text-xs font-medium uppercase tracking-wider text-right">
         ※ 재고회전율 = 출고량 / 평균재고량 * 100 %
       </div>
