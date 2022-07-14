@@ -1,3 +1,4 @@
+import { Tabs } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -42,7 +43,26 @@ function TrendInventory() {
 
   const [months, setMonths] = useState(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
   const [exportDatas, setExportDatas] = useState({
-    
+    export_motor_sum_2022: 0,
+    export_motor_sum_2021: 0,
+    export_motor_sum_2020: 0,
+    export_rotor_sum_2022: 0,
+    export_rotor_sum_2021: 0,
+    export_rotor_sum_2020: 0,
+    export_strip_sum_2022: 0,
+    export_strip_sum_2021: 0,
+    export_strip_sum_2020: 0
+  })
+  const [invenDatas, setInvenDatas] = useState({
+    inven_motor_sum_2022: 0,
+    inven_motor_sum_2021: 0,
+    inven_motor_sum_2020: 0,
+    inven_rotor_sum_2022: 0,
+    inven_rotor_sum_2021: 0,
+    inven_rotor_sum_2020: 0,
+    inven_strip_sum_2022: 0,
+    inven_strip_sum_2021: 0,
+    inven_strip_sum_2020: 0
   })
   //setCnt(currentValue.export_motor.length)
   //axios
@@ -133,8 +153,9 @@ function TrendInventory() {
       }, 0);
     });
   }, []);
+  const { TabPane } = Tabs;
   return (
-    <div data-aos="fade-up" className="w-2/3 mx-auto">
+    <div data-aos="fade-up" className="w-3/4 mx-auto">
       <div className="">
         <div className="font-bold text-2xl text-center mb-5">Inventory Trend</div>
         <div className="grid grid-cols-12 gap-2">
@@ -291,17 +312,17 @@ function TrendInventory() {
       <div className="px-6 py-3 text-xs font-medium uppercase tracking-wider text-right">
         ※ 재고회전율 = 출고량 / 평균재고량 * 100 %
       </div>
-      <div className="grid grid-cols-1 grid-rows-3 gap-3 rounded-lg">
-        <div>
+      <Tabs defaultActiveKey="1" centered>
+        <TabPane tab="Motor Trend" key="1">
           <ChartMotorLine />
-        </div>
-        <div>
+        </TabPane>
+        <TabPane tab="Rotor Trend" key="2">
           <ChartRotorLine />
-        </div>
-        <div>
+        </TabPane>
+        <TabPane tab="Strip Trend" key="3">
           <ChartStripLine />
-        </div>
-      </div>
+        </TabPane>
+      </Tabs>
     </div>
   );
 }

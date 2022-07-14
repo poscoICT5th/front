@@ -158,7 +158,7 @@ function CreateAccount(props) {
                                             defaultValue={[]}
                                             onChange={(e) => {
                                                 console.log(e);
-                                                setUserData({ ...userData, team: e.join(',') })
+                                                setUserData({ ...userData, team: e.join(' ') })
                                             }}
                                         >
                                             {

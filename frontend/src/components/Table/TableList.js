@@ -504,7 +504,11 @@ function TableList(props) {
               }
             }, // right button click row
             onMouseEnter: (event) => { }, // mouse enter row
-            onMouseLeave: (event) => { }, // mouse leave row
+            onMouseLeave: (event) => {
+              if (popupXY.Y > event.pageY + 15 || popupXY.Y < event.pageY - 15) {
+                setVisiblePopup(false);
+              }
+            }, // mouse leave row
           };
         }}
         columns={columns}

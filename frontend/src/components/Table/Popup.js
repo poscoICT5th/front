@@ -8,7 +8,7 @@ function Popup(props) {
         <ul
             className="popup"
             style={{
-                left: `${props.popupXY.X - 50}px`,
+                left: `${props.popupXY.X - 90}px`,
                 top: `${props.popupXY.Y - 90}px`
             }}>
             {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import SearchLogisticsImport from '../Search/SearchLogisticsImport';
 import TableList from '../Table/TableList';
-
+import './Page.css'
 function LogisticsImport(props) {
   let logisticsImportURL = useSelector((state) => state.logisticsImportURL)
   let importReload = useSelector((state) => state.importReload)
@@ -87,7 +87,7 @@ function LogisticsImport(props) {
   }, [clickSearch, importReload, datas])
 
   return (
-    <div data-aos="fade-up" className="">
+    <div data-aos="fade-up" className="page">
       <div className="w-full mx-auto mb-10">
         <div className="font-bold text-2xl text-center my-3">입고 조회</div>
         {/* Search */}
