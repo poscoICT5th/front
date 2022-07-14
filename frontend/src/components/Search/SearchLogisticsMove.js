@@ -86,7 +86,7 @@ function SearchLogisticsMove(props) {
                 </div>
                 <div className='text-right mt-5'>
                     <button
-                        className="mt-2 mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-500 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                        className="mt-2 mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                         onClick={() => {
                             if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("rollback") }
                             else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
@@ -95,7 +95,7 @@ function SearchLogisticsMove(props) {
                         되돌리기
                     </button>
                     <button
-                        className="mt-2 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md w-20 text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                        className="mt-2 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md w-20 text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                         onClick={() => {
                             if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
                             else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
@@ -103,12 +103,12 @@ function SearchLogisticsMove(props) {
                         요청취소
                     </button>
                     <button
-                        className="mt-2 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md w-20 text-white bg-lime-500 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                        className="mt-2 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md w-20 text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                         onClick={() => { props.setClickSearch(true) }}>
                         조회
                     </button>
                     <button
-                        className="mt-2 w-24 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-stone-500 hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                        className="mt-2 w-24 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                         onClick={() => { props.setClickBarcodePrint(true) }}
                     >
                         바코드출력

@@ -81,7 +81,7 @@ function SearchWarehouse(props) {
         </div>
         <div className="text-right">
           <button
-            className="mt-2 w-20 mr-2 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            className="mt-2 w-20 mr-2 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
             onClick={() => {
               if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
               else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
@@ -90,7 +90,7 @@ function SearchWarehouse(props) {
             삭제
           </button>
           <button
-            className="mt-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lime-500 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            className="mt-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
             onClick={() => {
               props.setClickSearch(true)
             }}

@@ -45,7 +45,13 @@ function CreateImportUpload(props) {
 
         // If user clicks the parse button without
         // a file we show a error
-        if (!file) return setError("Enter a valid file");
+        if (!file) {
+            props.setAlertFailedOpen(true);
+            props.setAlertMessage(
+                "파일을 업로드해주세요(UTF-8.csv)"
+            );
+            return
+        };
 
         // Initialize a reader which allows user
         // to read any file or blob.
@@ -149,7 +155,7 @@ function CreateImportUpload(props) {
                                             </button>
                                             <button
                                                 type="button"
-                                                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-sky-300 text-base font-medium text-white hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 sm:ml-3 sm:w-auto sm:text-sm"
+                                                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-teal-500 text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-900 sm:ml-3 sm:w-auto sm:text-sm"
                                                 onClick={handleParse}
                                                 ref={cancelButtonRef}
                                             >

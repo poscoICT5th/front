@@ -245,7 +245,7 @@ function SearchWarehouse(props) {
             삭제
           </button>
           <button
-            className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-lime-500 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
+            className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
             onClick={() => {
               props.setClickSearch(true);
             }}
@@ -253,7 +253,7 @@ function SearchWarehouse(props) {
             조회
           </button>
           <button
-            className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-500 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+            className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
             onClick={() => {
               if (props.selectedList.length > 0) {
                 props.setAlertVerifyOpen(true);
@@ -267,7 +267,7 @@ function SearchWarehouse(props) {
             출고등록
           </button>
           <button
-            className="mr-2 w-32 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-stone-500 hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500"
+            className="mr-2 w-32 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
             onClick={() => {
               if (props.selectedList.length > 0) {
                 props.setAlertVerifyOpen(true);
@@ -281,7 +281,7 @@ function SearchWarehouse(props) {
             창고이동등록
           </button>
           <button
-            className="text-gray-50 mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-300 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+            className="text-gray-50 mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             onClick={() => {
               setClickMix(true);
             }}
@@ -289,7 +289,7 @@ function SearchWarehouse(props) {
             제품가공
           </button>
           <button
-            className="w-32 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+            className="w-32 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
             onClick={() => {
               setClickUpdate(true);
             }}

@@ -189,18 +189,18 @@ function CreateRequest(props) {
                       onClick={() => props.setOpen(false)}
                       ref={cancelButtonRef}
                     >
-                      Cancel
+                      취소
                     </button>
                     <button
                       type="button"
                       htmlType="submit"
-                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-sky-300 text-base font-medium text-white hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-900 sm:ml-3 sm:w-auto sm:text-sm"
+                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-teal-500 text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-900 sm:ml-3 sm:w-auto sm:text-sm"
                       onClick={() => {
                         props.request();
                       }}
-                      disabled={props.title==="창고등록"&& props.createPos===false ?true : false}
+                      disabled={props.title === "창고등록" && props.createPos === false ? true : false}
                     >
-                      Request
+                      등록
                     </button>
                   </div>
                 </Dialog.Panel>
