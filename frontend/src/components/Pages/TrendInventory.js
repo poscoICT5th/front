@@ -139,13 +139,13 @@ function TrendInventory() {
                               <div className="text-sm">
                                 {datas[`sum_export_motor_${year}`] *
                                   datas[`sum_inven_motor_${year}`] !==
-                                0 ? (
+                                  0 ? (
                                   (
                                     (datas[`sum_export_motor_${year}`] /
                                       datas[`sum_inven_motor_${year}`] /
                                       datas[`day_${year}`]) *
                                     100
-                                  ).toFixed(2)+"%"
+                                  ).toFixed(2) + "%"
                                 ) : (
                                   <div>-</div>
                                 )}
@@ -153,24 +153,34 @@ function TrendInventory() {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="text-sm">
-                                {(
-                                  (datas[`sum_export_rotor_${year}`] /
-                                    datas[`sum_inven_rotor_${year}`] /
-                                    datas[`day_${year}`]) *
-                                  100
-                                ).toFixed(2)}
-                                %
+                                {datas[`sum_export_rotor_${year}`] *
+                                  datas[`sum_inven_rotor_${year}`] !==
+                                  0 ? (
+                                  (
+                                    (datas[`sum_export_rotor_${year}`] /
+                                      datas[`sum_inven_rotor_${year}`] /
+                                      datas[`day_${year}`]) *
+                                    100
+                                  ).toFixed(2) + "%"
+                                ) : (
+                                  <div>-</div>
+                                )}
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="text-sm">
-                                {(
-                                  (datas[`sum_export_strip_${year}`] /
-                                    datas[`sum_inven_strip_${year}`] /
-                                    datas[`day_${year}`]) *
-                                  100
-                                ).toFixed(2)}
-                                %
+                                {datas[`sum_export_strip_${year}`] *
+                                  datas[`sum_inven_strip_${year}`] !==
+                                  0 ? (
+                                  (
+                                    (datas[`sum_export_strip_${year}`] /
+                                      datas[`sum_inven_strip_${year}`] /
+                                      datas[`day_${year}`]) *
+                                    100
+                                  ).toFixed(2) + "%"
+                                ) : (
+                                  <div>-</div>
+                                )}
                               </div>
                             </td>
                           </tr>
