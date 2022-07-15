@@ -9,7 +9,7 @@ import ChartStripLine from "../Map/ChartStripLine";
 function TrendInventory() {
   let inventoryURL = useSelector((state) => state.inventoryURL);
   const [clickData, setClickData] = useState({
-    month: 1,
+    month: "01",
   });
   const years = [2022, 2021, 2020];
   const months = {
@@ -26,52 +26,43 @@ function TrendInventory() {
     Nov: "11",
     Dec: "12",
   };
-  const [datas, setDatas] = useState({
-    day_2022: 0,
-    day_2021: 0,
-    day_2020: 0,
-    sum_export_motor_2022: 0,
-    sum_export_motor_2021: 0,
-    sum_export_motor_2020: 0,
-    sum_export_rotor_2022: 0,
-    sum_export_rotor_2021: 0,
-    sum_export_rotor_2020: 0,
-    sum_export_strip_2022: 0,
-    sum_export_strip_2021: 0,
-    sum_export_strip_2020: 0,
-    sum_inven_motor_2022: 0,
-    sum_inven_motor_2021: 0,
-    sum_inven_motor_2020: 0,
-    sum_inven_rotor_2022: 0,
-    sum_inven_rotor_2021: 0,
-    sum_inven_rotor_2020: 0,
-    sum_inven_strip_2022: 0,
-    sum_inven_strip_2021: 0,
-    sum_inven_strip_2020: 0,
-  });
 
+  const [trendDatas, setTrendDatas] = useState({
+    motor_2022: 0,
+    motor_2021: 0,
+    motor_2020: 0,
+    rotor_2022: 0,
+    rotor_2021: 0,
+    rotor_2020: 0,
+    strip_2022: 0,
+    strip_2021: 0,
+    strip_2020: 0,
+  })
+  const [trends, setTrends] = useState([])
   const { TabPane } = Tabs;
   function getTrendDatas(year) {
     axios.defaults.baseURL = inventoryURL;
     axios.get(`/trend/year/${year}/month/${clickData.month}`).then((res) => {
-      console.log(res.data[0]["day"]);
-      setDatas({
-        ...datas,
-        [`sum_export_motor_${year}`]: res.data[0]["sum_export_motor"],
-        [`sum_export_rotor_${year}`]: res.data[0]["sum_export_rotor"],
-        [`sum_export_strip_${year}`]: res.data[0]["sum_export_strip"],
-        [`sum_inven_motor_${year}`]: res.data[0]["sum_inven_motor"],
-        [`sum_inven_rotor_${year}`]: res.data[0]["sum_inven_rotor"],
-        [`sum_inven_strip_${year}`]: res.data[0]["sum_inven_strip"],
-        [`day_${year}`]: res.data[0]["sum_inven_strip"],
-      });
+      setTrends(trends => [...trends,
+      (((res.data[0]["sum_export_motor"]) / (res.data[0]["sum_inven_motor"])) / (res.data[0]["day"])).toFixed(2),
+      (((res.data[0]["sum_export_rotor"]) / (res.data[0]["sum_inven_rotor"])) / (res.data[0]["day"])).toFixed(2),
+      (((res.data[0]["sum_export_strip"]) / (res.data[0]["sum_inven_strip"])) / (res.data[0]["day"])).toFixed(2)
+      ])
     });
   }
   useEffect(() => {
+    setTrends([])
     years.forEach((year) => {
       getTrendDatas(year);
     });
   }, [clickData]);
+
+  useEffect(() => {
+    setTrends([])
+    years.forEach((year) => {
+      getTrendDatas(year);
+    });
+  }, []);
 
   return (
     <div data-aos="fade-up" className="w-3/4 mx-auto">
@@ -83,7 +74,7 @@ function TrendInventory() {
           {Object.keys(months).map((value) => {
             return (
               <button
-                className="py-2 font-bold text-sm rounded-lg text-gray-700 hover:text-white bg-sky-100 hover:bg-sky-700"
+                className={clickData.month === months[value] ? "bg-sky-700 rounded-lg text-white" : null + "py-2 font-bold text-sm rounded-lg text-gray-700 hover:text-white bg-sky-100 hover:bg-sky-700"}
                 onClick={() => {
                   setClickData({ ...clickData, month: months[value] });
                 }}
@@ -128,7 +119,7 @@ function TrendInventory() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {years.map((year) => {
+                    {years.map((year, index) => {
                       return (
                         <>
                           <tr>
@@ -136,51 +127,30 @@ function TrendInventory() {
                               <div className="text-sm">{year}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm">
-                                {datas[`sum_export_motor_${year}`] *
-                                  datas[`sum_inven_motor_${year}`] !==
-                                  0 ? (
-                                  (
-                                    (datas[`sum_export_motor_${year}`] /
-                                      datas[`sum_inven_motor_${year}`] /
-                                      datas[`day_${year}`]) *
-                                    100
-                                  ).toFixed(2) + "%"
-                                ) : (
-                                  <div>-</div>
-                                )}
+                              <div className="text-sm font-bold">
+                                {
+                                  trends[index * 2 + index] > 0
+                                    ? trends[index * 2 + index] + "%"
+                                    : "-"
+                                }
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm">
-                                {datas[`sum_export_rotor_${year}`] *
-                                  datas[`sum_inven_rotor_${year}`] !==
-                                  0 ? (
-                                  (
-                                    (datas[`sum_export_rotor_${year}`] /
-                                      datas[`sum_inven_rotor_${year}`] /
-                                      datas[`day_${year}`]) *
-                                    100
-                                  ).toFixed(2) + "%"
-                                ) : (
-                                  <div>-</div>
-                                )}
+                              <div className="text-sm font-bold">
+                                {
+                                  trends[index * 3 + 1] > 0
+                                    ? trends[index * 3 + 1] + "%"
+                                    : "-"
+                                }
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm">
-                                {datas[`sum_export_strip_${year}`] *
-                                  datas[`sum_inven_strip_${year}`] !==
-                                  0 ? (
-                                  (
-                                    (datas[`sum_export_strip_${year}`] /
-                                      datas[`sum_inven_strip_${year}`] /
-                                      datas[`day_${year}`]) *
-                                    100
-                                  ).toFixed(2) + "%"
-                                ) : (
-                                  <div>-</div>
-                                )}
+                              <div className="text-sm font-bold">
+                                {
+                                  trends[index * 3 + 2] > 0
+                                    ? trends[index * 3 + 2] + "%"
+                                    : "-"
+                                }
                               </div>
                             </td>
                           </tr>
