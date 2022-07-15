@@ -521,14 +521,14 @@ function TableList(props) {
         columns={columns}
         dataSource={data}
         bordered
-        pagination={{ pageSize: 30 }}
+        pagination={{ pageSize: 10 }}
         size="small"
         scroll={{
           x: props.part === "import" ? 2500
-            : (props.part === "export" ? 2300
+            : (props.part === "export" ? 2500
               : props.part === "move" ? 2000
                 : props.part === "warehouse" ? null
-                  : props.part === "inventory" ? 2300
+                  : props.part === "inventory" ? 3000
                     : null),
           // y: 1500,
         }}
