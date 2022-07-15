@@ -50,7 +50,7 @@ function Dashboard() {
           <DashboardTodoList setClickTable={setClickTable} todayDate={todayDate} />
         </div>
         <div className="col-span-6">
-          <div className='text-lg font-bold'>{EngtoKo[clickTable]}</div>
+          <div className='text-lg font-bold mt-1'>{EngtoKo[clickTable]}</div>
           <div className='rounded-lg my-auto'>{table[clickTable]}</div>
         </div>
         <div className="col-span-3 site-calendar-demo-card"><Calendar fullscreen={false} onChange={onChange} /></div>
