@@ -29,8 +29,8 @@ export let { handleLogisticsImportURL } = logisticsImportURL.actions;
 // 물류출고 url
 let logisticsExportURL = createSlice({
   name: "logisticsExportURL",
-  initialState: "http://13.230.30.203:8080/export",
-  // initialState: "http://192.168.0.10:8082",
+  // initialState: "http://13.230.30.203:8080/export",
+  initialState: "http://192.168.0.10:8082",
   reducers: {
     handleLogisticsURL(state, newState) {
       return newState;
@@ -68,7 +68,7 @@ export let { handleWarehouseURL } = warehouseURL.actions;
 let inventoryURL = createSlice({
   name: "inventoryURL",
   initialState: "http://13.230.73.69:8080/inventory",
-  // initialState: "http://192.168.0.10:8085",
+  // initialState: "http://192.168.1.9:8085",
   reducers: {
     handleInventoryURL(state, newState) {
       return newState;

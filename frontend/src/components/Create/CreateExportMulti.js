@@ -1,46 +1,21 @@
-import { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationIcon } from '@heroicons/react/outline'
-import SearchSelect from '../Common/Conditions/SearchSelect'
-import axios from 'axios'
-import { useSelector } from 'react-redux'
-import { location } from '../Common/Conditions/SelectOptionsCreate'
 import InputText from '../Common/Conditions/InputText'
 
-function CreateMoveToWarehouse(props) {
-    let warehouseURL = useSelector((state) => state.warehouseURL)
-    const [warehouse_codes, setWarehouse_codes] = useState([])
-
-    // 지역정보 보내면 창고목록 가져오기
-    const [moveDatas, setMoveDatas] = useState({
-        location: "",
-        warehouse_code: "",
+function CreateExportMulti(props) {
+    const [exportMulti, setExportMulti] = useState({
+        order_date: "",
         inst_deadline: ""
     })
-    useEffect(() => {
-        axios.defaults.baseURL = warehouseURL
-        axios.get(`warehouse/${moveDatas.location}`)
-            .then((res) => {
-                setWarehouse_codes([])
-                for (let index = 0; index < res.data.length; index++) {
-                    setWarehouse_codes(warehouse_codes => [...warehouse_codes, res.data[index].warehouse_code])
-                }
-            })
-            .catch((err) => { })
-    }, [moveDatas.location])
-
-    const moveDatasSelect = [
-        { name: "location", selectOption: location, grid: 1, "purpose": "create", "ko": "지역", "en": "location", "cn": "地域", "jp": "地域", "vn": "khu vực" },
-        { name: "warehouse_code", selectOption: warehouse_codes, grid: 1, purpose: "create", "ko": "도착창고", "en": "Arrival warehouse", "cn": "到货仓库", "jp": "到着倉庫", "vn": "kho đến nơi" },
-    ]
-    const moveDatasInput = [
+    const exportMultiInput = [
+        { name: "order_date", type: "date", purpose: "search", "ko": "주문일", "en": "order_date", "cn": "订货日", "jp": "注文日", "vn": "ngày đặt hàng", },
         { name: "inst_deadline", type: "date", purpose: "search", "ko": "지시마감일", "en": "inst_deadline", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị", },
     ]
     const cancelButtonRef = useRef(null)
     return (
-        <Transition.Root show={props.toWarehouseModal} as={Fragment}>
+        <Transition.Root show={props.createExportModal} as={Fragment}>
             <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef}
-                onClose={() => { props.setToWarehouseModal(false) }}>
+                onClose={() => { props.setCreateExportModal(false) }}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -69,32 +44,14 @@ function CreateMoveToWarehouse(props) {
                                     <div className="">
                                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                             <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                                창고이동지정
+                                                출고등록
                                             </Dialog.Title>
                                             <div className="">
-                                                {moveDatasSelect.map((selectData) => {
-                                                    return (<div className='my-2'>
-                                                        <SearchSelect
-                                                            setDatas={setMoveDatas}
-                                                            datas={moveDatas}
-                                                            name={selectData.name}
-                                                            selectData={selectData.selectOption}
-                                                            grid={selectData.grid}
-                                                            ko={selectData.ko}
-                                                            cn={selectData.cn}
-                                                            jp={selectData.jp}
-                                                            vn={selectData.vn}
-                                                        />
-                                                    </div>
-                                                    );
-                                                })}
-                                            </div>
-                                            <div className="">
-                                                {moveDatasInput.map((inputData) => {
+                                                {exportMultiInput.map((inputData) => {
                                                     return (<div className='my-2'>
                                                         <InputText
-                                                            setDatas={setMoveDatas}
-                                                            datas={moveDatas}
+                                                            setDatas={setExportMulti}
+                                                            datas={exportMulti}
                                                             name={inputData.name}
                                                             type={inputData.type}
                                                             purpose={inputData.purpose}
@@ -113,15 +70,15 @@ function CreateMoveToWarehouse(props) {
                                 <div className="bg-gray-50 dark:bg-neutral-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button
                                         type="button"
-                                        className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-sky-600 text-base font-medium text-white hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                        onClick={() => { props.moveMultiAxios(moveDatas.warehouse_code, moveDatas.inst_deadline) }}
+                                        className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-teal-500 text-base font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                        onClick={() => { props.exportMultiAxios(exportMulti.order_date, exportMulti.inst_deadline) }}
                                     >
-                                        이동
+                                        출고요청등록
                                     </button>
                                     <button
                                         type="button"
-                                        className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                                        onClick={() => { props.setToWarehouseModal(false) }}
+                                        className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                                        onClick={() => { props.setCreateExportModal(false) }}
                                         ref={cancelButtonRef}
                                     >
                                         취소
@@ -136,4 +93,4 @@ function CreateMoveToWarehouse(props) {
     )
 }
 
-export default CreateMoveToWarehouse
+export default CreateExportMulti

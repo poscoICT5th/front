@@ -2,13 +2,15 @@ import { useCallback, useState } from "react";
 
 const useCenteredTree = (defaultTranslate = { x: 0, y: 0 }) => {
     const [translate, setTranslate] = useState(defaultTranslate);
+    const [dimensions, setDimensions] = useState();
     const containerRef = useCallback((containerElem) => {
         if (containerElem !== null) {
             const { width, height } = containerElem.getBoundingClientRect();
-            setTranslate({ x: width / 3, y: height / 3 });
+            setDimensions({ width, height });
+            setTranslate({ x: width / 2, y: height / 3 });
         }
     }, []);
-    return [translate, containerRef];
+    return [dimensions, translate, containerRef];
 };
 
 export default useCenteredTree;

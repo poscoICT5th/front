@@ -69,8 +69,9 @@ function DashboardAmountChart(props) {
     useEffect(() => {
         axios.defaults.baseURL = inventoryURL;
         axios.get("/amount").then((res) => {
+            console.log(res.data)
             setAmountItemName(res.data.map(item => item.item_name))
-            setAmount(res.data.map(item => item.amount))
+            setAmount(res.data.map(item => item.sum))
         });
     }, []);
 
