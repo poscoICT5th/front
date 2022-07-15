@@ -56,7 +56,8 @@ function App() {
         })
         .then((res) => {
           if (res.data === false) {
-            alert("다른사용자가 로그인하여 로그아웃됩니다.");
+            setAlertFailedOpen(true)
+            setAlertMessage("다른사용자가 로그인하여 로그아웃됩니다")
             sessionStorage.clear();
             sessionStorage.clear();
             navigate("/");
@@ -82,7 +83,8 @@ function App() {
         dispatch(handleTheme("dark"));
       }
     } else if (isLogin === null && nowURL !== "/") {
-      alert("로그인을 해주세요.");
+      setAlertFailedOpen(true)
+      setAlertMessage("로그인을 해주세요")
       navigate("/");
     }
   }, []);
@@ -114,6 +116,9 @@ function App() {
           sidebarOpen={sidebarOpen}
           changeTheme={changeTheme}
           setSidebarOpen={setSidebarOpen}
+          setAlertSucOpen={setAlertSucOpen}
+          setAlertFailedOpen={setAlertFailedOpen}
+          setAlertMessage={setAlertMessage}
         />
       ) : null}
       {/*  */}

@@ -40,10 +40,14 @@ function Header(props) {
     axios.post("/logout").then((res) => {
       sessionStorage.clear();
       sessionStorage.clear();
-      alert("로그아웃되었습니다.");
+      props.setAlertSucOpen(true)
+      props.setAlertMessage("로그아웃되었습니다.")
       navigate("/");
-      // window.location.reload();
-    });
+    })
+      .catch(() => {
+        props.setAlertFailedOpen(true);
+        props.setAlertMessage("통신에러가 발생하였습니다. 다시 로그아웃해주세요.")
+      })
   }
   const menu = (
     <Menu
