@@ -42,7 +42,7 @@ function Login(props) {
     <div className="h-screen" data-aos="fade-up">
       <div className="login min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 m-auto">
         <div className="max-w-md w-full space-y-2">
-          <div className="font-bold text-2xl text-center">POSCO ICT - 5</div>
+          <div className="font-bold text-2xl text-center">EVEN BETTER</div>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <input

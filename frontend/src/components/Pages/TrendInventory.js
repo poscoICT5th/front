@@ -12,40 +12,40 @@ function TrendInventory() {
     month: 1,
   })
   const years = [2022, 2021, 2020]
-  const [months, setMonths] = useState(
-    {
-      "Jan": 1,
-      "Feb": 2,
-      "Mar": 3,
-      "Apr": 4,
-      "May": 5,
-      "Jun": 6,
-      "Jul": 7,
-      "Aug": 8,
-      "Sep": 9,
-      "Oct": 10,
-      "Nov": 11,
-      "Dec": 12
-    })
+  const months =
+  {
+    "Jan": "01",
+    "Feb": "02",
+    "Mar": "03",
+    "Apr": "04",
+    "May": "05",
+    "Jun": "06",
+    "Jul": "07",
+    "Aug": "08",
+    "Sep": "09",
+    "Oct": "10",
+    "Nov": "11",
+    "Dec": "12"
+  }
   const [datas, setDatas] = useState({
     sum_export_motor_2022: 0,
     sum_export_motor_2021: 0,
-    sum_export_motor_2020: 110,
+    sum_export_motor_2020: 0,
     sum_export_rotor_2022: 0,
     sum_export_rotor_2021: 0,
-    sum_export_rotor_2020: 10,
+    sum_export_rotor_2020: 0,
     sum_export_strip_2022: 0,
     sum_export_strip_2021: 0,
-    sum_export_strip_2020: 10,
+    sum_export_strip_2020: 0,
     sum_inven_motor_2022: 0,
     sum_inven_motor_2021: 0,
-    sum_inven_motor_2020: 10,
+    sum_inven_motor_2020: 0,
     sum_inven_rotor_2022: 0,
     sum_inven_rotor_2021: 0,
-    sum_inven_rotor_2020: 10,
+    sum_inven_rotor_2020: 0,
     sum_inven_strip_2022: 0,
     sum_inven_strip_2021: 0,
-    sum_inven_strip_2020: 10
+    sum_inven_strip_2020: 0
   })
 
   const { TabPane } = Tabs;
@@ -53,15 +53,14 @@ function TrendInventory() {
     axios.defaults.baseURL = inventoryURL;
     axios.get(`/trend/year/${year}/month/${clickData.month}`)
       .then((res) => {
-        console.log(year, clickData.month)
         setDatas({
           ...datas,
-          [`sum_export_motor_${year}`]: res.data[`sum_export_motor_${year}`],
-          [`sum_export_rotor_${year}`]: res.data[`sum_export_rotor_${year}`],
-          [`sum_export_strip_${year}`]: res.data[`sum_export_strip_${year}`],
-          [`sum_inven_motor_${year}`]: res.data[`sum_inven_motor_${year}`],
-          [`sum_inven_rotor_${year}`]: res.data[`sum_inven_rotor_${year}`],
-          [`sum_inven_strip_${year}`]: res.data[`sum_inven_strip_${year}`],
+          [`sum_export_motor_${year}`]: res.data[0]['sum_export_motor'],
+          [`sum_export_rotor_${year}`]: res.data[0]['sum_export_rotor'],
+          [`sum_export_strip_${year}`]: res.data[0]['sum_export_strip'],
+          [`sum_inven_motor_${year}`]: res.data[0]['sum_inven_motor'],
+          [`sum_inven_rotor_${year}`]: res.data[0]['sum_inven_rotor'],
+          [`sum_inven_strip_${year}`]: res.data[0]['sum_inven_strip'],
         })
       })
   }
@@ -131,7 +130,6 @@ function TrendInventory() {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="text-sm">
-                                {datas.sum_inven_strip_2020}
                                 {(
                                   (datas.sum_export_motor_ + year / datas.sum_inven_motor_ + year / 178) *
                                   100
