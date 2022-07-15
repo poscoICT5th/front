@@ -14,6 +14,7 @@ import BarcodePrint from "../Functions/BarcodePrint";
 import Popup from "./Popup";
 import AlertVerify from "../Common/AlertVerify";
 import CreateMoveToWarehouse from "../Create/CreateMoveToWarehouse";
+import CreateExportMulti from "../Create/CreateExportMulti";
 
 function TableList(props) {
   let dispatch = useDispatch();
@@ -232,7 +233,6 @@ function TableList(props) {
         });
       }
     } else if (props.part === "inventory") {
-      console.log(element)
       data.push({
         key: element.lot_no,
         ...element,
@@ -337,7 +337,6 @@ function TableList(props) {
   function checkRollBackPos() {
     let check = true;
     selectedRows.map((element) => {
-      console.log(element);
       if (!element.status.includes("취소")) {
         check = false;
         return check;
@@ -379,15 +378,17 @@ function TableList(props) {
       );
       props.setAlertVerifyOpen(false);
       handleStores();
-
     }
   }
-
+  const [createExportModal, setCreateExportModal] = useState(false)
+  function exportMulti() {
+    setCreateExportModal(true)
+  }
   // 출고체크
   function checkExportMovePos() {
     let check = true;
     selectedRows.map((element) => {
-      console.log(element);
+      console.log(element)
       if (element.amount === 0 || element.state !== "") {
         check = false;
         return check;
@@ -396,7 +397,7 @@ function TableList(props) {
     return check;
   }
   // 출고
-  function exportMulti() {
+  function exportMultiAxios(order_date, inst_deadline) {
     axios.defaults.baseURL = logisticsExportURL;
     if (selectedRowKeys.length === 0) {
       props.setAlertFailedOpen(true);
@@ -405,13 +406,19 @@ function TableList(props) {
       );
     }
     if (selectedRowKeys.length > 0 && checkExportMovePos()) {
+      console.log(order_date, inst_deadline, selectedRows)
       axios
-        .post('/export/multi', selectedRows)
+        .post('/export/multi', {
+          logiExportList: selectedRows,
+          order_date: order_date,
+          inst_deadline: inst_deadline,
+        })
         .then((res) => {
           props.setAlertSucOpen(true);
           props.setAlertMessage("출고요청이 등록되었습니다");
           props.setAlertVerifyOpen(false);
           handleStores();
+          setCreateExportModal(false)
         })
         .catch((err) => {
           props.setAlertFailedOpen(true);
@@ -420,15 +427,16 @@ function TableList(props) {
           );
           props.setAlertVerifyOpen(false);
           handleStores();
+          setCreateExportModal(false)
         });
     } else {
       props.setAlertFailedOpen(true);
       props.setAlertMessage(
-        "선택된 항목들은 출고등록이 불가합니다"
+        "수량이 0 이거나, 이미 요청등록이 되어있어 출고요청이 불가합니다."
       );
       props.setAlertVerifyOpen(false);
       handleStores();
-
+      setCreateExportModal(false)
     }
   }
 
@@ -437,7 +445,6 @@ function TableList(props) {
   const [toWarehouse_code, setToWarehouse_code] = useState("")
   const [toWarehouseModal, setToWarehouseModal] = useState(false)
   function moveMultiAxios(warehouse_code, inst_deadline) {
-    console.log(warehouse_code, inst_deadline)
     axios.defaults.baseURL = logisticsMoveURL;
     if (selectedRowKeys.length === 0) {
       props.setAlertFailedOpen(true);
@@ -471,7 +478,7 @@ function TableList(props) {
     } else {
       props.setAlertFailedOpen(true);
       props.setAlertMessage(
-        "선택된 항목들은 창고이동등록이 불가합니다"
+        "수량이 0 이거나, 이미 요청등록이 되어있어 창고이동요청이 불가합니다."
       );
       props.setAlertVerifyOpen(false);
       setToWarehouseModal(false)
@@ -539,6 +546,10 @@ function TableList(props) {
         setOpenDetail={setOpenDetail}
         detailData={detailData}
         title={props.title}
+        setAlertSucOpen={props.setAlertSucOpen}
+        setAlertFailedOpen={props.setAlertFailedOpen}
+        setAlertMessage={props.setAlertMessage}
+        handleStores={handleStores}
       />
       <div className="hidden">
         <BarcodePrint
@@ -565,6 +576,11 @@ function TableList(props) {
         toWarehouseModal={toWarehouseModal}
         setToWarehouseModal={setToWarehouseModal}
         moveMultiAxios={moveMultiAxios}
+      />
+      <CreateExportMulti
+        setCreateExportModal={setCreateExportModal}
+        createExportModal={createExportModal}
+        exportMultiAxios={exportMultiAxios}
       />
     </div>
   );

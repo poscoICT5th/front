@@ -10,15 +10,19 @@ function Detail(props) {
       .put(`/${props.detailData.warehouse_code}`, datas)
       .then((res) => {
         if (res.data) {
-          alert("수정 성공");
+          props.setAlertSucOpen(true);
+          props.setAlertMessage("창고정보가 수정되었습니다");
           props.setOpenDetail(false);
           setOpenUpdate(false);
+          props.handleStores();
         }
       })
       .catch((err) => {
-        alert("수정 실패 ㅠㅠㅠ");
+        props.setAlertFailedOpen(true);
+        props.setAlertMessage("통신에 장애가 발생하여 수정에 실패하였습니다.");
         props.setOpenDetail(false);
         setOpenUpdate(false);
+        props.handleStores();
       });
   }
   const [datas, setDatas] = useState({
@@ -141,18 +145,17 @@ function Detail(props) {
                 <div className="bg-gray-50 dark:bg-neutral-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                   <button
                     type="button"
-                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-neutral-800 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => props.setOpenDetail(false)}
+                    className="mt-3 w-full inline-flex justify-center rounded-md border border-red-300 shadow-sm px-4 py-2 bg-red-500 dark:bg-neutral-800 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={() => { props.setOpenDetail(false); setOpenUpdate(false) }}
                     ref={cancelButtonRef}
                   >
                     닫기
                   </button>
-
                   {openUpdate ? (
                     <button
                       type="button"
-                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-neutral-800 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() => save()}
+                      className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-teal-500 dark:bg-neutral-800 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                      onClick={() => { save(); setOpenUpdate(false) }}
                       ref={cancelButtonRef}
                     >
                       저장
@@ -163,8 +166,8 @@ function Detail(props) {
                     !openUpdate && props.title === "warehouse"
                       ? <button
                         type="button"
-                        className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-neutral-800 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                        onClick={() => setOpenUpdate(true)}
+                        className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-neutral-800 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                        onClick={() => { setOpenUpdate(true); }}
                         ref={cancelButtonRef}
                       >
                         수정

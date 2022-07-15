@@ -14,7 +14,7 @@ function TreeGraph(props) {
     const [nodeDatas, setNodeDatas] = useState({})
     const [nodeData, setNodeData] = useState({})
     const [clickNodeLot, setClickNodeLot] = useState("")
-    const [translate, containerRef] = useCenteredTree();
+    const [dimensions, translate, containerRef] = useCenteredTree();
     const containerStyles = {
         width: "100%",
         height: "100vh",
@@ -26,13 +26,13 @@ function TreeGraph(props) {
         axios.get(`/lotno/${props.lot_no}`)
             // axios.get(`/lotno/testlot123123`)
             .then((res) => {
-                console.log(props.lot_no)
                 setData(getLotData(res.data));
             })
-            .catch((err) => { console.log(err) })
+            .catch((err) => { })
     }, [props.lot_no])
 
     function getLotData(item) {
+        console.log(item)
         setNodeDatas({ ...nodeDatas, [item.lot_no]: item })
         if (!Array.isArray(item.consumed) || item.consumed.length === 0) {
             return {
@@ -40,7 +40,9 @@ function TreeGraph(props) {
                 children: [],
                 attributes: {
                     "물품코드": item.item_code,
-                    "재고생성일자": item.item_code,
+                    "물품명": item.item_name,
+                    "소진량": item.amount,
+                    "재고생성일자": item.inventory_date,
                     "상태": item.stock_quality_status ? item.stock_quality_status : "없음",
                     "상태사유": item.stock_quality_status === "불합격" ? item.status_cause : "없음",
                 },
@@ -50,7 +52,9 @@ function TreeGraph(props) {
             return {
                 name: item.lot_no, attributes: {
                     "물품코드": item.item_code,
-                    "재고생성일자": item.item_code,
+                    "물품명": item.item_name,
+                    "소진량": item.amount,
+                    "재고생성일자": item.inventory_date,
                     "상태": item.stock_quality_status ? item.stock_quality_status : "없음",
                     "상태사유": item.stock_quality_status === "불합격" ? item.status_cause : "없음",
                 }, children: item.consumed.map(x => {
@@ -64,7 +68,9 @@ function TreeGraph(props) {
                 children: [],
                 attributes: {
                     "물품코드": item.item_code,
-                    "재고생성일자": item.item_code,
+                    "물품명": item.item_name,
+                    "소진량": item.amount,
+                    "재고생성일자": item.inventory_date,
                     "상태": item.stock_quality_status ? item.stock_quality_status : "없음",
                     "상태사유": item.stock_quality_status === "불합격" ? item.status_cause : "없음",
                 },
@@ -76,23 +82,68 @@ function TreeGraph(props) {
         setClickNodeLot(params)
         setOpenDetail(true)
     }
-
+    function renderCustomNodeElement({ nodeDatum, toggleNode }) {
+        console.log(nodeDatum)
+        return <g>
+            <rect width="20" height="20" x="-10" onClick={() => { toggleNode() }} fill={nodeDatum.attributes?.상태 === "불합격" ? "red" : "blue"} />
+            <text fill={nodeDatum.attributes?.상태 === "불합격" ? "red" : "black"}
+                strokeWidth="0.1"
+                x="25"
+                dy="-7">
+                {nodeDatum.name}
+            </text>
+            {
+                nodeDatum.attributes?.상태 && (
+                    <text
+                        onClick={() => { }}
+                        fill="#107414"
+                        x="25"
+                        dy="5"
+                        strokeWidth="0.20"
+                    >
+                        <tspan x="50" dy="1.5em" fontSize="0.8rem" >
+                            물품코드 : {nodeDatum.attributes?.물품코드}
+                        </tspan>
+                        <tspan x="50" dy="1.5em" fontSize="0.8rem">
+                            물품명 : {nodeDatum.attributes?.물품명}
+                        </tspan>
+                        <tspan x="50" dy="1.5em" fontSize="0.8rem">
+                            소진량 : {nodeDatum.attributes?.소진량}
+                        </tspan>
+                        <tspan x="50" dy="1.5em" fontSize="0.8rem">
+                            재고생성일자 : {nodeDatum.attributes?.재고생성일자}
+                        </tspan>
+                        <tspan x="50" dy="1.5em" fontSize="0.8rem">
+                            상태 : {nodeDatum.attributes?.상태}
+                        </tspan>
+                        <tspan x="50" dy="1.5em" fontSize="0.8rem">
+                            상태사유 : {nodeDatum.attributes?.상태사유}
+                        </tspan>
+                    </text>
+                )
+            }
+        </g>
+    }
     return (
         <div style={containerStyles} ref={containerRef}>
             <div className='mt-2 font-bold text-xl'>{props.lot_no}</div>
+            {/* MOTOR220712021856134 */}
             <Tree
                 data={data}
-                // onNodeClick={(e) => { clickLot(e.data.name) }}
                 enableLegacyTransitions
                 translate={translate}
-                // onNodeMouseOver={(e) => { console.log(e) }}
-                // pathFunc='elbow'
                 nodeSize={{ x: 200, y: 200 }}
                 collapsible
                 centeringTransitionDuration={800}
-                rootNodeClassName="node__root"
-                branchNodeClassName="node__branch"
-                leafNodeClassName="node__leaf"
+                dimensions={dimensions}
+                renderCustomNodeElement={renderCustomNodeElement}
+                onNodeClick={(e) => { clickLot(e.data.name) }}
+                orientation="vertical"
+            // onNodeMouseOver={(e) => { console.log(e) }}
+            // pathFunc='elbow'
+            // rootNodeClassName="node__root"
+            // branchNodeClassName="node__branch"
+            // leafNodeClassName="node__leaf"
             />
             <DetailTracking
                 openDetail={openDetail}

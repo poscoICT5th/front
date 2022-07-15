@@ -6,6 +6,7 @@ import TableList from "../Table/TableList";
 
 function Inventory(props) {
   let inventoryURL = useSelector((state) => state.inventoryURL);
+  let inventoryReload = useSelector((state) => state.inventoryReload);
   let createInventorySuc = useSelector((state) => state.warehouseReload);
 
   //usestate
@@ -82,7 +83,7 @@ function Inventory(props) {
       setInventoryList(res.data);
       setClickSearch(false);
     });
-  }, [clickSearch, createInventorySuc, datas]);
+  }, [clickSearch, createInventorySuc, datas, inventoryReload]);
 
   return (
     <div data-aos="fade-up" className="">

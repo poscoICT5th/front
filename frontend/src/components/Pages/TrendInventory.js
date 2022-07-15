@@ -131,7 +131,7 @@ function TrendInventory() {
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="text-sm">
                                 {(
-                                  (datas.sum_export_motor_ + year / datas.sum_inven_motor_ + year / 178) *
+                                  (datas.sum_export_motor_$ / datas.sum_inven_motor_ + year / 178) *
                                   100
                                 ).toFixed(2)}
                                 %
