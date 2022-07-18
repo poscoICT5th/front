@@ -389,7 +389,7 @@ function TableList(props) {
     let check = true;
     selectedRows.map((element) => {
       console.log(element)
-      if (element.amount === 0 || element.state !== "") {
+      if (element.amount === 0 || element.state.includes("등록")) {
         check = false;
         return check;
       }
