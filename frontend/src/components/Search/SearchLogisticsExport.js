@@ -127,7 +127,7 @@ function SearchLogisticsExport(props) {
             조회
           </button>
           <button
-            className="mt-2 w-24 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+            className="mr-1 mt-2 w-24 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
             onClick={() => { props.setClickBarcodePrint(true) }}
           >
             바코드출력

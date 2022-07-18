@@ -16,7 +16,7 @@ function CreateAccount(props) {
         phone: "",
         email: "",
         team: "",
-        auth: "",
+        auth: "1",
         menu_option: "1",
     })
     useEffect(() => {
@@ -30,6 +30,7 @@ function CreateAccount(props) {
     }, [location])
 
     function checkDatas() {
+        console.log(userData)
         let check = true;
         Object.values(userData).map((value) => {
             if (value === "") {
@@ -65,6 +66,7 @@ function CreateAccount(props) {
                             auth: "",
                             menu_option: "1",
                         })
+                        window.location.replace("/CreateAccount")
                     }
                 })
         }
