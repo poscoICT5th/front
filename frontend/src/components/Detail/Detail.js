@@ -1,6 +1,8 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
+
 function Detail(props) {
   const [openUpdate, setOpenUpdate] = useState(false);
   const cancelButtonRef = useRef(null);
@@ -39,6 +41,10 @@ function Detail(props) {
     setDatas({ ...props.detailData });
   }, [props.detailData.warehouse_code]);
 
+  const [auth, setAuth] = useState("1")
+  useEffect(() => {
+    setAuth(jwtDecode(sessionStorage.getItem("token")).info.auth)
+  }, [])
   return (
     <Transition.Root show={props.openDetail} as={Fragment}>
       <Dialog
@@ -163,7 +169,7 @@ function Detail(props) {
                   ) : null
                   }
                   {
-                    !openUpdate && props.title === "warehouse"
+                    !openUpdate && props.title === "warehouse" && auth === '1'
                       ? <button
                         type="button"
                         className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 dark:bg-neutral-800 text-base font-medium dark:text-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"

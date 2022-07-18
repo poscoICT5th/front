@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import InventoryMix from "../Common/InventoryMix";
 import Invenupdate from "../Common/Invenupdate";
+import jwtDecode from "jwt-decode";
 
 function SearchWarehouse(props) {
   // useEffect
@@ -191,6 +192,11 @@ function SearchWarehouse(props) {
       vn: "công việc nhận kho",
     },
   ];
+  const [auth, setAuth] = useState("1")
+  useEffect(() => {
+    setAuth(jwtDecode(sessionStorage.getItem("token")).info.auth)
+  }, [])
+
   return (
     <div className="overflow-hidden sm:rounded-md">
       <div className="py-5 rounded-lg">
@@ -229,21 +235,25 @@ function SearchWarehouse(props) {
           })}
         </div>
         <div className="mt-3 text-right">
-          <button
-            className="w-20 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-            onClick={() => {
-              if (props.selectedList.length > 0) {
-                props.setAlertVerifyOpen(true);
-                props.setClickButton("delete");
-              } else {
-                props.setAlertMessage("항목을 선택해주세요");
-                props.setAlertFailedOpen(true);
-              }
-            }}
-            disabled
-          >
-            삭제
-          </button>
+          {
+            auth === '1'
+              ? <button
+                className="cursor-pointer w-20 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                onClick={() => {
+                  if (props.selectedList.length > 0) {
+                    props.setAlertVerifyOpen(true);
+                    props.setClickButton("delete");
+                  } else {
+                    props.setAlertMessage("항목을 선택해주세요");
+                    props.setAlertFailedOpen(true);
+                  }
+                }}
+                disabled
+              >
+                삭제
+              </button>
+              : null
+          }
           <button
             className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
             onClick={() => {

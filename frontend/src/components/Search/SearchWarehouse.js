@@ -9,6 +9,7 @@ import SearchSelect from "../Common/Conditions/SearchSelect";
 import InputText from "../Common/Conditions/InputText";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 function SearchWarehouse(props) {
   // 지역에 따라서 창고목록변경
@@ -43,6 +44,10 @@ function SearchWarehouse(props) {
     { name: "min_maximum_count", type: "number", "purpose": "search", "ko": "최소적재수량", "cn": "最小装载数量", "jp": "最小積載数量", "vn": "lượng tải tối thiểu" },
     { name: "max_maximum_count", type: "number", "purpose": "search", "ko": "최대적재수량", "cn": "最大装载数量", "jp": "最大積載数量", "vn": "lượng tải tối đa" },
   ];
+  const [auth, setAuth] = useState("1")
+  useEffect(() => {
+    setAuth(jwtDecode(sessionStorage.getItem("token")).info.auth)
+  }, [])
   return (
     <div className="overflow-hidden sm:rounded-md">
       <div className="py-5 rounded-lg">
@@ -80,15 +85,21 @@ function SearchWarehouse(props) {
 
         </div>
         <div className="text-right">
-          <button
-            className="mt-2 w-20 mr-2 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-            onClick={() => {
-              if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
-              else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
-            }}
-          >
-            삭제
-          </button>
+          {
+            auth === '1'
+              ? <button
+                disabled
+                className="mt-2 w-20 mr-2 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                onClick={() => {
+                  if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
+                  else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
+                }}
+              >
+                삭제
+              </button>
+              : null
+          }
+
           <button
             className="mr-1 mt-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
             onClick={() => {
