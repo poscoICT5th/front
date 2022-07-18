@@ -56,96 +56,51 @@ function TableList(props) {
   };
 
   props.th.forEach((element) => {
-    if (element.type === "number") {
-      columns.push({
-        title: element[sessionStorage.getItem("language")],
-        dataIndex: element.en,
-        key: element,
-        align: "right",
-        width: 100,
-        sorter: (a, b) => {
-          if (a[element.en] < b[element.en]) return -1;
-          if (a[element.en] > b[element.en]) return 1;
-          if (a[element.en] === b[element.en]) return 0;
-          else return -1;
-        },
-      });
-    } else if (element.type === "string") {
-      columns.push({
-        title: element[sessionStorage.getItem("language")],
-        dataIndex: element.en,
-        key: element,
-        align: "left",
-        width: 100,
-        sorter: (a, b) => {
-          if (a[element.en] < b[element.en]) return -1;
-          if (a[element.en] > b[element.en]) return 1;
-          if (a[element.en] === b[element.en]) return 0;
-          else return -1;
-        },
-      });
-    } else if (element.type === "date") {
-      columns.push({
-        title: element[sessionStorage.getItem("language")],
-        dataIndex: element.en,
-        key: element,
-        align: "right",
-        width: 100,
-        sorter: (a, b) => {
-          if (a[element.en] < b[element.en]) return -1;
-          if (a[element.en] > b[element.en]) return 1;
-          if (a[element.en] === b[element.en]) return 0;
-          else return -1;
-        },
-      });
+    if (props.part === 'import') {
+
+    } else if (props.part === 'export') {
+
+    } else if (props.part === 'move') {
+
+    } else if (props.part === 'inventory') {
+
+    } else {
+
     }
+    columns.push({
+      title: element[sessionStorage.getItem("language")],
+      dataIndex: element.en,
+      key: element,
+      align: element.type,
+      width: element.size,
+      ellipsis: true,
+      fixed: element.fixed,
+      sorter: (a, b) => {
+        if (a[element.en] < b[element.en]) return -1;
+        if (a[element.en] > b[element.en]) return 1;
+        if (a[element.en] === b[element.en]) return 0;
+        else return -1;
+      },
+    });
   });
 
   useEffect(() => {
     props.th.forEach((element) => {
-      if (element.type === "number") {
-        columns.push({
-          title: element[sessionStorage.getItem("language")],
-          dataIndex: element.en,
-          key: element,
-          align: "right",
-          width: 100,
-          sorter: (a, b) => {
-            if (a[element.en] < b[element.en]) return -1;
-            if (a[element.en] > b[element.en]) return 1;
-            if (a[element.en] === b[element.en]) return 0;
-            else return -1;
-          },
-        });
-      } else if (element.type === "string") {
-        columns.push({
-          title: element[sessionStorage.getItem("language")],
-          dataIndex: element.en,
-          key: element,
-          align: "left",
-          width: 100,
-          sorter: (a, b) => {
-            if (a[element.en] < b[element.en]) return -1;
-            if (a[element.en] > b[element.en]) return 1;
-            if (a[element.en] === b[element.en]) return 0;
-            else return -1;
-          },
-        });
-      } else if (element.type === "date") {
-        columns.push({
-          title: element[sessionStorage.getItem("language")],
-          dataIndex: element.en,
-          key: element,
-          align: "right",
-          width: 100,
-          sorter: (a, b) => {
-            if (a[element.en] < b[element.en]) return -1;
-            if (a[element.en] > b[element.en]) return 1;
-            if (a[element.en] === b[element.en]) return 0;
-            else return -1;
-          },
-        });
-      }
+      columns.push({
+        title: element[sessionStorage.getItem("language")],
+        dataIndex: element.en,
+        key: element,
+        align: element.type,
+        width: element.size,
+        ellipsis: true,
+        fixed: element.fixed,
+        sorter: (a, b) => {
+          if (a[element.en] < b[element.en]) return -1;
+          if (a[element.en] > b[element.en]) return 1;
+          if (a[element.en] === b[element.en]) return 0;
+          else return -1;
+        },
+      });
     });
   }, [store_language]);
 
@@ -236,7 +191,7 @@ function TableList(props) {
       data.push({
         key: element.lot_no,
         ...element,
-        inventory_date: element.inventory_date.slice(0, 10),
+        inventory_date: element.inventory_date.slice(0, 16),
         warehouse_date: element.warehouse_date.slice(0, 10),
         width: element.width.toFixed(2),
         weight: element.weight.toFixed(2),
@@ -287,9 +242,6 @@ function TableList(props) {
           check = false;
           return check
         }
-
-
-
       }
     });
     return check;
@@ -492,6 +444,16 @@ function TableList(props) {
   return (
     <div>
       <Table
+        rowClassName={
+          (record, index) =>
+            (record.state?.includes("등록") || record.status?.includes("완료"))
+              ? 'text-blue-500 cursor-pointer'
+              : (
+                record.status?.includes("취소")
+                  ? 'text-red-500 cursor-pointer'
+                  : "cursor-pointer"
+              )
+        }
         rowSelection={rowSelection}
         onRow={(record, rowIndex, data) => {
           return {
@@ -521,16 +483,11 @@ function TableList(props) {
         columns={columns}
         dataSource={data}
         bordered
-        pagination={{ pageSize: 10 }}
+        pagination={{ pageSize: 15 }}
         size="small"
         scroll={{
-          x: props.part === "import" ? 2500
-            : (props.part === "export" ? 2500
-              : props.part === "move" ? 2000
-                : props.part === "warehouse" ? null
-                  : props.part === "inventory" ? 3000
-                    : null),
-          // y: 1500,
+          x: 1000,
+          // y: 500
         }}
       />
       <Popup
