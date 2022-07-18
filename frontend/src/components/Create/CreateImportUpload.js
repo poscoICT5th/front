@@ -60,7 +60,7 @@ function CreateImportUpload(props) {
         // Event listener on reader when the file
         // loads, we parse it and set the data.
         reader.onload = async ({ target }) => {
-            const csv = Papa.parse(target.result, { header: true, encoding: "utf-8" });
+            const csv = Papa.parse(target.result, { header: true, encoding: "utf-8", skipEmptyLines: true, });
             const parsedData = csv?.data;
             const data = Object.values(parsedData)
             axios.defaults.baseURL = logisticsImportURL
