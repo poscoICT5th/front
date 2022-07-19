@@ -20,7 +20,7 @@ function TrendInventory() {
       setTrends(res.data);
     });
   }
- 
+
   useEffect(() => {
     setTrends([]);
     // years.forEach((year) => {
@@ -29,7 +29,7 @@ function TrendInventory() {
   }, []);
 
   return (
-    <div data-aos="fade-up" className="w-3/4 mx-auto">
+    <div data-aos="fade-up" className="mx-auto">
       <div className="">
         <div className="font-bold text-2xl text-center mb-5">
           Inventory Trend
@@ -47,20 +47,20 @@ function TrendInventory() {
         </Tabs>
         <div className="mt-5"></div>
         <div className="px-6 py-3 text-xl font-bold uppercase tracking-wider text-center">
-        제품군별 회전율 1년 추이
-      </div>
+          제품군별 회전율 1년 추이
+        </div>
         <div className="px-6 py-3 text-sm font-medium uppercase tracking-wider text-right">
-        단위 %
-      </div>
-        <div className="grid grid-cols-8 gap-10">
+          단위 %
+        </div>
+        <div className="text-center">
           {years.map((value) => {
             return (
               <button
                 className={
                   clickYear === value
-                    ? "bg-sky-700 rounded-lg text-white"
+                    ? "bg-sky-700 rounded-lg text-white w-20 mx-2 py-2 font-bold"
                     : null +
-                      "py-2 font-bold text-sm rounded-lg text-gray-700 hover:text-white bg-sky-100 hover:bg-sky-700"
+                    "py-2 font-bold text-sm rounded-lg text-gray-700 hover:text-white bg-sky-100 hover:bg-sky-700 w-20 mx-2"
                 }
                 onClick={() => {
                   setClickYear(value);
