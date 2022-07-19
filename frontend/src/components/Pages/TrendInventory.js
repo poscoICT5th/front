@@ -8,60 +8,24 @@ import ChartStripLine from "../Map/ChartStripLine";
 
 function TrendInventory() {
   let inventoryURL = useSelector((state) => state.inventoryURL);
-  const [clickData, setClickData] = useState({
-    month: "01",
-  });
-  const years = [2022, 2021, 2020];
-  const months = {
-    Jan: "01",
-    Feb: "02",
-    Mar: "03",
-    Apr: "04",
-    May: "05",
-    Jun: "06",
-    Jul: "07",
-    Aug: "08",
-    Sep: "09",
-    Oct: "10",
-    Nov: "11",
-    Dec: "12",
-  };
 
-  const [trendDatas, setTrendDatas] = useState({
-    motor_2022: 0,
-    motor_2021: 0,
-    motor_2020: 0,
-    rotor_2022: 0,
-    rotor_2021: 0,
-    rotor_2020: 0,
-    strip_2022: 0,
-    strip_2021: 0,
-    strip_2020: 0,
-  })
-  const [trends, setTrends] = useState([])
+  const [clickYear, setClickYear] = useState("2022");
+  const years = ["2022", "2021", "2020"];
+
+  const [trends, setTrends] = useState([""]);
   const { TabPane } = Tabs;
   function getTrendDatas(year) {
     axios.defaults.baseURL = inventoryURL;
-    axios.get(`/trend/year/${year}/month/${clickData.month}`).then((res) => {
-      setTrends(trends => [...trends,
-      (((res.data[0]["sum_export_motor"]) / (res.data[0]["sum_inven_motor"])) / (res.data[0]["day"])).toFixed(2),
-      (((res.data[0]["sum_export_rotor"]) / (res.data[0]["sum_inven_rotor"])) / (res.data[0]["day"])).toFixed(2),
-      (((res.data[0]["sum_export_strip"]) / (res.data[0]["sum_inven_strip"])) / (res.data[0]["day"])).toFixed(2)
-      ])
+    axios.get("/trendAll").then((res) => {
+      setTrends(res.data);
     });
   }
+ 
   useEffect(() => {
-    setTrends([])
-    years.forEach((year) => {
-      getTrendDatas(year);
-    });
-  }, [clickData]);
-
-  useEffect(() => {
-    setTrends([])
-    years.forEach((year) => {
-      getTrendDatas(year);
-    });
+    setTrends([]);
+    // years.forEach((year) => {
+    getTrendDatas(clickYear);
+    // });
   }, []);
 
   return (
@@ -70,13 +34,36 @@ function TrendInventory() {
         <div className="font-bold text-2xl text-center mb-5">
           Inventory Trend
         </div>
-        <div className="grid grid-cols-12 gap-2">
-          {Object.keys(months).map((value) => {
+        <Tabs defaultActiveKey="1" centered>
+          <TabPane tab="Motor Trend" key="1">
+            <ChartMotorLine />
+          </TabPane>
+          <TabPane tab="Rotor Trend" key="2">
+            <ChartRotorLine />
+          </TabPane>
+          <TabPane tab="Strip Trend" key="3">
+            <ChartStripLine />
+          </TabPane>
+        </Tabs>
+        <div className="mt-5"></div>
+        <div className="px-6 py-3 text-xl font-bold uppercase tracking-wider text-center">
+        제품군별 회전율 1년 추이
+      </div>
+        <div className="px-6 py-3 text-sm font-medium uppercase tracking-wider text-right">
+        단위 %
+      </div>
+        <div className="grid grid-cols-8 gap-10">
+          {years.map((value) => {
             return (
               <button
-                className={clickData.month === months[value] ? "bg-sky-700 rounded-lg text-white" : null + "py-2 font-bold text-sm rounded-lg text-gray-700 hover:text-white bg-sky-100 hover:bg-sky-700"}
+                className={
+                  clickYear === value
+                    ? "bg-sky-700 rounded-lg text-white"
+                    : null +
+                      "py-2 font-bold text-sm rounded-lg text-gray-700 hover:text-white bg-sky-100 hover:bg-sky-700"
+                }
                 onClick={() => {
-                  setClickData({ ...clickData, month: months[value] });
+                  setClickYear(value);
                 }}
               >
                 {value}
@@ -92,69 +79,84 @@ function TrendInventory() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="">
                     <tr>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium uppercase tracking-wider"
-                      >
-                        연도
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium uppercase tracking-wider"
-                      >
-                        Motor-재고회전율
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium uppercase tracking-wider"
-                      >
-                        Rotor-재고회전율
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-xs font-medium uppercase tracking-wider"
-                      >
-                        Strip-재고회전율
-                      </th>
+                      {trends
+                        .filter((data) => data.year === clickYear)
+                        .map((data, index) => {
+                          if (index === 0) {
+                            return (
+                              <>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-xs font-medium uppercase tracking-wider"
+                                >
+                                  월
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-xs font-medium uppercase tracking-wider"
+                                >
+                                  {data.month}
+                                </th>
+                              </>
+                            );
+                          }
+                          return (
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-xs font-medium uppercase tracking-wider"
+                            >
+                              {data.month}
+                            </th>
+                          );
+                        })}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {years.map((year, index) => {
+                    {["motor", "rotor", "strip"].map((data1) => {
                       return (
-                        <>
-                          <tr>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm">{year}</div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm font-bold">
-                                {
-                                  trends[index * 2 + index] > 0
-                                    ? trends[index * 2 + index] + "%"
-                                    : "-"
-                                }
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm font-bold">
-                                {
-                                  trends[index * 3 + 1] > 0
-                                    ? trends[index * 3 + 1] + "%"
-                                    : "-"
-                                }
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm font-bold">
-                                {
-                                  trends[index * 3 + 2] > 0
-                                    ? trends[index * 3 + 2] + "%"
-                                    : "-"
-                                }
-                              </div>
-                            </td>
-                          </tr>
-                        </>
+                        <tr>
+                          {trends
+                            .filter((data) => data.year === clickYear)
+                            .map((data2, index) => {
+                              if (index === 0) {
+                                return (
+                                  <>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                      <div className="text-sm font-bold">
+                                        {data1 + "_회전율"}
+                                      </div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                      <div className="text-md font-bold">
+                                        {(
+                                          (data2[`sum_export_${data1}`] /
+                                            (data2[`sum_inven_${data1}`] /
+                                              data2["day"])) *
+                                          100
+                                        ).toFixed(2)}
+                                      </div>
+                                    </td>
+                                  </>
+                                );
+                              }
+                              return (
+                                <>
+                                  {/* <tr> */}
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-md font-bold">
+                                      {(
+                                        (data2[`sum_export_${data1}`] /
+                                          (data2[`sum_inven_${data1}`] /
+                                            data2["day"])) *
+                                        100
+                                      ).toFixed(2)}
+                                    </div>
+                                  </td>
+                                  {/* </tr> */}
+                                </>
+                              );
+                            })}
+                        </tr>
                       );
                     })}
                   </tbody>
@@ -167,17 +169,6 @@ function TrendInventory() {
       <div className="px-6 py-3 text-xs font-medium uppercase tracking-wider text-right">
         ※ 재고회전율 = 출고량 / 평균재고량 * 100 %
       </div>
-      <Tabs defaultActiveKey="1" centered>
-        <TabPane tab="Motor Trend" key="1">
-          <ChartMotorLine />
-        </TabPane>
-        <TabPane tab="Rotor Trend" key="2">
-          <ChartRotorLine />
-        </TabPane>
-        <TabPane tab="Strip Trend" key="3">
-          <ChartStripLine />
-        </TabPane>
-      </Tabs>
     </div>
   );
 }
