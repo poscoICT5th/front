@@ -80,7 +80,7 @@ function DashboardAmountChart(props) {
             {
                 name: languageTitle.제목[sessionStorage.language],
                 data: amount,
-                color: "#088A68",
+                color: sessionStorage.getItem("theme") === "light" ? "#088A08" : "#A9F5A9",
             },
         ],
         responsive: {
@@ -92,6 +92,11 @@ function DashboardAmountChart(props) {
                 },
             ],
         },
+        legend: {
+            itemStyle: {
+                color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff"
+            }
+        }
     }
 
     useEffect(() => {

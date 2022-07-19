@@ -451,7 +451,11 @@ function TableList(props) {
               : (
                 record.status?.includes("취소")
                   ? 'text-red-500 cursor-pointer'
-                  : "cursor-pointer"
+                  : (
+                    record.status?.includes("중")
+                    ? 'text-green-500 cursor-pointer'
+                    : "cursor-pointer"
+                  )
               )
         }
         rowSelection={rowSelection}

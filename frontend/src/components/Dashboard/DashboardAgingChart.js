@@ -39,7 +39,7 @@ function DashboardAgingChart(props) {
                 viewDistance: 25,
             },
             backgroundColor: {},
-            color:  sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
+            color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
         },
         title: {
             text: "",
@@ -77,8 +77,7 @@ function DashboardAgingChart(props) {
             {
                 name: languageTitle.제목[sessionStorage.language],
                 data: diffDays,
-                color: "#8181F7",
-
+                color: sessionStorage.getItem("theme") === "light" ? "#00BFFF" : "#CEECF5",
             },
         ],
         responsive: {
@@ -90,6 +89,11 @@ function DashboardAgingChart(props) {
                 },
             ],
         },
+        legend: {
+            itemStyle: {
+                color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff"
+            }
+        }
     }
 
     let nowDate = (moment().format("YYYY-MM-DD"))
