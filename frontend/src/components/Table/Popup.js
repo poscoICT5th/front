@@ -15,7 +15,7 @@ function Popup(props) {
                 props.title === "inventory"
                     ?
                     <li>
-                        <div onClick={() => { navigate('/Tracking', { state: props.popupData[0] }) }}>역추적</div>
+                        <div onClick={() => { navigate('/Tracking', { state: props.popupData[0] }) }}>Tracking</div>
                     </li>
                     : <li>
                         <BarcodePrint

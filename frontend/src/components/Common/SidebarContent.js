@@ -215,7 +215,7 @@ function SidebarContent(props) {
     "재고관리": { ko: "재고관리", en: "Inventory management", cn: "库存管理", jp: "在庫管理", vn: "quản lý tồn kho" },
     "재고조회": { ko: "재고조회", en: "Inventory check", cn: "盘存", jp: "在庫照会", vn: "kiểm tra hàng tồn kho" },
     "재고Trend": { ko: "재고 Trend", en: "Inventory trend", cn: "库存趋势", jp: "在庫の趨勢", vn: "xu hướng tồn kho" },
-    "재고역추적": { ko: "LOT 역추적", en: "LOT tracking", cn: "库存逆追踪", jp: "在庫逆追跡", vn: "theo dõi ngược hàng tồn kho" },
+    "재고역추적": { ko: "LOT tracking", en: "LOT tracking", cn: "库存逆追踪", jp: "在庫逆追跡", vn: "theo dõi ngược hàng tồn kho" },
     "마이페이지": { ko: "마이페이지", en: "My Page", cn: "我的页面", jp: "マイページ", vn: "Mai Trang" },
     "계정생성": { ko: "계정생성", en: "Create an account creation", cn: "创建账户", jp: "アカウント作成", vn: "tạo tài khoản" },
     "핫라인": { ko: "핫라인", en: "HotLine", cn: "热线", jp: "ホットライン", vn: "đường dây nóng" },
