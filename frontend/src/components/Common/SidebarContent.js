@@ -210,17 +210,17 @@ function SidebarContent(props) {
     "창고이동등록": { ko: "창고이동등록", en: "Warehouse movement registration", cn: "仓库转移登记", jp: "倉庫移動登録", vn: "đăng ký di chuyển nhà kho" },
     "창고관리": { ko: "창고관리", en: "Warehouse management", cn: "仓库管理", jp: "倉庫管理", vn: "quản lý kho" },
     "창고조회": { ko: "창고조회", en: "Warehouse check", cn: "仓库查询", jp: "倉庫照会", vn: "kiểm tra kho" },
-    "창고MAP": { ko: "창고MAP", en: "Warehouse map", cn: "仓库地图", jp: "倉庫地図", vn: "bản đồ kho" },
+    "창고MAP": { ko: "창고 MAP", en: "Warehouse map", cn: "仓库地图", jp: "倉庫地図", vn: "bản đồ kho" },
     "창고등록": { ko: "창고등록", en: "Warehouse registration", cn: "仓库登记", jp: "倉庫登録", vn: "đăng ký nhà kho" },
     "재고관리": { ko: "재고관리", en: "Inventory management", cn: "库存管理", jp: "在庫管理", vn: "quản lý tồn kho" },
     "재고조회": { ko: "재고조회", en: "Inventory check", cn: "盘存", jp: "在庫照会", vn: "kiểm tra hàng tồn kho" },
-    "재고Trend": { ko: "재고Trend", en: "Inventory trend", cn: "库存趋势", jp: "在庫の趨勢", vn: "xu hướng tồn kho" },
-    "재고역추적": { ko: "재고역추적", en: "Backtracking inventory", cn: "库存逆追踪", jp: "在庫逆追跡", vn: "theo dõi ngược hàng tồn kho" },
+    "재고Trend": { ko: "재고 Trend", en: "Inventory trend", cn: "库存趋势", jp: "在庫の趨勢", vn: "xu hướng tồn kho" },
+    "재고역추적": { ko: "LOT 역추적", en: "LOT tracking", cn: "库存逆追踪", jp: "在庫逆追跡", vn: "theo dõi ngược hàng tồn kho" },
     "마이페이지": { ko: "마이페이지", en: "My Page", cn: "我的页面", jp: "マイページ", vn: "Mai Trang" },
     "계정생성": { ko: "계정생성", en: "Create an account creation", cn: "创建账户", jp: "アカウント作成", vn: "tạo tài khoản" },
     "핫라인": { ko: "핫라인", en: "HotLine", cn: "热线", jp: "ホットライン", vn: "đường dây nóng" },
-
   }
+
   return (
     <div>
       <div className="">
@@ -316,24 +316,28 @@ function SidebarContent(props) {
                   <span className="ml-3 text-sm font-medium"> {menuLanguage["계정생성"][sessionStorage.getItem("language")]} </span>
                 </div>
               ) : null}
-              <div
-                className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
-                style={
-                  menu === 111
-                    ? { backgroundColor: "gray", color: "white" }
-                    : null
-                }
-                onClick={() => {
-                  navigatePage("Hotline");
-                  setMenu(111);
-                  props.setSidebarOpen(false);
-                }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-                </svg>
-                <span className="ml-3 text-sm font-medium"> {menuLanguage["핫라인"][sessionStorage.getItem("language")]} </span>
-              </div>
+              {
+                createUser
+                  ? <div
+                    className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 hover:text-gray-700"
+                    style={
+                      menu === 111
+                        ? { backgroundColor: "gray", color: "white" }
+                        : null
+                    }
+                    onClick={() => {
+                      navigatePage("Hotline");
+                      setMenu(111);
+                      props.setSidebarOpen(false);
+                    }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                    </svg>
+                    <span className="ml-3 text-sm font-medium"> {menuLanguage["핫라인"][sessionStorage.getItem("language")]} </span>
+                  </div>
+                  : null
+              }
               {/*  */}
               {sidebarDatas.map((sidebarData) => {
                 return (
@@ -410,38 +414,41 @@ function SidebarContent(props) {
                           </div>
                         );
                       })}
-                      {sidebarData.componentMenu.map((componentData) => {
-                        return (
-                          <div key={componentData.title}>
-                            <button
-                              className="flex items-center w-full px-4 py-2 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
-                              onClick={() => {
-                                componentData.openFunc(true);
-                              }}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2}
+                      {createUser
+                        ? sidebarData.componentMenu.map((componentData) => {
+                          return (
+                            <div key={componentData.title}>
+                              <button
+                                className="flex items-center w-full px-4 py-2 rounded-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+                                onClick={() => {
+                                  componentData.openFunc(true);
+                                }}
                               >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d={componentData.d}
-                                />
-                              </svg>
-                              <span className="ml-3 text-sm font-medium">
-                                {" "}
-                                {menuLanguage[componentData.title][sessionStorage.getItem("language")]}
-                              </span>
-                              {componentData.component}
-                            </button>
-                          </div>
-                        );
-                      })}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="h-6 w-6"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  strokeWidth={2}
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d={componentData.d}
+                                  />
+                                </svg>
+                                <span className="ml-3 text-sm font-medium">
+                                  {" "}
+                                  {menuLanguage[componentData.title][sessionStorage.getItem("language")]}
+                                </span>
+                                {componentData.component}
+                              </button>
+                            </div>
+                          );
+                        })
+                        : null
+                      }
                     </nav>
                   </details>
                 );

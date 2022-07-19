@@ -237,21 +237,67 @@ function SearchWarehouse(props) {
         <div className="mt-3 text-right">
           {
             auth === '1'
-              ? <button
-                className="cursor-pointer w-20 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                onClick={() => {
-                  if (props.selectedList.length > 0) {
-                    props.setAlertVerifyOpen(true);
-                    props.setClickButton("delete");
-                  } else {
-                    props.setAlertMessage("항목을 선택해주세요");
-                    props.setAlertFailedOpen(true);
-                  }
-                }}
-                disabled
-              >
-                삭제
-              </button>
+              ? <>
+                <button
+                  className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+                  onClick={() => {
+                    if (props.selectedList.length > 0) {
+                      props.setAlertVerifyOpen(true);
+                      props.setClickButton("export");
+                    } else {
+                      props.setAlertMessage("항목을 선택해주세요");
+                      props.setAlertFailedOpen(true);
+                    }
+                  }}
+                >
+                  출고등록
+                </button>
+                <button
+                  className="mr-2 w-32 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  onClick={() => {
+                    if (props.selectedList.length > 0) {
+                      props.setAlertVerifyOpen(true);
+                      props.setClickButton("move");
+                    } else {
+                      props.setAlertMessage("항목을 선택해주세요");
+                      props.setAlertFailedOpen(true);
+                    }
+                  }}
+                >
+                  창고이동등록
+                </button>
+                <button
+                  className="text-gray-50 mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  onClick={() => {
+                    setClickMix(true);
+                  }}
+                >
+                  제품가공
+                </button>
+                <button
+                  className="mr-1 w-32 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  onClick={() => {
+                    setClickUpdate(true);
+                  }}
+                >
+                  품질 상태 수정
+                </button>
+                <button
+                  className="cursor-pointer w-20 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  onClick={() => {
+                    if (props.selectedList.length > 0) {
+                      props.setAlertVerifyOpen(true);
+                      props.setClickButton("delete");
+                    } else {
+                      props.setAlertMessage("항목을 선택해주세요");
+                      props.setAlertFailedOpen(true);
+                    }
+                  }}
+                  disabled
+                >
+                  삭제
+                </button>
+              </>
               : null
           }
           <button
@@ -262,50 +308,7 @@ function SearchWarehouse(props) {
           >
             조회
           </button>
-          <button
-            className="mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
-            onClick={() => {
-              if (props.selectedList.length > 0) {
-                props.setAlertVerifyOpen(true);
-                props.setClickButton("export");
-              } else {
-                props.setAlertMessage("항목을 선택해주세요");
-                props.setAlertFailedOpen(true);
-              }
-            }}
-          >
-            출고등록
-          </button>
-          <button
-            className="mr-2 w-32 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-            onClick={() => {
-              if (props.selectedList.length > 0) {
-                props.setAlertVerifyOpen(true);
-                props.setClickButton("move");
-              } else {
-                props.setAlertMessage("항목을 선택해주세요");
-                props.setAlertFailedOpen(true);
-              }
-            }}
-          >
-            창고이동등록
-          </button>
-          <button
-            className="text-gray-50 mr-2 w-20 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-            onClick={() => {
-              setClickMix(true);
-            }}
-          >
-            제품가공
-          </button>
-          <button
-            className="mr-1 w-32 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-            onClick={() => {
-              setClickUpdate(true);
-            }}
-          >
-            품질 상태 수정
-          </button>
+
           <InventoryMix
             selectedRowKeys={props.selectedList}
             selectedRows={props.selectedRows}

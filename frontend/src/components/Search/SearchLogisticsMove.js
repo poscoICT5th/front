@@ -4,6 +4,7 @@ import InputText from '../Common/Conditions/InputText'
 import { statusMove, location } from '../Common/Conditions/SelectOptions';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import jwtDecode from "jwt-decode";
 
 function SearchLogisticsMove(props) {
     // useEffect
@@ -51,6 +52,10 @@ function SearchLogisticsMove(props) {
         { name: "inst_deadline", type: "date", purpose: "search", "ko": "지시마감일", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị" },
         { name: "done_date", type: "date", purpose: "search", "ko": "완료일", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành" },
     ]
+    const [auth, setAuth] = useState("1")
+    useEffect(() => {
+        setAuth(jwtDecode(sessionStorage.getItem("token")).info.auth)
+    }, [])
     return (
         <div className="overflow-hidden sm:rounded-md">
             <div className="py-5 rounded-lg">
@@ -85,23 +90,29 @@ function SearchLogisticsMove(props) {
 
                 </div>
                 <div className='text-right mt-5'>
-                    <button
-                        className="mt-2 mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                        onClick={() => {
-                            if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("rollback") }
-                            else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
-                        }}
-                    >
-                        되돌리기
-                    </button>
-                    <button
-                        className="mt-2 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md w-20 text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                        onClick={() => {
-                            if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
-                            else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
-                        }}>
-                        요청취소
-                    </button>
+                    {
+                        auth === '1'
+                            ? <>
+                                <button
+                                    className="mt-2 mr-2 w-20 inline-flex justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                                    onClick={() => {
+                                        if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("rollback") }
+                                        else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
+                                    }}
+                                >
+                                    되돌리기
+                                </button>
+                                <button
+                                    className="mt-2 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md w-20 text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                    onClick={() => {
+                                        if (props.selectedList.length > 0) { props.setAlertVerifyOpen(true); props.setClickButton("delete") }
+                                        else { props.setAlertMessage("항목을 선택해주세요"); props.setAlertFailedOpen(true) }
+                                    }}>
+                                    요청취소
+                                </button>
+                            </>
+                            : null
+                    }
                     <button
                         className="mt-2 mr-2 justify-center py-1 border border-transparent shadow-sm text-sm font-medium rounded-md w-20 text-white bg-teal-500 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                         onClick={() => { props.setClickSearch(true) }}>
