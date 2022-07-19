@@ -16,14 +16,14 @@ function Dashboard() {
   const [todayDate, setTodayDate] = useState(moment().format("YYYY-MM-DD"))
   const [now, setNow] = useState(moment().format("YY.MM.DD HH:mm:ss"))
   const [second, setSecond] = useState(false)
-  let EngtoKo = {
-    "import": "입고요청 전체현황",
-    "importSuc": "입고처리 완료현황",
-    "export": "출고요청 전체현황",
-    "exportSuc": "출고처리 완료현황",
-    "move": "창고이동요청 전체현황",
-    "moveSuc": "창고이동처리 완료현황",
-
+  let languageTitle = {
+    "import": { ko: "입고요청 전체현황", en: "Receiving request total status", cn: "接收请求的总状态", jp: "受信要求の合計ステータス", vn: "Tổng số yêu cầu nhận hàng" },
+    "importSuc": { ko: "입고처리 완료현황", en: "Receiving processing completion status", cn: "接收处理完成状态", jp: "処理完了ステータスの受信", vn: "Trạng thái hoàn thành xử lý nhận tín hiệu" },
+    "export": { ko: "출고요청 전체현황", en: "Overall status of forwarding request", cn: "转运要求的总体情况", jp: "転送要求の全体的なステータス", vn: "Tình trạng tổng thể của yêu cầu xuất kho" },
+    "exportSuc": { ko: "출고처리 완료현황", en: "Forwarding processing completion status", cn: "出库处理完成状态", jp: "転送処理完了ステータス", vn: "Tình trạng hoàn thành quá trình xuất kho" },
+    "move": { ko: "창고이동요청 전체현황", en: "Total status of warehouse movement request", cn: "仓库搬迁请求的总状态", jp: "倉庫移動要求の合計ステータス", vn: "Tổng số yêu cầu di chuyển nhà kho" },
+    "moveSuc": { ko: "창고이동처리 완료현황", en: "Warehouse movement processing completion status", cn: "仓库移动处理完成状态", jp: "倉庫移動処理完了状況", vn: "Tình trạng hoàn thành việc di chuyển nhà kho" },
+    "TodoList": { ko: "할 일 목록", en: "TodoList", cn: "罗列", jp: "トドリストする", vn: "chơi búp bê" },
   }
   let table = {
     "import": <DashboardImport clickTable="import" todayDate={todayDate} />,
@@ -33,6 +33,7 @@ function Dashboard() {
     "move": <DashboardMove clickTable="move" todayDate={todayDate} />,
     "moveSuc": <DashboardMove clickTable="moveSuc" todayDate={todayDate} />,
   }
+
   useEffect(() => {
     setNow(moment().format("YY.MM.DD HH:mm:ss"))
     setTimeout(() => {
@@ -46,11 +47,11 @@ function Dashboard() {
     <div data-aos="fade-up">
       <div className="grid grid-cols-12 gap-5 mx-8 h-80">
         <div className='col-span-3 text-center'>
-          <div className='text-4xl font-bold'>TodoList<div className='text-sm mx-3'>({now})</div></div>
+          <div className='text-4xl font-bold'>{languageTitle.TodoList[sessionStorage.language]}<div className='text-sm mx-3 mt-1'>({now})</div></div>
           <DashboardTodoList setClickTable={setClickTable} todayDate={todayDate} />
         </div>
         <div className="col-span-6">
-          <div className='text-lg font-bold mt-1'>{EngtoKo[clickTable]}</div>
+          <div className='text-lg font-bold mt-1'>{languageTitle[clickTable][sessionStorage.language]}</div>
           <div className='rounded-lg my-auto'>{table[clickTable]}</div>
         </div>
         <div className="col-span-3 site-calendar-demo-card"><Calendar fullscreen={false} onChange={onChange} /></div>

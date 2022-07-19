@@ -29,17 +29,28 @@ function BarcodePrint(props) {
             <div ref={printRef} className="hidden">
                 {
                     props.items.map((item) => {
-                        return <div className="grid grid-rows-4 border-stone-700 bg-black" key={item.lot_no}>
-                            <div className="row-span-2">
-                                <Barcode value={item.lot_no} />
-                            </div>
-                            <div className=''>
-                                <div>LOT : {item.lot_no}  지시번호 : {item.instruction_no}</div>
-                            </div>
-                            <div className=''>
-                                <div>물품명 : {item.item_name}  공정상태 : {item.status}</div>
-                            </div>
-                        </div>
+                        return <><table className="" key={item.lot_no} style={{ border: "1px solid black", height: "360", width: "600px", textAlign: "center" }}>
+                            <tr>
+                                <th style={{ border: "1px solid black", width: "150px" }}>LOT</th>
+                                <td style={{ border: "1px solid black", width: "400px" }}>{item.lot_no}</td>
+                            </tr>
+                            <tr>
+                                <th style={{ border: "1px solid black", width: "150px" }}>지시번호</th>
+                                <td style={{ border: "1px solid black", width: "400px" }}>{item.instruction_no}</td>
+                            </tr>
+                            <tr rowspan="2">
+                                <th style={{ border: "1px solid black", width: "150px" }}>바코드</th>
+                                <td style={{ border: "1px solid black", width: "400px" }}> <Barcode value={item.lot_no} /></td>
+                            </tr>
+                            <tr colspan="2">
+                                <th style={{ border: "1px solid black", width: "150px" }}>물품명</th>
+                                <td style={{ border: "1px solid black", width: "400px" }}>{item.item_name}</td>
+                            </tr>
+                            <tr colspan="2">
+                                <th style={{ border: "1px solid black", width: "150px" }}>공정상태</th>
+                                <td style={{ border: "1px solid black", width: "400px" }}>{item.status}</td>
+                            </tr>
+                        </table><br></br></>
                     })
                 }
             </div>

@@ -12,6 +12,22 @@ function DashboardAgingChart(props) {
     let inventoryURL = useSelector((state) => state.inventoryURL);
     const [agingItemName, setAgingItemName] = useState([])
     const [diffDays, setDiffDays] = useState([])
+    const languageTitle = {
+        "제목": {
+            ko: "입고기간순(오래된)",
+            en: "Receiving period order(old)",
+            cn: "入库时间顺序(长期)",
+            jp: "入庫期間順(古い)",
+            vn: "Thời hạn nhận hàng(đã lâu)",
+        },
+        "기간": {
+            ko: "기간(일)",
+            en: "Duration (days)",
+            cn: "持续时间(天)",
+            jp: "期間（日）",
+            vn: "Thời gian (ngày)"
+        },
+    }
     const chartOptions = {
         chart: {
             type: "column",
@@ -23,7 +39,7 @@ function DashboardAgingChart(props) {
                 viewDistance: 25,
             },
             backgroundColor: {},
-            color: {},
+            color:  sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
         },
         title: {
             text: "",
@@ -41,17 +57,28 @@ function DashboardAgingChart(props) {
         },
         xAxis: {
             categories: agingItemName,
+            labels: {
+                style: {
+                    color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
+                }
+            }
         },
         yAxis: {
             title: {
-                text: "기간(일)",
+                text: languageTitle.기간[sessionStorage.language],
             },
+            labels: {
+                style: {
+                    color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
+                }
+            }
         },
         series: [
             {
-                name: "입고기간 내림차순",
+                name: languageTitle.제목[sessionStorage.language],
                 data: diffDays,
                 color: "#8181F7",
+
             },
         ],
         responsive: {
@@ -76,7 +103,7 @@ function DashboardAgingChart(props) {
 
     return (
         <div className="App">
-            <div className="text-md font-bold mb-1">입고기간순(오래된)</div>
+            <div className="text-md font-bold mb-1">{languageTitle.제목[sessionStorage.language]}</div>
             <HighchartsReact
                 style={{ height: "100%" }}
                 highcharts={Highcharts}

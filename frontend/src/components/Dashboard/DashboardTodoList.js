@@ -151,14 +151,21 @@ function DashboardTodoList(props) {
         setExportDatas({ ...exportDatas, inst_deadline: props.todayDate })
         setMoveDatas({ ...moveDatas, inst_deadline: props.todayDate })
     }, [props.todayDate])
-
+    let languageTitle = {
+        "import": { ko: "입고요청 전체", en: "Import Total", cn: "全部入库", jp: "入庫全体", vn: "toàn bộ hàng hóa nhập kho" },
+        "importSuc": { ko: "입고 완료", en: "Import completed", cn: "入库完毕", jp: "入庫完了", vn: "hoàn thành việc nhập kho" },
+        "export": { ko: "출고요청 전체", en: "Export Total", cn: "出库全部", jp: "出庫全体", vn: "toàn bộ xuất kho" },
+        "exportSuc": { ko: "출고 완료", en: "Export Completed", cn: "出库完毕", jp: "出庫完了", vn: "xuất kho hoàn tất" },
+        "move": { ko: "창고이동 전체", en: "Movement Total", cn: "整个移动", jp: "移動全体", vn: "toàn bộ sự di chuyển động" },
+        "moveSuc": { ko: "창고이동 완료", en: "Movement Completed", cn: "移动完成", jp: "移動完了", vn: "Đã di chuyển xong" },
+    }
     return (
         <div className=''>
-            <div className="mt-5 grid gap-x-6 gap-y-5 grid-cols-3 text-center">
+            <div className="mt-5 grid gap-x-6 gap-y-2 grid-cols-3 text-center">
                 {todoList.map((category) => (
-                    <div key={category.title} className="border-t border-gray-200 pt-2 cursor-pointer" onClick={() => { props.setClickTable(category.table); }}>
-                        <dt className="font-bold text-xs">{category.title}</dt>
-                        <dd className="mt-2 text-5xl text-gray-500">{category.count}</dd>
+                    <div key={category.title} className="border-t border-gray-500 dark:border-gray-50 pt-2 cursor-pointer" onClick={() => { props.setClickTable(category.table); }}>
+                        <dt className="font-bold text-xs h-5">{languageTitle[category.table][sessionStorage.language]}</dt>
+                        <dd className="pt-4 text-5xl text-gray-500 dark:text-gray-50">{category.count}</dd>
                     </div>
                 ))}
             </div>

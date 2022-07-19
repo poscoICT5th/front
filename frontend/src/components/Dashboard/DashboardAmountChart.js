@@ -13,6 +13,24 @@ function DashboardAmountChart(props) {
     let inventoryURL = useSelector((state) => state.inventoryURL);
     const [amountItemName, setAmountItemName] = useState([])
     const [amount, setAmount] = useState([])
+    const languageTitle = {
+        "제목": {
+            ko: "재고량(내림차순)",
+            en: "Inventory ranking(descending order)",
+            cn: "库存量排名(下降顺序)",
+            jp: "在庫量順位(降車順)",
+            vn: "Xếp hạng lượng tồn kho(theo thứ tự giảm dần)",
+        },
+        "재고량": {
+            ko: "재고량",
+            en: "the amount of inventory",
+            cn: "库存量",
+            jp: "在庫量",
+            vn: "lượng tồn kho"
+        },
+
+
+    }
     const chartOptions = {
         chart: {
             type: "column",
@@ -42,15 +60,25 @@ function DashboardAmountChart(props) {
         },
         xAxis: {
             categories: amountItemName,
+            labels: {
+                style: {
+                    color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
+                }
+            }
         },
         yAxis: {
             title: {
-                text: "재고량",
+                text: languageTitle.재고량[sessionStorage.language],
             },
+            labels: {
+                style: {
+                    color: sessionStorage.getItem("theme") === "light" ? "#000000" : "#ffffff",
+                }
+            }
         },
         series: [
             {
-                name: "재고량 내림차순",
+                name: languageTitle.제목[sessionStorage.language],
                 data: amount,
                 color: "#088A68",
             },
@@ -74,10 +102,9 @@ function DashboardAmountChart(props) {
             setAmount(res.data.map(item => item.sum))
         });
     }, []);
-
     return (
         <div className="App">
-            <div className="text-md font-bold mb-1">재고량 순위</div>
+            <div className="text-md font-bold mb-1">{languageTitle.제목[sessionStorage.language]}</div>
             <HighchartsReact
                 style={{ height: "100%" }}
                 highcharts={Highcharts}
