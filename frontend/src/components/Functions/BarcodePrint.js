@@ -29,7 +29,7 @@ function BarcodePrint(props) {
             <div ref={printRef} className="hidden">
                 {
                     props.items.map((item) => {
-                        return <><table className="" key={item.lot_no} style={{ border: "1px solid black", height: "360", width: "600px", textAlign: "center" }}>
+                        return <><table className="" key={item.lot_no} style={{ border: "1px solid black", height: "360px", width: "600px", textAlign: "center" }}>
                             <tr>
                                 <th style={{ border: "1px solid black", width: "150px" }}>LOT</th>
                                 <td style={{ border: "1px solid black", width: "400px" }}>{item.lot_no}</td>

@@ -13,12 +13,12 @@ function DashboardMove(props) {
   const th = [
     { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", size: 80, type: "center", fixed: "left" },
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", size: 150, type: "center", fixed: "left" },
-    { "ko": "lot번호", "en": "lot_no", "cn": "lot编号", "jp": "lot番号", "vn": "số lot", size: 180, type: "left", fixed: "" },
+    { "ko": "lot번호", "en": "lot_no", "cn": "lot编号", "jp": "lot番号", "vn": "số lot", size: 150, type: "left", fixed: "" },
     { "ko": "제품코드", "en": "item_code", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm", size: 100, type: "left", fixed: "" },
     { "ko": "제품명", "en": "item_name", "cn": "产品名称", "jp": "製品名", "vn": "Tên sản phẩm là", size: 200, type: "left", fixed: "" },
-    { "ko": "이동량", "en": "move_amount", "cn": "移动量", "jp": "移動量", "vn": "lượng di chuyển", size: 80, type: "right", fixed: "" },
     { "ko": "from창고", "en": "from_warehouse", "cn": "from仓库", "jp": "from倉庫", "vn": "from nhà kho", size: 80, type: "left", fixed: "" },
     { "ko": "to창고", "en": "to_warehouse", "cn": "码头栈", "jp": "to倉庫", "vn": "kho chứa đồ", size: 80, type: "left", fixed: "" },
+    { "ko": "이동량", "en": "move_amount", "cn": "移动量", "jp": "移動量", "vn": "lượng di chuyển", size: 80, type: "right", fixed: "" },
     // { "ko": "단위", "en": "unit", "cn": "单位", "jp": "単位", "vn": "đơn vị", size: 300, type:"left", fixed:"" },
     // { "ko": "무게", "en": "weight", "cn": "份量", "jp": "重さ", "vn": "trọng lượng", size: 300, type:"left", fixed:"" },
     // { "ko": "넓이", "en": "width", "cn": "广度", "jp": "広さ", "vn": "bề rộng", size: 300, type:"left", fixed:"" },
@@ -133,11 +133,25 @@ function DashboardMove(props) {
             }
           </div>
           : <Table
+          rowClassName={
+            (record, index) =>
+              (record.state?.includes("등록") || record.status?.includes("완료"))
+                ? 'text-blue-500 cursor-pointer'
+                : (
+                  record.status?.includes("취소")
+                    ? 'text-red-500 cursor-pointer'
+                    : (
+                      record.status?.includes("중")
+                        ? 'text-green-500 cursor-pointer'
+                        : "cursor-pointer"
+                    )
+                )
+          }
             columns={columns}
             dataSource={props.clickTable === "move" ? logisticsMoveTodayAll : logisticsMoveTodaySuc}
             pagination={{ pageSize: 5 }}
             size="small"
-            scroll={{ x: 1200 }}
+            scroll={{ x: '100%' }}
           />
       }
     </div>

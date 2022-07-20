@@ -29,15 +29,15 @@ function Warehouse(props) {
     remarks: "전체보기",
   });
   const th = [
-    { "ko": "창고코드", "en": "warehouse_code", "cn": "仓库代码", "jp": "倉庫コード", "vn": "mã kho", type: "string" },
-    { "ko": "지역", "en": "location", "cn": "地域", "jp": "地域", "vn": "khu vực", type: "string" },
-    { "ko": "목적", "en": "purpose", "cn": "目的", "jp": "目的", "vn": "mục đích", type: "string" },
-    { "ko": "세부설명", "en": "warehouse_desc", "cn": "详细说明", "jp": "細部説明", "vn": "giải thích chi tiết", type: "string" },
-    { "ko": "사용여부", "en": "use", "cn": "使用与否", "jp": "使用の有無", "vn": "sự sử dụng hay không", type: "string" },
-    { "ko": "최대적재무게", "en": "maximum_weight", "cn": "最大装载重量", "jp": "最大積載重量", "vn": "trọng lượng tải tối đa", type: "number" },
-    { "ko": "최대적재수량", "en": "maximum_count", "cn": "最大装载数量", "jp": "最大積載数量", "vn": "lượng tải tối đa", type: "number" },
-    { "ko": "실사용여부", "en": "inventory_using", "cn": "实际使用与否", "jp": "実使用の有無", "vn": "có sử dụng thực tế hay không", type: "string" },
-    { "ko": "비고", "en": "remarks", "cn": "备注", "jp": "備考", "vn": "lời bình luận", type: "string" },
+    { "ko": "창고코드", "en": "warehouse_code", "cn": "仓库代码", "jp": "倉庫コード", "vn": "mã kho", type: "center", size:100 },
+    { "ko": "지역", "en": "location", "cn": "地域", "jp": "地域", "vn": "khu vực", type: "center", size:100 },
+    { "ko": "목적", "en": "purpose", "cn": "目的", "jp": "目的", "vn": "mục đích", type: "center", size:100 },
+    { "ko": "세부설명", "en": "warehouse_desc", "cn": "详细说明", "jp": "細部説明", "vn": "giải thích chi tiết", type: "left", size:300 },
+    { "ko": "사용여부", "en": "use", "cn": "使用与否", "jp": "使用の有無", "vn": "sự sử dụng hay không", type: "center", size:100 },
+    { "ko": "최대적재무게", "en": "maximum_weight", "cn": "最大装载重量", "jp": "最大積載重量", "vn": "trọng lượng tải tối đa", type: "right", size:100 },
+    { "ko": "최대적재수량", "en": "maximum_count", "cn": "最大装载数量", "jp": "最大積載数量", "vn": "lượng tải tối đa", type: "right", size:100 },
+    { "ko": "실사용여부", "en": "inventory_using", "cn": "实际使用与否", "jp": "実使用の有無", "vn": "có sử dụng thực tế hay không", type: "center", size:100 },
+    { "ko": "비고", "en": "remarks", "cn": "备注", "jp": "備考", "vn": "lời bình luận", type: "center", size:100 },
   ];
 
   // 창고전체조회(처음에)

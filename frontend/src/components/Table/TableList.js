@@ -56,17 +56,6 @@ function TableList(props) {
   };
 
   props.th.forEach((element) => {
-    if (props.part === 'import') {
-
-    } else if (props.part === 'export') {
-
-    } else if (props.part === 'move') {
-
-    } else if (props.part === 'inventory') {
-
-    } else {
-
-    }
     columns.push({
       title: element[sessionStorage.getItem("language")],
       dataIndex: element.en,
@@ -111,26 +100,26 @@ function TableList(props) {
         data.push({
           key: element.instruction_no,
           ...element,
-          inst_deadline: element.inst_deadline.slice(0, 10),
-          inst_reg_date: element.inst_reg_date.slice(0, 10),
-          order_date: element.order_date.slice(0, 10),
-          done_date: element.done_date.slice(0, 10),
-          width: element.width.toFixed(2),
-          weight: element.weight.toFixed(2),
-          height: element.height.toFixed(2),
-          thickness: element.thickness.toFixed(2),
+          inst_deadline: element.inst_deadline?.slice(0, 10),
+          inst_reg_date: element.inst_reg_date?.slice(0, 10),
+          order_date: element.order_date?.slice(0, 10),
+          done_date: element.done_date?.slice(0, 10),
+          width: element.width?.toFixed(2),
+          weight: element.weight?.toFixed(2),
+          height: element.height?.toFixed(2),
+          thickness: element.thickness?.toFixed(2),
         });
       } else {
         data.push({
           key: element.instruction_no,
           ...element,
-          inst_deadline: element.inst_deadline.slice(0, 10),
-          inst_reg_date: element.inst_reg_date.slice(0, 10),
-          order_date: element.order_date.slice(0, 10),
-          width: element.width.toFixed(2),
-          weight: element.weight.toFixed(2),
-          height: element.height.toFixed(2),
-          thickness: element.thickness.toFixed(2),
+          inst_deadline: element.inst_deadline?.slice(0, 10),
+          inst_reg_date: element.inst_reg_date?.slice(0, 10),
+          order_date: element.order_date?.slice(0, 10),
+          width: element.width?.toFixed(2),
+          weight: element.weight?.toFixed(2),
+          height: element.height?.toFixed(2),
+          thickness: element.thickness?.toFixed(2),
         });
 
       }
@@ -139,26 +128,26 @@ function TableList(props) {
         data.push({
           key: element.instruction_no,
           ...element,
-          inst_deadline: element.inst_deadline.slice(0, 10),
-          inst_reg_date: element.inst_reg_date.slice(0, 10),
-          order_date: element.order_date.slice(0, 10),
-          done_date: element.done_date.slice(0, 10),
-          width: element.width.toFixed(2),
-          weight: element.weight.toFixed(2),
-          height: element.height.toFixed(2),
-          thickness: element.thickness.toFixed(2),
+          inst_deadline: element.inst_deadline?.slice(0, 10),
+          inst_reg_date: element.inst_reg_date?.slice(0, 10),
+          order_date: element.order_date?.slice(0, 10),
+          done_date: element.done_date?.slice(0, 10),
+          width: element.width?.toFixed(2),
+          weight: element.weight?.toFixed(2),
+          height: element.height?.toFixed(2),
+          thickness: element.thickness?.toFixed(2),
         });
       } else {
         data.push({
           key: element.instruction_no,
           ...element,
-          inst_deadline: element.inst_deadline.slice(0, 10),
-          inst_reg_date: element.inst_reg_date.slice(0, 10),
-          order_date: element.order_date.slice(0, 10),
-          width: element.width.toFixed(2),
-          weight: element.weight.toFixed(2),
-          height: element.height.toFixed(2),
-          thickness: element.thickness.toFixed(2),
+          inst_deadline: element.inst_deadline?.slice(0, 10),
+          inst_reg_date: element.inst_reg_date?.slice(0, 10),
+          order_date: element.order_date?.slice(0, 10),
+          width: element.width?.toFixed(2),
+          weight: element.weight?.toFixed(2),
+          height: element.height?.toFixed(2),
+          thickness: element.thickness?.toFixed(2),
         });
 
       }
@@ -167,36 +156,36 @@ function TableList(props) {
         data.push({
           key: element.instruction_no,
           ...element,
-          inst_deadline: element.inst_deadline.slice(0, 10),
-          inst_reg_date: element.inst_reg_date.slice(0, 10),
-          done_date: element.done_date.slice(0, 10),
-          width: element.width.toFixed(2),
-          weight: element.weight.toFixed(2),
-          height: element.height.toFixed(2),
-          thickness: element.thickness.toFixed(2),
+          inst_deadline: element.inst_deadline?.slice(0, 10),
+          inst_reg_date: element.inst_reg_date?.slice(0, 10),
+          done_date: element.done_date?.slice(0, 10),
+          width: element.width?.toFixed(2),
+          weight: element.weight?.toFixed(2),
+          height: element.height?.toFixed(2),
+          thickness: element.thickness?.toFixed(2),
         });
       } else {
         data.push({
           key: element.instruction_no,
           ...element,
-          inst_deadline: element.inst_deadline.slice(0, 10),
-          inst_reg_date: element.inst_reg_date.slice(0, 10),
-          width: element.width.toFixed(2),
-          weight: element.weight.toFixed(2),
-          height: element.height.toFixed(2),
-          thickness: element.thickness.toFixed(2),
+          inst_deadline: element.inst_deadline?.slice(0, 10),
+          inst_reg_date: element.inst_reg_date?.slice(0, 10),
+          width: element.width?.toFixed(2),
+          weight: element.weight?.toFixed(2),
+          height: element.height?.toFixed(2),
+          thickness: element.thickness?.toFixed(2),
         });
       }
     } else if (props.part === "inventory") {
       data.push({
         key: element.lot_no,
         ...element,
-        inventory_date: element.inventory_date.slice(0, 16),
-        warehouse_date: element.warehouse_date.slice(0, 10),
-        width: element.width.toFixed(2),
-        weight: element.weight.toFixed(2),
-        height: element.height.toFixed(2),
-        thickness: element.thickness.toFixed(2),
+        inventory_date: element.inventory_date?.slice(0, 16),
+        warehouse_date: element.warehouse_date?.slice(0, 10),
+        width: element.width?.toFixed(2),
+        weight: element.weight?.toFixed(2),
+        height: element.height?.toFixed(2),
+        thickness: element.thickness?.toFixed(2),
       });
     } else if (props.part === "warehouse") {
       data.push({ key: element.warehouse_code, ...element });
@@ -453,8 +442,8 @@ function TableList(props) {
                   ? 'text-red-500 cursor-pointer'
                   : (
                     record.status?.includes("중")
-                    ? 'text-green-500 cursor-pointer'
-                    : "cursor-pointer"
+                      ? 'text-green-500 cursor-pointer'
+                      : "cursor-pointer"
                   )
               )
         }
@@ -490,7 +479,7 @@ function TableList(props) {
         pagination={{ pageSize: 15 }}
         size="small"
         scroll={{
-          x: 1000,
+          x: '100%',
           // y: 500
         }}
       />

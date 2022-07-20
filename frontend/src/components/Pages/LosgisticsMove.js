@@ -41,7 +41,7 @@ function LosgisticsMove(props) {
     done_date: "전체보기",
   })
   const th = [
-    { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", size: 100, type: "left", fixed: "left" },
+    { "ko": "상태", "en": "status", "cn": "状态", "jp": "状態", "vn": "trạng thái", size: 80, type: "left", fixed: "left" },
     { "ko": "지시번호", "en": "instruction_no", "cn": "指示编号", "jp": "指示番号", "vn": "số chỉ thị", size: 150, type: "left", fixed: "left" },
     { "ko": "lot번호", "en": "lot_no", "cn": "lot编号", "jp": "lot番号", "vn": "số lot", size: 160, type: "left", fixed: "left" },
     { "ko": "제품코드", "en": "item_code", "cn": "产品代码", "jp": "製品コード", "vn": "mã sản phẩm", size: 130, type: "left", fixed: "" },
@@ -55,8 +55,8 @@ function LosgisticsMove(props) {
     { "ko": "지역", "en": "location", "cn": "地域", "jp": "地域", "vn": "khu vực", size: 80, type: "left", fixed: "" },
     { "ko": "from창고", "en": "from_warehouse", "cn": "from仓库", "jp": "from倉庫", "vn": "from nhà kho", size: 100, type: "left", fixed: "" },
     { "ko": "to창고", "en": "to_warehouse", "cn": "码头栈", "jp": "to倉庫", "vn": "kho chứa đồ", size: 100, type: "left", fixed: "" },
-    { "ko": "지시등록일", "en": "inst_reg_date", "cn": "指示登记日", "jp": "指示登録日", "vn": "ngày đăng ký chỉ thị", size: 100, type: "right", fixed: "" },
-    { "ko": "지시마감일", "en": "inst_deadline", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị", size: 100, type: "right", fixed: "right" },
+    { "ko": "지시등록일", "en": "inst_reg_date", "cn": "指示登记日", "jp": "指示登録日", "vn": "ngày đăng ký chỉ thị", size: 110, type: "right", fixed: "" },
+    { "ko": "지시마감일", "en": "inst_deadline", "cn": "截止日期", "jp": "指示締切日", "vn": "ngày hết hạn chỉ thị", size: 110, type: "right", fixed: "right" },
     { "ko": "완료일", "en": "done_date", "cn": "完成日期", "jp": "完了日", "vn": "ngày hoàn thành", size: 100, type: "right", fixed: "right" },
     // { "ko": "바코드", "en": "Barcode", "cn": "条形码", "jp": "バーコード.", "vn": "mã vạch", size: 100, type: "left", fixed:"" },
   ]

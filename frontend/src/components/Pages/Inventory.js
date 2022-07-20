@@ -44,7 +44,7 @@ function Inventory(props) {
     max_width: 10000000,
   });
   const th = [
-    { ko: "지시상태", en: "state", cn: "指示状态", jp: "指示状態", vn: "tìnhtrạngchỉthị", type: "left", size: 100, fixed: "left" },
+    { ko: "지시상태", en: "state", cn: "指示状态", jp: "指示状態", vn: "tìnhtrạngchỉthị", type: "center", size: 99, fixed: "left" },
     { ko: "lot번호", en: "lot_no", cn: "lot编号", jp: "lot番号", vn: "sốlot", type: "left", size: 180, fixed: "left" },
     { ko: "산업군", en: "industry_family", cn: "产业群", jp: "産業群", vn: "lựclượngcôngnghiệp", type: "left", size: 80, fixed: "" },
     { ko: "제품구분", en: "stock_type", cn: "产品分类", jp: "製品区分", vn: "phânloạisảnphẩm", type: "left", size: 100, fixed: "" },
