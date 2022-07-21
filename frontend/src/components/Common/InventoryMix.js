@@ -95,7 +95,7 @@ function InventoryMix(props) {
   }
 
   async function setValue(lot_no, amount) {
-    if (!consumedList.includes(lot_no)) {
+    if (!consumedList?.includes(lot_no)) {
       setConsumedList((consumedList) => [...consumedList, lot_no]);
       setConsumedProductsList((consumedProducts) => [
         ...consumedProducts,

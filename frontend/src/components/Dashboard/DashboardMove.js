@@ -65,7 +65,7 @@ function DashboardMove(props) {
         } else {
           setEmpty(false)
           setLogisticsMoveTodayAll(res.data);
-          setLogisticsMoveTodaySuc(res.data.filter((schedule) => schedule.status.includes("완료")))
+          setLogisticsMoveTodaySuc(res.data.filter((schedule) => schedule.status?.includes("완료")))
         }
       })
       .catch((err) => { })

@@ -112,7 +112,7 @@ function DashboardTodoList(props) {
             .then((res) => {
                 let newTodoList = [...todoList]
                 newTodoList[0].count = res.data.length
-                newTodoList[3].count = res.data.filter((value, index) => value.status.includes("완료")).length
+                newTodoList[3].count = res.data.filter((value, index) => value.status?.includes("완료")).length
                 setTodoList(newTodoList);
             })
             .catch((err) => { console.log(err) })
@@ -126,7 +126,7 @@ function DashboardTodoList(props) {
             .then((res) => {
                 let newTodoList = [...todoList]
                 newTodoList[1].count = res.data.length
-                newTodoList[4].count = res.data.filter((value, index) => value.status.includes("완료")).length
+                newTodoList[4].count = res.data.filter((value, index) => value.status?.includes("완료")).length
                 setTodoList(newTodoList);
             })
             .catch((err) => { })
@@ -140,7 +140,7 @@ function DashboardTodoList(props) {
             .then((res) => {
                 let newTodoList = [...todoList]
                 newTodoList[2].count = res.data.length
-                newTodoList[5].count = res.data.filter((value, index) => value.status.includes("완료")).length
+                newTodoList[5].count = res.data.filter((value, index) => value.status?.includes("완료")).length
                 setTodoList(newTodoList);
             })
             .catch((err) => { })

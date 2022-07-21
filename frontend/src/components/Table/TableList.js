@@ -215,8 +215,8 @@ function TableList(props) {
       if (props.title === 'logistics') {
         if (
           element.done_date !== null ||
-          element.status.includes("중") ||
-          element.status.includes("취소")
+          element.status?.includes("중") ||
+          element.status?.includes("취소")
         ) {
           check = false;
           return check;
@@ -225,7 +225,7 @@ function TableList(props) {
         // element
       } else if (props.title === "inventory") {
         if (
-          element.state.includes("중") ||
+          element.state?.includes("중") ||
           element.state === null
         ) {
           check = false;
@@ -278,7 +278,7 @@ function TableList(props) {
   function checkRollBackPos() {
     let check = true;
     selectedRows.map((element) => {
-      if (!element.status.includes("취소")) {
+      if (!element.status?.includes("취소")) {
         check = false;
         return check;
       }
@@ -330,7 +330,7 @@ function TableList(props) {
     let check = true;
     selectedRows.map((element) => {
       console.log(element)
-      if (element.amount === 0 || element.state.includes("등록")) {
+      if (element.amount === 0 || element.state?.includes("등록")) {
         check = false;
         return check;
       }

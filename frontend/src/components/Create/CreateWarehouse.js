@@ -206,7 +206,7 @@ function CreateWarehouse(props) {
     warehouse_codes.map((element) => {
       console.log(element);
       if (
-        element.warehouse_code.includes(
+        element.warehouse_code?.includes(
           warehouseDatas.warehouse_x + warehouseDatas.warehouse_y
         )
       ) {

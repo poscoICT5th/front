@@ -75,7 +75,7 @@ function DashboardExport(props) {
         } else {
           setEmpty(false)
           setLogisticsExportTodayAll(res.data);
-          setLogisticsExportTodaySuc(res.data.filter((schedule) => schedule.status.includes("완료")))
+          setLogisticsExportTodaySuc(res.data.filter((schedule) => schedule.status?.includes("완료")))
         }
       })
       .catch((err) => { })

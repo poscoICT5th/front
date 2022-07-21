@@ -32,7 +32,7 @@ function CreateImportUpload(props) {
             // included in the allowed extensions
             // we show the error
             const fileExtension = inputFile?.type.split("/")[1];
-            if (!allowedExtensions.includes(fileExtension)) {
+            if (!allowedExtensions?.includes(fileExtension)) {
                 setError("Please input a csv file");
                 return;
             }
