@@ -14,143 +14,49 @@ function Hotline(props) {
     let dispatch = useDispatch();
     const [hotlineList, setHotlineList] = useState([])
     const [data, setData] = useState([])
+    const columns = [];
     const th = {
-        status: { ko: "상태", en: "status", cn: "身份", jp: "地位", vn: "địa vị", type: "center", fixed: "", size: 100 },
-        category: { ko: "카테고리", en: "category", cn: "类别", jp: "カテゴリ", vn: "Phân loại", type: "center", fixed: "", size: 100 },
-        title: { ko: "제목", en: "title", cn: "标题", jp: "タイトル", vn: "Tiêu đề", type: "center", fixed: "", size: 100 },
+        status: { ko: "상태", en: "status", cn: "身份", jp: "地位", vn: "địa vị", type: "center", fixed: "", size: 50 },
+        category: { ko: "카테고리", en: "category", cn: "类别", jp: "カテゴリ", vn: "Phân loại", type: "center", fixed: "", size: 50 },
+        title: { ko: "제목", en: "title", cn: "标题", jp: "タイトル", vn: "Tiêu đề", type: "center", fixed: "", size: 150 },
         writer: { ko: "작성자", en: "writer", cn: "作家", jp: "作家さん", vn: "Biên kịch.", type: "center", fixed: "", size: 100 },
-        content: { ko: "내용", en: "content", cn: "内容", jp: "内容", vn: "bằng lòng", type: "center", fixed: "", size: 100 },
+        content: { ko: "내용", en: "content", cn: "内容", jp: "内容", vn: "bằng lòng", type: "center", fixed: "", size: 200 },
         reg_date: { ko: "등록일", en: "Registration date", cn: "登记日期", jp: "登録年月日", vn: "Ngày đăng ký", type: "center", fixed: "", size: 100 },
         confirm_date: { ko: "처리일", en: "Processing date", cn: "处理日期", jp: "処理日", vn: "Ngày xử lý", type: "center", fixed: "", size: 100 },
     }
-    let columns = [
-        {
-            title: th["status"][sessionStorage.getItem('language')],
-            dataIndex: "status",
-            key: "status",
-            align: "center",
-            width: 100,
-            sorter: (a, b) => {
-                if (a < b) return -1;
-                if (a > b) return 1;
-                if (a === b) return 0;
-                else return -1;
-            },
-            render: (text) => (
-                <>
-                    <Tag color={text === "승인" ? "blue" : (text === "반려" ? "red" : "gray")} key={text}>
-                        {text}
-                    </Tag>
-                </>
-            ),
-        },
-        {
-            title: th["category"][sessionStorage.getItem('language')],
-            dataIndex: "category",
-            key: "category",
-            align: "center",
-            width: 100,
-            sorter: (a, b) => {
-                if (a < b) return -1;
-                if (a > b) return 1;
-                if (a === b) return 0;
-                else return -1;
-            },
-            render: (text) => (
-                <>
-                    <Tag color={text === "제안" ? "blue" : (text === "불만" ? "red" : (text === "훈계" ? "yellow" : "gray"))} key={text}>
-                        {text}
-                    </Tag>
-                </>
-            ),
-        },
-        {
-            title: th["title"][sessionStorage.getItem('language')],
-            dataIndex: "title",
-            key: "title",
-            align: "left",
-            width: 300,
-            sorter: (a, b) => {
-                if (a < b) return -1;
-                if (a > b) return 1;
-                if (a === b) return 0;
-                else return -1;
-            },
-            render: (text) => <div className='font-bold'>{text}</div>,
-        },
-        {
-            title: th["writer"][sessionStorage.getItem('language')],
-            dataIndex: "writer",
-            key: "writer",
-            align: "center",
-            width: 120,
-            sorter: (a, b) => {
-                if (a < b) return -1;
-                if (a > b) return 1;
-                if (a === b) return 0;
-                else return -1;
-            },
-        },
-        {
-            title: th["reg_date"][sessionStorage.getItem('language')],
-            dataIndex: "reg_date",
-            key: "reg_date",
-            align: "right",
-            width: 100,
-            sorter: (a, b) => {
-                if (a < b) return -1;
-                if (a > b) return 1;
-                if (a === b) return 0;
-                else return -1;
-            },
-        },
-        {
-            title: th["confirm_date"][sessionStorage.getItem('language')],
-            dataIndex: "confirm_date",
-            key: "confirm_date",
-            align: "right",
-            width: 100,
-            sorter: (a, b) => {
-                if (a < b) return -1;
-                if (a > b) return 1;
-                if (a === b) return 0;
-                else return -1;
-            },
-        }
-    ];
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        columns = [
-            {
-                title: th["status"][sessionStorage.getItem('language')],
-                dataIndex: "status",
-                key: "status",
-                align: "center",
-                sorter: (a, b) => {
-                    if (a < b) return -1;
-                    if (a > b) return 1;
-                    if (a === b) return 0;
-                    else return -1;
-                },
+    Object.entries(th).forEach(([key, value], index) => {
+        if (key === 'status') {
+            columns.push({
+                title: value[sessionStorage.getItem("language")],
+                dataIndex: key,
+                key: key,
+                align: value.type,
+                width: value.size,
+                ellipsis: true,
+                fixed: value.fixed,
                 render: (text) => (
                     <>
-                        <Tag color={text === "승인" ? "blue" : (text === "반려" ? "red" : "gray")} key={text}>
+                        <Tag color={text === "승인" ? "blue" : (text === "반려" ? "red" : null)} key={text}>
                             {text}
                         </Tag>
                     </>
                 ),
-            },
-            {
-                title: th["category"][sessionStorage.getItem('language')],
-                dataIndex: "category",
-                key: "category",
-                align: "center",
                 sorter: (a, b) => {
-                    if (a < b) return -1;
-                    if (a > b) return 1;
-                    if (a === b) return 0;
+                    if (a[key] < b[key]) return -1;
+                    if (a[key] > b[key]) return 1;
+                    if (a[key] === b[key]) return 0;
                     else return -1;
                 },
+            });
+        } else if (key === "category") {
+            columns.push({
+                title: value[sessionStorage.getItem("language")],
+                dataIndex: key,
+                key: key,
+                align: value.type,
+                width: value.size,
+                ellipsis: true,
+                fixed: value.fixed,
                 render: (text) => (
                     <>
                         <Tag color={text === "제안" ? "blue" : (text === "불만" ? "red" : (text === "훈계" ? "yellow" : "gray"))} key={text}>
@@ -158,57 +64,98 @@ function Hotline(props) {
                         </Tag>
                     </>
                 ),
-            },
-            {
-                title: th["title"][sessionStorage.getItem('language')],
-                dataIndex: "title",
-                key: "title",
-                align: "center",
                 sorter: (a, b) => {
-                    if (a < b) return -1;
-                    if (a > b) return 1;
-                    if (a === b) return 0;
+                    if (a[key] < b[key]) return -1;
+                    if (a[key] > b[key]) return 1;
+                    if (a[key] === b[key]) return 0;
                     else return -1;
                 },
-                render: (text) => <div className='font-bold'>{text}</div>,
-            },
-            {
-                title: th["writer"][sessionStorage.getItem('language')],
-                dataIndex: "writer",
-                key: "writer",
-                align: "center",
+            });
+        } else {
+            columns.push({
+                title: value[sessionStorage.getItem("language")],
+                dataIndex: key,
+                key: key,
+                align: value.type,
+                width: value.size,
+                ellipsis: true,
+                fixed: value.fixed,
                 sorter: (a, b) => {
-                    if (a < b) return -1;
-                    if (a > b) return 1;
-                    if (a === b) return 0;
+                    if (a[key] < b[key]) return -1;
+                    if (a[key] > b[key]) return 1;
+                    if (a[key] === b[key]) return 0;
                     else return -1;
                 },
-            },
-            {
-                title: th["reg_date"][sessionStorage.getItem('language')],
-                dataIndex: "reg_date",
-                key: "reg_date",
-                align: "right",
-                sorter: (a, b) => {
-                    if (a < b) return -1;
-                    if (a > b) return 1;
-                    if (a === b) return 0;
-                    else return -1;
-                },
-            },
-            {
-                title: th["confirm_date"][sessionStorage.getItem('language')],
-                dataIndex: "confirm_date",
-                key: "confirm_date",
-                align: "right",
-                sorter: (a, b) => {
-                    if (a < b) return -1;
-                    if (a > b) return 1;
-                    if (a === b) return 0;
-                    else return -1;
-                },
+            });
+        }
+    });
+
+    useEffect(() => {
+        Object.entries(th).forEach(([key, value], index) => {
+            if (key === 'status') {
+                columns.push({
+                    title: value[sessionStorage.getItem("language")],
+                    dataIndex: key,
+                    key: key,
+                    align: value.type,
+                    width: value.size,
+                    ellipsis: true,
+                    fixed: value.fixed,
+                    render: (text) => (
+                        <>
+                            <Tag color={text === "승인" ? "blue" : (text === "반려" ? "red" : "gray")} key={text}>
+                                {text}
+                            </Tag>
+                        </>
+                    ),
+                    sorter: (a, b) => {
+                        if (a[key] < b[key]) return -1;
+                        if (a[key] > b[key]) return 1;
+                        if (a[key] === b[key]) return 0;
+                        else return -1;
+                    },
+                });
+            } else if (key === "category") {
+                columns.push({
+                    title: value[sessionStorage.getItem("language")],
+                    dataIndex: key,
+                    key: key,
+                    align: value.type,
+                    width: value.size,
+                    ellipsis: true,
+                    fixed: value.fixed,
+                    render: (text) => (
+                        <>
+                            <Tag color={text === "제안" ? "blue" : (text === "불만" ? "red" : (text === "훈계" ? "yellow" : "gray"))} key={text}>
+                                {text}
+                            </Tag>
+                        </>
+                    ),
+                    sorter: (a, b) => {
+                        if (a[key] < b[key]) return -1;
+                        if (a[key] > b[key]) return 1;
+                        if (a[key] === b[key]) return 0;
+                        else return -1;
+                    },
+                });
+            } else {
+                columns.push({
+                    title: value[sessionStorage.getItem("language")],
+                    dataIndex: key,
+                    key: key,
+                    align: value.type,
+                    width: value.size,
+                    ellipsis: true,
+                    fixed: value.fixed,
+                    sorter: (a, b) => {
+                        if (a[key] < b[key]) return -1;
+                        if (a[key] > b[key]) return 1;
+                        if (a[key] === b[key]) return 0;
+                        else return -1;
+                    },
+                });
             }
-        ];
+        });
     }, [store_language])
 
     useEffect(() => {
@@ -222,14 +169,14 @@ function Hotline(props) {
                         setData(data => [...data, {
                             key: element.hotline_id,
                             ...element,
-                            reg_date: element.reg_date.slice(0, 10),
+                            reg_date: element.reg_date?.slice(0, 10),
                         }])
                     } else {
                         setData(data => [...data, {
                             key: element.hotline_id,
                             ...element,
-                            reg_date: element.reg_date.slice(0, 10),
-                            confirm_date: element.confirm_date.slice(0, 16),
+                            reg_date: element.reg_date?.slice(0, 10),
+                            confirm_date: element.confirm_date?.slice(0, 16),
                         }])
 
                     }
