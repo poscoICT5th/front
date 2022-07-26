@@ -1,6 +1,7 @@
 /*global kakao*/
 import React, { useEffect, useState } from 'react'
 import { location } from '../Common/Conditions/SelectOptionsCreate';
+import { warehouseXY } from '../Common/Conditions/WarehouseLocation';
 import SearchSelect from '../Common/Conditions/SearchSelect'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -53,7 +54,8 @@ const NewWarehouseMap = () => {
   }, [])
 
   const [datas, setDatas] = useState({
-    location: "천안"
+    location: "천안",
+    warehouse_code: "",
   })
   useEffect(() => {
     axios.defaults.baseURL = WarehouseUrl
@@ -66,8 +68,14 @@ const NewWarehouseMap = () => {
       })
       .catch((err) => { })
   }, [datas.location])
+  useEffect(() => {
+    setX()
+    setY()
+  }, [datas.warehouse_code])
+
+
   return (
-    <div className=''>
+    <div className='' data-aos="fade-up">
       <h2 className='text-center font-bold text-2xl mb-5'>New Warehouse Map Route</h2>
       <div className='grid grid-cols-2 gap-5 w-1/2 mx-auto mb-5 text-center'>
         {selectDatas.map((selectData) => {

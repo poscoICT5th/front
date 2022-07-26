@@ -141,8 +141,14 @@ function SidebarContent(props) {
         },
         {
           submenu: "창고MAP",
-          no: 62,
+          no: 53,
           navigate: "WarehouseMap",
+          d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
+        },
+        {
+          submenu: "창고MAP(New)",
+          no: 54,
+          navigate: "NewWarehouseMap",
           d: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
         },
       ],
@@ -211,6 +217,7 @@ function SidebarContent(props) {
     "창고관리": { ko: "창고관리", en: "Warehouse management", cn: "仓库管理", jp: "倉庫管理", vn: "quản lý kho" },
     "창고조회": { ko: "창고조회", en: "Warehouse check", cn: "仓库查询", jp: "倉庫照会", vn: "kiểm tra kho" },
     "창고MAP": { ko: "창고 MAP", en: "Warehouse map", cn: "仓库地图", jp: "倉庫地図", vn: "bản đồ kho" },
+    "창고MAP(New)": { ko: "창고 MAP(New)", en: "Warehouse map(New)", cn: "仓库地图(New)", jp: "倉庫地図(New)", vn: "bản đồ kho(New)" },
     "창고등록": { ko: "창고등록", en: "Warehouse registration", cn: "仓库登记", jp: "倉庫登録", vn: "đăng ký nhà kho" },
     "재고관리": { ko: "재고관리", en: "Inventory management", cn: "库存管理", jp: "在庫管理", vn: "quản lý tồn kho" },
     "재고조회": { ko: "재고조회", en: "Inventory check", cn: "盘存", jp: "在庫照会", vn: "kiểm tra hàng tồn kho" },
