@@ -39,6 +39,7 @@
     "react-d3-tree": "^3.3.2",
     "react-dom": "^18.1.0",
     "react-file-reader": "^1.1.4",
+    "react-google-charts": "^4.0.0",
     "react-highcharts": "^16.1.0",
     "react-jsbarcode": "^0.2.4",
     "react-jsx-highcharts": "^5.0.0",

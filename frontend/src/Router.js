@@ -15,6 +15,7 @@ import CreateAccount from './components/Pages/CreateAccount';
 import WarehouseMap from './components/Pages/WarehouseMap';
 import Hotline from './components/Pages/Hotline';
 import HotlineDetail from './components/Pages/HotlineDetail';
+import NewWarehouseMap from './components/Pages/NewWarehouseMap';
 function Router(props) {
     return (
         <Routes>
@@ -122,6 +123,15 @@ function Router(props) {
             <Route
                 path="/WarehouseMap"
                 element={<WarehouseMap alertSucOpen={props.alertSucOpen}
+                    setAlertSucOpen={props.setAlertSucOpen}
+                    alertFailedOpen={props.alertFailedOpen}
+                    setAlertFailedOpen={props.setAlertFailedOpen}
+                    setAlertMessage={props.setAlertMessage}
+                />}
+            />
+            <Route
+                path="/NewWarehouseMap"
+                element={<NewWarehouseMap alertSucOpen={props.alertSucOpen}
                     setAlertSucOpen={props.setAlertSucOpen}
                     alertFailedOpen={props.alertFailedOpen}
                     setAlertFailedOpen={props.setAlertFailedOpen}

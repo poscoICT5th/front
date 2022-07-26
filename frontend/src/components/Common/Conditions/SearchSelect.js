@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 function SearchSelect(props) {
   const { Option } = Select;
   const options = [];
-  for (let i = 0; i < props.selectData.length; i++) {
+  for (let i = 0; i < props.selectData?.length; i++) {
     options.push(
       <Option key={props.selectData[i]}>{props.selectData[i]}</Option>
     );
