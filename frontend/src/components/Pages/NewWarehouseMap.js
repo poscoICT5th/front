@@ -15,9 +15,9 @@ const NewWarehouseMap = () => {
   })
   const [size, setSize] = useState({
     // eslint-disable-next-line no-restricted-globals
-    x: screen.width / 1.2,
+    x: screen.width,
     // eslint-disable-next-line no-restricted-globals
-    y: screen.height / 1.6
+    y: screen.height
   })
   const [datas, setDatas] = useState({
     location: "천안",
@@ -145,7 +145,10 @@ const NewWarehouseMap = () => {
           />
         })}
       </div>
-      <div id="map" style={{ width: size.x, height: size.y, margin: "auto" }}></div>
+      <div className='grid grid-cols-2 gap-5'>
+        <div id="map" style={{ width: size.x, height: size.y, margin: "auto" }}></div>
+        <div></div>
+      </div>
     </div>
   )
 }
