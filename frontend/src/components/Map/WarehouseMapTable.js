@@ -13,7 +13,7 @@ function WarehouseMapTable(props) {
       ellipsis: true,
       align: element.type,
       width: element.size,
-      fixed:element.fixed,
+      fixed: element.fixed,
       sorter: (a, b) => {
         if (a[element.en] < b[element.en]) return -1;
         if (a[element.en] > b[element.en]) return 1;
@@ -32,7 +32,7 @@ function WarehouseMapTable(props) {
         align: element.type,
         ellipsis: true,
         width: element.size,
-        fixed:element.fixed,
+        fixed: element.fixed,
         sorter: (a, b) => {
           if (a[element.en] < b[element.en]) return -1;
           if (a[element.en] > b[element.en]) return 1;
@@ -61,6 +61,7 @@ function WarehouseMapTable(props) {
         size="small"
         scroll={{
           x: '100%',
+          y: props.version === "new" ? 400 : '100%'
         }}
       />
     </div>

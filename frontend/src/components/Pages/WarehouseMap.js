@@ -58,6 +58,7 @@ function WarehouseMap() {
       <div className="mx-10">
         <WarehouseMapTable selectedInven={selectedInven}
           th={th}
+          version="old"
         />
       </div>
     </div>
